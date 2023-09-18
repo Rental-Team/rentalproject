@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<typeAliases>   <!--  import와 비슷한개념? -->
+	<typeAlias type="com.rentalproject.dto.dto1" alias = "Dto1"/>
+	</typeAliases>
+	<mappers>
+	</mappers>
+	
+</configuration>
