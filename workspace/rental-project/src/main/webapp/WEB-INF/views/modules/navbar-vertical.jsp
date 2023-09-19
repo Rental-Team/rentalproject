@@ -93,37 +93,37 @@
         <ul class="navbar-nav">
           <li class="nav-item  active ">
             <a class="nav-link  active " href="./index.html">
-              <i class="ni ni-tv-2 text-primary"></i> Dashboard
+              <i class="ni ni-tv-2 text-primary"></i> 대시보드
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="./examples/icons.html">
-              <i class="ni ni-planet text-blue"></i> Icons
+              <i class="ni ni-planet text-blue"></i> 피자
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="./examples/maps.html">
-              <i class="ni ni-pin-3 text-orange"></i> Maps
+              <i class="ni ni-pin-3 text-orange"></i> 지도
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="./examples/profile.html">
-              <i class="ni ni-single-02 text-yellow"></i> User profile
+              <i class="ni ni-single-02 text-yellow"></i> 유저프로필
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="/rental-project/item/write">
-              <i class="ni ni-bullet-list-67 text-red"></i> Tables
+            <a class="nav-link " href="/rental-project/item/List">
+              <i class="ni ni-bullet-list-67 text-red"></i> 애응
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="./examples/login.html">
-              <i class="ni ni-key-25 text-info"></i> Login
+              <i class="ni ni-key-25 text-info"></i> 로그인
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="./examples/register.html">
-              <i class="ni ni-circle-08 text-pink"></i> Register
+              <i class="ni ni-circle-08 text-pink"></i> 회원가입
             </a>
           </li>
         </ul>
