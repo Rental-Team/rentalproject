@@ -6,7 +6,7 @@
 <configuration>
 
 	<typeAliases>   <!--  import와 비슷한개념? -->
-	<typeAlias type="com.rentalproject.dto.dto1" alias = "Dto1"/>
+	
 	</typeAliases>
 	<mappers>
 	</mappers>

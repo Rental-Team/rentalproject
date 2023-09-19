@@ -112,7 +112,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="./examples/tables.html">
+            <a class="nav-link " href="/rental-project/item/write">
               <i class="ni ni-bullet-list-67 text-red"></i> Tables
             </a>
           </li>

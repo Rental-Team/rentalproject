@@ -30,7 +30,7 @@ public class RootConfiguration implements ApplicationContextAware{
 	public BasicDataSource dbcpDataSource( ) {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/rentalsite");
+		dataSource.setUrl("jdbc:mysql://3.39.195.155:3306/rentalsite");
 		dataSource.setUsername("rental");
 		dataSource.setPassword("rental");
 		dataSource.setMaxTotal(10);
