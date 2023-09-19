@@ -12,25 +12,27 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.rentalproject.service.ItemServiceImpl;
+
 @Configuration
 @MapperScan(basePackages = {"com.rentalproject.mapper"})
 
 public class RootConfiguration implements ApplicationContextAware{
 	
-	private ApplicationContext applicationcontext;
+	private ApplicationContext applicationContext;
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		
-		this.applicationcontext = applicationcontext;
+		this.applicationContext = applicationContext;
 	}
 	
 	@Bean
 	public BasicDataSource dbcpDataSource( ) {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/demoweb");
-		dataSource.setUsername("root");
-		dataSource.setPassword("mysql");
+		dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/rentalsite");
+		dataSource.setUsername("rental");
+		dataSource.setPassword("rental");
 		dataSource.setMaxTotal(10);
 		dataSource.setMaxIdle(5);
 		dataSource.setMaxWaitMillis(-1);
@@ -47,6 +49,7 @@ public class RootConfiguration implements ApplicationContextAware{
 		return jdbcTemplate;
 	}
 	
+	
 	@Bean
 	public SqlSessionFactory sqlSessionFactory() throws Exception{
 		
@@ -56,6 +59,16 @@ public class RootConfiguration implements ApplicationContextAware{
 		SqlSessionFactory sessionFactory = factoryBean.getObject(); // IoC컨테이너에 등록할 객체 생성
 		
 		return sessionFactory;
+	}
+	
+	
+	////////////////////////////
+	
+	@Bean
+	public ItemServiceImpl itemService() {
+		ItemServiceImpl itemService = new ItemServiceImpl();
+		
+		return itemService;
 	}
 	
 }
