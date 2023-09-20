@@ -12,10 +12,11 @@ import java.util.List;
 @Mapper
 public interface ItemMapper {
 
-	@Insert( "insert into item ( itemCode, itemName, itemDate, itemPrice "
-			+ "values ( #{ itemCode }, #{ itemName }, #{ itemDate }, #{ itemPrice } ")
+	@Insert( "insert into Item ( itemDetail , itemCode, itemName, itemPrice) "
+			+ "values ( #{ itemDetail }, #{ itemCode }, #{ itemName }, #{ itemPrice }) ")
 	@Options(useGeneratedKeys = true, keyProperty = "itemNo")
 	public void insertItem(ItemDto item);
+
 
 
 	@Select("select ( itemNo, itemCode, itemDate, itemPrice, itemDetail, itemPhoto) " +
@@ -28,4 +29,7 @@ public interface ItemMapper {
 			"from item " +
 			"where itemNo = #{ itemNo } ")
 	public ItemDto read(int itemNo);
+	
+	
+	
 }

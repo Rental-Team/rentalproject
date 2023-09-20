@@ -24,16 +24,23 @@ public class ItemController {
 	@Autowired
 	private ItemService itemService;
 
+//	@GetMapping("/list")
+//	public void list(Model model) {
+//
+//		log.info("list");
+//
+//		model.addAttribute("list", itemService.getList());
+//	}
+	
 	@GetMapping("/list")
-	public void list(Model model) {
-
-		log.info("list");
-
-		model.addAttribute("list", itemService.getList());
+	public String list() {
+		
+		
+		return "item/list";
 	}
 	
 	@GetMapping("/write")
-	public String itemWriteForm() {
+	public String itemWriteForm(ItemDto item, Model model) {
 		
 		
 		
@@ -41,14 +48,14 @@ public class ItemController {
 	}
 	
 	@PostMapping("/write")
-	public String write(ItemDto item, RedirectAttributes rttr) {
+	public String write(ItemDto item) {
 
 		log.info("register: " + item);
 
 		itemService.writeItem(item);
-		rttr.addAttribute("result", item.getItemNo());
+//		rttr.addAttribute("result", item.getItemNo());
 
-		return "redirect:/item/list";
+		return "redirect:list";
 	}
 
 	@GetMapping("/get")

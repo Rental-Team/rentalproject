@@ -7,19 +7,24 @@
 <title>Insert title here</title>
 </head>
 <body>
-		<form action="/item/write" method="post" enctype="multipart/form-data">
+		<form action="write" method="post">
 		    <div class="form-group">
-				<label>Title</label> <input class="form-control" name='title'>
+				<label>상품명</label> <input class="form-control" name='itemName'>
 			</div>
-
 				<div class="form-group">
-					<label>Text area</label>
-					<textarea class="form-control" rows="3" name='content'></textarea>
+					<label>상품 가격</label>
+					<textarea class="form-control" rows="3" name='itemPrice'></textarea>
+				</div>
+				<div class="form-group">
+					<label>상품 코드</label>
+					<textarea class="form-control" rows="3" name='itemCode'></textarea>
 				</div>
 
-			<div class="form-group">
-				<label>Writer</label> <input class="form-control" name="writer">
-			</div>
+				<div class="form-group">
+					<label>상세 설명</label>
+					<textarea class="form-control" rows="3" name='itemDetail'></textarea>
+				</div>
+
 
 		        <div class="buttons">
 					<button type="submit">Submit</button>

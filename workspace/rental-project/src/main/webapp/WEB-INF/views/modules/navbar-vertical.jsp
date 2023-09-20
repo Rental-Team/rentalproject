@@ -117,6 +117,11 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link " href="/rental-project/item/write">
+              <i class="ni ni-bullet-list-67 text-red"></i> 등록폼
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="./examples/login.html">
               <i class="ni ni-key-25 text-info"></i> 로그인
             </a>
