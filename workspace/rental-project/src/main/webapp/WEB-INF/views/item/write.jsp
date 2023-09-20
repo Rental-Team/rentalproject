@@ -284,6 +284,7 @@
                   <br>
                   <br>
                   <form action="write" method="post">
+                  <input type="hidden" name="categoryName" value="가전">
                    <table>
 		            <tr>
 		                <th>상품명</th>
@@ -298,12 +299,6 @@
 	                <tr>
 	                <td>
 	                    <input type="text" name="itemCode" style="width:700px" />
-	                </td>
-	            </tr>
-	            <tr>	                
-	                <td>
-	                	${ sessionScope.loginuser.id }
-	                	<input type="hidden" name="memberId" value="${ loginuser.id }">
 	                </td>
 	            </tr>
 	            <tr>

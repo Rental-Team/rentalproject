@@ -12,8 +12,8 @@ import java.util.List;
 @Mapper
 public interface ItemMapper {
 
-	@Insert( "insert into Item ( itemDetail , itemCode, itemName, itemPrice) "
-			+ "values ( #{ itemDetail }, #{ itemCode }, #{ itemName }, #{ itemPrice }) ")
+	@Insert( "insert into Item ( itemDetail , itemCode, itemName, itemPrice, categoryName) "
+			+ "values ( #{ itemDetail }, #{ itemCode }, #{ itemName }, #{ itemPrice }, #{categoryName }) ")
 	@Options(useGeneratedKeys = true, keyProperty = "itemNo")
 	public void insertItem(ItemDto item);
 

@@ -8,6 +8,7 @@ import lombok.Data;
 public class ItemDto {
 	
 	private int itemNo;
+	private String categoryName;
 	private String itemCode;
 	private String itemName;
 	private Date itemDate;
