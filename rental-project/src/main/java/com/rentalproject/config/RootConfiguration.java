@@ -10,27 +10,32 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.jdbc.core.JdbcTemplate;
+
+import com.rentalproject.mapper.AccountMapper;
+import com.rentalproject.service.AccountServiceImpl;
+
+import lombok.Setter;
 
 @Configuration
 @MapperScan(basePackages = {"com.rentalproject.mapper"})
-
 public class RootConfiguration implements ApplicationContextAware{
 	
+	
 	private ApplicationContext applicationcontext;
+	
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		
-		this.applicationcontext = applicationcontext;
+		this.applicationcontext = applicationContext;
 	}
 	
 	@Bean
 	public BasicDataSource dbcpDataSource( ) {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/demoweb");
-		dataSource.setUsername("root");
-		dataSource.setPassword("mysql");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/rentalsite");
+		dataSource.setUsername("rental");
+		dataSource.setPassword("rental");
 		dataSource.setMaxTotal(10);
 		dataSource.setMaxIdle(5);
 		dataSource.setMaxWaitMillis(-1);
@@ -38,13 +43,12 @@ public class RootConfiguration implements ApplicationContextAware{
 		return dataSource;
 	}
 	
-	// JDBC template 
 	@Bean
-	public JdbcTemplate jdbcTemplate () {
-		JdbcTemplate jdbcTemplate = new JdbcTemplate();
-		jdbcTemplate.setDataSource(dbcpDataSource());                       
+	public AccountServiceImpl accountService() {
+		AccountServiceImpl accountService = new AccountServiceImpl();
+		accountService.setAccountMapper(applicationcontext.getBean(AccountMapper.class));
 		
-		return jdbcTemplate;
+		return accountService;
 	}
 	
 	@Bean

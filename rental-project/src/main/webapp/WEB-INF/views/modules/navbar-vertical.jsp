@@ -117,12 +117,12 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./examples/login.html">
+            <a class="nav-link" href="/rental-project/account/login">
               <i class="ni ni-key-25 text-info"></i> Login
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./examples/register.html">
+            <a class="nav-link" href="/rental-project/account/register">
               <i class="ni ni-circle-08 text-pink"></i> Register
             </a>
           </li>
