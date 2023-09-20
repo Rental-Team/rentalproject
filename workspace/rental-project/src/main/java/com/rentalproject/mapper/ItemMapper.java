@@ -19,14 +19,14 @@ public interface ItemMapper {
 
 
 
-	@Select("select ( itemNo, itemCode, itemDate, itemPrice, itemDetail, itemPhoto) " +
-			"from item " +
-			"where itemNo > 0")
+	@Select("select itemNo, itemName, viewCount, itemDate " +
+			"from Item " +
+			"order by itemNo desc")
 	public List<ItemDto> getList();
 
 
 	@Select("select ( itemNo, itemCode, itemDate, itemPrice, itemDetail, itemPhoto) " +
-			"from item " +
+			"from Item " +
 			"where itemNo = #{ itemNo } ")
 	public ItemDto read(int itemNo);
 	

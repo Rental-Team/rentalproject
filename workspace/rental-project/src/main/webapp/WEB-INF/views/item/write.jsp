@@ -273,7 +273,7 @@
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">자유게시글쓰기</h3>
+                  <h3 class="mb-0">상품 등록</h3>
                   <br>
                   <br>
                   <form action="write" method="post">
@@ -288,13 +288,6 @@
 		                <th>상품 코드</th>
 		                <td>
 		                    <input type="text" name="itemCode" style="width:850px" />
-		                </td>
-		            </tr>
-		            <tr>
-		                <th>작성자</th>
-		                <td>
-		                	${ sessionScope.loginuser.id }
-		                	<input type="hidden" name="memberId" value="${ loginuser.id }">
 		                </td>
 		            </tr>
 		            <tr>

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"  pageEncoding="utf-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!--
 
@@ -285,18 +285,19 @@
                 <thead class="thead-light">
                   <tr>
                     <th scope="col" style="width:100px">게시글 번호</th>
-                    <th scope="col" style="width:200px">작성자</th>
                     <th scope="col" style="width:500px">상품 제목</th>
                     <th scope="col" style="width:100px">조회수</th>
                     <th scope="col" style="width:150px">작성 일자</th>
                   </tr>
                 </thead>
                 <tbody>
-                 <c:forEach var="freeBoard" items="${ reqeustScope.freeBoardList }">
-                  <tr>
-                    <th scope="row">
-                    
-                    </th>
+                 <c:forEach var="Item" items="${ list }" >
+                 	<tr>
+                    	<td><c:out value="${Item.itemNo}" /></td>
+                    	 <td><c:out value="${Item.itemName}" /></td>
+                    	 <td><c:out value="${Item.viewCount}" /></td>
+                    	 <td><fmt:formatDate pattern="yyyy-MM-dd"
+                    	  value="${Item.itemDate }" /></td>
                   </tr>
                  </c:forEach>
                 </tbody>
