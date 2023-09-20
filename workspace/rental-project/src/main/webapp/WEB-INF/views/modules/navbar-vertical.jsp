@@ -98,7 +98,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link " href="./examples/icons.html">
-              <i class="ni ni-planet text-blue"></i> 피자
+              <i class="ni ni-planet text-blue"></i> 아이콘
             </a>
           </li>
           <li class="nav-item">
@@ -112,8 +112,8 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="/rental-project/item/List">
-              <i class="ni ni-bullet-list-67 text-red"></i> 애응
+            <a class="nav-link " href="/rental-project/item/list">
+              <i class="ni ni-bullet-list-67 text-red"></i> 리스트
             </a>
           </li>
           <li class="nav-item">
