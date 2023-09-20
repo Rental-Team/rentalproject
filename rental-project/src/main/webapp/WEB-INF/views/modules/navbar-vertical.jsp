@@ -111,9 +111,9 @@
               <i class="ni ni-single-02 text-yellow"></i> User profile
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link " href="./examples/tables.html">
-              <i class="ni ni-bullet-list-67 text-red"></i> Tables
+           <li class="nav-item">
+            <a class="nav-link " href="/rental-project/freeboard/list">
+              <i class="ni ni-bullet-list-67 text-red"></i> 자유게시판
             </a>
           </li>
           <li class="nav-item">

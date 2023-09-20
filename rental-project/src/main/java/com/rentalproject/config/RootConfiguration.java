@@ -10,9 +10,12 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.rentalproject.mapper.AccountMapper;
 import com.rentalproject.service.AccountServiceImpl;
+import com.rentalproject.service.FreeBoardService;
+import com.rentalproject.service.FreeBoardServiceImpl;
 
 import lombok.Setter;
 
@@ -33,7 +36,7 @@ public class RootConfiguration implements ApplicationContextAware{
 	public BasicDataSource dbcpDataSource( ) {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/rentalsite");
+		dataSource.setUrl("jdbc:mysql://3.39.195.155:3306/rentalsite");
 		dataSource.setUsername("rental");
 		dataSource.setPassword("rental");
 		dataSource.setMaxTotal(10);
@@ -42,6 +45,15 @@ public class RootConfiguration implements ApplicationContextAware{
 		
 		return dataSource;
 	}
+	
+	// JDBC template 
+		@Bean
+		public JdbcTemplate jdbcTemplate () {
+			JdbcTemplate jdbcTemplate = new JdbcTemplate();
+			jdbcTemplate.setDataSource(dbcpDataSource());                       
+			
+			return jdbcTemplate;
+		}
 	
 	@Bean
 	public AccountServiceImpl accountService() {
@@ -60,6 +72,13 @@ public class RootConfiguration implements ApplicationContextAware{
 		SqlSessionFactory sessionFactory = factoryBean.getObject(); // IoC컨테이너에 등록할 객체 생성
 		
 		return sessionFactory;
+	}
+	
+	
+	@Bean
+	public FreeBoardService freeboardService () {
+		FreeBoardService freeboardService = new FreeBoardServiceImpl ();
+		return freeboardService;
 	}
 	
 }
