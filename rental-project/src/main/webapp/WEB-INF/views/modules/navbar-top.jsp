@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
  <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
@@ -21,12 +23,31 @@
           <li class="nav-item dropdown">
             <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
+              
                 <span class="avatar avatar-sm rounded-circle">
                   <img alt="Image placeholder" src="/rental-project/resources/img/theme/team-4-800x800.jpg">
                 </span>
-                <div class="media-body ml-2 d-none d-lg-block">
-                  <span class="mb-0 text-sm  font-weight-bold">백세진</span>
-                </div>
+ 				<c:choose>
+					<c:when test="${ loginuser eq null }">
+		                <div class="media-body ml-2 d-none d-lg-block">
+		                <a href="/rental-project/account/login">
+		                <span class="mb-0 text-sm  font-weight-bold">로그인</span>
+		                </a>
+		                </div>
+                
+		                <div class="media-body ml-2 d-none d-lg-block">
+		                <a href="/rental-project/account/register">
+		                <span class="mb-0 text-sm  font-weight-bold">회원가입</span>
+		                </a>
+		                </div>
+                	</c:when>
+                	<c:otherwise>
+                		${ sessionScope.loginuser.memberId }님
+                		<a href="/rental-project/account/logout">로그아웃</a>
+                	</c:otherwise>
+                </c:choose>
+                
+               
               </div>
             </a>
             <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
