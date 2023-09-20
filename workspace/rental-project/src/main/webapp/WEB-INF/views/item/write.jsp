@@ -44,8 +44,8 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <!-- Brand -->
-      <a class="navbar-brand pt-0" href="./index.html">
-        <img src="/rental-project/resources/img/brand/blue.png" class="navbar-brand-img" alt="...">
+      <a class="navbar-brand pt-0" href="/rental-project/home">
+        <img src="/rental-project/resources/img/brand/225.png" class="navbar-brand-img" alt="...">
       </a>
       <!-- User -->
       <ul class="nav align-items-center d-md-none">
@@ -130,22 +130,22 @@
         <ul class="navbar-nav">
           <li class="nav-item  active ">
             <a class="nav-link  active " href="./index.html">
-              <i class="ni ni-tv-2 text-primary"></i> Dashboard
+              <i class="ni ni-tv-2 text-primary"></i> 대시보드
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="./examples/icons.html">
-              <i class="ni ni-planet text-blue"></i> Icons
+              <i class="ni ni-planet text-blue"></i> 아이콘
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="./examples/maps.html">
-              <i class="ni ni-pin-3 text-orange"></i> Maps
+              <i class="ni ni-pin-3 text-orange"></i> 지도
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="./examples/profile.html">
-              <i class="ni ni-single-02 text-yellow"></i> User profile
+              <i class="ni ni-single-02 text-yellow"></i> 유저프로필
             </a>
           </li>
           <li class="nav-item">
@@ -155,12 +155,12 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="./examples/login.html">
-              <i class="ni ni-key-25 text-info"></i> Login
+              <i class="ni ni-key-25 text-info"></i> 로그인
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="./examples/register.html">
-              <i class="ni ni-circle-08 text-pink"></i> Register
+              <i class="ni ni-circle-08 text-pink"></i> 회원가입
             </a>
           </li>
         </ul>
@@ -201,7 +201,7 @@
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./index.html">Dashboard</a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="/rental-project/item/List">상품 게시판</a>
         <!-- Form -->
         <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
           <div class="form-group mb-0">
@@ -257,6 +257,13 @@
       </div>
     </nav>
     <!-- End Navbar -->
+     <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+      <div class="container-fluid">
+        <div class="header-body">
+          <!-- Card stats -->
+        </div>
+      </div>
+    </div>
     <br>
 	<br>
 	<br>
@@ -280,35 +287,41 @@
                    <table>
 		            <tr>
 		                <th>상품명</th>
+		                <tr>
 		                <td>
-		                    <input type="text" name="itemName" style="width:850px" />
+		                    <input type="text" name="itemName" style="width:700px" />
 		                </td>
 		            </tr>
-		            <tr>
-		                <th>상품 코드</th>
-		                <td>
-		                    <input type="text" name="itemCode" style="width:850px" />
-		                </td>
-		            </tr>
-		            <tr>
-		                <th>작성자</th>
-		                <td>
-		                	${ sessionScope.loginuser.id }
-		                	<input type="hidden" name="memberId" value="${ loginuser.id }">
-		                </td>
-		            </tr>
-		            <tr>
-		                <th>상품 가격</th>
-		                <td>
-		                    <input type="text" name="itemPrice" style="width:850px" />
-		                </td>
-		            </tr>
-		            <tr>
-		                <th>상세 설명</th>
-		                <td>
-		                	<textarea name="itemDetail" style="width:850px" rows="15"></textarea>
-		                </td>
-		            </tr>
+	            <tr>
+	                <th>상품 코드</th>
+	                <tr>
+	                <td>
+	                    <input type="text" name="itemCode" style="width:700px" />
+	                </td>
+	            </tr>
+	            <tr>
+	               
+	               
+	                
+	                <td>
+	                	${ sessionScope.loginuser.id }
+	                	<input type="hidden" name="memberId" value="${ loginuser.id }">
+	                </td>
+	            </tr>
+	            <tr>
+	                <th>상품 가격</th>
+	                <tr>
+	                <td>
+	                    <input type="text" name="itemPrice" style="width:700px" />
+	                </td>
+	            </tr>
+	            <tr>
+	                <th>상세 설명</th>
+	                <tr>
+	                <td>
+	                	<textarea name="itemDetail" style="width:700px" rows="15"></textarea>
+	                </td>
+	            </tr>
 		        </table>
 			        <div class="col text-center">
 			        <input type="submit" class ="btn btn-sm btn-primary" value="글쓰기" >

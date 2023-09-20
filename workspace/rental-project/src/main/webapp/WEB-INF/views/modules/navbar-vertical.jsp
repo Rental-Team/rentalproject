@@ -7,8 +7,8 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <!-- Brand -->
-      <a class="navbar-brand pt-0" href="./index.html">
-        <img src="/rental-project/resources/img/brand/blue.png" class="navbar-brand-img" alt="...">
+      <a class="navbar-brand pt-0" href="/rental-project/home">
+        <img src="/rental-project/resources/img/brand/225.png" class="navbar-brand-img" alt="...">
       </a>
       <!-- User -->
       <ul class="nav align-items-center d-md-none">
@@ -92,7 +92,7 @@
         <!-- Navigation -->
         <ul class="navbar-nav">
           <li class="nav-item  active ">
-            <a class="nav-link  active " href="./index.html">
+            <a class="nav-link  active " href="/rental-project/home">
               <i class="ni ni-tv-2 text-primary"></i> 대시보드
             </a>
           </li>
