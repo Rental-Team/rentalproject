@@ -23,7 +23,7 @@ public class FreeBoardController {
 	private FreeBoardService freeBoardService;
 	
 	// 자유게시글 리스트 화면 불러오기 ( 전체 게시글 불러오기 )
-	@GetMapping(path= {"/list"})
+	@GetMapping(path= {"/freeboardlist"})
 	public String list(Model model) {
 		
 		List<FreeBoardDto> freeBoardList = freeBoardService.listFreeBoard();
@@ -31,20 +31,20 @@ public class FreeBoardController {
 		
 		model.addAttribute("freeBoardList", freeBoardList);
 		
-		return "freeboard/list";
+		return "freeboard/freeboardlist";
 	}
 	
 	
 	// 자유게시글 작성 화면 불러오기
-	@GetMapping(path= {"/write"})
+	@GetMapping(path= {"/freeboardwrite"})
 	public String writeFreeBoardForm() {
 		
-		return "freeboard/write";
+		return "freeboard/freeboardwrite";
 		
 	}
 	
 	// 자유게시글 등록하기
-	@PostMapping(path= {"/write"})
+	@PostMapping(path= {"/freeboardwrite"})
 	
 		public String writeFreeBoard(FreeBoardDto freeboard, HttpServletRequest req) throws Exception {
 		
@@ -53,28 +53,28 @@ public class FreeBoardController {
 		
 		freeBoardService.writeFreeBoard(freeboard);
 		
-		return "redirect:list";
+		return "redirect:freeboardlist";
 		
 	}
 	
 	// 자유게시글 클릭 후 상세보기
-	@GetMapping(path = {"/detail"})
+	@GetMapping(path = {"/freeboarddetail"})
 	public String detail(@RequestParam(defaultValue = "-1") int freeBoardNo, Model model) {
 		
 		if(freeBoardNo == -1) {  // 주소창에 detail로 바로 접근하지 못하게 함
 			
-			return "redirect:list";
+			return "redirect:freeboardlist";
 		}
 		
 		FreeBoardDto freeboard = freeBoardService.findFreeBoardByFreeBoardNo(freeBoardNo);
 		
 		if(freeboard == null) { // 조회된 글이 없을때 리스트로 
 			
-			return "redirect:list";
+			return "redirect:freeboardlist";
 		}
 		model.addAttribute("freeBoard", freeboard);
 		
-		return "freeboard/detail";
+		return "freeboard/freeboarddetail";
 		
 	}
 	

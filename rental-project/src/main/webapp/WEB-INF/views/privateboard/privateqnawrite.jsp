@@ -1,8 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"  pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!--
 
+=========================================================
+* Argon Dashboard - v1.1.2
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/argon-dashboard
+* Copyright 2020 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md)
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -168,8 +181,8 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html">
-              <i class="ni ni-ui-04"></i> Components
+            <a class="nav-link" href="/rental-project/privateboard/privateqnalist">
+              <i class="ni ni-ui-04"></i> 1:1문의
             </a>
           </li>
         </ul>
@@ -249,6 +262,9 @@
 	<br>
 	<br>
 	<br>
+	<br>
+	<br>
+	<br>
     <!-- Header -->
     <div class="container-fluid mt--7">
       <div class="row mt-5">
@@ -257,43 +273,49 @@
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">자유게시판</h3>
-                </div>
-                <div class="col text-right">
-                  <a href="write" class="btn btn-sm btn-primary">게시글 작성</a>
+                  <h3 class="mb-0">1:1문의</h3>
+                  <br>
+                  <br>
+                  <form action="privateqnawrite" method="post">
+                   <table>
+		            <tr>
+		                <th>글제목</th>
+		                <td>
+		                    <input type="text" name="qnaTitle" style="width:580px" />
+		                </td>
+		            </tr>
+		            <tr>
+		                <th>작성자</th>
+		                <td>
+		                	<%-- ${ sessionScope.loginuser.id }
+		                	<input type="hidden" name="memberId" value="${ loginuser.id }"> --%>
+		                </td>
+		            </tr>
+		            <tr>
+		                <th>문의유형</th>
+		                <td>
+		                	<input type="text" name="qnaType" />  
+		                </td>
+		            </tr>
+		            <tr>
+		                <th>글내용</th>
+		                <td>
+		                	<textarea name="qnaContent" style="width:580px" rows="15"></textarea>
+		                </td>
+		            </tr>
+		        </table>
+			        <div class="col text-center">
+			        <input type="submit" class ="btn btn-sm btn-primary" value="글쓰기" >
+			        <input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="취소" >
+	                </div>
+                </form>
                 </div>
               </div>
-            </div>
-            <div class="table-responsive">
-            
-         <!-- Projects table -->
-         <table class="table align-items-center table-flush">
-           <thead class="thead-light">
-             <tr style="text-align:center">
-               <th scope="col" style="width:100px">게시글 번호</th>
-               <th scope="col" style="width:200px">작성자</th>
-               <th scope="col" style="width:500px">게시글 제목</th>
-               <th scope="col" style="width:100px">조회수</th>
-               <th scope="col" style="width:150px">게시글 작성 일자</th>
-             </tr>
-           </thead>
-           <tbody>
-            <c:forEach var="freeBoard" items="${ requestScope.freeBoardList }">
-             <tr style="text-align:center">
-                <td scope="col" style="width:100px">${ freeBoard.freeBoardNo } </td>
-                <td scope="col" style="width:200px">${ freeBoard.freeBoardViewCount } </td>  <!--  작성자 데이터 없어서 다른거 일단 끌고옴 -->
-                <td scope="col" style="width:500px"> 
-                	<a href="detail?freeBoardNo=${ freeBoard.freeBoardNo }"> ${ freeBoard.freeBoardTitle }</a>
-                </td>
-                <td scope="col" style="width:100px">${ freeBoard.freeBoardViewCount } </td>
-                <td scope="col" style="width:150px"><fmt:formatDate value="${ freeBoard.freeBoardDate }" pattern="yyyy-MM-dd hh:mm"/></td>
-             </tr>
-            </c:forEach>
-           </tbody>
-         </table>
-       </div>
-     </div>
-   </div>
+           </div> 
+          </div>
+        </div>
+      </div>
+    </div>
 <br>
 <br>
 <br>

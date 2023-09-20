@@ -16,6 +16,8 @@ import com.rentalproject.mapper.AccountMapper;
 import com.rentalproject.service.AccountServiceImpl;
 import com.rentalproject.service.FreeBoardService;
 import com.rentalproject.service.FreeBoardServiceImpl;
+import com.rentalproject.service.PrivateQnaService;
+import com.rentalproject.service.PrivateQnaServiceImpl;
 
 import lombok.Setter;
 
@@ -74,6 +76,13 @@ public class RootConfiguration implements ApplicationContextAware{
 		return sessionFactory;
 	}
 	
+	@Bean
+	public PrivateQnaService privateQnaService() {
+		PrivateQnaService privateQnaService = new PrivateQnaServiceImpl();
+		
+		return privateQnaService;
+		
+	}
 	
 	@Bean
 	public FreeBoardService freeboardService () {

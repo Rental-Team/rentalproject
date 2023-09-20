@@ -112,7 +112,7 @@
             </a>
           </li>
            <li class="nav-item">
-            <a class="nav-link " href="/rental-project/freeboard/list">
+            <a class="nav-link " href="/rental-project/freeboard/freeboardlist">
               <i class="ni ni-bullet-list-67 text-red"></i> 자유게시판
             </a>
           </li>
@@ -144,8 +144,8 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html">
-              <i class="ni ni-ui-04"></i> Components
+            <a class="nav-link" href="/rental-project/privateboard/privateqnalist">
+              <i class="ni ni-ui-04"></i> 1대1문의
             </a>
           </li>
         </ul>
