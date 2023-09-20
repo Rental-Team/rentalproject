@@ -129,7 +129,7 @@
         <!-- Navigation -->
         <ul class="navbar-nav">
           <li class="nav-item  active ">
-            <a class="nav-link  active " href="./index.html">
+            <a class="nav-link  active " href="/rental-project/home">
               <i class="ni ni-tv-2 text-primary"></i> 대시보드
             </a>
           </li>
@@ -289,30 +289,10 @@
 		                <th>상품명</th>
 		                <tr>
 		                <td>
-
 		                    <input type="text" name="itemName" style="width:700px" />
-
 		                </td>
 		            </tr>
-		            <tr>
-		                <th>상품 코드</th>
-		                <td>
-		                    <input type="text" name="itemCode" style="width:850px" />
-		                </td>
-		            </tr>
-		            <tr>
-		                <th>상품 가격</th>
-		                <td>
-		                    <input type="text" name="itemPrice" style="width:850px" />
-		                </td>
-		            </tr>
-		            <tr>
-		                <th>상세 설명</th>
-		                <td>
-		                	<textarea name="itemDetail" style="width:850px" rows="15"></textarea>
-
-		                </td>
-		            </tr>
+		            
 	            <tr>
 	                <th>상품 코드</th>
 	                <tr>
@@ -320,10 +300,7 @@
 	                    <input type="text" name="itemCode" style="width:700px" />
 	                </td>
 	            </tr>
-	            <tr>
-	               
-	               
-	                
+	            <tr>	                
 	                <td>
 	                	${ sessionScope.loginuser.id }
 	                	<input type="hidden" name="memberId" value="${ loginuser.id }">
