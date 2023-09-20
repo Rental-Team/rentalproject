@@ -113,12 +113,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link " href="/rental-project/item/list">
-              <i class="ni ni-bullet-list-67 text-red"></i> 리스트
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link " href="/rental-project/item/write">
-              <i class="ni ni-bullet-list-67 text-red"></i> 등록폼
+              <i class="ni ni-bullet-list-67 text-red"></i> 상품 게시판
             </a>
           </li>
           <li class="nav-item">
