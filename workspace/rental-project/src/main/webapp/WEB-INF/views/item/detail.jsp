@@ -313,11 +313,10 @@
 		                </td>
 		            </tr>
 		        </table>
-			        <!-- <div class="col text-center">
-			        <input type="submit" class ="btn btn-sm btn-primary" value="글쓰기" >
-			        <input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="취소" >
-	                </div> -->
-                </form>
+			        <div class="col text-center">
+				        <a href="edit?itemNo=${ item.itemNo }" class="btn btn-sm btn-primary">수정</a>
+				        <input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="취소" >				        
+	                </div>
                 </div>
               </div>
            </div> 

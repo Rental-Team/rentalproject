@@ -87,7 +87,7 @@ public class ItemController {
 
 	
 	@GetMapping("/edit")
-	public String editForm(@RequestParam(defaultValue = "-1") int itemNo, Model model) {
+	public String editForm(@RequestParam("itemNo") int itemNo, Model model) {
 		
 		if (itemNo == -1) {
 			return "redirect:list";
@@ -107,6 +107,15 @@ public class ItemController {
 		
 		return "item/edit";
 		
+	}
+	
+	
+	@PostMapping("/edit")
+	public String edit(ItemDto item ) {
+		
+		itemService.editItem(item);
+		
+		return String.format("redirect:detail?itemNo=%d", item.getItemNo());
 	}
 	
 	

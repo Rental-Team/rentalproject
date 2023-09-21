@@ -285,7 +285,7 @@
                   <br>
                   <form action="edit" method="post">
 	                  <input type="hidden" name="categoryName" value="가전">
-	                  <input type="hidden" name="itemNo" value="${ item.ItemNo }">
+	                  <input type="hidden" name="itemNo" value="${ item.itemNo }">
 	                   <table>
 			            <tr>
 			                <th>상품명</th>
@@ -299,7 +299,7 @@
 		                <th>상품 코드</th>
 		                <tr>
 		                <td>
-		                    <input type="text" name="itemCode" style="width:700px" readonly/>
+		                    <input type="text" name="itemCode" style="width:700px" value=${ item.itemCode } readonly/>
 		                </td>
 		            </tr>
 		            <tr>
