@@ -8,9 +8,10 @@ public interface ItemService {
 	
 	public void writeItem(ItemDto item);
 
-	public ItemDto get(int itemNo);
+	public ItemDto detail(int itemNo);
 
 	public List<ItemDto> getList();
 
+	public void editItem(ItemDto item);
 
 }

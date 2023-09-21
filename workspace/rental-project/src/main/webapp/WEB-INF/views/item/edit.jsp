@@ -280,17 +280,18 @@
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">상품 등록</h3>
+                  <h3 class="mb-0">상품 수정</h3>
                   <br>
                   <br>
-                  <form action="write" method="post">
+                  <form action="edit" method="post">
 	                  <input type="hidden" name="categoryName" value="가전">
+	                  <input type="hidden" name="itemNo" value="${ item.ItemNo }">
 	                   <table>
 			            <tr>
 			                <th>상품명</th>
 			                <tr>
 			                <td>
-			                    <input type="text" name="itemName" style="width:700px" />
+			                    <input type="text" name="itemName" style="width:700px" value=${ item.itemName }/>
 			                </td>
 			            </tr>
 			            
@@ -298,26 +299,26 @@
 		                <th>상품 코드</th>
 		                <tr>
 		                <td>
-		                    <input type="text" name="itemCode" style="width:700px" />
+		                    <input type="text" name="itemCode" style="width:700px" readonly/>
 		                </td>
 		            </tr>
 		            <tr>
 		                <th>상품 가격</th>
 		                <tr>
 		                <td>
-		                    <input type="text" name="itemPrice" style="width:700px" />
+		                    <input type="text" name="itemPrice" style="width:700px" value="${ item.itemPrice }" />
 		                </td>
 		            </tr>
 		            <tr>
 		                <th>상세 설명</th>
 		                <tr>
 		                <td>
-		                	<textarea name="itemDetail" style="width:700px" rows="15"></textarea>
+		                	<textarea name="itemDetail" style="width:700px" rows="15"> ${ item.itemDetail } </textarea>
 		                </td>
 		            </tr>
 			        </table>
 				        <div class="col text-center">
-				        <input type="submit" class ="btn btn-sm btn-primary" value="글쓰기" >
+				        <input type="submit" class ="btn btn-sm btn-primary" value="상품 수정" >
 				        <input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="취소" >
 		                </div>
                 </form>

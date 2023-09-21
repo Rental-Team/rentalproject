@@ -33,11 +33,18 @@ public class ItemServiceImpl implements ItemService{
 		return itemMapper.getList();
 	}
 
-	public ItemDto get(int itemNo) {
+	public ItemDto detail(int itemNo) {
 
 		log.info("get....." + itemNo);
 
 		return itemMapper.read(itemNo);
+	}
+	
+	
+	public void editItem(ItemDto item) {
+		
+		itemMapper.updateItem(item);
+		
 	}
 	
 

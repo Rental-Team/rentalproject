@@ -73,8 +73,40 @@ public class ItemController {
 
 		log.info("/get");
 		
-		model.addAttribute("item", itemService.get(itemNo));
+		model.addAttribute("item", itemService.detail(itemNo));
 
 	}
+
+	
+	@GetMapping("/edit")
+	public String editForm(@RequestParam(defaultValue = "-1") int itemNo, Model model) {
+		
+		if (itemNo == -1) {
+			return "redirect:list";
+		}
+		
+		ItemDto item = itemService.detail(itemNo);
+		
+		if (item == null) {
+			return "redirect:list";
+		}
+		
+		
+		
+		model.addAttribute("item", item);
+		model.addAttribute("itemNo", itemNo);
+		
+		
+		return "item/edit";
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
