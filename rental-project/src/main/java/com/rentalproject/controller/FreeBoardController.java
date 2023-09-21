@@ -72,10 +72,33 @@ public class FreeBoardController {
 			
 			return "redirect:freeboardlist";
 		}
+		
 		model.addAttribute("freeBoard", freeboard);
 		
 		return "freeboard/freeboarddetail";
 		
+	}
+	
+	// 자유게시글 수정하기 ( 자유게시글 상세보기 내용 불러오기 )
+	@GetMapping(path = {"/freeboardedit"})
+	public String showFreeBoardEditForm(@RequestParam(defaultValue = "-1") int freeBoardNo, 
+								Model model) {
+		
+		FreeBoardDto freeboard = freeBoardService.findFreeBoardByFreeBoardNo(freeBoardNo);
+		
+		model.addAttribute("freeboard", freeboard);
+		
+		return "freeboard/freeboardedit";
+	}
+	
+	// 자유게시글 수정하기 ( 수정한 글 등록하기 )
+	@PostMapping(path = {"/freeboardedit"})
+	public String freeBoardEdit(FreeBoardDto freeboard, HttpServletRequest req) {
+		
+		// update 처리하기
+		freeBoardService.editFreeBoard(freeboard);
+		
+		return "redirect:freeboardlist";
 	}
 	
 		

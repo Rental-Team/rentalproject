@@ -14,6 +14,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.rentalproject.mapper.AccountMapper;
 import com.rentalproject.service.AccountServiceImpl;
+import com.rentalproject.service.FreeBoardReviewService;
+import com.rentalproject.service.FreeBoardReviewServiceImpl;
 import com.rentalproject.service.FreeBoardService;
 import com.rentalproject.service.FreeBoardServiceImpl;
 import com.rentalproject.service.PrivateQnaService;
@@ -90,4 +92,9 @@ public class RootConfiguration implements ApplicationContextAware{
 		return freeboardService;
 	}
 	
+	@Bean
+	public FreeBoardReviewService freeboardReviewService () {
+		FreeBoardReviewService freeboardReviewService = new FreeBoardReviewServiceImpl ();
+		return freeboardReviewService;
+	}
 }
