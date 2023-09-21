@@ -102,13 +102,11 @@ public class RootConfiguration implements ApplicationContextAware{
 		return freeboardService;
 	}
 	
-<<<<<<< HEAD
 	@Bean
 	public FreeBoardReviewService freeboardReviewService () {
 		FreeBoardReviewService freeboardReviewService = new FreeBoardReviewServiceImpl ();
 		return freeboardReviewService;
 	}
-=======
 	
 	@Bean
 	public ItemServiceImpl itemService() {
@@ -117,5 +115,4 @@ public class RootConfiguration implements ApplicationContextAware{
 		return itemService;
 	}
 	
->>>>>>> fd839512ff50fd61d874ef946f2e01c47a3440e0
 }
