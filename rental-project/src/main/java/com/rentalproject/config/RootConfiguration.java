@@ -18,6 +18,7 @@ import com.rentalproject.service.FreeBoardReviewService;
 import com.rentalproject.service.FreeBoardReviewServiceImpl;
 import com.rentalproject.service.FreeBoardService;
 import com.rentalproject.service.FreeBoardServiceImpl;
+import com.rentalproject.service.ItemServiceImpl;
 import com.rentalproject.service.PrivateQnaService;
 import com.rentalproject.service.PrivateQnaServiceImpl;
 
@@ -92,9 +93,20 @@ public class RootConfiguration implements ApplicationContextAware{
 		return freeboardService;
 	}
 	
+<<<<<<< HEAD
 	@Bean
 	public FreeBoardReviewService freeboardReviewService () {
 		FreeBoardReviewService freeboardReviewService = new FreeBoardReviewServiceImpl ();
 		return freeboardReviewService;
 	}
+=======
+	
+	@Bean
+	public ItemServiceImpl itemService() {
+		ItemServiceImpl itemService = new ItemServiceImpl();
+		
+		return itemService;
+	}
+	
+>>>>>>> fd839512ff50fd61d874ef946f2e01c47a3440e0
 }
