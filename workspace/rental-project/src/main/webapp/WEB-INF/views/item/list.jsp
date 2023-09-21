@@ -116,8 +116,8 @@
 	<br>
 	<br>
     <!-- Header -->
-    <div class="container-fluid mt--7">
-      <div class="row mt-5">
+    <div style="magin-right 5px;" class="container-fluid mt--7" >
+      <div class="row mt-5" >
         <div class="col-xl-8 mb-5 mb-xl-0">
           <div class="card shadow">
             <div class="card-header border-0">
@@ -142,10 +142,10 @@
                   </tr>
                 </thead>
                 <tbody>
-                 <c:forEach var="Item" items="${ list }" >
+                 <c:forEach var="Item" items="${ list }">
                  	<tr>
                     	<td><c:out value="${Item.itemNo}" /></td>
-                    	 <td><c:out value="${Item.itemName}" /></td>
+                    	<td><a href="detail?itemNo=${ Item.itemNo }">${ Item.itemName }</a></td>               	 
                     	 <td><c:out value="${Item.viewCount}" /></td>
                     	 <td><fmt:formatDate pattern="yyyy-MM-dd"
                     	  value="${Item.itemDate }" /></td>
@@ -156,32 +156,62 @@
             </div>
           </div>
         </div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+
 
       <!-- Footer -->
       <footer class="footer">
         <div class="row align-items-center justify-content-xl-between">
           <div class="col-xl-6">
+          <!--    <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br> -->
             <div class="copyright text-center text-xl-left text-muted">
-              &copy; 2018 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
+          
+              &copy; 2023 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank" >재호와아이들</a>
             </div>
           </div>
           <div class="col-xl-6">
+         	<!-- <br>
+         	<br>
+         	<br>
+         	<br>
+         	<br>
+         	<br>
+         	<br>
+         	<br>
+         	<br>
+         	<br>
+         	<br>
+         	<br>
+         	<br>
+         	<br>
+         	<br>
+         	<br>
+         	<br>
+         	<br>
+         	<br>
+         	<br> -->
             <ul class="nav nav-footer justify-content-center justify-content-xl-end">
               <li class="nav-item">
-                <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
+                <a href="https://www.creative-tim.com" class="nav-link" target="_blank">재호와아이들</a>
               </li>
               <li class="nav-item">
                 <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>

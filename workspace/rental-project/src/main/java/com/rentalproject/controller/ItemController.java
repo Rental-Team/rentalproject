@@ -68,12 +68,21 @@ public class ItemController {
 		return "redirect:list";
 	}
 
-	@GetMapping("/get")
-	public void get(@RequestParam("itemNo") int itemNo, Model model) {
-
-		log.info("/get");
+	@GetMapping("/detail")
+	public void detail(@RequestParam("itemNo") int itemNo,
+			 			Model model) { //@RequestParam(defaultValue = "-1")int pageNo,
 		
-		model.addAttribute("item", itemService.get(itemNo));
+		ItemDto item = itemService.detail(itemNo);
+		
+//		if(item == null) {
+//			return "redirect:list";
+//		}
+		
+		log.info("/detail");
+		
+		model.addAttribute("item", item);
+		
+		
 
 	}
 

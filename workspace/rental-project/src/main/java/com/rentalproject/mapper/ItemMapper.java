@@ -25,9 +25,9 @@ public interface ItemMapper {
 	public List<ItemDto> getList();
 
 
-	@Select("select ( itemNo, itemCode, itemDate, itemPrice, itemDetail, itemPhoto) " +
+	@Select("select  itemNo, itemName, itemCode, itemDate, itemPrice, itemDetail, categoryName " +
 			"from Item " +
-			"where itemNo = #{ itemNo } ")
+			"where itemNo = #{ itemNo }")
 	public ItemDto read(int itemNo);
 	
 	
