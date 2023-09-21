@@ -11,5 +11,5 @@ public interface PrivateQnaService {
 	List<PrivateQnaDto> listBoard();
 	
 	
-	
+	PrivateQnaDto findQnaBoardByQnaNo(int qnaNo);
 }

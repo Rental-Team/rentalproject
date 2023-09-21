@@ -276,10 +276,10 @@
                   <h3 class="mb-0">1:1문의</h3>
                   <br>
                   <br>
-                  <form action="privateqnawrite" method="post">
+                  <form action="privateqnawrite" method="post" enctype="multipart/form-data">
                    <table>
 		            <tr>
-		                <th>글제목</th>
+		                <th>문의제목</th>
 		                <td>
 		                    <input type="text" name="qnaTitle" style="width:580px" />
 		                </td>
@@ -287,18 +287,32 @@
 		            <tr>
 		                <th>작성자</th>
 		                <td>
-		                	<%-- ${ sessionScope.loginuser.id }
-		                	<input type="hidden" name="memberId" value="${ loginuser.id }"> --%>
+		                	<%-- ${ sessionScope.loginuser.memberId }
+		                	<input type="hidden" name="memberNo" value="${ loginuser.memberId }"> --%>
 		                </td>
 		            </tr>
 		            <tr>
 		                <th>문의유형</th>
 		                <td>
-		                	<input type="text" name="qnaType" />  
+		                <select name="qnaType" >
+		                <option value="상품문의">상품문의</option>
+		                <option value="배송문의">배송문의</option>
+		                <option value="환물문의">환물문의</option>
+		                </select>
+		                	<!-- <input type="radio" name="qnaType" value="상품문의"/>상품문의<br> 
+		                	<input type="radio" name="qnaType" value="배송문의"/>배송문의<br>
+		                	<input type="radio" name="qnaType" value="환불문의"/>환불문의<br> -->
+		                	 
 		                </td>
 		            </tr>
 		            <tr>
-		                <th>글내용</th>
+		            <th>첨부파일</th>
+		           		<td>
+		           		<input type="file" name="attach" >
+		           		<td>
+		            </tr>
+		            <tr>
+		                <th>문의내용</th>
 		                <td>
 		                	<textarea name="qnaContent" style="width:580px" rows="15"></textarea>
 		                </td>
@@ -306,7 +320,7 @@
 		        </table>
 			        <div class="col text-center">
 			        <input type="submit" class ="btn btn-sm btn-primary" value="글쓰기" >
-			        <input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="취소" >
+			        <input type="button" id="btnCancel" value="취소" />
 	                </div>
                 </form>
                 </div>
@@ -363,8 +377,26 @@
 <br>
 <br>
 <br>
+
+<script type="text/javascript"></script>
+
+
+<!-- <script src="/rental-project/resources/js/jquery-3.7.1.js.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<!--취소 하면 목록가는  -->
+<script>
+$(function() {
+	$('#btnCancel').on('click', function(event) {
+		location.href= 'privateqnalist'
+	
+})
+		
+});
+</script>
+
+
   <!--   Core   -->
-  <script src="/rental-project/resources/js/plugins/jquery/dist/jquery.min.js"></script>
+  <!-- <script src="/rental-project/resources/js/plugins/jquery/dist/jquery.min.js"></script> -->
   <script src="/rental-project/resources/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <!--   Optional JS   -->
   <script src="/rental-project/resources/js/plugins/chart.js/dist/Chart.min.js"></script>

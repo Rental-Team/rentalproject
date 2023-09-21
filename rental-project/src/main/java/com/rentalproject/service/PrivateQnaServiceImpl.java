@@ -24,4 +24,13 @@ public class PrivateQnaServiceImpl implements PrivateQnaService {
 		List<PrivateQnaDto> boardList = privateQnaMapper.selectAllBoard();
 		return boardList;
 	}
+
+	@Override
+	public PrivateQnaDto findQnaBoardByQnaNo(int qnaNo) {
+		
+		PrivateQnaDto qnaBoard = privateQnaMapper.selectQnaBoardByQnaNo(qnaNo);
+		return qnaBoard;
+	}
+
+	
 }

@@ -1,22 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"  pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+    
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!--
 
-=========================================================
-* Argon Dashboard - v1.1.2
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -151,7 +139,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link " href="/rental-project/freeboard/list">
-              <i class="ni ni-bullet-list-67 text-red"></i> Tables
+              <i class="ni ni-bullet-list-67 text-red"></i> 자유게시판
             </a>
           </li>
           <li class="nav-item">
@@ -182,8 +170,8 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/rental-project/privateboard/privateqnalist">
-              <i class="ni ni-ui-04"></i> 1대1문의
+            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html">
+              <i class="ni ni-ui-04"></i> Components
             </a>
           </li>
         </ul>
@@ -263,6 +251,9 @@
 	<br>
 	<br>
 	<br>
+	<br>
+	<br>
+	<br>
     <!-- Header -->
     <div class="container-fluid mt--7">
       <div class="row mt-5">
@@ -271,45 +262,99 @@
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">1:1문의</h3>
-                </div>
-                <div class="col text-right">
-                  <a href="privateqnawrite" class="btn btn-sm btn-primary">게시글 작성</a>
+                  <h3 class="mb-0">1:1 문의 게시판</h3>
+                  <br>
+                  <br>
+                  <form action="write" method="post">
+                   <table>
+		            <tr>
+		                <th>문의글 번호</th>
+		                <td>
+		                 ${ requestScope.privateqna.qnaNo }  
+		                </td>
+		            </tr>
+		            <tr>
+		                <th>문의글 유형</th>
+		                <td>
+		                	${ privateqna.qnaType }
+		                </td>
+		            </tr>
+		            <tr>
+		                <th>문의글 제목</th>
+		                <td>
+		                	${ privateqna.qnaTitle }
+		                </td>
+		            </tr>
+		            <tr>
+		                <th>문의글 내용 </th>
+		                <td>
+		                	${ privateqna.qnaContent }
+		                </td>
+		            </tr>
+		            <tr>
+		                <th>문의글 날짜</th>
+		                <td> 
+		                	${ privateqna.qnaDate }
+		                </td>
+		            </tr>
+		            <tr>
+		                <th></th>
+		                <td>
+		                	
+		                </td>
+		            </tr>
+		            <tr>
+		                <th></th>
+		                <td>
+		                	
+		                </td>
+		            </tr> 
+		        </table> 
+			        <br>
+			        <div class="col text-center" >
+			         <input type="button"  id="getBack" class ="btn btn-sm btn-primary" value="목록으로 돌아가기" >
+			        <!-- <input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="게시글 수정하기" > -->
+			        <input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="게시글 삭제하기" >
+	              
+	                </div>
+                </form>
                 </div>
               </div>
-            </div>
-            <div class="table-responsive">
-              <!-- Projects table -->
-              <table class="table align-items-center table-flush">
-                <thead class="thead-light">
-                  <tr>
-                    <th scope="col">문의번호</th>
-                    <th scope="col">제목</th>
-                     <th scope="col">작성자</th>
-                    <th scope="col">문의유형</th>
-                    <th scope="col">문의글 작성 일자</th>
-                  </tr>
-                </thead>
-                 <c:forEach var="privateqna" items="${qnaBoardList}">
-                  <tr>                  
-                   <td>${ privateqna.qnaNo }</td>           		   
-                  <td>                      
-                   <a href="privateqnadetail?qnaNo=${ privateqna.qnaNo }">${ privateqna.qnaTitle }</a>   
-                  </td>         
-                  <td>${ privateqna.qnaType }</td>                                        
-                  <td>작성자</td>
-                  <td>${ privateqna.qnaDate }</td>
-                  </tr>
-                  </c:forEach>
-                
-                
-                        
-              </table>
-            </div>
+           </div> 
           </div>
         </div>
+      </div>
+    </div>
 <br>
 <br>
+		<!-- 자유게시글 댓글 쓰기 기능 구현 --> 
+	<div class="container-fluid mt--7">
+      <div class="row mt-5">
+        <div class="col-xl-8 mb-5 mb-xl-0">
+          <div class="card shadow">
+            <div class="card-header border-0">
+              <div class="row align-items-center">
+                <div class="col">
+                <h5 class="mb-0">1대1게시글 답변</h5>
+                	<form id="commentform" action="freeboard-comment" method="post">
+                		<input type="hidden" name="" value="" />
+                		<table class="table align-items-center">
+                			<tr>
+                				<td style="width: 750px"><textarea id="comment_content"
+								name="content" style="width: 100%; resize:none;" rows="2"></textarea></td>
+								<td style="width: 50px; vertical-align: middle; border-radius:80px">
+								<input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="댓글등록하기" >
+								</a>
+								</td>
+                			</tr>
+                		</table>
+                 </div>
+              </div>
+           </div> 
+          </div>
+        </div>
+      </div>
+    </div>
 <br>
 <br>
 <br>
@@ -323,7 +368,7 @@
 <br>
 
       <!-- Footer -->
-      <footer class="footer" >
+      <footer class="footer">
         <div class="row align-items-center justify-content-xl-between">
           <div class="col-xl-6">
             <div class="copyright text-center text-xl-left text-muted">
@@ -355,6 +400,21 @@
 <br>
 <br>
 <br>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script>
+$(function() {
+	$('#getBack').on('click', function(event) {
+		location.href= 'privateqnalist'
+	
+})
+		
+});
+</script>
+
+
+
+
+
   <!--   Core   -->
   <script src="/rental-project/resources/js/plugins/jquery/dist/jquery.min.js"></script>
   <script src="/rental-project/resources/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
