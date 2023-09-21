@@ -13,11 +13,13 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.rentalproject.mapper.AccountMapper;
+import com.rentalproject.mapper.ProfileMapper;
 import com.rentalproject.service.AccountServiceImpl;
 import com.rentalproject.service.FreeBoardService;
 import com.rentalproject.service.FreeBoardServiceImpl;
 import com.rentalproject.service.PrivateQnaService;
 import com.rentalproject.service.PrivateQnaServiceImpl;
+import com.rentalproject.service.ProfileServiceImpl;
 
 import lombok.Setter;
 
@@ -57,13 +59,20 @@ public class RootConfiguration implements ApplicationContextAware{
 			return jdbcTemplate;
 		}
 	
-	@Bean
+	@Bean // 계정 관련
 	public AccountServiceImpl accountService() {
 		AccountServiceImpl accountService = new AccountServiceImpl();
 		accountService.setAccountMapper(applicationcontext.getBean(AccountMapper.class));
 		
 		return accountService;
 	}
+	
+	@Bean // 프로필
+	public ProfileServiceImpl profileService() {
+		ProfileServiceImpl profileService = new ProfileServiceImpl();
+		return profileService;
+	}
+	
 	
 	@Bean
 	public SqlSessionFactory sqlSessionFactory() throws Exception{
