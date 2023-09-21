@@ -1,7 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"  pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+    
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -249,6 +251,9 @@
 	<br>
 	<br>
 	<br>
+	<br>
+	<br>
+	<br>
     <!-- Header -->
     <div class="container-fluid mt--7">
       <div class="row mt-5">
@@ -257,47 +262,99 @@
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">자유게시판</h3>
-                </div>
-                <div class="col text-right">
-                  <a href="freeboardwrite" class="btn btn-sm btn-primary">게시글 작성</a>
+                  <h3 class="mb-0">1:1 문의 게시판</h3>
+                  <br>
+                  <br>
+                  <form action="write" method="post">
+                   <table>
+		            <tr>
+		                <th>문의글 번호</th>
+		                <td>
+		                 ${ requestScope.privateqna.qnaNo }  
+		                </td>
+		            </tr>
+		            <tr>
+		                <th>문의글 유형</th>
+		                <td>
+		                	${ privateqna.qnaType }
+		                </td>
+		            </tr>
+		            <tr>
+		                <th>문의글 제목</th>
+		                <td>
+		                	${ privateqna.qnaTitle }
+		                </td>
+		            </tr>
+		            <tr>
+		                <th>문의글 내용 </th>
+		                <td>
+		                	${ privateqna.qnaContent }
+		                </td>
+		            </tr>
+		            <tr>
+		                <th>문의글 날짜</th>
+		                <td> 
+		                	${ privateqna.qnaDate }
+		                </td>
+		            </tr>
+		            <tr>
+		                <th></th>
+		                <td>
+		                	
+		                </td>
+		            </tr>
+		            <tr>
+		                <th></th>
+		                <td>
+		                	
+		                </td>
+		            </tr> 
+		        </table> 
+			        <br>
+			        <div class="col text-center" >
+			         <input type="button"  id="getBack" class ="btn btn-sm btn-primary" value="목록으로 돌아가기" >
+			        <!-- <input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="게시글 수정하기" > -->
+			        <input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="게시글 삭제하기" >
+	              
+	                </div>
+                </form>
                 </div>
               </div>
-            </div>
-            <div class="table-responsive">
-            
-         <!-- Projects table -->
-         <table class="table align-items-center table-flush">
-           <thead class="thead-light">
-             <tr style="text-align:center">
-               <th scope="col" style="width:100px">게시글 번호</th>
-               <th scope="col" style="width:200px">작성자</th>
-               <th scope="col" style="width:500px">게시글 제목</th>
-               <th scope="col" style="width:100px">조회수</th>
-               <th scope="col" style="width:150px">게시글 작성 일자</th>
-             </tr>
-           </thead>
-           <tbody>
-            <c:forEach var="freeBoard" items="${ requestScope.freeBoardList }">
-             <tr style="text-align:center">
-                <td scope="col" style="width:100px">${ freeBoard.freeBoardNo } </td>
-                <td scope="col" style="width:200px"> ${ sessionScope.loginuser.memberId }
-		                							 <input type="hidden" name="memberNo" value="${ loginuser.memberId }"> 
-		                							 <!-- 오류 : 다시확인 로그인한 유저로 걍 다 바뀜 -->
-                <td scope="col" style="width:500px"> 
-                	<a href="freeboarddetail?freeBoardNo=${ freeBoard.freeBoardNo }"> ${ freeBoard.freeBoardTitle }</a>
-                </td>
-                <td scope="col" style="width:100px">${ freeBoard.freeBoardViewCount } </td>
-                <td scope="col" style="width:150px"><fmt:formatDate value="${ freeBoard.freeBoardDate }" pattern="yyyy-MM-dd hh:mm"/></td>
-             </tr>
-            </c:forEach>
-           </tbody>
-         </table>
-       </div>
-     </div>
-   </div>
+           </div> 
+          </div>
+        </div>
+      </div>
+    </div>
 <br>
 <br>
+		<!-- 자유게시글 댓글 쓰기 기능 구현 --> 
+	<div class="container-fluid mt--7">
+      <div class="row mt-5">
+        <div class="col-xl-8 mb-5 mb-xl-0">
+          <div class="card shadow">
+            <div class="card-header border-0">
+              <div class="row align-items-center">
+                <div class="col">
+                <h5 class="mb-0">1대1게시글 답변</h5>
+                	<form id="commentform" action="freeboard-comment" method="post">
+                		<input type="hidden" name="" value="" />
+                		<table class="table align-items-center">
+                			<tr>
+                				<td style="width: 750px"><textarea id="comment_content"
+								name="content" style="width: 100%; resize:none;" rows="2"></textarea></td>
+								<td style="width: 50px; vertical-align: middle; border-radius:80px">
+								<input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="댓글등록하기" >
+								</a>
+								</td>
+                			</tr>
+                		</table>
+                 </div>
+              </div>
+           </div> 
+          </div>
+        </div>
+      </div>
+    </div>
 <br>
 <br>
 <br>
@@ -343,6 +400,21 @@
 <br>
 <br>
 <br>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script>
+$(function() {
+	$('#getBack').on('click', function(event) {
+		location.href= 'privateqnalist'
+	
+})
+		
+});
+</script>
+
+
+
+
+
   <!--   Core   -->
   <script src="/rental-project/resources/js/plugins/jquery/dist/jquery.min.js"></script>
   <script src="/rental-project/resources/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

@@ -7,13 +7,14 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.rentalproject.dto.FreeBoardDto;
 
 @Mapper
 public interface FreeBoardMapper {
 	
-	@Insert("insert into FreeBoard (freeBoardTitle, freeBoardContent) "        // 자유게시판 작성 데이터 
+	@Insert("insert into FreeBoard (freeBoardTitle, freeBoardContent) "        // 자유게시판 게시글 작성 데이터 
 			+ "values (#{ freeBoardTitle }, #{ freeBoardContent })")
 	
 	@Options(useGeneratedKeys = true, keyProperty = "freeBoardNo")             // insert 후 생성된 자동증가 번호 DTO에 저장
@@ -27,8 +28,11 @@ public interface FreeBoardMapper {
 	
 	List<FreeBoardDto> selectAllFreeBoard();
 	
-	@Select("select freeBoardNo, freeBoardTitle, memberNo, freeBoardDate, freeBoardViewCount, freeBoardContent "
+	@Select("select freeBoardNo, freeBoardTitle, memberNo, freeBoardDate, freeBoardViewCount, freeBoardContent " // 자유게시판 게시글 상세보기
 			+ "from FreeBoard where freeBoardNo = #{ freeBoardNo }")
 	FreeBoardDto selectFreeBoardByFreeBoardNo(@Param("freeBoardNo")int freeBoardNo);
 
+	@Update("update FreeBoard "
+			+ "set freeBoardTitle = #{ freeBoardTitle }, freeBoardContent = #{ freeBoardContent")  // 자유게시판 게시글 수정하기 
+	void updateFreeBoard(FreeBoardDto freeBoard);
 }

@@ -32,7 +32,7 @@ public class AccountController {
 		return "account/register";
 	}
 	
-	// 회원가입 등록된 경우
+	// 회원가입 등록
 	@PostMapping(path= {"register"})
 	public String register(@ModelAttribute("member") MemberDto member) {
 		
@@ -62,11 +62,13 @@ public class AccountController {
 		}
 	}
 	
-	// 로그아웃 실행하면 홈으로 돌아간다
+	// 로그아웃 실행
 	@GetMapping(path= {"/logout"})
 	public String logout(HttpSession session) {
 		
 		session.removeAttribute("loginuser");
 		return "redirect:/home";
 	}
+	
+	
 }

@@ -1,21 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 
-<!--
 
-=========================================================
-* Argon Dashboard - v1.1.2
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -149,7 +135,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="/rental-project/freeboard/list">
+            <a class="nav-link " href="/rental-project/freeboard/freeboardlist">
               <i class="ni ni-bullet-list-67 text-red"></i> 자유게시판
             </a>
           </li>
@@ -276,7 +262,7 @@
                   <h3 class="mb-0">자유게시글쓰기</h3>
                   <br>
                   <br>
-                  <form action="write" method="post">
+                  <form action="freeboardwrite" method="post">
                    <table>
 		            <tr>
 		                <th>글제목</th>
@@ -287,8 +273,8 @@
 		            <tr>
 		                <th>작성자</th>
 		                <td>
-		                	${ sessionScope.loginuser.id }
-		                	<input type="hidden" name="memberId" value="${ loginuser.id }">
+		                	${ sessionScope.loginuser.memberId }
+		                	<input type="hidden" name="memberNo" value="${ loginuser.memberId }">
 		                </td>
 		            </tr>
 		            <tr>
@@ -316,6 +302,14 @@
         </div>
       </div>
     </div>
+	    <script>
+	    window.addEventListener("load", function(event) {
+	    	const btnCancel = document.querySelector("#btnCancel");
+	    	btnCancel.addEventListener("click",function(event) {
+	    		location.href="freeboardlist";
+	    	});
+	    });
+	    </script>
 <br>
 <br>
 <br>

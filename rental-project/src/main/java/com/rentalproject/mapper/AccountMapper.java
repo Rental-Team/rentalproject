@@ -2,7 +2,6 @@ package com.rentalproject.mapper;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.rentalproject.dto.MemberDto;
@@ -18,9 +17,11 @@ public interface AccountMapper {
 	
 	void insertMember(MemberDto member);
 	
-	// 로그인
+	// 로그인 = 프로필에 조회할 내용과 일치해서 따로 ProfileMapper에 만들지 않음
 	@Select("select memberNo, memberId, password, userName, nickname, " + 
 			"phoneNo, email, address, deposite, regDate, deleteCheck " + 
 			"from Member where memberId = #{memberId} and password = #{password}")
 	MemberDto selectMemberByIdAndPw(MemberDto member);
+	
+	
 }

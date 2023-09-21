@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="utf-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"  pageEncoding="utf-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!--
 
 =========================================================
@@ -282,21 +283,21 @@
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
-                    <th scope="col">문의제목</th>
-                    <th scope="col">문의유형</th>
-                     <th scope="col">작성자</th>
                     <th scope="col">문의번호</th>
+                    <th scope="col">제목</th>
+                     <th scope="col">작성자</th>
+                    <th scope="col">문의유형</th>
                     <th scope="col">문의글 작성 일자</th>
                   </tr>
                 </thead>
-                 <c:forEach var="privateqna" items="${boardList}">
+                 <c:forEach var="privateqna" items="${qnaBoardList}">
                   <tr>                  
-                  <th scope="row">
-                  <a href="privateqnadetail?qnaNo=${ privateqna.qnaNo }">${ privateqna.qnaTitle }</a>                  		
-                  </th>             
+                   <td>${ privateqna.qnaNo }</td>           		   
+                  <td>                      
+                   <a href="privateqnadetail?qnaNo=${ privateqna.qnaNo }">${ privateqna.qnaTitle }</a>   
+                  </td>         
                   <td>${ privateqna.qnaType }</td>                                        
-                  <td>${ privateqna.qnaNo }</td>
-                  <td>${ privateqna.qnaNo }</td>
+                  <td>작성자</td>
                   <td>${ privateqna.qnaDate }</td>
                   </tr>
                   </c:forEach>
