@@ -45,59 +45,44 @@
     <jsp:include page="/WEB-INF/views/modules/navbar-content.jsp" />
     <div class="container-fluid mt--7">
       <div class="row">
-      </div>
-      <div class="row mt-5">
         <div class="col-xl-12 mb-5 mb-xl-0">
-          <div class="card shadow">
-            <div class="card-header border-0">
+        	<div class="card bg-secondary shadow">
+            <div class="card-header bg-white border-0">
               <div class="row align-items-center">
-                <div class="col">
-                  <h3 class="mb-1">상품 설명</h3>
+                <div class="col-8">
+                  <h3 class="mb-0">상품 등록</h3>
                 </div>
-                <div class="col text-right">
-                  <a href="#!" class="btn btn btn-primary">목록</a>
+                <div class="col-4 text-right">
+                  <a href="#!" class="btn btn-primary">목록</a>
                 </div>
               </div>
             </div>
-			 <div class="card-body">
+            <div class="card-body">
               <form  action="write" method="post">
               <input type="hidden" name="categoryName" value="가전">
                 <!-- <h6 class="heading-small text-muted mb-4">User information</h6> -->
-                <div class="pl-lg-12" style="magin : 0 auto;">
+                <div class="pl-lg-4">
                   <div class="row">
-                    <div class="col-lg-6" >
-                      <div class="form-group focused">
-                        <label class="form-control-label"for="input-itemName">상품명</label>
-                        <input disabled="disabled" type="text" id="input-itemName"  name="itemName" class="form-control form-control-alternative" value="${ item.itemName }">
-                           </div>
-                    </div>
-                        <div class="col-lg-6">
+                    <div class="col-lg-12">
                       <div class="form-group">
-                        <label class="form-control-label"  for="input-itemDate">등록 날짜</label>
-                        <input disabled="disabled" type="regDate" id="input-itemDate" name="itemDate" class="form-control form-control-alternative"  value="${ item.itemDate }"/>           
+                        <label class="form-control-label" for="input-itemName">상품명</label>
+                        <input type="text" id="input-itemName" name="itemName"  class="form-control form-control-alternative" placeholder="상품명을 입력하세요.">
                       </div>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-lg-6">
-                      <div class="form-group">
-                        <label class="form-control-label" for="input-categoryName">상품 분류</label>
-                        <input disabled="disabled" type="text" id="input-categoryName" name="categoryName" class="form-control form-control-alternative" value="${ item.categoryName }">
-                      </div>
-                  </div>
-                  
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                       <div class="form-group">
                         <label class="form-control-label" for="input-itemCode">상품 코드</label>
-                        <input disabled="disabled" type="text" id="input-itemCode" name="itemCode" class="form-control form-control-alternative" value="${ item.itemCode }">
+                        <input type="number" id="input-itemCode" name="itemCode" class="form-control form-control-alternative" placeholder="상품 코드를 입력하세요">
                       </div>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-lg-2">
+                    <div class="col-lg-12">
                       <div class="form-group">
                         <label class="form-control-label" for="input-itemPrice">상품 가격</label>
-                        <input disabled="disabled" type="number" id="input-itemPrice" name="itemPrice" class="form-control form-control-alternative" value="${ item.itemPrice }">
+                        <input type="text" id="input-itemPrice" name="itemPrice" class="form-control form-control-alternative" placeholder="상품가격을 입력하세요">
                       </div>
                     </div>
                   </div>
@@ -105,22 +90,21 @@
                     <div class="col-lg-12">
                       <div class="form-group">
                         <label class="form-control-label" for="input-itemDetail">상세 설명</label>
-                        <textarea disabled="disabled" id="input-itemDetail" name="itemDetail" class="form-control form-control-alternative" rows="15" style="resize: none" >${ item.itemDetail }</textarea>
+                        <textarea id="input-itemDetail" name="itemDetail" class="form-control form-control-alternative" placeholder="설명을 입력하세요" rows="15" style="resize: none"></textarea>
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="text-right">
-                        <a href="edit?itemNo=${ item.itemNo }" class ="btn btn-primary">수정</a> 
-				        <a href="javascript:" class ="btn btn-primary" id="delete-item">삭제</a>
+                        <button type="submit" class ="btn btn-primary">글쓰기</button> 
+				        <button type="button" class ="btn btn-primary" id="btnCancel">취소</button>
                       </div>
                     </div>
                   </div>
                 </div>
                 
               </form>
-            </div>
             </div>
           </div>
         </div>
@@ -168,17 +152,6 @@
         token: "ee6fab19c5a04ac1a32a645abde4613a",
         application: "argon-dashboard-free"
       });
-  </script>
-  
-  <script>
-  $(function(event) {
-	  $('#delete-item').on('click', function(event) {
-		  const ok = confirm(${ item.itemNo } + "번 삭제?");
-			if (ok) {
-				location.href = 'delete/' + ${ item.itemNo };
-			}
-	  });
-  });
   </script>
 </body>
 

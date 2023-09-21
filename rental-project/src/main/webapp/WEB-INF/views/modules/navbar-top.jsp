@@ -24,26 +24,26 @@
             <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
               
-                <span class="avatar avatar-sm rounded-circle">
+              <!--   <span class="avatar avatar-sm rounded-circle">
                   <img alt="Image placeholder" src="/rental-project/resources/img/theme/team-4-800x800.jpg">
-                </span>
+                </span> -->
  				<c:choose>
 					<c:when test="${ loginuser eq null }">
 		                <div class="media-body ml-2 d-none d-lg-block">
-		                <a href="/rental-project/account/login">
-		                <span class="mb-0 text-sm  font-weight-bold">로그인</span>
+		                <a href="/rental-project/account/login" style="color : inherit;">
+		                <span class="mb-0 text  font-weight-bold">로그인</span>
 		                </a>
 		                </div>
                 
 		                <div class="media-body ml-2 d-none d-lg-block">
-		                <a href="/rental-project/account/register">
-		                <span class="mb-0 text-sm  font-weight-bold">회원가입</span>
+		                <a href="/rental-project/account/register" style="color : inherit;">
+		                <span class="mb-0 text  font-weight-bold">회원가입</span>
 		                </a>
 		                </div>
                 	</c:when>
                 	<c:otherwise>
                 		${ sessionScope.loginuser.memberId }님
-                		<a href="/rental-project/account/logout">로그아웃</a>
+                		<a href="/rental-project/account/logout" style="color : inherit;">로그아웃</a>
                 	</c:otherwise>
                 </c:choose>
                 

@@ -7,8 +7,8 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <!-- Brand -->
-      <a class="navbar-brand pt-0" href="./index.html">
-        <img src="/rental-project/resources/img/brand/blue.png" class="navbar-brand-img" alt="...">
+      <a class="navbar-brand pt-0" href="/rental-project/home">
+        <img src="/rental-project/resources/img/brand/225.png" class="navbar-brand-img" alt="...">
       </a>
       <!-- User -->
       <ul class="nav align-items-center d-md-none">
@@ -92,23 +92,23 @@
         <!-- Navigation -->
         <ul class="navbar-nav">
           <li class="nav-item  active ">
-            <a class="nav-link  active " href="./index.html">
-              <i class="ni ni-tv-2 text-primary"></i> Dashboard
+            <a class="nav-link  active " href="/rental-project/home">
+              <i class="ni ni-tv-2 text-primary"></i> 대시보드
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="./examples/icons.html">
-              <i class="ni ni-planet text-blue"></i> Icons
+              <i class="ni ni-planet text-blue"></i> 아이콘
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="./examples/maps.html">
-              <i class="ni ni-pin-3 text-orange"></i> Maps
+              <i class="ni ni-pin-3 text-orange"></i> 지도
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="./examples/profile.html">
-              <i class="ni ni-single-02 text-yellow"></i> User profile
+              <i class="ni ni-single-02 text-yellow"></i> 유저프로필
             </a>
           </li>
           <li class="nav-item">
@@ -118,17 +118,17 @@
           </li>
            <li class="nav-item">
             <a class="nav-link " href="/rental-project/freeboard/freeboardlist">
-              <i class="ni ni-bullet-list-67 text-red"></i> 자유게시판
+              <i class="ni ni-bullet-list-67 text-red"></i> 자유 게시판
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/rental-project/account/login">
-              <i class="ni ni-key-25 text-info"></i> Login
+              <i class="ni ni-key-25 text-info"></i> 로그인
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/rental-project/account/register">
-              <i class="ni ni-circle-08 text-pink"></i> Register
+              <i class="ni ni-circle-08 text-pink"></i> 회원가입
             </a>
           </li>
         </ul>
