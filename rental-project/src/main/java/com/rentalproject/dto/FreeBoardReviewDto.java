@@ -1,12 +1,16 @@
 package com.rentalproject.dto;
 
 import java.util.Date;
+import java.util.List;
 
+import lombok.Data;
+
+@Data
 public class FreeBoardReviewDto {
 	
 	private int freeBoardReplyNo;
 	private int freeBoardNo;
-	private int replyContent;
+	private String replyContent;
 	private Date replyCreateDate;
 	private Date replyModifiYDate;
 	private int replyParents;
@@ -14,6 +18,8 @@ public class FreeBoardReviewDto {
 	private int replyDepth;
 	private String replyWriter;
 	private boolean replyDelete;
+	
+
 	
 	
 

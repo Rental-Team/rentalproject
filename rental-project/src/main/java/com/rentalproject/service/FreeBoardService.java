@@ -12,4 +12,6 @@ public interface FreeBoardService {
 	
 	FreeBoardDto findFreeBoardByFreeBoardNo(int freeBoardNo); // free보드 넘버로 보드 찾기
 
+	void editFreeBoard(FreeBoardDto freeBoard);
+
 }

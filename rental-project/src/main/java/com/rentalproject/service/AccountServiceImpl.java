@@ -6,7 +6,7 @@ import com.rentalproject.mapper.AccountMapper;
 
 import lombok.Setter;
 
-public class AccountServiceImpl implements AccountService{
+public class AccountServiceImpl implements AccountService {
 
 	@Setter
 	private AccountDao accountDao;
@@ -14,12 +14,12 @@ public class AccountServiceImpl implements AccountService{
 	@Setter
 	private AccountMapper accountMapper;
 	
-	@Override
+	@Override // 회원가입
 	public void register(MemberDto member) {
 		accountMapper.insertMember(member);
 	}
 	
-	@Override
+	@Override // 로그인
 	public MemberDto findLoginMember(MemberDto member) {
 		
 		MemberDto loginMember = accountMapper.selectMemberByIdAndPw(member);

@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"  pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -136,7 +135,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="/rental-project/freeboard/list">
+            <a class="nav-link " href="/rental-project/freeboard/freeboardlist">
               <i class="ni ni-bullet-list-67 text-red"></i> 자유게시판
             </a>
           </li>
@@ -249,6 +248,9 @@
 	<br>
 	<br>
 	<br>
+	<br>
+	<br>
+	<br>
     <!-- Header -->
     <div class="container-fluid mt--7">
       <div class="row mt-5">
@@ -257,45 +259,59 @@
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">자유게시판</h3>
-                </div>
-                <div class="col text-right">
-                  <a href="freeboardwrite" class="btn btn-sm btn-primary">게시글 작성</a>
+                  <h3 class="mb-0">자유게시글수정하기</h3>
+                  <br>
+                  <br>
+                  <form action="freeboardedit" method="post">
+                  <input type="hidden" name="freeBoard" value="${ requestScope.freeBoard.freeBoardNo }">
+                   <table>
+		            <tr>
+		                <th>글제목</th>
+		                <td>
+		                    <input type="text" name="freeBoardTitle" style="width:850px" value="${ freeBoard.freeBoardTitle }"/>
+		                    
+		                </td>
+		            </tr>
+		            <tr>
+		                <th>작성자</th>
+		                <td>
+		                	${ sessionScope.loginuser.memberId }
+		                	<input type="hidden" name="memberNo" value="${ loginuser.memberId }">
+		                </td>
+		            </tr>
+		            <tr>
+		                <th>첨부파일</th>
+		                <td>
+		                	<input type="file" class ="btn btn-sm btn-primary" name="freeBoardAttach" style="width:200px">  
+		                </td>
+		            </tr>
+		            <tr>
+		                <th>글내용</th>
+		                <td>
+		                	<textarea name="freeBoardContent" style="width:850px" rows="15 value="${ freeBoard.freeBoardContent }"></textarea>
+		                </td>
+		            </tr>
+		        </table>
+			        <div class="col text-center">
+			        <input type="submit" class ="btn btn-sm btn-primary" value="수정하기" >
+			        <input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="취소" >
+	                </div>
+                </form>
                 </div>
               </div>
-            </div>
-            <div class="table-responsive">
-            
-         <!-- Projects table -->
-         <table class="table align-items-center table-flush">
-           <thead class="thead-light">
-             <tr style="text-align:center">
-               <th scope="col" style="width:100px">게시글 번호</th>
-               <th scope="col" style="width:200px">작성자</th>
-               <th scope="col" style="width:500px">게시글 제목</th>
-               <th scope="col" style="width:100px">조회수</th>
-               <th scope="col" style="width:150px">게시글 작성 일자</th>
-             </tr>
-           </thead>
-           <tbody>
-            <c:forEach var="freeBoard" items="${ requestScope.freeBoardList }">
-             <tr style="text-align:center">
-                <td scope="col" style="width:100px">${ freeBoard.freeBoardNo } </td>
-                <td scope="col" style="width:200px"> ${ sessionScope.loginuser.memberId }
-		                							 <input type="hidden" name="memberNo" value="${ loginuser.memberId }"> 
-		                							 <!-- 오류 : 다시확인 로그인한 유저로 걍 다 바뀜 -->
-                <td scope="col" style="width:500px"> 
-                	<a href="freeboarddetail?freeBoardNo=${ freeBoard.freeBoardNo }"> ${ freeBoard.freeBoardTitle }</a>
-                </td>
-                <td scope="col" style="width:100px">${ freeBoard.freeBoardViewCount } </td>
-                <td scope="col" style="width:150px"><fmt:formatDate value="${ freeBoard.freeBoardDate }" pattern="yyyy-MM-dd hh:mm"/></td>
-             </tr>
-            </c:forEach>
-           </tbody>
-         </table>
-       </div>
-     </div>
-   </div>
+           </div> 
+          </div>
+        </div>
+      </div>
+    </div>
+	    <script>
+	    window.addEventListener("load", function(event) {
+	    	const btnCancel = document.querySelector("#btnCancel");
+	    	btnCancel.addEventListener("click",function(event) {
+	    		location.href="freeboardlist";
+	    	});
+	    });
+	    </script>
 <br>
 <br>
 <br>

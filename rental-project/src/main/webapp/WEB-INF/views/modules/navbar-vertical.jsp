@@ -107,8 +107,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="./examples/profile.html">
+            <a class="nav-link " href="/rental-project/profile/profile">
               <i class="ni ni-single-02 text-yellow"></i> User profile
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/rental-project/item/list">
+              <i class="ni ni-bullet-list-67 text-red"></i> 상품 게시판
             </a>
           </li>
            <li class="nav-item">

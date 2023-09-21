@@ -1,10 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"  pageEncoding="utf-8"%>
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+    
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+    
 <!DOCTYPE html>
-<html lang="en">
+<<html lang="en">
 
 <head>
   <meta charset="utf-8" />
@@ -31,8 +33,8 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <!-- Brand -->
-      <a class="navbar-brand pt-0" href="./index.html">
-        <img src="/rental-project/resources/img/brand/blue.png" class="navbar-brand-img" alt="...">
+      <a class="navbar-brand pt-0" href="/rental-project/home">
+        <img src="/rental-project/resources/img/brand/225.png" class="navbar-brand-img" alt="...">
       </a>
       <!-- User -->
       <ul class="nav align-items-center d-md-none">
@@ -116,38 +118,38 @@
         <!-- Navigation -->
         <ul class="navbar-nav">
           <li class="nav-item  active ">
-            <a class="nav-link  active " href="./index.html">
-              <i class="ni ni-tv-2 text-primary"></i> Dashboard
+            <a class="nav-link  active " href="/rental-project/home">
+              <i class="ni ni-tv-2 text-primary"></i> ¥ÎΩ√∫∏µÂ
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="./examples/icons.html">
-              <i class="ni ni-planet text-blue"></i> Icons
+              <i class="ni ni-planet text-blue"></i> æ∆¿Ãƒ‹
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="./examples/maps.html">
-              <i class="ni ni-pin-3 text-orange"></i> Maps
+              <i class="ni ni-pin-3 text-orange"></i> ¡ˆµµ
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="./examples/profile.html">
-              <i class="ni ni-single-02 text-yellow"></i> User profile
+              <i class="ni ni-single-02 text-yellow"></i> ¿Ø¿˙«¡∑Œ« 
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="/rental-project/freeboard/list">
-              <i class="ni ni-bullet-list-67 text-red"></i> ÏûêÏú†Í≤åÏãúÌåê
+            <a class="nav-link " href="/rental-project/item/list">
+              <i class="ni ni-bullet-list-67 text-red"></i> ªÛ«∞ ∞‘Ω√∆«
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="./examples/login.html">
-              <i class="ni ni-key-25 text-info"></i> Login
+              <i class="ni ni-key-25 text-info"></i> ∑Œ±◊¿Œ
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="./examples/register.html">
-              <i class="ni ni-circle-08 text-pink"></i> Register
+              <i class="ni ni-circle-08 text-pink"></i> »∏ø¯∞°¿‘
             </a>
           </li>
         </ul>
@@ -188,7 +190,7 @@
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./index.html">Dashboard</a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="/rental-project/item/List">ªÛ«∞ ∞‘Ω√∆«</a>
         <!-- Form -->
         <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
           <div class="form-group mb-0">
@@ -244,8 +246,14 @@
       </div>
     </nav>
     <!-- End Navbar -->
+     <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+      <div class="container-fluid">
+        <div class="header-body">
+          <!-- Card stats -->
+        </div>
+      </div>
+    </div>
     <br>
-	<br>
 	<br>
 	<br>
 	<br>
@@ -257,45 +265,65 @@
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">ÏûêÏú†Í≤åÏãúÌåê</h3>
-                </div>
-                <div class="col text-right">
-                  <a href="freeboardwrite" class="btn btn-sm btn-primary">Í≤åÏãúÍ∏Ä ÏûëÏÑ±</a>
+
+                 
+                   <table>
+		            <tr>
+		                <th>ªÛ«∞∏Ì</th>
+		                <tr>
+		                <td>
+		                   ${ item.itemName }
+		                </td>
+		            </tr>
+		            
+		            <tr>
+		                <th>ªÛ«∞ ƒ⁄µÂ</th>
+		                <tr>
+		                <td>
+		                    ${ item.itemCode }
+		                </td>
+		            </tr>
+		            <tr>
+		                <th>∫–∑˘∏Ì</th>
+		                <tr>
+		                <td>
+		                    ${ item.categoryName }
+		                </td>
+		            </tr>
+		            <tr>
+		                <th>µÓ∑œ ¿œ¿⁄</th>
+		                <tr>
+		                <td>
+		                    <fmt:formatDate value ="${ item.itemDate }" pattern="yyyy-MM-dd"/>
+		                </td>
+		            </tr>
+		            <tr>
+		                <th>ªÛ«∞ ∞°∞›</th>
+		                <tr>
+		                <td>
+		                    ${ item.itemPrice }
+		                </td>
+		            </tr>
+		            <tr>
+		            
+		                <th>ªÛºº º≥∏Ì</th>
+		                <tr>
+		                <td>
+		                	${ item.itemDetail }
+		                </td>
+		            </tr>
+		        </table>
+			        <div class="col text-center">
+				        <a href="edit?itemNo=${ item.itemNo }" class="btn btn-sm btn-primary">ºˆ¡§</a>
+				        <a href="javascript:" class="btn btn-sm btn-primary" id="delete-item">ªË¡¶</a>			        
+	                </div>
                 </div>
               </div>
-            </div>
-            <div class="table-responsive">
-            
-         <!-- Projects table -->
-         <table class="table align-items-center table-flush">
-           <thead class="thead-light">
-             <tr style="text-align:center">
-               <th scope="col" style="width:100px">Í≤åÏãúÍ∏Ä Î≤àÌò∏</th>
-               <th scope="col" style="width:200px">ÏûëÏÑ±Ïûê</th>
-               <th scope="col" style="width:500px">Í≤åÏãúÍ∏Ä Ï†úÎ™©</th>
-               <th scope="col" style="width:100px">Ï°∞ÌöåÏàò</th>
-               <th scope="col" style="width:150px">Í≤åÏãúÍ∏Ä ÏûëÏÑ± ÏùºÏûê</th>
-             </tr>
-           </thead>
-           <tbody>
-            <c:forEach var="freeBoard" items="${ requestScope.freeBoardList }">
-             <tr style="text-align:center">
-                <td scope="col" style="width:100px">${ freeBoard.freeBoardNo } </td>
-                <td scope="col" style="width:200px"> ${ sessionScope.loginuser.memberId }
-		                							 <input type="hidden" name="memberNo" value="${ loginuser.memberId }"> 
-		                							 <!-- Ïò§Î•ò : Îã§ÏãúÌôïÏù∏ Î°úÍ∑∏Ïù∏Ìïú Ïú†Ï†ÄÎ°ú Í±ç Îã§ Î∞îÎÄú -->
-                <td scope="col" style="width:500px"> 
-                	<a href="freeboarddetail?freeBoardNo=${ freeBoard.freeBoardNo }"> ${ freeBoard.freeBoardTitle }</a>
-                </td>
-                <td scope="col" style="width:100px">${ freeBoard.freeBoardViewCount } </td>
-                <td scope="col" style="width:150px"><fmt:formatDate value="${ freeBoard.freeBoardDate }" pattern="yyyy-MM-dd hh:mm"/></td>
-             </tr>
-            </c:forEach>
-           </tbody>
-         </table>
-       </div>
-     </div>
-   </div>
+           </div> 
+          </div>
+        </div>
+      </div>
+    </div>
 <br>
 <br>
 <br>
@@ -359,6 +387,17 @@
         application: "argon-dashboard-free"
       });
   </script>
+  <script>
+  		$(function(event) {
+  			$('#delete-item').on('click', function(event) {
+  				const ok = confirm(${ item.itemNo } + "π¯ ªË¡¶?");
+				if (ok) {
+					location.href = 'delete/' + ${ item.itemNo };
+				}
+  			});
+  			
+  		})
+  		
+  </script>
 </body>
-
 </html>

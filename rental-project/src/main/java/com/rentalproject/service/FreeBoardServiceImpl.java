@@ -5,12 +5,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.rentalproject.dto.FreeBoardDto;
+import com.rentalproject.dto.FreeBoardReviewDto;
 import com.rentalproject.mapper.FreeBoardMapper;
+import com.rentalproject.mapper.FreeBoardReviewMapper;
 
 public class FreeBoardServiceImpl implements FreeBoardService{
 	
 	@Autowired
 	private FreeBoardMapper freeboardMapper;
+	
+	@Autowired
+	private FreeBoardReviewMapper freeBoardReviewMapper;
 	
 	@Override
 	public void writeFreeBoard(FreeBoardDto freeboard) throws Exception {
@@ -30,9 +35,18 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	@Override
 	public FreeBoardDto findFreeBoardByFreeBoardNo(int freeBoardNo) {
 		
-		FreeBoardDto freeBoard = freeboardMapper.selectFreeBoardByFreeBoardNo(freeBoardNo);
+		FreeBoardDto freeBoard = freeboardMapper.selectFreeBoardByFreeBoardNo(freeBoardNo); // 자유게시판 글 중 하나 클릭할때 그 게시글 조회
 		
-		return freeBoard;
+		List<FreeBoardReviewDto> freeBoardReviewList = freeBoardReviewMapper.selectFreeBoardReviewByFreeBaordNo(freeBoardNo);
+		freeBoard.setFreeBoardReviewList(freeBoardReviewList); // 자유게시판 상세보기 하단 댓글 조회
+		
+		return freeBoard; 
+		
+	}
+	
+	@Override
+	public void editFreeBoard(FreeBoardDto freeBoard) {
+		freeboardMapper.updateFreeBoard(freeBoard);
 	}
 
 }

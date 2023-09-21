@@ -13,11 +13,16 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.rentalproject.mapper.AccountMapper;
+import com.rentalproject.mapper.ProfileMapper;
 import com.rentalproject.service.AccountServiceImpl;
+import com.rentalproject.service.FreeBoardReviewService;
+import com.rentalproject.service.FreeBoardReviewServiceImpl;
 import com.rentalproject.service.FreeBoardService;
 import com.rentalproject.service.FreeBoardServiceImpl;
+import com.rentalproject.service.ItemServiceImpl;
 import com.rentalproject.service.PrivateQnaService;
 import com.rentalproject.service.PrivateQnaServiceImpl;
+import com.rentalproject.service.ProfileServiceImpl;
 
 import lombok.Setter;
 
@@ -57,13 +62,20 @@ public class RootConfiguration implements ApplicationContextAware{
 			return jdbcTemplate;
 		}
 	
-	@Bean
+	@Bean // 계정 관련
 	public AccountServiceImpl accountService() {
 		AccountServiceImpl accountService = new AccountServiceImpl();
 		accountService.setAccountMapper(applicationcontext.getBean(AccountMapper.class));
 		
 		return accountService;
 	}
+	
+	@Bean // 프로필
+	public ProfileServiceImpl profileService() {
+		ProfileServiceImpl profileService = new ProfileServiceImpl();
+		return profileService;
+	}
+	
 	
 	@Bean
 	public SqlSessionFactory sqlSessionFactory() throws Exception{
@@ -90,4 +102,20 @@ public class RootConfiguration implements ApplicationContextAware{
 		return freeboardService;
 	}
 	
+<<<<<<< HEAD
+	@Bean
+	public FreeBoardReviewService freeboardReviewService () {
+		FreeBoardReviewService freeboardReviewService = new FreeBoardReviewServiceImpl ();
+		return freeboardReviewService;
+	}
+=======
+	
+	@Bean
+	public ItemServiceImpl itemService() {
+		ItemServiceImpl itemService = new ItemServiceImpl();
+		
+		return itemService;
+	}
+	
+>>>>>>> fd839512ff50fd61d874ef946f2e01c47a3440e0
 }
