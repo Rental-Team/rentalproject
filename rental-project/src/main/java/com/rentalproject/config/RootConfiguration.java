@@ -16,6 +16,7 @@ import com.rentalproject.mapper.AccountMapper;
 import com.rentalproject.service.AccountServiceImpl;
 import com.rentalproject.service.FreeBoardService;
 import com.rentalproject.service.FreeBoardServiceImpl;
+import com.rentalproject.service.ItemServiceImpl;
 import com.rentalproject.service.PrivateQnaService;
 import com.rentalproject.service.PrivateQnaServiceImpl;
 
@@ -88,6 +89,14 @@ public class RootConfiguration implements ApplicationContextAware{
 	public FreeBoardService freeboardService () {
 		FreeBoardService freeboardService = new FreeBoardServiceImpl ();
 		return freeboardService;
+	}
+	
+	
+	@Bean
+	public ItemServiceImpl itemService() {
+		ItemServiceImpl itemService = new ItemServiceImpl();
+		
+		return itemService;
 	}
 	
 }
