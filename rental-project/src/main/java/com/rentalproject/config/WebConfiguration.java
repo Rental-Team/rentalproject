@@ -23,13 +23,7 @@ public class WebConfiguration implements WebMvcConfigurer {
 		return viewResolver;
 	}
 	
-	// 
-	/*
-	 * @Bean CommonsMultipartResolver multipartResolver() {
-	 * 
-	 * CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-	 * multipartResolver.setDefaultEncoding("utf-8"); return multipartResolver; }
-	 */
+	 
 	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {

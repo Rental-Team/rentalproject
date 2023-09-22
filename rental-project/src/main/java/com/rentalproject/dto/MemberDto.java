@@ -18,4 +18,6 @@ public class MemberDto {
 	private int deposite;
 	private Date regDate;
 	private boolean deleteCheck;
+	private String introduce;
+	private String photo;
 }

@@ -29,7 +29,7 @@
 	<jsp:include page="/WEB-INF/views/modules/navbar-top.jsp" />
     <!-- End Navbar -->
     <!-- Header -->
-    <form action="profileedit" method="post">
+    <form action="profileedit" method="post" enctype="multipart/form-data">
 
     <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(../assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
       <!-- Mask -->

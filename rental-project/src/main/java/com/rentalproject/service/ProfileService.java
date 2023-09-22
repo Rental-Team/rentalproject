@@ -8,6 +8,14 @@ public interface ProfileService {
 
 	void editProfile(MemberDto member);
 
+//	void deleteUser(MemberDto member);
+
+	void editPassword(String password);
+	
+	void deleteUser(String memberId);
+
+	
+
 	
 
 }
