@@ -45,8 +45,6 @@
     <jsp:include page="/WEB-INF/views/modules/navbar-content.jsp" />
     <div class="container-fluid mt--7">
       <div class="row">
-      </div>
-      <div class="row mt-5">
         <div class="col-xl-12 mb-5 mb-xl-0">
           <div class="card shadow">
             <div class="card-header border-0">
@@ -75,7 +73,7 @@
                       <div class="form-group">
                         <label class="form-control-label"  for="input-itemDate">등록 날짜</label>
                         <input disabled="disabled" type="regDate" id="input-itemDate" name="itemDate" class="form-control form-control-alternative"  value="${ item.itemDate }"/>           
-                      </div>
+                   </div>
                     </div>
                   </div>
                   <div class="row">
@@ -124,7 +122,8 @@
             </div>
           </div>
         </div>
-      </div>
+
+      
       <!-- Footer -->
       <footer class="footer">
         <div class="row align-items-center justify-content-xl-between">
@@ -151,8 +150,8 @@
           </div>
         </div>
       </footer>
-    </div>
-  </div>
+            </div>
+      </div>
   <!--   Core   -->
   <script src="/rental-project/resources/js/plugins/jquery/dist/jquery.min.js"></script>
   <script src="/rental-project/resources/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

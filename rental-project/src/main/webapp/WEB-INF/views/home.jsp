@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
   <meta charset="utf-8" />
