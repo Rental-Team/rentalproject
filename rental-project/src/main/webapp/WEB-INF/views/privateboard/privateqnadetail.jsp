@@ -270,7 +270,7 @@
 		            <tr>
 		                <th>문의글 번호</th>
 		                <td>
-		                 	${ requestScope.privateqna.qnaNo }  
+		                 ${ requestScope.privateqna.qnaNo }  
 		                </td>
 		            </tr>
 		            <tr>
@@ -288,14 +288,11 @@
 		      
 		            <tr>
 		                <th>문의글 내용 </th>
-		                <td >
+		                <td>
 		                	${ privateqna.qnaContent }
 		                </td>
 		            </tr>
-		           <tr>
 		           
-		           
-		           </tr>
 		            <tr>
 		                <th>문의글 날짜</th>
 		                <td> 
@@ -332,13 +329,13 @@
     </div>
 <br>
 <br>
-<!-- 1대1 댓글 보기 기능 구현 시작-->
+<!-- 자유게시글 댓글 보기 기능 구현 시작-->
           		
 					<table id = "answer-list" style="text-align:center" class="table align-items-center table-flush">
            				<thead class="thead-light">
 			             <tr style="text-align:center">
 			             
-			               <th scope="col" style="width:300px; font-size:1em; font-weight:bold;">답변내용</th>
+			               <th scope="col" style="width:300px">답변내용</th>
 			               <th scope="col" style="width:150px">답변작성일자</th>
 			            
 			             </tr>
@@ -346,7 +343,7 @@
 			           <tbody>
 			            <c:forEach var="privateQnaAnswer" items="${ privateqna.privateQnaAnswerList }">
 			             <tr style="text-align:center">
-			                <td scope="col" style="width:100px; font-weight:bold; font-size:1em; color:blue;" > ${ privateQnaAnswer.answerContent } </td>
+			                <td scope="col" style="width:100px"> ${ privateQnaAnswer.answerContent } </td>
 			                <td scope="col" style="width:200px"> ${ sessionScope.loginuser.memberId }
 					                							 <input type="hidden" name="memberNo" value="${ loginuser.memberId }"> 
 					                							 <!-- 오류 : 다시확인 로그인한 유저로 걍 다 바뀜 -->
@@ -361,7 +358,7 @@
 			           </tbody>
 			         </table>		
 			         
-<!--1대1 답변 보기 기능 구현 끝-->	
+<!--답변 보기 기능 구현 끝-->	
 <br>
 <br>
 <br>
@@ -447,7 +444,7 @@
         </div>
       </footer>
     </div>
-  
+  </div>
 <br>
 <br>
 <br>

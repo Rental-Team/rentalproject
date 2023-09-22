@@ -259,17 +259,15 @@
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">자유게시글수정하기</h3>
+                  <h3 class="mb-0">자유게시글쓰기</h3>
                   <br>
                   <br>
-                  <form action="freeboardedit" method="post">
-                  <input type="hidden" name="freeBoardNo" value="${ requestScope.freeBoard.freeBoardNo }">
+                  <form action="freeboardwrite" method="post">
                    <table>
 		            <tr>
 		                <th>글제목</th>
 		                <td>
-		                    <input type="text" name="freeBoardTitle" style="width:850px" value="${ freeBoard.freeBoardTitle }"/>
-		                    
+		                    <input type="text" name="freeBoardTitle" style="width:850px" />
 		                </td>
 		            </tr>
 		            <tr>
@@ -288,12 +286,12 @@
 		            <tr>
 		                <th>글내용</th>
 		                <td>
-		                	<textarea name="freeBoardContent" style="width:850px" rows="15">${ freeBoard.freeBoardContent }</textarea>
+		                	<textarea name="freeBoardContent" style="width:850px" rows="15"></textarea>
 		                </td>
 		            </tr>
 		        </table>
 			        <div class="col text-center">
-			        <input type="submit" class ="btn btn-sm btn-primary" value="수정하기" >
+			        <input type="submit" class ="btn btn-sm btn-primary" value="글쓰기" >
 			        <input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="취소" >
 	                </div>
                 </form>
@@ -305,11 +303,10 @@
       </div>
     </div>
 	    <script>
-	    // To Do -> 자바스크립트 제이쿼리로 바꾸기 
 	    window.addEventListener("load", function(event) {
 	    	const btnCancel = document.querySelector("#btnCancel");
 	    	btnCancel.addEventListener("click",function(event) {
-	    		location.href="freeboarddetail";
+	    		location.href="freeboardlist";
 	    	});
 	    });
 	    </script>

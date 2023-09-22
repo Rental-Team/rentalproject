@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
     
     <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
@@ -98,6 +98,8 @@
                 <hr class="my-4" />
                 <p>Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music.</p>
                 <a href="#">Show more</a>
+                <br><br>
+                <a href="#" id="delete-profile" class="btn btn-info">delete</a>
               </div>
             </div>
           </div>
@@ -244,6 +246,7 @@
           </div>
         </div>
       </div>
+     
       <!-- Footer -->
       <footer class="footer">
         <div class="row align-items-center justify-content-xl-between">
@@ -279,6 +282,17 @@
   <!--   Argon JS   -->
   <script src="/rental-project/resources/js/argon-dashboard.min.js?v=1.1.2"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+   <script>
+      $(function(event){
+    	  $('#delete-profile').on('click', function(event) {
+    		  event.preventDefault();
+    		  const yn = confirm("${loginuser.memberId}님 회원 탈퇴하시겠습니까??");
+    		  if (yn) {
+    			  location.href = 'delete/${loginuser.memberId}';
+    		  }
+    	  }); 
+      })
+      </script>
   <script>
     window.TrackJS &&
       TrackJS.install({

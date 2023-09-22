@@ -60,7 +60,16 @@
                  <c:forEach var="Item" items="${ list }">
                  	<tr>
                     	<td><c:out value="${Item.itemNo}" /></td>
-                    	<td><a href="detail?itemNo=${ Item.itemNo }">${ Item.itemName }</a></td>               	 
+                    	<td style="text-align:left;padding-left:10px">
+						<c:choose>
+							<c:when test="${ not Item.deleted }">
+								<a href="detail?itemNo=${ Item.itemNo }">${ Item.itemName }</a>
+							</c:when>
+							<c:otherwise>
+								<span class="deleted"> === 삭제된 글 === </span>
+							</c:otherwise>
+						</c:choose>
+						</td>            	 
                     	 <td><c:out value="${Item.viewCount}" /></td>
                     	 <td><fmt:formatDate pattern="yyyy-MM-dd"
                     	  value="${Item.itemDate }" /></td>

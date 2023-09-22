@@ -17,6 +17,10 @@ public class AccountServiceImpl implements AccountService {
 	@Override // 회원가입
 	public void register(MemberDto member) {
 		accountMapper.insertMember(member);
+		
+		
+		
+		
 	}
 	
 	@Override // 로그인

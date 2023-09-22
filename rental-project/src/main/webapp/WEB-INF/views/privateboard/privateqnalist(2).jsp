@@ -1,7 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"  pageEncoding="utf-8"%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<!--
+
+=========================================================
+* Argon Dashboard - v1.1.2
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/argon-dashboard
+* Copyright 2020 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md)
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -135,8 +150,8 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="/rental-project/freeboard/freeboardlist">
-              <i class="ni ni-bullet-list-67 text-red"></i> 자유게시판
+            <a class="nav-link " href="/rental-project/freeboard/list">
+              <i class="ni ni-bullet-list-67 text-red"></i> Tables
             </a>
           </li>
           <li class="nav-item">
@@ -167,8 +182,8 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html">
-              <i class="ni ni-ui-04"></i> Components
+            <a class="nav-link" href="/rental-project/privateboard/privateqnalist">
+              <i class="ni ni-ui-04"></i> 1대1문의
             </a>
           </li>
         </ul>
@@ -248,9 +263,6 @@
 	<br>
 	<br>
 	<br>
-	<br>
-	<br>
-	<br>
     <!-- Header -->
     <div class="container-fluid mt--7">
       <div class="row mt-5">
@@ -259,60 +271,43 @@
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">자유게시글수정하기</h3>
-                  <br>
-                  <br>
-                  <form action="freeboardedit" method="post">
-                  <input type="hidden" name="freeBoardNo" value="${ requestScope.freeBoard.freeBoardNo }">
-                   <table>
-		            <tr>
-		                <th>글제목</th>
-		                <td>
-		                    <input type="text" name="freeBoardTitle" style="width:850px" value="${ freeBoard.freeBoardTitle }"/>
-		                    
-		                </td>
-		            </tr>
-		            <tr>
-		                <th>작성자</th>
-		                <td>
-		                	${ sessionScope.loginuser.memberId }
-		                	<input type="hidden" name="memberNo" value="${ loginuser.memberId }">
-		                </td>
-		            </tr>
-		            <tr>
-		                <th>첨부파일</th>
-		                <td>
-		                	<input type="file" class ="btn btn-sm btn-primary" name="freeBoardAttach" style="width:200px">  
-		                </td>
-		            </tr>
-		            <tr>
-		                <th>글내용</th>
-		                <td>
-		                	<textarea name="freeBoardContent" style="width:850px" rows="15">${ freeBoard.freeBoardContent }</textarea>
-		                </td>
-		            </tr>
-		        </table>
-			        <div class="col text-center">
-			        <input type="submit" class ="btn btn-sm btn-primary" value="수정하기" >
-			        <input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="취소" >
-	                </div>
-                </form>
+                  <h3 class="mb-0">1:1문의</h3>
+                </div>
+                <div class="col text-right">
+                  <a href="privateqnawrite" class="btn btn-sm btn-primary">게시글 작성</a>
                 </div>
               </div>
-           </div> 
+            </div>
+            <div class="table-responsive">
+              <!-- Projects table -->
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">문의번호</th>
+                    <th scope="col">제목</th>
+                     <th scope="col">작성자</th>
+                    <th scope="col">문의유형</th>
+                    <th scope="col">문의글 작성 일자</th>
+                  </tr>
+                </thead>
+                 <c:forEach var="privateqna" items="${qnaBoardList}">
+                  <tr>                  
+                   <td>${ privateqna.qnaNo }</td>           		   
+                  <td>                      
+                   <a href="privateqnadetail?qnaNo=${ privateqna.qnaNo }">${ privateqna.qnaTitle }</a>   
+                  </td>         
+                  <td>${ privateqna.qnaType }</td>                                        
+                  <td>작성자</td>
+                  <td>${ privateqna.qnaDate }</td>
+                  </tr>
+                  </c:forEach>
+                
+                
+                        
+              </table>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-	    <script>
-	    // To Do -> 자바스크립트 제이쿼리로 바꾸기 
-	    window.addEventListener("load", function(event) {
-	    	const btnCancel = document.querySelector("#btnCancel");
-	    	btnCancel.addEventListener("click",function(event) {
-	    		location.href="freeboarddetail";
-	    	});
-	    });
-	    </script>
 <br>
 <br>
 <br>
@@ -328,7 +323,7 @@
 <br>
 
       <!-- Footer -->
-      <footer class="footer">
+      <footer class="footer" >
         <div class="row align-items-center justify-content-xl-between">
           <div class="col-xl-6">
             <div class="copyright text-center text-xl-left text-muted">

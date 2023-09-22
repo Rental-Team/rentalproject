@@ -1,7 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 
+<!--
 
+=========================================================
+* Argon Dashboard - v1.1.2
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/argon-dashboard
+* Copyright 2020 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md)
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,8 +44,8 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <!-- Brand -->
-      <a class="navbar-brand pt-0" href="./index.html">
-        <img src="/rental-project/resources/img/brand/blue.png" class="navbar-brand-img" alt="...">
+      <a class="navbar-brand pt-0" href="/rental-project/home">
+        <img src="/rental-project/resources/img/brand/225.png" class="navbar-brand-img" alt="...">
       </a>
       <!-- User -->
       <ul class="nav align-items-center d-md-none">
@@ -115,38 +129,38 @@
         <!-- Navigation -->
         <ul class="navbar-nav">
           <li class="nav-item  active ">
-            <a class="nav-link  active " href="./index.html">
-              <i class="ni ni-tv-2 text-primary"></i> Dashboard
+            <a class="nav-link  active " href="/rental-project/home">
+              <i class="ni ni-tv-2 text-primary"></i> 대시보드
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="./examples/icons.html">
-              <i class="ni ni-planet text-blue"></i> Icons
+              <i class="ni ni-planet text-blue"></i> 아이콘
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="./examples/maps.html">
-              <i class="ni ni-pin-3 text-orange"></i> Maps
+              <i class="ni ni-pin-3 text-orange"></i> 지도
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="./examples/profile.html">
-              <i class="ni ni-single-02 text-yellow"></i> User profile
+              <i class="ni ni-single-02 text-yellow"></i> 유저프로필
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="/rental-project/freeboard/freeboardlist">
-              <i class="ni ni-bullet-list-67 text-red"></i> 자유게시판
+            <a class="nav-link " href="/rental-project/item/list">
+              <i class="ni ni-bullet-list-67 text-red"></i> 상품 게시판
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="./examples/login.html">
-              <i class="ni ni-key-25 text-info"></i> Login
+              <i class="ni ni-key-25 text-info"></i> 로그인
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="./examples/register.html">
-              <i class="ni ni-circle-08 text-pink"></i> Register
+              <i class="ni ni-circle-08 text-pink"></i> 회원가입
             </a>
           </li>
         </ul>
@@ -187,7 +201,7 @@
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./index.html">Dashboard</a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="/rental-project/item/List">상품 게시판</a>
         <!-- Form -->
         <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
           <div class="form-group mb-0">
@@ -243,6 +257,13 @@
       </div>
     </nav>
     <!-- End Navbar -->
+     <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+      <div class="container-fluid">
+        <div class="header-body">
+          <!-- Card stats -->
+        </div>
+      </div>
+    </div>
     <br>
 	<br>
 	<br>
@@ -259,43 +280,47 @@
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">자유게시글수정하기</h3>
+                  <h3 class="mb-0">상품 수정</h3>
                   <br>
                   <br>
-                  <form action="freeboardedit" method="post">
-                  <input type="hidden" name="freeBoardNo" value="${ requestScope.freeBoard.freeBoardNo }">
-                   <table>
+                  <form action="edit" method="post">
+	                  <input type="hidden" name="categoryName" value="가전">
+	                  <input type="hidden" name="itemNo" value="${ item.itemNo }">
+	                   <table>
+			            <tr>
+			                <th>상품명</th>
+			                <tr>
+			                <td>
+			                    <input type="text" name="itemName" style="width:700px" value=${ item.itemName }/>
+			                </td>
+			            </tr>
+			            
 		            <tr>
-		                <th>글제목</th>
+		                <th>상품 코드</th>
+		                <tr>
 		                <td>
-		                    <input type="text" name="freeBoardTitle" style="width:850px" value="${ freeBoard.freeBoardTitle }"/>
-		                    
+		                    <input type="text" name="itemCode" style="width:700px" value=${ item.itemCode } readonly/>
 		                </td>
 		            </tr>
 		            <tr>
-		                <th>작성자</th>
+		                <th>상품 가격</th>
+		                <tr>
 		                <td>
-		                	${ sessionScope.loginuser.memberId }
-		                	<input type="hidden" name="memberNo" value="${ loginuser.memberId }">
+		                    <input type="text" name="itemPrice" style="width:700px" value="${ item.itemPrice }" />
 		                </td>
 		            </tr>
 		            <tr>
-		                <th>첨부파일</th>
+		                <th>상세 설명</th>
+		                <tr>
 		                <td>
-		                	<input type="file" class ="btn btn-sm btn-primary" name="freeBoardAttach" style="width:200px">  
+		                	<textarea name="itemDetail" style="width:700px" rows="15"> ${ item.itemDetail }</textarea>
 		                </td>
 		            </tr>
-		            <tr>
-		                <th>글내용</th>
-		                <td>
-		                	<textarea name="freeBoardContent" style="width:850px" rows="15">${ freeBoard.freeBoardContent }</textarea>
-		                </td>
-		            </tr>
-		        </table>
-			        <div class="col text-center">
-			        <input type="submit" class ="btn btn-sm btn-primary" value="수정하기" >
-			        <input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="취소" >
-	                </div>
+			        </table>
+				        <div class="col text-center">
+				        <input type="submit" class ="btn btn-sm btn-primary" value="상품 수정" >
+				        <input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="취소" >
+		                </div>
                 </form>
                 </div>
               </div>
@@ -304,15 +329,6 @@
         </div>
       </div>
     </div>
-	    <script>
-	    // To Do -> 자바스크립트 제이쿼리로 바꾸기 
-	    window.addEventListener("load", function(event) {
-	    	const btnCancel = document.querySelector("#btnCancel");
-	    	btnCancel.addEventListener("click",function(event) {
-	    		location.href="freeboarddetail";
-	    	});
-	    });
-	    </script>
 <br>
 <br>
 <br>
@@ -376,6 +392,7 @@
         application: "argon-dashboard-free"
       });
   </script>
+  
 </body>
 
 </html>

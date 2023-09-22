@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+    
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 
 
 <!DOCTYPE html>
@@ -135,7 +138,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="/rental-project/freeboard/freeboardlist">
+            <a class="nav-link " href="/rental-project/freeboard/list">
               <i class="ni ni-bullet-list-67 text-red"></i> 자유게시판
             </a>
           </li>
@@ -259,42 +262,60 @@
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">자유게시글수정하기</h3>
+                  <h3 class="mb-0">1:1 문의 게시판</h3>
                   <br>
                   <br>
-                  <form action="freeboardedit" method="post">
-                  <input type="hidden" name="freeBoardNo" value="${ requestScope.freeBoard.freeBoardNo }">
+                  <form action="write" method="post">
                    <table>
 		            <tr>
-		                <th>글제목</th>
+		                <th>문의글 번호</th>
 		                <td>
-		                    <input type="text" name="freeBoardTitle" style="width:850px" value="${ freeBoard.freeBoardTitle }"/>
-		                    
+		                 ${ requestScope.privateqna.qnaNo }  
 		                </td>
 		            </tr>
 		            <tr>
-		                <th>작성자</th>
+		                <th>문의글 유형</th>
 		                <td>
-		                	${ sessionScope.loginuser.memberId }
-		                	<input type="hidden" name="memberNo" value="${ loginuser.memberId }">
+		                	${ privateqna.qnaType }
 		                </td>
 		            </tr>
 		            <tr>
-		                <th>첨부파일</th>
+		                <th>문의글 제목</th>
 		                <td>
-		                	<input type="file" class ="btn btn-sm btn-primary" name="freeBoardAttach" style="width:200px">  
+		                	${ privateqna.qnaTitle }
 		                </td>
 		            </tr>
 		            <tr>
-		                <th>글내용</th>
+		                <th>문의글 내용 </th>
 		                <td>
-		                	<textarea name="freeBoardContent" style="width:850px" rows="15">${ freeBoard.freeBoardContent }</textarea>
+		                	${ privateqna.qnaContent }
 		                </td>
 		            </tr>
-		        </table>
-			        <div class="col text-center">
-			        <input type="submit" class ="btn btn-sm btn-primary" value="수정하기" >
-			        <input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="취소" >
+		            <tr>
+		                <th>문의글 날짜</th>
+		                <td> 
+		                	${ privateqna.qnaDate }
+		                </td>
+		            </tr>
+		            <tr>
+		                <th></th>
+		                <td>
+		                	
+		                </td>
+		            </tr>
+		            <tr>
+		                <th></th>
+		                <td>
+		                	
+		                </td>
+		            </tr> 
+		        </table> 
+			        <br>
+			        <div class="col text-center" >
+			         <input type="button"  id="getBack" class ="btn btn-sm btn-primary" value="목록으로 돌아가기" >
+			        <!-- <input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="게시글 수정하기" > -->
+			        <input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="게시글 삭제하기" >
+	              
 	                </div>
                 </form>
                 </div>
@@ -304,17 +325,36 @@
         </div>
       </div>
     </div>
-	    <script>
-	    // To Do -> 자바스크립트 제이쿼리로 바꾸기 
-	    window.addEventListener("load", function(event) {
-	    	const btnCancel = document.querySelector("#btnCancel");
-	    	btnCancel.addEventListener("click",function(event) {
-	    		location.href="freeboarddetail";
-	    	});
-	    });
-	    </script>
 <br>
 <br>
+		<!-- 자유게시글 댓글 쓰기 기능 구현 --> 
+	<div class="container-fluid mt--7">
+      <div class="row mt-5">
+        <div class="col-xl-8 mb-5 mb-xl-0">
+          <div class="card shadow">
+            <div class="card-header border-0">
+              <div class="row align-items-center">
+                <div class="col">
+                <h5 class="mb-0">1대1게시글 답변</h5>
+                	<form id="commentform" action="freeboard-comment" method="post">
+                		<input type="hidden" name="" value="" />
+                		<table class="table align-items-center">
+                			<tr>
+                				<td style="width: 750px"><textarea id="comment_content"
+								name="content" style="width: 100%; resize:none;" rows="2"></textarea></td>
+								<td style="width: 50px; vertical-align: middle; border-radius:80px">
+								<input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="댓글등록하기" >
+								</a>
+								</td>
+                			</tr>
+                		</table>
+                 </div>
+              </div>
+           </div> 
+          </div>
+        </div>
+      </div>
+    </div>
 <br>
 <br>
 <br>
@@ -360,6 +400,21 @@
 <br>
 <br>
 <br>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script>
+$(function() {
+	$('#getBack').on('click', function(event) {
+		location.href= 'privateqnalist'
+	
+})
+		
+});
+</script>
+
+
+
+
+
   <!--   Core   -->
   <script src="/rental-project/resources/js/plugins/jquery/dist/jquery.min.js"></script>
   <script src="/rental-project/resources/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

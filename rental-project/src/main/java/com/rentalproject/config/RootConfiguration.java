@@ -13,7 +13,6 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.rentalproject.mapper.AccountMapper;
-import com.rentalproject.mapper.ProfileMapper;
 import com.rentalproject.service.AccountServiceImpl;
 import com.rentalproject.service.FreeBoardReviewService;
 import com.rentalproject.service.FreeBoardReviewServiceImpl;
@@ -25,8 +24,6 @@ import com.rentalproject.service.PrivateQnaAnswerServiceImpl;
 import com.rentalproject.service.PrivateQnaService;
 import com.rentalproject.service.PrivateQnaServiceImpl;
 import com.rentalproject.service.ProfileServiceImpl;
-
-import lombok.Setter;
 
 @Configuration
 @MapperScan(basePackages = {"com.rentalproject.mapper"})
@@ -67,7 +64,7 @@ public class RootConfiguration implements ApplicationContextAware{
 	@Bean // 계정 관련
 	public AccountServiceImpl accountService() {
 		AccountServiceImpl accountService = new AccountServiceImpl();
-		accountService.setAccountMapper(applicationcontext.getBean(AccountMapper.class));
+		accountService.setAccountMapper(applicationcontext.getBean(AccountMapper.class)); // setter 방식
 		
 		return accountService;
 	}

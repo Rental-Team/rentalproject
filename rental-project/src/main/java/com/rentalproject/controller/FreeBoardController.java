@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -86,7 +87,12 @@ public class FreeBoardController {
 		
 		FreeBoardDto freeboard = freeBoardService.findFreeBoardByFreeBoardNo(freeBoardNo);
 		
-		model.addAttribute("freeboard", freeboard);
+		if(freeboard == null) { // 조회된 글이 없을때 리스트로 
+			
+			return "redirect:freeboardlist";
+		}
+		
+		model.addAttribute("freeBoard", freeboard);
 		
 		return "freeboard/freeboardedit";
 	}
@@ -99,6 +105,15 @@ public class FreeBoardController {
 		freeBoardService.editFreeBoard(freeboard);
 		
 		return "redirect:freeboardlist";
+	}
+	
+	// 자유게시글 삭제하기
+	@GetMapping(path = {"/freeboarddelete/{freeBoardNo}" })
+	public String freeBoardDelete(@PathVariable("freeBoardNo") int freeBoardNo ) {
+		
+		freeBoardService.deleteFreeBoard(freeBoardNo);
+		
+		return "redirect:/freeboard/freeboardlist";	
 	}
 	
 		
