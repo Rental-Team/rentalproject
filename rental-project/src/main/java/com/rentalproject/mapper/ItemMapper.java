@@ -21,7 +21,7 @@ public interface ItemMapper {
 
 
 
-	@Select("select itemNo, itemName, viewCount, itemDate " +
+	@Select("select itemNo, itemName, viewCount, itemDate, deleted " +
 			"from Item " +
 			"order by itemNo desc")
 	public List<ItemDto> getList();
@@ -40,7 +40,7 @@ public interface ItemMapper {
 	
 	@Update("update Item "
 			+ "set deleted = true "
-			+ "where itemNo = #{ itemNo } and deleted = false")
+			+ "where itemNo = #{ itemNo } ")
 	void deleteBoard(@Param("itemNo") int itemNo);
 	
 }
