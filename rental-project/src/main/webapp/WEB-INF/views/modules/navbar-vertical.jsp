@@ -119,7 +119,7 @@
           </li>
            <li class="nav-item">
             <a class="nav-link " href="/rental-project/freeboard/freeboardlist">
-              <i class="ni ni-bullet-list-67 text-red"></i> 자유 게시판
+              <i class="ni ni-satisfied text-yellow"></i> 자유 게시판
             </a>
           </li>
           <li class="nav-item">

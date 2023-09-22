@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -31,73 +33,51 @@
     <jsp:include page="/WEB-INF/views/modules/navbar-content.jsp" />
     <div class="container-fluid mt--7">
       <div class="row">
-         <div class="col-xl-12 mb-5 mb-xl-0">
+        <div class="col-xl-12 mb-5 mb-xl-0">
           <div class="card shadow">
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">상품 수정</h3>
-                  <br>
-                  <form action="edit" method="post">
-	                  <input type="hidden" name="categoryName" value="가전">
-	                  <input type="hidden" name="itemNo" value="${ item.itemNo }">
-	                  <div class="pl-lg-4">
-			              <div class="row">
-			              <div class="col-lg-12">
-			              <div class="form-group">
-			              	<label class="form-control-label" for="input-itemName">상품명</label>
-			               <input type="text" id="input-itemName" name="itemName" class="form-control form-control-alternative" value=${ item.itemName }/>
-			              </div>
-			              </div>
-			              </div>
-			            <div class="row">
-			            <div class="col-lg-12">
-			            <div class="form-group">
-			            <label class="form-control-label" for="input-itemCode">상품 코드</label>
-			            <input type="text" id="input-itemCode" name="itemCode" class="form-control form-control-alternative" value=${ item.itemCode } />
-			            </div>
-			            </div>
-			            </div>
-		           
-		                    
-		            <div class="row">
-			            <div class="col-lg-12">
-			            <div class="form-group">
-			            <label class="form-control-label" for="input-itemPrice">상품 가격</label>
-			             <input type="text" id="input-itemPrice" name="itemPrice" class="form-control form-control-alternative" value="${ item.itemPrice }" />
-			            </div>
-			            </div>
-			            </div>
-		                   
-		            <div class="row">
-			            <div class="col-lg-12">
-			            <div class="form-group">
-			            <label class="form-control-label" for="input-itemDetail">상세 설명</label>
-			            <textarea name="itemDetail" id="input-itemDetail" class="form-control form-control-alternative" style="resize:none;" rows="15" > ${ item.itemDetail }</textarea>
-			            </div>
-			            </div>
-			            </div>
-		                	
-		          		<div class="row">
-		          		<div class="col-lg-12">
-		          		<div class="text-right">
-				        <input type="submit" class ="btn btn-sm btn-primary" value="상품 수정" >
-				        <input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="취소" >
-		          		</div>
-          			</div> 
-       	   	    </div>  
-               </div>
-                </form>
+                  <h3 class="mb-0">1:1문의</h3>
+                </div>
+                <div class="col text-right">
+                  <a href="privateqnawrite" class="btn btn-sm btn-primary">게시글 작성</a>
                 </div>
               </div>
-           </div> 
+            </div>
+            <div class="table-responsive">
+              <!-- Projects table -->
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">문의번호</th>
+                    <th scope="col">제목</th>
+                     <th scope="col">작성자</th>
+                    <th scope="col">문의유형</th>
+                    <th scope="col">문의글 작성 일자</th>
+                  </tr>
+                </thead>
+                 <c:forEach var="privateqna" items="${qnaBoardList}">
+                  <tr>                  
+                   <td>${ privateqna.qnaNo }</td>           		   
+                  <td>                      
+                   <a href="privateqnadetail?qnaNo=${ privateqna.qnaNo }">${ privateqna.qnaTitle }</a>   
+                  </td>         
+                  <td>${ privateqna.qnaType }</td>                                        
+                  <td>작성자</td>
+                  <td>${ privateqna.qnaDate }</td>
+                  </tr>
+                  </c:forEach>      
+              </table>
+            </div>
           </div>
         </div>
-          </div>
+        </div>
+
       <!-- Footer -->
       <footer class="footer">
         <div class="row align-items-center justify-content-xl-between">
-          <div class="col-xl-6">
+          <div class="col-xl-4">
             <div class="copyright text-center text-xl-left text-muted">
               &copy; 2018 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
             </div>
@@ -121,8 +101,7 @@
         </div>
       </footer>
     </div>
-  </div>
-
+    </div>
   <!--   Core   -->
   <script src="/rental-project/resources/js/plugins/jquery/dist/jquery.min.js"></script>
   <script src="/rental-project/resources/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
