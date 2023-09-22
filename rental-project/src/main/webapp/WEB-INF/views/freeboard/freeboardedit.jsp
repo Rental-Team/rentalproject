@@ -263,7 +263,7 @@
                   <br>
                   <br>
                   <form action="freeboardedit" method="post">
-                  <input type="hidden" name="freeBoard" value="${ requestScope.freeBoard.freeBoardNo }">
+                  <input type="hidden" name="freeBoardNo" value="${ requestScope.freeBoard.freeBoardNo }">
                    <table>
 		            <tr>
 		                <th>글제목</th>
@@ -288,7 +288,7 @@
 		            <tr>
 		                <th>글내용</th>
 		                <td>
-		                	<textarea name="freeBoardContent" style="width:850px" rows="15 value="${ freeBoard.freeBoardContent }"></textarea>
+		                	<textarea name="freeBoardContent" style="width:850px" rows="15">${ freeBoard.freeBoardContent }</textarea>
 		                </td>
 		            </tr>
 		        </table>
@@ -305,10 +305,11 @@
       </div>
     </div>
 	    <script>
+	    // To Do -> 자바스크립트 제이쿼리로 바꾸기 
 	    window.addEventListener("load", function(event) {
 	    	const btnCancel = document.querySelector("#btnCancel");
 	    	btnCancel.addEventListener("click",function(event) {
-	    		location.href="freeboardlist";
+	    		location.href="freeboarddetail";
 	    	});
 	    });
 	    </script>

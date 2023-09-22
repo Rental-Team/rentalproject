@@ -17,15 +17,16 @@ public class FreeBoardReviewController {
 	@Setter(onMethod_= {@Autowired})
 	private FreeBoardReviewService freeBoardReviewService;
 	
-	@PostMapping(path = {"/freeboard-review"})
+	@PostMapping(path = {"/freeboard-review"})   // 댓글 쓰기 
 	public String wrtieFreeBoardReview(FreeBoardReviewDto freeBoardReview) {
 		
 		System.out.println("댓글내용:" + freeBoardReview);
 		
 		freeBoardReviewService.WriteFreeBoardReview(freeBoardReview); 
 		
-		return String.format("redirect:freeboarddetail?freeboardNo=%d", freeBoardReview.getFreeBoardNo());
+		return String.format("redirect:freeboarddetail?freeBoardNo=%d", freeBoardReview.getFreeBoardNo());
 		
 	}
-
+	
+	
 }

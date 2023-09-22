@@ -271,8 +271,8 @@
            <thead class="thead-light">
              <tr style="text-align:center">
                <th scope="col" style="width:100px">게시글 번호</th>
+               <th scope="col" style="width:500px">게시글 제목</th> 
                <th scope="col" style="width:200px">작성자</th>
-               <th scope="col" style="width:500px">게시글 제목</th>
                <th scope="col" style="width:100px">조회수</th>
                <th scope="col" style="width:150px">게시글 작성 일자</th>
              </tr>
@@ -281,14 +281,22 @@
             <c:forEach var="freeBoard" items="${ requestScope.freeBoardList }">
              <tr style="text-align:center">
                 <td scope="col" style="width:100px">${ freeBoard.freeBoardNo } </td>
-                <td scope="col" style="width:200px"> ${ sessionScope.loginuser.memberId }
+                <td scope="col" style="width:500px"> 
+                <c:choose>
+                	<c:when test="${ not freeBoard.freeBoardDelete }">
+                	<a href="freeboarddetail?freeBoardNo=${ freeBoard.freeBoardNo }"> ${ freeBoard.freeBoardTitle }</a>  <!-- 삭제 아닐때 그냥 제목 보이기 -->
+                	</c:when>
+                	<c:otherwise>
+                	<span class="freeBoardDelete" style="color : gray"><< 삭제된 게시글입니다 >></span> <!-- 삭제된 글 화면 보이기 -->
+                	</c:otherwise>
+               	</c:choose>
+                </td>
+                <td scope="col" style="width:200px"> ${ freeBoard.freeBoardDelete? '' : sessionScope.loginuser.memberId } <!-- 게시글 삭제시 작성자 안보이게 설정 -->
 		                							 <input type="hidden" name="memberNo" value="${ loginuser.memberId }"> 
 		                							 <!-- 오류 : 다시확인 로그인한 유저로 걍 다 바뀜 -->
-                <td scope="col" style="width:500px"> 
-                	<a href="freeboarddetail?freeBoardNo=${ freeBoard.freeBoardNo }"> ${ freeBoard.freeBoardTitle }</a>
-                </td>
+                
                 <td scope="col" style="width:100px">${ freeBoard.freeBoardViewCount } </td>
-                <td scope="col" style="width:150px"><fmt:formatDate value="${ freeBoard.freeBoardDate }" pattern="yyyy-MM-dd hh:mm"/></td>
+                <td scope="col" style="width:150px"><fmt:formatDate value="${ freeBoard.freeBoardDate }" pattern="yyyy-MM-dd HH:mm"/></td>
              </tr>
             </c:forEach>
            </tbody>
