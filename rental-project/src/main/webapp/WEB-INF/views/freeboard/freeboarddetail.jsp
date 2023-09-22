@@ -288,7 +288,7 @@
 		            <tr>
 		                <th>게시글 작성 일자</th>
 		                <td>
-		                	<fmt:formatDate value="${ freeBoard.freeBoardDate }" pattern="yyyy-MM-dd hh:mm"/>
+		                	<fmt:formatDate value="${ freeBoard.freeBoardDate }" pattern="yyyy-MM-dd HH:mm"/>
 		                </td>
 		            </tr>
 		            <tr>
@@ -322,26 +322,10 @@
           </div>
         </div>
       </div>
-    </div>
-    	<!-- To DO : 자바스크립트는 j쿼리로 바꾸기 -->
-	    <script>
-		    window.addEventListener("click", function(event) {
-	    	const btnBackToList = document.querySelector("#btnBackToList");
-	    	btnBackToList.addEventListener("click",function(event) {
-	    		location.href="freeboardlist";
-    	});
-    });
-		    
-		    window.addEventListener("click", function(event) {
-		    	const btnedit = document.querySelector("#btnedit");
-		    	btnedit.addEventListener("click",function(event) {
-		    		location.href="freeboardedit" + "?freeBoardNo=" +  ${ requestScope.freeBoard.freeBoardNo };
-	    	});
-	    });
-		    </script>
+    </div>  
 <br>
 <br>
-		<!-- 자유게시글 댓글 쓰기 기능 구현 --> 
+<!-- 자유게시글 댓글 쓰기 기능 구현 --> 
 	<div class="container-fluid mt--7">
       <div class="row mt-5">
         <div class="col-xl-8 mb-5 mb-xl-0">
@@ -349,13 +333,13 @@
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                <h5 class="mb-0">자유게시글 댓글</h5>
-                	<form id="commentform" action="freeboard-review" method="post">
+                	<h5 class="mb-0">자유게시글 댓글</h5>
+                	<form id="freeBaordReivewForm" action="freeboard-review" method="post">
                 		<input type="hidden" name="freeBoardNo" value="${ freeBoard.freeBoardNo }" />
 	                		<table class="table align-items-center">
 	                			<tr>
 	                				<td style="width: 800px;">
-	                				<textarea id="comment_content" name="replyContent" style="width: 105%; resize:none;  border-radius:80px" rows="2"></textarea>
+	                				<textarea id="comment_content" name="replyContent" style="width: 105%; resize:none;  border-radius:80px" rows="2">     </textarea>
 	                				</td>
 									<td style="width: 50px; vertical-align: middle;">
 									<input type="submit" class ="btn btn-sm btn-primary" id="btninsertreview" value="댓글등록하기" >
@@ -365,37 +349,35 @@
 	                		</table>
             		</form>
             		<br>
-          		<!-- 자유게시글 댓글 보기 기능 구현 시작-->
-          		
-					<table id = "review-list" style="text-align:center" class="table align-items-center table-flush">
-           				<thead class="thead-light">
-			             <tr style="text-align:center">
-			               <th scope="col" style="width:50px">댓글번호</th>
-			               <th scope="col" style="width:50px">댓글작성자</th>
-			               <th scope="col" style="width:300px">댓글내용</th>
-			               <th scope="col" style="width:150px">댓글작성일자</th>
-			               <th scope="col" style="width:150px">댓글작성일자</th>
-			             </tr>
-			           </thead>
-			           <tbody>
-			            <c:forEach var="freeBoardReview" items="${ freeBoard.freeBoardReviewList }">
-			             <tr style="text-align:center">
-			                <td scope="col" style="width:100px"> ${ freeBoardReview.freeBoardReplyNo } </td>
-			                <td scope="col" style="width:200px"> ${ sessionScope.loginuser.memberId }
-					                							 <input type="hidden" name="memberNo" value="${ loginuser.memberId }"> 
-					                							 <!-- 오류 : 다시확인 로그인한 유저로 걍 다 바뀜 -->
-			                <td scope="col" style="width:100px">${ freeBoardReview.replyContent} </td>
-			                <td scope="col" style="width:150px"><fmt:formatDate value="${ freeBoardReview.replyCreateDate }" pattern="yyyy-MM-dd hh:mm"/></td>
-			             	<td>
-			             	<input type="button" class ="btn btn-sm btn-primary" id="btnedit" value="댓글수정" >
-				        	<input type="button" class ="btn btn-sm btn-primary" id="btndelete" value="댓글삭제" >
-			             	</td>
-			             </tr>
-			            </c:forEach>
-			           </tbody>
-			         </table>		
-			         
-			         <!-- 자유게시글 댓글 보기 기능 구현 끝-->	
+<!-- 자유게시글 댓글 리스트 보기 기능 구현 시작-->
+	<table id = "review-list" style="text-align:center" class="table align-items-center table-flush">
+       				<thead class="thead-light">
+            <tr style="text-align:center">
+              <th scope="col" style="width:50px">댓글번호</th>
+              <th scope="col" style="width:50px">댓글작성자</th>
+              <th scope="col" style="width:300px">댓글내용</th>
+              <th scope="col" style="width:150px">댓글작성일자</th>
+              <th scope="col" style="width:150px">댓글수정삭제</th>
+            </tr>
+          </thead>
+          <tbody>
+           <c:forEach var="freeBoardReview" items="${ freeBoard.freeBoardReviewList }">
+            <tr style="text-align:center">
+               <td scope="col" style="width:100px"> ${ freeBoardReview.freeBoardReplyNo } </td>
+               <td scope="col" style="width:200px"> ${ sessionScope.loginuser.memberId }
+	                							 <input type="hidden" name="memberNo" value="${ loginuser.memberId }"> 
+	                							 <!-- 오류 : 다시확인 로그인한 유저로 걍 다 바뀜 -->
+               <td scope="col" style="width:100px">${ freeBoardReview.replyContent} </td>
+               <td scope="col" style="width:150px"><fmt:formatDate value="${ freeBoardReview.replyCreateDate }" pattern="yyyy-MM-dd hh:mm"/></td>
+            	<td>
+	            	<input type="button" class ="btn btn-sm btn-primary" id="btnedit" value="댓글수정" >
+	        		<input type="button" class ="btn btn-sm btn-primary" id="btndelete" value="댓글삭제" >
+            	</td>
+            </tr>
+           </c:forEach>
+          </tbody>
+        </table>		
+<!-- 자유게시글 댓글 리스트 보기 기능 구현 끝-->	
                  </div>
               </div>
            </div> 
@@ -464,6 +446,57 @@
         application: "argon-dashboard-free"
       });
   </script>
+  
+      	<!-- To DO : 자바스크립트는 j쿼리로 바꾸기 
+	    <script>
+			window.addEventListener("click", function(event) {
+	    	const btnBackToList = document.querySelector("#btnBackToList");
+	    	btnBackToList.addEventListener("click",function(event) {
+	    		location.href="freeboardlist";
+    		});
+        	const btnedit = document.querySelector("#btnedit");
+		   	btnedit.addEventListener("click", function(event) {
+	    		location.href="freeboardedit" + "?freeBoardNo=" +  ${ freeBoard.freeBoardNo };
+	    	});
+	    
+		   	const btndelete = document.querySelector("#btndelete");          // 삭제시 삭제 알림 메시지 띄우기 
+		   	if (btndelete) {
+		   		btndelete.addEventListener("click",function(event) {
+		   			const yes = confirm(${freeBoard.freeBoardNo} + "번 게시글을 삭제할까요?");
+		   				if (yes) {
+		   					location.href="freeboarddelete/" + ${ freeBoard.freeBoardNo };
+		   				}
+	   		}); 		
+	   		
+	   		const btninsertreview = document.querySelector("#btninsertreview");    // 댓글 등록하기 이벤트 처리 하기 
+    		btninsertreview.addEventListener('click', function(event) {
+    		const freeBaordReivewForm = document.querySelector("freeBaordReivewForm");
+    		freeBaordReivewForm.submit();
+	    	});
+	    	
+	    });
+	    
+		    </script> -->
+		    <script>
+			$(function(event) {
+	    	$("#btnBackToList").on("click",function(event) {                // 자유게시판 목록으로 돌아가기 누르면 freeboardlist로 가기 
+	    		location.href="freeboardlist";
+    		})
+			
+	    	
+        	$("#btnedit").on("click", function(event) {                     // 게시글 수정하기 누르면 게시글 수정하기 form으로가기
+	    		location.href="freeboardedit" + "?freeBoardNo=" +  ${ freeBoard.freeBoardNo };
+	    	})
+	    
+		   $("#btndelete").on("click",function(event) {                   
+		   			const yes = confirm(${freeBoard.freeBoardNo} + "번 게시글을 삭제할까요?");
+	   				if (yes) {
+	   					location.href="freeboarddelete/" + ${ freeBoard.freeBoardNo };
+	   						}
+	   		})	
+	   		
+	    	});
+			</script>
 </body>
 
 </html>

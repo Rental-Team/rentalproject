@@ -44,9 +44,13 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		
 	}
 	
-	@Override
+	@Override   // 자유게시판 게시글 수정 내용 가지고 오기
 	public void editFreeBoard(FreeBoardDto freeBoard) {
 		freeboardMapper.updateFreeBoard(freeBoard);
 	}
-
+	
+	@Override // 자유게시판 게시글 삭제 
+	public void deleteFreeBoard(int freeBoardNo) {
+		freeboardMapper.deleteFreeBoard(freeBoardNo);
+	}
 }
