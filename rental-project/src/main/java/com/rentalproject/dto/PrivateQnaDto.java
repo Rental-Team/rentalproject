@@ -1,6 +1,7 @@
 package com.rentalproject.dto;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -13,6 +14,6 @@ public class PrivateQnaDto {
 	private String qnaContent;//문의 내용 
 	private Date  qnaDate;//문의 작성일자
 	
-	
+	private List<PrivateQnaAnswerDto> privateQnaAnswerList;
 	
 }

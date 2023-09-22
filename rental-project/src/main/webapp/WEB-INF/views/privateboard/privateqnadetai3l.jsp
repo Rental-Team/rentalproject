@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
+<%-- <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
@@ -270,7 +270,7 @@
 		            <tr>
 		                <th>문의글 번호</th>
 		                <td>
-		                 	${ requestScope.privateqna.qnaNo }  
+		                 ${ requestScope.privateqna.qnaNo }  
 		                </td>
 		            </tr>
 		            <tr>
@@ -285,17 +285,12 @@
 		                	${ privateqna.qnaTitle }
 		                </td>
 		            </tr>
-		      
 		            <tr>
 		                <th>문의글 내용 </th>
-		                <td >
+		                <td>
 		                	${ privateqna.qnaContent }
 		                </td>
 		            </tr>
-		           <tr>
-		           
-		           
-		           </tr>
 		            <tr>
 		                <th>문의글 날짜</th>
 		                <td> 
@@ -332,26 +327,26 @@
     </div>
 <br>
 <br>
-<!-- 1대1 댓글 보기 기능 구현 시작-->
+<!-- 자유게시글 댓글 보기 기능 구현 시작-->
           		
 					<table id = "answer-list" style="text-align:center" class="table align-items-center table-flush">
            				<thead class="thead-light">
 			             <tr style="text-align:center">
 			             
-			               <th scope="col" style="width:300px; font-size:1em; font-weight:bold;">답변내용</th>
+			               <th scope="col" style="width:300px">답변내용</th>
 			               <th scope="col" style="width:150px">답변작성일자</th>
 			            
 			             </tr>
 			           </thead>
 			           <tbody>
-			            <c:forEach var="privateQnaAnswer" items="${ privateqna.privateQnaAnswerList }">
+			            <c:forEach var="pirvateQnaAnswer" items="${ privateqna.privateQnaAnswerList }">
 			             <tr style="text-align:center">
-			                <td scope="col" style="width:100px; font-weight:bold; font-size:1em; color:blue;" > ${ privateQnaAnswer.answerContent } </td>
+			                <td scope="col" style="width:100px"> ${ privateQnaAnswer.answerContent } </td>
 			                <td scope="col" style="width:200px"> ${ sessionScope.loginuser.memberId }
 					                							 <input type="hidden" name="memberNo" value="${ loginuser.memberId }"> 
 					                							 <!-- 오류 : 다시확인 로그인한 유저로 걍 다 바뀜 -->
-			               <%--  <td scope="col" style="width:100px">${ freeBoardReview.replyContent} </td>
-			                <td scope="col" style="width:150px"><fmt:formatDate value="${ freeBoardReview.replyCreateDate }" pattern="yyyy-MM-dd hh:mm"/></td> --%>
+			                <td scope="col" style="width:100px">${ freeBoardReview.replyContent} </td>
+			                <td scope="col" style="width:150px"><fmt:formatDate value="${ freeBoardReview.replyCreateDate }" pattern="yyyy-MM-dd hh:mm"/></td>
 			             	<td>
 			             <!-- 	<input type="button" class ="btn btn-sm btn-primary" id="btnedit" value="댓글수정" >
 				        	<input type="button" class ="btn btn-sm btn-primary" id="btndelete" value="댓글삭제" > -->
@@ -361,19 +356,7 @@
 			           </tbody>
 			         </table>		
 			         
-<!--1대1 답변 보기 기능 구현 끝-->	
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+			         <!-- 자유게시글 댓글 보기 기능 구현 끝-->	
 
 
 
@@ -447,7 +430,7 @@
         </div>
       </footer>
     </div>
-  
+  </div>
 <br>
 <br>
 <br>
@@ -494,4 +477,4 @@ $(function() {
   
 </body>
 
-</html>
+</html> --%>

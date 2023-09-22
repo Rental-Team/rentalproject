@@ -284,20 +284,21 @@
                 <thead class="thead-light">
                   <tr>
                     <th scope="col">문의번호</th>
+                    <th scope="col">작성자</th>
                     <th scope="col">제목</th>
-                     <th scope="col">작성자</th>
+                    
                     <th scope="col">문의유형</th>
                     <th scope="col">문의글 작성 일자</th>
                   </tr>
                 </thead>
-                 <c:forEach var="privateqna" items="${qnaBoardList}">
+                 <c:forEach var="privateqna" items="${ requestScope.qnaBoardList}">
                   <tr>                  
-                   <td>${ privateqna.qnaNo }</td>           		   
+                   <td>${ privateqna.qnaNo }</td>
+                   <td>${sessionScope.loginuser.memberId}</td>           		   
                   <td>                      
                    <a href="privateqnadetail?qnaNo=${ privateqna.qnaNo }">${ privateqna.qnaTitle }</a>   
                   </td>         
                   <td>${ privateqna.qnaType }</td>                                        
-                  <td>작성자</td>
                   <td>${ privateqna.qnaDate }</td>
                   </tr>
                   </c:forEach>

@@ -287,8 +287,8 @@
 		            <tr>
 		                <th>작성자</th>
 		                <td>
-		                	<%-- ${ sessionScope.loginuser.memberId }
-		                	<input type="hidden" name="memberNo" value="${ loginuser.memberId }"> --%>
+		                	${ sessionScope.loginuser.memberId }
+		                	<input type="hidden" name="memberNo" value="${ loginuser.memberId }">
 		                </td>
 		            </tr>
 		            <tr>

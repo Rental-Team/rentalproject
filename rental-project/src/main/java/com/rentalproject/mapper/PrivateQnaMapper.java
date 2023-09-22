@@ -18,7 +18,7 @@ public interface PrivateQnaMapper {
 	void insertBoard(PrivateQnaDto privateqna);
 	
 	
-	@Select( "select QnANo, QnaType, QnATitle, QnAContent, QnaDate "
+	@Select( "select QnANo, QnaType, QnATitle, QnAContent, QnaDate, memberNo "
 			+ "from PrivateQ "
 			+ "order by QnANo desc")
 			List<PrivateQnaDto>selectAllBoard();
