@@ -31,69 +31,75 @@
     <jsp:include page="/WEB-INF/views/modules/navbar-content.jsp" />
     <div class="container-fluid mt--7">
       <div class="row">
-         <div class="col-xl-12 mb-5 mb-xl-0">
+        <div class="col-xl-12 mb-5 mb-xl-0">
           <div class="card shadow">
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">상품 수정</h3>
-                  <br>
-                  <form action="edit" method="post">
-	                  <input type="hidden" name="categoryName" value="가전">
-	                  <input type="hidden" name="itemNo" value="${ item.itemNo }">
-	                  <div class="pl-lg-4">
+                  <h3 class="mb-0">자유게시글수정하기</h3>     
+                  <br>             
+                  <form action="freeboardedit" method="post">
+                  <input type="hidden" name="freeBoard" value="${ requestScope.freeBoard.freeBoardNo }">
+                   <div class="pl-lg-4">
 			              <div class="row">
 			              <div class="col-lg-12">
 			              <div class="form-group">
-			              	<label class="form-control-label" for="input-itemName">상품명</label>
-			               <input type="text" id="input-itemName" name="itemName" class="form-control form-control-alternative" value=${ item.itemName }/>
+			              	<label class="form-control-label" for="input-freeBoardTitle">제목</label>
+			               <input type="text" id="input-freeBoardTitle" name="freeBoardTitle" class="form-control form-control-alternative" value="${ freeBoard.freeBoardTitle }"/>
 			              </div>
 			              </div>
 			              </div>
-			            <div class="row">
-			            <div class="col-lg-12">
-			            <div class="form-group">
-			            <label class="form-control-label" for="input-itemCode">상품 코드</label>
-			            <input type="text" id="input-itemCode" name="itemCode" class="form-control form-control-alternative" value=${ item.itemCode } />
-			            </div>
-			            </div>
-			            </div>
+		            <div class="row">
+			              <div class="col-lg-12">
+			              <div class="form-group">
+			              	<label class="form-control-label" for="input-memberNo">작성자</label>
+			              	${ sessionScope.loginuser.memberId }
+			               <input type="hidden" id="input-memberNo" name="memberNo" class="form-control form-control-alternative" value="${ loginuser.memberId }"/>
+			              </div>
+			              </div>
+			              </div>
 		           
-		                    
 		            <div class="row">
-			            <div class="col-lg-12">
-			            <div class="form-group">
-			            <label class="form-control-label" for="input-itemPrice">상품 가격</label>
-			             <input type="text" id="input-itemPrice" name="itemPrice" class="form-control form-control-alternative" value="${ item.itemPrice }" />
-			            </div>
-			            </div>
-			            </div>
-		                   
+			              <div class="col-lg-12">
+			              <div class="form-group">
+			              	<label class="form-control-label" for="input-freeBoardAttach">첨부파일</label>
+			               <input type="file" id="input-freeBoardAttach" name="freeBoardAttach" class="btn btn-sm btn-primary"  style="width:200px;"/>
+			              </div>
+			              </div>
+			              </div>
 		            <div class="row">
-			            <div class="col-lg-12">
-			            <div class="form-group">
-			            <label class="form-control-label" for="input-itemDetail">상세 설명</label>
-			            <textarea name="itemDetail" id="input-itemDetail" class="form-control form-control-alternative" style="resize:none;" rows="15" > ${ item.itemDetail }</textarea>
-			            </div>
-			            </div>
-			            </div>
-		                	
-		          		<div class="row">
-		          		<div class="col-lg-12">
-		          		<div class="text-right">
-				        <input type="submit" class ="btn btn-sm btn-primary" value="상품 수정" >
-				        <input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="취소" >
-		          		</div>
-          			</div> 
-       	   	    </div>  
-               </div>
+			              <div class="col-lg-12">
+			              <div class="form-group">
+			              	<label class="form-control-label" for="input-freeBoardContent">글내용</label>
+			               <textarea id="input-freeBoardContent" name="freeBoardContent" class="form-control form-control-alternative" rows="15" style="resize:none">${ freeBoard.freBoardContent } </textarea>
+			              </div>
+			              </div>
+			              </div>
+					<div class="row">
+					<div class="col-lg-12">
+					<div class="text-right">
+					<input type="submit" class ="btn btn-sm btn-primary" value="수정하기" >
+			        <input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="취소" >
+					</div>
+					</div>
+					</div>
+
+	                </div>
                 </form>
                 </div>
               </div>
            </div> 
           </div>
         </div>
-          </div>
+      </div>
+      	    <script>
+	    window.addEventListener("load", function(event) {
+	    	const btnCancel = document.querySelector("#btnCancel");
+	    	btnCancel.addEventListener("click",function(event) {
+	    		location.href="freeboardlist";
+	    	});
+	    });
+	    </script>
       <!-- Footer -->
       <footer class="footer">
         <div class="row align-items-center justify-content-xl-between">
@@ -121,8 +127,7 @@
         </div>
       </footer>
     </div>
-  </div>
-
+    </div>
   <!--   Core   -->
   <script src="/rental-project/resources/js/plugins/jquery/dist/jquery.min.js"></script>
   <script src="/rental-project/resources/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
