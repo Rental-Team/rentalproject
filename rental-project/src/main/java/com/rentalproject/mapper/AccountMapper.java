@@ -17,10 +17,10 @@ public interface AccountMapper {
 	
 	void insertMember(MemberDto member);
 	
-	// 로그인 = 프로필에 조회할 내용과 일치해서 따로 ProfileMapper에 만들지 않음
+	// 로그인 = 프로필에 조회할 내용과 일치해서 따로 ProfileMapper에 만들지 않음(상세 조회)
 	@Select("select memberNo, memberId, password, userName, nickname, " + 
-			"phoneNo, email, address, deposite, regDate, deleteCheck " + 
-			"from Member where memberId = #{memberId} and password = #{password}")
+			"phoneNo, email, address, deposite, regDate, deleteCheck, photo, introduce, admin " + 
+			"from Member where memberId = #{memberId} and password = #{password} and deleteCheck = false")
 	MemberDto selectMemberByIdAndPw(MemberDto member);
 	
 	
