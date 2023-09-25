@@ -20,4 +20,5 @@ public class MemberDto {
 	private boolean deleteCheck;
 	private String introduce;
 	private String photo;
+	private int admin;
 }
