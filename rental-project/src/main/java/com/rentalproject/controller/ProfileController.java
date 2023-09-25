@@ -2,10 +2,6 @@ package com.rentalproject.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-<<<<<<< HEAD
-=======
-/*import javax.websocket.server.PathParam;*/
->>>>>>> 7dd6cfbff8d16748cede88107201bf9b46fbdf3d
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
