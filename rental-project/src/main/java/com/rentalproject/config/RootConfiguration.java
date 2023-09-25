@@ -14,11 +14,15 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.rentalproject.mapper.AccountMapper;
 import com.rentalproject.service.AccountServiceImpl;
+import com.rentalproject.service.AdminService;
+import com.rentalproject.service.AdminServiceImpl;
 import com.rentalproject.service.FreeBoardReviewService;
 import com.rentalproject.service.FreeBoardReviewServiceImpl;
 import com.rentalproject.service.FreeBoardService;
 import com.rentalproject.service.FreeBoardServiceImpl;
 import com.rentalproject.service.ItemServiceImpl;
+import com.rentalproject.service.PrivateQnaAnswerService;
+import com.rentalproject.service.PrivateQnaAnswerServiceImpl;
 import com.rentalproject.service.PrivateQnaService;
 import com.rentalproject.service.PrivateQnaServiceImpl;
 import com.rentalproject.service.ProfileServiceImpl;
@@ -110,6 +114,18 @@ public class RootConfiguration implements ApplicationContextAware{
 		ItemServiceImpl itemService = new ItemServiceImpl();
 		
 		return itemService;
+	}
+	
+	@Bean
+	public PrivateQnaAnswerService privateQnaAnserService() {
+		PrivateQnaAnswerService  privateQnaAnswerService= new PrivateQnaAnswerServiceImpl();
+		return privateQnaAnswerService;
+	}
+	
+	@Bean
+	public AdminService adminService() {
+		AdminServiceImpl adminService = new AdminServiceImpl();
+		return adminService;
 	}
 	
 }

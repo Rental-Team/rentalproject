@@ -77,7 +77,7 @@
                     <div class="col-lg-12">
                       <div class="form-group">
                         <label class="form-control-label" for="input-qnaAttach">첨부파일</label>
-                        <input type="file" id="input-qnaAttach" name="Attach"  class="form-control form-control-alternative">
+                        <input type="file" id="input-qnaAttach" name="attach"  class="form-control form-control-alternative">
                       </div>
                     </div>
                   </div>

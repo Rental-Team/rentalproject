@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
+<%-- <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
@@ -285,14 +285,12 @@
 		                	${ privateqna.qnaTitle }
 		                </td>
 		            </tr>
-		      
 		            <tr>
 		                <th>문의글 내용 </th>
 		                <td>
 		                	${ privateqna.qnaContent }
 		                </td>
 		            </tr>
-		           
 		            <tr>
 		                <th>문의글 날짜</th>
 		                <td> 
@@ -341,14 +339,14 @@
 			             </tr>
 			           </thead>
 			           <tbody>
-			            <c:forEach var="privateQnaAnswer" items="${ privateqna.privateQnaAnswerList }">
+			            <c:forEach var="pirvateQnaAnswer" items="${ privateqna.privateQnaAnswerList }">
 			             <tr style="text-align:center">
 			                <td scope="col" style="width:100px"> ${ privateQnaAnswer.answerContent } </td>
 			                <td scope="col" style="width:200px"> ${ sessionScope.loginuser.memberId }
 					                							 <input type="hidden" name="memberNo" value="${ loginuser.memberId }"> 
 					                							 <!-- 오류 : 다시확인 로그인한 유저로 걍 다 바뀜 -->
-			               <%--  <td scope="col" style="width:100px">${ freeBoardReview.replyContent} </td>
-			                <td scope="col" style="width:150px"><fmt:formatDate value="${ freeBoardReview.replyCreateDate }" pattern="yyyy-MM-dd hh:mm"/></td> --%>
+			                <td scope="col" style="width:100px">${ freeBoardReview.replyContent} </td>
+			                <td scope="col" style="width:150px"><fmt:formatDate value="${ freeBoardReview.replyCreateDate }" pattern="yyyy-MM-dd hh:mm"/></td>
 			             	<td>
 			             <!-- 	<input type="button" class ="btn btn-sm btn-primary" id="btnedit" value="댓글수정" >
 				        	<input type="button" class ="btn btn-sm btn-primary" id="btndelete" value="댓글삭제" > -->
@@ -358,19 +356,7 @@
 			           </tbody>
 			         </table>		
 			         
-<!--답변 보기 기능 구현 끝-->	
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+			         <!-- 자유게시글 댓글 보기 기능 구현 끝-->	
 
 
 
@@ -491,4 +477,4 @@ $(function() {
   
 </body>
 
-</html>
+</html> --%>

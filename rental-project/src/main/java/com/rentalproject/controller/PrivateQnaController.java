@@ -81,6 +81,14 @@ public class PrivateQnaController {
 		 return "privateboard/privateqnadetail";
 	 }
 	 
+
+
+
+
+
+
+
+
 }
 
 
