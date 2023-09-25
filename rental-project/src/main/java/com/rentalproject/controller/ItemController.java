@@ -4,6 +4,7 @@ package com.rentalproject.controller;
 
 import lombok.extern.log4j.Log4j;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.rentalproject.dto.ItemDto;
 import com.rentalproject.service.ItemService;
 import com.rentalproject.service.ItemServiceImpl;
+import com.rentalproject.ui.ThePager;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -39,14 +41,26 @@ public class ItemController {
 //	}
 	
 	@GetMapping("/list")
-	public String list(@RequestParam(defaultValue = "1")int itemNo, Model model) {
+	public String list(@RequestParam(defaultValue = "1")int pageNo, Model model) {
 		
 	
-		List<ItemDto> list = itemService.getList();
-		
+		//List<ItemDto> list = itemService.getList();
 		//log.info(list);
 		
-		model.addAttribute("list", list);
+		int pageSize = 10;
+		int pagerSize = 5;
+		String linkUrl = "list";
+		int dataCount = itemService.getItemCount();
+		
+		int from = (pageNo - 1)*pageSize;
+		List<ItemDto> itemList = itemService.listItemByPage(from, pageSize);
+		
+		ThePager pager = new ThePager(dataCount, pageNo, pageSize, pagerSize, linkUrl);
+		
+		//model.addAttribute("list", list);
+		model.addAttribute("itemList", itemList);
+		model.addAttribute("pager", pager);
+		model.addAttribute("pageNo", pageNo);
 		
 		return "item/list";
 	

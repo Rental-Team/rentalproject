@@ -51,32 +51,38 @@
                 <thead class="thead-light">
                   <tr>
                     <th scope="col" style="width:100px">게시글 번호</th>
-                    <th scope="col" style="width:500px">상품 제목</th>
+                    <th scope="col" style="width:200px">상품 제목</th>
+                    <th scope="col" style="width:100px">상품 가격</th>
                     <th scope="col" style="width:100px">조회수</th>
                     <th scope="col" style="width:150px">작성 일자</th>
                   </tr>
                 </thead>
                 <tbody>
-                 <c:forEach var="Item" items="${ list }">
+                 <c:forEach var="Item" items="${ itemList }">
                  	<tr>
                     	<td><c:out value="${Item.itemNo}" /></td>
                     	<td style="text-align:left;padding-left:10px">
 						<c:choose>
 							<c:when test="${ not Item.deleted }">
-								<a href="detail?itemNo=${ Item.itemNo }">${ Item.itemName }</a>
+								<a href="detail?itemNo=${ Item.itemNo }&pageNo=${ pageNo }">${ Item.itemName }</a>
 							</c:when>
 							<c:otherwise>
 								<span class="deleted"> === 삭제된 글 === </span>
 							</c:otherwise>
 						</c:choose>
-						</td>            	 
+						</td>      
+						<td><c:out value="${Item.itemPrice}" /></td>      	 
                     	 <td><c:out value="${Item.viewCount}" /></td>
                     	 <td><fmt:formatDate pattern="yyyy-MM-dd"
                     	  value="${Item.itemDate }" /></td>
                   </tr>
                  </c:forEach>
+         
                 </tbody>
               </table>
+              <br><br>
+                 ${ pager }
+                 <br /><br />
             </div>
           </div>
         </div>
