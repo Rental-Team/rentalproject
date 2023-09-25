@@ -42,6 +42,11 @@
 		                </div>
                 	</c:when>
                 	<c:otherwise>
+                		<c:if test="${ sessionScope.loginuser.admin == 2 }">
+                		<li>
+              				<a href="/rental-project/admin/home" style="color: black">관리자 화면</a>
+              			</li>	
+                		</c:if>
                 		${ sessionScope.loginuser.memberId }님
                 		<a href="/rental-project/account/logout" style="color : inherit;">로그아웃</a>
                 	</c:otherwise>

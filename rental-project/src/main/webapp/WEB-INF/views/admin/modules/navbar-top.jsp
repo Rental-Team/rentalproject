@@ -42,6 +42,7 @@
 		                </div>
                 	</c:when>
                 	<c:otherwise>
+                		<a href="/rental-project/home" style="color : inherit;">일반 화면</a>
                 		${ sessionScope.loginuser.memberId }님
                 		<a href="/rental-project/account/logout" style="color : inherit;">로그아웃</a>
                 	</c:otherwise>
