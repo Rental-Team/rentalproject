@@ -43,4 +43,15 @@ public interface ItemMapper {
 			+ "where itemNo = #{ itemNo } ")
 	void deleteBoard(@Param("itemNo") int itemNo);
 	
+	
+	@Select("select count(*) "
+			+ "from Item")
+	int selectItemCount();
+	
+	@Select("select itemNo, itemName, viewCount, itemDate, itemPrice, deleted " +
+			"from Item " +
+			"order by itemNo desc "
+			+ "limit #{from}, #{count}")
+	public List<ItemDto> selectItemByPage(@Param("from") int from, @Param("count") int count);
+	
 }

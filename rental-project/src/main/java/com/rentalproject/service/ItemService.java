@@ -15,5 +15,9 @@ public interface ItemService {
 	public void editItem(ItemDto item);
 	
 	public void deleteItem(int itemNo);
+	
+	public int getItemCount();
+	
+	public List<ItemDto> listItemByPage(int from, int count);
 
 }

@@ -44,6 +44,23 @@ public class ItemServiceImpl implements ItemService{
 
 		return item;
 	}
+	
+	@Override
+	public int getItemCount() {
+		
+		int count = itemMapper.selectItemCount();
+		
+		return count;
+	}
+	
+	@Override
+	public List<ItemDto> listItemByPage(int from, int count) {
+		
+		List<ItemDto> itemList = itemMapper.selectItemByPage(from, count);
+		
+		return itemList;
+		
+	}
 
 
 	
