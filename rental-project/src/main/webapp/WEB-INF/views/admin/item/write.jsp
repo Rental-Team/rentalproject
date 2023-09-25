@@ -36,13 +36,13 @@
 </head>
 
 <body class="">
-<jsp:include page="/WEB-INF/views/modules/navbar-vertical.jsp" />
+<jsp:include page="/WEB-INF/views/admin/modules/navbar-vertical.jsp" />
   <div class="main-content">
     <!-- Navbar -->
-	<jsp:include page="/WEB-INF/views/modules/navbar-top.jsp" />
+	<jsp:include page="/WEB-INF/views/admin/modules/navbar-top.jsp" />
     <!-- End Navbar -->
     <!-- Header -->
-    <jsp:include page="/WEB-INF/views/modules/navbar-content.jsp" />
+    <jsp:include page="/WEB-INF/views/admin/modules/navbar-content.jsp" />
     <div class="container-fluid mt--7">
       <div class="row">
         <div class="col-xl-12 mb-5 mb-xl-0">

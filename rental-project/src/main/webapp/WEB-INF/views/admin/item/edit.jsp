@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -33,57 +31,69 @@
     <jsp:include page="/WEB-INF/views/modules/navbar-content.jsp" />
     <div class="container-fluid mt--7">
       <div class="row">
-      	<div class="col-xl-12 mb-5 mb-xl-0">
+         <div class="col-xl-12 mb-5 mb-xl-0">
           <div class="card shadow">
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">상품 게시판</h3>
+                  <h3 class="mb-0">상품 수정</h3>
+                  <br>
+                  <form action="edit" method="post">
+	                  <input type="hidden" name="categoryName" value="가전">
+	                  <input type="hidden" name="itemNo" value="${ item.itemNo }">
+	                  <div class="pl-lg-4">
+			              <div class="row">
+			              <div class="col-lg-12">
+			              <div class="form-group">
+			              	<label class="form-control-label" for="input-itemName">상품명</label>
+			               <input type="text" id="input-itemName" name="itemName" class="form-control form-control-alternative" value=${ item.itemName }/>
+			              </div>
+			              </div>
+			              </div>
+			            <div class="row">
+			            <div class="col-lg-12">
+			            <div class="form-group">
+			            <label class="form-control-label" for="input-itemCode">상품 코드</label>
+			            <input type="text" id="input-itemCode" name="itemCode" class="form-control form-control-alternative" value=${ item.itemCode } />
+			            </div>
+			            </div>
+			            </div>
+		           
+		                    
+		            <div class="row">
+			            <div class="col-lg-12">
+			            <div class="form-group">
+			            <label class="form-control-label" for="input-itemPrice">상품 가격</label>
+			             <input type="text" id="input-itemPrice" name="itemPrice" class="form-control form-control-alternative" value="${ item.itemPrice }" />
+			            </div>
+			            </div>
+			            </div>
+		                   
+		            <div class="row">
+			            <div class="col-lg-12">
+			            <div class="form-group">
+			            <label class="form-control-label" for="input-itemDetail">상세 설명</label>
+			            <textarea name="itemDetail" id="input-itemDetail" class="form-control form-control-alternative" style="resize:none;" rows="15" > ${ item.itemDetail }</textarea>
+			            </div>
+			            </div>
+			            </div>
+		                	
+		          		<div class="row">
+		          		<div class="col-lg-12">
+		          		<div class="text-right">
+				        <input type="submit" class ="btn btn-sm btn-primary" value="상품 수정" >
+				        <input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="취소" >
+		          		</div>
+          			</div> 
+       	   	    </div>  
+               </div>
+                </form>
                 </div>
               </div>
-            </div>
-            <div class="table-responsive">
-              <!-- Projects table -->
-              <table class="table align-items-center table-flush">
-                <thead class="thead-light">
-                  <tr>
-                    <th scope="col" style="width:100px">게시글 번호</th>
-                    <th scope="col" style="width:200px">상품 제목</th>
-                    <th scope="col" style="width:100px">상품 가격</th>
-                    <th scope="col" style="width:100px">조회수</th>
-                    <th scope="col" style="width:150px">작성 일자</th>
-                  </tr>
-                </thead>
-                <tbody>
-                 <c:forEach var="Item" items="${ itemList }">
-                 	<tr>
-                    	<td><c:out value="${Item.itemNo}" /></td>
-                    	<td style="text-align:left;padding-left:10px">
-						<c:choose>
-							<c:when test="${ not Item.deleted }">
-								<a href="detail?itemNo=${ Item.itemNo }&pageNo=${ pageNo }">${ Item.itemName }</a>
-							</c:when>
-							<c:otherwise>
-								<span class="deleted"> === 삭제된 글 === </span>
-							</c:otherwise>
-						</c:choose>
-						</td>      
-						<td><c:out value="${Item.itemPrice}" /></td>      	 
-                    	 <td><c:out value="${Item.viewCount}" /></td>
-                    	 <td><fmt:formatDate pattern="yyyy-MM-dd"
-                    	  value="${Item.itemDate }" /></td>
-                  </tr>
-                 </c:forEach>
-         
-                </tbody>
-              </table>
-              <br><br>
-                 ${ pager }
-                 <br /><br />
-            </div>
+           </div> 
           </div>
         </div>
-      </div>
+          </div>
       <!-- Footer -->
       <footer class="footer">
         <div class="row align-items-center justify-content-xl-between">
@@ -112,6 +122,7 @@
       </footer>
     </div>
   </div>
+
   <!--   Core   -->
   <script src="/rental-project/resources/js/plugins/jquery/dist/jquery.min.js"></script>
   <script src="/rental-project/resources/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
