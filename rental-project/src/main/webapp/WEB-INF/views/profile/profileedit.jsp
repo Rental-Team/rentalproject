@@ -172,13 +172,7 @@
                         <input type="text" name="deposite" style="width:580px" value="${ profileuser.deposite }" />
                       </div>
                     </div>
-                    <div class="col-lg-6">
-                      <div class="form-group">
-                        <label class="form-control-label" for="input-username">REGISTER DATE</label>
-                        <!-- <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="lucky.jesse"> -->
-                        <td>${ loginuser.regDate }</td>
-                      </div>
-                    </div>
+
 <!--                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-email">E-MAIL</label>
@@ -242,7 +236,7 @@
                 <div class="pl-lg-4">
                   <div class="form-group">
                     <label>About Me</label>
-                    <textarea rows="4" class="form-control form-control-alternative" placeholder="A few words about you ...">A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea>
+                    <textarea rows="4" class="form-control form-control-alternative">${ profileuser.introduce }</textarea>
                   </div>
                 </div>
             </div>

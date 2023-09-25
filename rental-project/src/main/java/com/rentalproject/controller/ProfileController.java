@@ -3,10 +3,6 @@ package com.rentalproject.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpSession;
-<<<<<<< HEAD
-=======
-
->>>>>>> 25a984580f8841fbf3d693dfc6c1e3e13bfb4c6d
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

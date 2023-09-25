@@ -11,9 +11,9 @@ public interface AccountMapper {
 	
 	// 회원가입 정보 입력
 	@Insert("insert into Member (memberId, password, userName, " + 
-			"nickname, phoneNo, email, address, deposite) " + 
+			"nickname, phoneNo, email, address, deposite, photo, introduce) " + 
 			"values (#{memberId}, #{password}, #{userName}, " + 
-			"#{nickname}, #{phoneNo}, #{email}, #{address}, #{deposite})")
+			"#{nickname}, #{phoneNo}, #{email}, #{address}, #{deposite}, #{photo}, #{introduce})")
 	
 	void insertMember(MemberDto member);
 	
