@@ -17,5 +17,5 @@ public class FreeBoardDto {
 	private boolean freeBoardDelete;
 	
 	private List<FreeBoardReviewDto> freeBoardReviewList;
-
+	private List<FreeBoardAttachDto> freeBoardAttachList;
 }

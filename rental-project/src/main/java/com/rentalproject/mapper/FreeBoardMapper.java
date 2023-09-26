@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.rentalproject.dto.FreeBoardAttachDto;
 import com.rentalproject.dto.FreeBoardDto;
 
 @Mapper
@@ -22,6 +23,10 @@ public interface FreeBoardMapper {
 	
 	void writeFreeBoard(FreeBoardDto freeboard) throws Exception;
 	
+	@Insert("insert into FreeBoardAttach (attachNo, freeBoardNo, attachFileName, savedFileName) "  // 자유게시판 첨부파일 첨부 데이터 
+			+ "values (#{attachNo}, #{freeBoardNo}, #{attachFileName}, #{savedFileName}) ")
+	void insertFreeBoardAttach(FreeBoardAttachDto freeBoardAttach);
+	
 	
 	@Select("select freeBoardNo, memberNo, freeBoardTitle, freeBoardViewCount, freeBoardDate, freeBoardDelete "     // 자유게시판 게시글 list에 모든 게시글 자료 가져오기
 			+ " from FreeBoard "
@@ -33,6 +38,16 @@ public interface FreeBoardMapper {
 			+ "from FreeBoard "
 			+ "where freeBoardNo = #{ freeBoardNo }")
 	FreeBoardDto selectFreeBoardByFreeBoardNo(@Param("freeBoardNo") int freeBoardNo);
+	
+	@Select("select attachNo, freeBoardNo, attachFileName, savedFileName "                           // 특정 자유게시판 글의 첨부파일 다운로드 하기 
+			+ "from FreeBoardAttach "
+			+ "where freeBoardNo = #{ freeBoardNo } ")
+	List<FreeBoardAttachDto> selectFreeBoardAttachByFreeBoardNo(@Param("freeBoardNo") int freeBoardNo);
+	
+	@Select("select attachNo, freeBoardNo, attachFileName, savedFileName "                           // 첨부파일 조회 하기 
+			+ "from FreeBoardAttach "
+			+ "where attachNo = #{ attachNo } ")
+	FreeBoardAttachDto selectFreeBoardAttachByAttachNo(@Param("attachNo") int attachNo);
 
 	
 	
@@ -46,4 +61,10 @@ public interface FreeBoardMapper {
 			+ "set freeBoardDelete = true "
 			+ "where freeBoardNo = #{ freeBoardNo }")
 	void deleteFreeBoard(@Param("freeBoardNo") int freeBoardNo);  
+	
+	
+	@Update("update FreeBoard "                                     // 자유게시판 조회수 증가 
+			+ "set freeBoardViewCount = #{ freeBoardViewCount} + 1 "
+			+ "where freeBoardNo = #{ freeBoardNo }")
+	void updateFreeBoardviewCount(int freeBoardViewCount);
 }

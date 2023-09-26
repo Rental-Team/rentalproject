@@ -298,9 +298,11 @@
 		                </td>
 		            </tr>
 		            <tr>
-		                <th>첨부파일</th>
+		                <th>첨부파일</th> 
 		                <td>
-		                	
+		                	<c:forEach var="freeBoardAttach" items="${ freeBoard.freeBoardAttachList }">
+		                		<a href="download?attachNo=${ freeBoardAttach.attachNo }"> ${freeBoardAttach.attachFileName}</a>
+		                	</c:forEach>
 		                </td>
 		            </tr>
 		            <tr>
@@ -350,33 +352,64 @@
             		</form>
             		<br>
 <!-- 자유게시글 댓글 리스트 보기 기능 구현 시작-->
-	<table id = "review-list" style="text-align:center" class="table align-items-center table-flush">
-       				<thead class="thead-light">
-            <tr style="text-align:center">
-              <th scope="col" style="width:50px">댓글번호</th>
-              <th scope="col" style="width:50px">댓글작성자</th>
-              <th scope="col" style="width:300px">댓글내용</th>
-              <th scope="col" style="width:150px">댓글작성일자</th>
-              <th scope="col" style="width:150px">댓글수정삭제</th>
-            </tr>
-          </thead>
-          <tbody>
-           <c:forEach var="freeBoardReview" items="${ freeBoard.freeBoardReviewList }">
-            <tr style="text-align:center">
-               <td scope="col" style="width:100px"> ${ freeBoardReview.freeBoardReplyNo } </td>
-               <td scope="col" style="width:200px"> ${ sessionScope.loginuser.memberId }
-	                							 <input type="hidden" name="memberNo" value="${ loginuser.memberId }"> 
-	                							 <!-- 오류 : 다시확인 로그인한 유저로 걍 다 바뀜 -->
-               <td scope="col" style="width:100px">${ freeBoardReview.replyContent} </td>
-               <td scope="col" style="width:150px"><fmt:formatDate value="${ freeBoardReview.replyCreateDate }" pattern="yyyy-MM-dd hh:mm"/></td>
-            	<td>
-	            	<input type="button" class ="btn btn-sm btn-primary" id="btnedit" value="댓글수정" >
-	        		<input type="button" class ="btn btn-sm btn-primary" id="btndelete" value="댓글삭제" >
-            	</td>
-            </tr>
-           </c:forEach>
-          </tbody>
-        </table>		
+			<table id="review-list" class="table align-items-center table-flush">
+		    <thead class="thead-light">
+		        <tr style="text-align:center">
+		            <th scope="col" style="width: 50px">댓글번호</th> 
+		            <th scope="col" style="width: 300px">댓글내용</th>
+		             <th scope="col" style="width: 150px">댓글작성자</th>
+		            <th scope="col" style="width: 150px">댓글작성일자</th>
+		            <th scope="col" style="width: 150px">댓글수정삭제</th>
+		        </tr>
+		    </thead>
+		    <tbody>
+		        <c:forEach var="freeBoardReview" items="${freeBoard.freeBoardReviewList}">
+		            <tr style="text-align:center">
+		                <td style="width: 50px">${freeBoardReview.freeBoardReplyNo}</td>
+		                <td style="width: 150px">
+		                <c:choose>
+		                	<c:when test="${ not freeBoardReview.replyDelete }">
+		                	<a> ${ freeBoardReview.replyContent }</a>
+							</c:when>
+							<c:otherwise>
+							<span class="replyDelete" style="color : gray"><< 삭제된 게시글입니다 >></span> 
+							</c:otherwise>    
+						</c:choose>  
+						</td>     
+						<td scope="col" style="width:200px"> ${ freeBoardReview.replyDelete? '' : sessionScope.loginuser.memberId } <!-- 게시글 삭제시 작성자 안보이게 설정 -->
+		                							 <input type="hidden" name="memberNo" value="${ loginuser.memberId }"> 
+		                							 <!-- 오류 : 다시확인 로그인한 유저로 걍 다 바뀜 -->   
+		                <td style="width: 150px">
+		                    <fmt:formatDate value="${freeBoardReview.replyCreateDate}" pattern="yyyy-MM-dd HH:mm" />
+		                </td>
+		                <td>
+		                    <a class="btn btn-sm btn-primary edit-reply" data-reply-no="${freeBoardReview.freeBoardReplyNo}" href="javascript:void(0)" style="color: white">댓글수정하기</a>
+		                    <a class="btn btn-sm btn-primary delete-reply" data-reply-no="${freeBoardReview.freeBoardReplyNo}" href="javascript:void(0)" style="color: white">댓글삭제하기</a>
+		                </td>
+		            </tr>
+		            <tr>
+		                <td colspan="5">
+		                    <div id="reply-edit-area-${freeBoardReview.freeBoardReplyNo}" style="display: none">
+		                        ${sessionScope.loginuser.memberId} &nbsp;&nbsp; [댓글 수정 시간 : ${freeBoardReview.replyCreateDate}] <br />
+		                        <br />
+		                        <form action="edit-reply" method="post" style="width: 105%; resize: none;">
+		                            <input type="hidden" name="freeBoardReplyNo" value="${freeBoardReview.freeBoardReplyNo}" />
+		                            <input type="hidden" name="freeBoardNo" value="${freeBoard.freeBoardNo}" />
+		                            <textarea name="replyContent" style="width: 70%; resize: none; border-radius: 80px" rows="2" maxlength="200" >${freeBoardReview.replyContent}</textarea>
+		                            <br />
+		                            <div class="btn btn-sm btn-primary">
+		                                <a class="update-reply" data-reply-no="${freeBoardReview.freeBoardReplyNo}" href="javascript:void(0)" style="color: white">수정완료</a>
+		                            </div>
+		                            <div class="btn btn-sm btn-primary">
+		                                <a class="cancel-edit-reply" data-reply-no="${freeBoardReview.freeBoardReplyNo}" href="javascript:void(0)" style="color: white">수정취소</a>
+		                            </div>
+		                        </form>
+		                    </div>
+		                </td>
+		            </tr>
+		        </c:forEach>
+		    </tbody>
+		</table>
 <!-- 자유게시글 댓글 리스트 보기 기능 구현 끝-->	
                  </div>
               </div>
@@ -447,36 +480,6 @@
       });
   </script>
   
-      	<!-- To DO : 자바스크립트는 j쿼리로 바꾸기 
-	    <script>
-			window.addEventListener("click", function(event) {
-	    	const btnBackToList = document.querySelector("#btnBackToList");
-	    	btnBackToList.addEventListener("click",function(event) {
-	    		location.href="freeboardlist";
-    		});
-        	const btnedit = document.querySelector("#btnedit");
-		   	btnedit.addEventListener("click", function(event) {
-	    		location.href="freeboardedit" + "?freeBoardNo=" +  ${ freeBoard.freeBoardNo };
-	    	});
-	    
-		   	const btndelete = document.querySelector("#btndelete");          // 삭제시 삭제 알림 메시지 띄우기 
-		   	if (btndelete) {
-		   		btndelete.addEventListener("click",function(event) {
-		   			const yes = confirm(${freeBoard.freeBoardNo} + "번 게시글을 삭제할까요?");
-		   				if (yes) {
-		   					location.href="freeboarddelete/" + ${ freeBoard.freeBoardNo };
-		   				}
-	   		}); 		
-	   		
-	   		const btninsertreview = document.querySelector("#btninsertreview");    // 댓글 등록하기 이벤트 처리 하기 
-    		btninsertreview.addEventListener('click', function(event) {
-    		const freeBaordReivewForm = document.querySelector("freeBaordReivewForm");
-    		freeBaordReivewForm.submit();
-	    	});
-	    	
-	    });
-	    
-		    </script> -->
 		    <script>
 			$(function(event) {
 	    	$("#btnBackToList").on("click",function(event) {                // 자유게시판 목록으로 돌아가기 누르면 freeboardlist로 가기 
@@ -488,13 +491,56 @@
 	    		location.href="freeboardedit" + "?freeBoardNo=" +  ${ freeBoard.freeBoardNo };
 	    	})
 	    
-		   $("#btndelete").on("click",function(event) {                   
-		   			const yes = confirm(${freeBoard.freeBoardNo} + "번 게시글을 삭제할까요?");
+		   $("#btndelete").on("click",function(event) {                    // 게시글 삭제 이벤트    
+		   			const yes = confirm(${ freeBoard.freeBoardNo } + "번 게시글을 삭제할까요?");
 	   				if (yes) {
 	   					location.href="freeboarddelete/" + ${ freeBoard.freeBoardNo };
 	   						}
 	   		})	
+	   		$(".delete-reply").on("click",function(event) {                    // 댓글 삭제하기 이벤트 
+   				const freeBoardReplyNo = $(this).attr("data-reply-no");
+	   			const yn = confirm(freeBoardReplyNo  + "번 댓글을 삭제할까요?");
+   				if (yn) {
+   					location.href='delete-reply?freeBoardReplyNo=' + freeBoardReplyNo +
+   												'&freeBoardNo=' + ${freeBoard.freeBoardNo};
+   						}
+	   		})	 
 	   		
+	   		let currentEditFreeBoardReplyNo = null;
+	   		
+	   		// 댓글 수정하기 클릭 이벤트 
+	   		
+	   		$(".edit-reply").on('click', function(event) {
+	    		const freeBoardReplyNo = $(this).attr("data-reply-no");
+	    		
+	    		$('#reply-edit-area-' + freeBoardReplyNo).css('display', '');
+	    		$('#reply-view-area-' + freeBoardReplyNo).css('display', 'none');
+	    		
+	    		if (currentEditFreeBoardReplyNo) {
+	    			$('#reply-edit-area-' + currentEditFreeBoardReplyNo).css('display', 'none');
+		    		$('#reply-view-area-' + currentEditFreeBoardReplyNo).css('display', '');
+	    		}
+	    		currentEditFreeBoardReplyNo = freeBoardReplyNo;
+	    		
+    		})
+    		
+    		// 댓글 수정취소 이벤트 
+    		$(".cancel-edit-reply").on('click', function(event) {
+	   			const freeBoardReplyNo = $(this).attr("data-reply-no");
+	   			
+	   			$('#reply-edit-area-' + freeBoardReplyNo).css('display', 'none');
+	    		$('#reply-view-area-' + freeBoardReplyNo).css('display', '');
+	   			
+	    		currentEditFreeBoardReplyNo = null;
+		   		
+	   		})
+	   		
+	   		// 댓글 수정완료 이벤트 
+	   		$(".update-reply").on('click', function(event) {
+	   			const freeBoardReplyNo = $(this).attr("data-reply-no");
+	   			$('#reply-edit-area-' + freeBoardReplyNo + ' form').submit();
+	   		})
+    		
 	    	});
 			</script>
 </body>

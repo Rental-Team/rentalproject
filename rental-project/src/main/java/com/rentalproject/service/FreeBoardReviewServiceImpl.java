@@ -12,13 +12,22 @@ public class FreeBoardReviewServiceImpl implements FreeBoardReviewService{
 	@Setter(onMethod_= {@Autowired})
 	private FreeBoardReviewMapper freeboardReviewMapper;
 	
-	@Override
-	public void WriteFreeBoardReview(FreeBoardReviewDto freeboardReview) {
+	@Override   // 자유게시판 댓글 작성 
+	public void WriteFreeBoardReview(FreeBoardReviewDto freeBoardReview) {
 		
-		freeboardReviewMapper.insertFreeBoardReview(freeboardReview);
-		freeboardReviewMapper.updateReplyParents(freeboardReview.getFreeBoardReplyNo(), freeboardReview.getFreeBoardReplyNo());
+		freeboardReviewMapper.insertFreeBoardReview(freeBoardReview);
+		freeboardReviewMapper.updateReplyParents(freeBoardReview.getFreeBoardReplyNo(), freeBoardReview.getFreeBoardReplyNo());
 		
 	}
 	
+	@Override   // 자유게시판 댓글 삭제 
+	public void deleteFreeBoardReview(int freeBoardReplyNo) {
+		freeboardReviewMapper.deleteFreeBoardReview(freeBoardReplyNo);
+	}
+	
+	@Override // 자유게시판 댓글 수정 
+	public void editFreeBoardReview(FreeBoardReviewDto freeBoardReview) {
+		freeboardReviewMapper.editFreeBoardReview(freeBoardReview);
+	}
 
 }
