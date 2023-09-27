@@ -19,10 +19,10 @@ public interface FreeBoardReviewMapper {
 	// 먼저 insert 하고, select 하게 하는 구문 : 자동증가된 컬럼(freeBoardReplyNo)의 값을 DTO 에 넣기
 	@Options(useGeneratedKeys = true, keyProperty = "freeBoardReplyNo", keyColumn = "freeBoardReplyNo")
 	
-	void insertFreeBoardReview(FreeBoardReviewDto freeboardReview);
+	void insertFreeBoardReview(FreeBoardReviewDto freeBoardReview);
 	
 	// 댓글리스트 조회
-	@Select("select freeBoardReplyNo, freeBoardNo, replyContent, replyCreateDate "
+	@Select("select freeBoardReplyNo, freeBoardNo, replyContent, replyCreateDate, replyDelete "
 			+ "from FreeBoardReview "
 			+ "where freeBoardNo = #{freeBoardNo} "
 			+ "order by replyParents desc, replySequence asc")
@@ -34,6 +34,17 @@ public interface FreeBoardReviewMapper {
 			+ "where freeBoardReplyNo = #{freeBoardReplyNo} ")
 	void updateReplyParents (@Param("replyParents") int replyParents, @Param("freeBoardReplyNo") int freeBoardReplyNo);
 	
+	// 댓글 삭제 ( 업데이트로 실제 지우는 것이 아니라 삭제 표시만 하는 거! )
+	@Update("update FreeBoardReview " 
+			+ "set replyDelete = true "
+			+ "where freeBoardReplyNo = #{ freeBoardReplyNo }")
+	void deleteFreeBoardReview(@Param("freeBoardReplyNo") int freeBoardReplyNo);
+	
+	// 댓글 수정
+	@Update("update FreeBoardReview "
+			+ "set replyContent = #{ replyContent } "
+			+ "where freeBoardReplyNo = #{ freeBoardReplyNo }")
+	void editFreeBoardReview(FreeBoardReviewDto freeBoardReview);
 	
 
 }

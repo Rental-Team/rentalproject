@@ -41,49 +41,49 @@
                   </div>
                   </div>
                   <div class="card-body">
-                  <form action="freeboardwrite" method="post">         
+                  <form action="freeboardwrite" method="post" enctype="multipart/form-data">         
                   	<div class="pl-lg-4">
-                  	<div class="row">
-                  	<div class="col-lg-12">
-                  	<div class="form-group">
-                  	<label class="form-control-label" for="input-freeBoardTitle">제목</label>
-                  	<input type="text" id="input-freeBoardTitle" name="freeBoardTitle" class="form-control form-control-alternative" placeholder="제목을 입력하세요" />          	 
-                  	</div>
-                  	</div>
-                  	</div>                  	
-                   	<div class="row">
-                  	<div class="col-lg-12">
-                  	<div class="form-group">
-                  	<label class="form-control-label" for="input-memberNo">작성자</label>
-                  	${ sessionScope.loginuser.memberId }
-                	<input type="hidden" id="input-memberNo" name="memberNo" class="form-control form-control-alternative" value="${ loginuser.memberId }">   	 
-                  	</div>
-                  	</div>
-                  	</div>
-		            	<div class="row">
-                  	<div class="col-lg-12">
-                  	<div class="form-group">
-                  	<label class="form-control-label" for="input-freeBoardAttach">첨부파일</label>
-                  	<input type="file" id="input-freeBoardAttach" class ="btn btn-sm btn-primary" class="form-control form-control-alternative" name="freeBoardAttach" style="width:200px">  
-                  	</div>
-                  	</div>
-                  	</div>		                   
-		            	<div class="row">
-                  	<div class="col-lg-12">
-                  	<div class="form-group">
-                  	<label class="form-control-label"  for="input-freeBoardContent">글내용</label>
-                  	 <textarea name="freeBoardContent" id="input-freeBoardContent" style="resize: none;" rows="15" placeholder="내용을 입력하세요" class="form-control form-control-alternative" ></textarea>
-                  	</div>
-                  	</div>
-                  	</div>    
-		            <div class="row">
-		            <div class="col-lg-12">
-		            <div class="text-right">
-			        <input type="submit" class ="btn btn-primary" value="글쓰기" >
-			        <input type="button" class ="btn btn-primary" id="btnCancel" value="취소" >
-		            </div>
-		            </div>
-	                </div>
+	                  	<div class="row">
+	                  	<div class="col-lg-12">
+	                  	<div class="form-group">
+	                  	<label class="form-control-label" for="input-freeBoardTitle">제목</label>
+	                  	<input type="text" id="input-freeBoardTitle" name="freeBoardTitle" class="form-control form-control-alternative" placeholder="제목을 입력하세요" />          	 
+	                  	</div>
+	                  	</div>
+	                  	</div>                  	
+	                   	<div class="row">
+	                  	<div class="col-lg-12">
+	                  	<div class="form-group">
+	                  	<label class="form-control-label" for="input-memberNo">작성자</label>
+	                  	${ sessionScope.loginuser.memberId }
+	                	<input type="hidden" id="input-memberNo" name="memberNo" class="form-control form-control-alternative" value="${ loginuser.memberId }">   	 
+	                  	</div>
+	                  	</div>
+	                  	</div>
+			            	<div class="row">
+	                  	<div class="col-lg-12">
+	                  	<div class="form-group">
+	                  	<label class="form-control-label" for="input-freeBoardAttach">첨부파일</label>
+	                  	<input type="file" id="attach" class ="btn btn-sm btn-primary" class="form-control form-control-alternative" name="attach" style="width:200px">  
+	                  	</div>
+	                  	</div>
+	                  	</div>		                   
+			            	<div class="row">
+	                  	<div class="col-lg-12">
+	                  	<div class="form-group">
+	                  	<label class="form-control-label"  for="input-freeBoardContent">글내용</label>
+	                  	 <textarea name="freeBoardContent" id="input-freeBoardContent" style="resize: none;" rows="15" placeholder="내용을 입력하세요" class="form-control form-control-alternative" ></textarea>
+	                  	</div>
+	                  	</div>
+	                  	</div>    
+			            <div class="row">
+			            <div class="col-lg-12">
+			            <div class="text-right">
+				        <input type="submit" class ="btn btn-primary" value="글쓰기" >
+				        <input type="button" class ="btn btn-primary" id="btnCancel" value="취소" >
+			            </div>
+			            </div>
+		                </div>
 	                </div>
                 </form>
                 </div>
