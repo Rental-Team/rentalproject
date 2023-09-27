@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
     
     <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
@@ -129,7 +129,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                     </div>
-                    <form:input path="memberId" class="form-control" placeholder="ID" type="text" />
+                    <form:input path="memberId" class="form-control" placeholder="아이디" type="text" />
                   </div>
                 </div>
 				<div class="form-group">
@@ -137,7 +137,15 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                     </div>
-                    <form:input path="password" class="form-control" placeholder="PASSWORD" type="password" />
+                    <form:input path="password" class="form-control" placeholder="비밀번호" type="password" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                    </div>
+                    <form:input path="password" class="form-control" placeholder="비밀번호 확인" type="password" />
                   </div>
                 </div>
                 <div class="form-group">
@@ -145,7 +153,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                     </div>
-                    <form:input path="userName" class="form-control" placeholder="NAME" type="text" />
+                    <form:input path="userName" class="form-control" placeholder="이름" type="text" />
                   </div>
                 </div>
                 <div class="form-group">
@@ -153,7 +161,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                     </div>
-                    <form:input path="nickname" class="form-control" placeholder="NICKNAME" type="text" />
+                    <form:input path="nickname" class="form-control" placeholder="별명" type="text" />
                   </div>
                 </div>
                 <div class="form-group">
@@ -161,7 +169,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                     </div>
-                    <form:input path="phoneNo" class="form-control" placeholder="PNONE.NO" type="text" />
+                    <form:input path="phoneNo" class="form-control" placeholder="전화번호" type="text" />
                   </div>
                 </div>
                 <div class="form-group">
@@ -169,7 +177,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                     </div>
-                    <form:input path="email" class="form-control" placeholder="E-MAIL" type="email" />
+                    <form:input path="email" class="form-control" placeholder="이메일" type="email" />
                   </div>
                 </div>
                 <div class="form-group">
@@ -177,7 +185,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                     </div>
-                    <form:input path="address" class="form-control" placeholder="ADDRESS" type="text" />
+                    <form:input path="address" class="form-control" placeholder="주소" type="text" />
                   </div>
                 </div>
                 <div class="form-group">
@@ -185,7 +193,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                     </div>
-                    <form:input path="deposite" class="form-control" placeholder="DEPOSITE" type="text" />
+                    <form:input path="deposite" class="form-control" placeholder="보증금" type="text" />
                   </div>
                 </div>
                 <div class="text-muted font-italic"><small>password strength: <span class="text-success font-weight-700">strong</span></small></div>
@@ -201,7 +209,8 @@
                 </div>
                 <div class="text-center">
                 <!-- <a href="/rental-project/account/login" class="btn btn-primary mt-4"> create account </a> -->
-                  <input id="register" type="submit" class="btn btn-primary mt-4" value="create account" />
+                  <input id="register" type="submit" class="btn btn-primary mt-4" value="계정 생성" />
+         
                 </div>
               </form>
               </form:form>

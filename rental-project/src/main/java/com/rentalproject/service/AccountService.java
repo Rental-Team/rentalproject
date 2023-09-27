@@ -8,4 +8,6 @@ public interface AccountService {
 
 	MemberDto findLoginMember(MemberDto member);
 
+	void editPassword(MemberDto member);
+
 }

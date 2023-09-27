@@ -38,7 +38,7 @@
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">유저 정보</h3>
+                  <h3 class="mb-0">상품 게시판</h3>
                 </div>
               </div>
             </div>
@@ -47,26 +47,39 @@
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
-                    <th scope="col" style="width:100px">아이디</th>
-                    <th scope="col" style="width:100px">이름</th>
-                    <th scope="col" style="width:100px">휴대폰 번호</th>
-                    <th scope="col" style="width:100px">등록일자</th>
+                    <th scope="col" style="width:100px">게시글 번호</th>
+                    <th scope="col" style="width:200px">상품 제목</th>
+                    <th scope="col" style="width:100px">상품 가격</th>
+                    <th scope="col" style="width:100px">조회수</th>
+                    <th scope="col" style="width:150px">작성 일자</th>
                   </tr>
                 </thead>
                 <tbody>
-                 <c:forEach var="member" items="${ memberList }">
+                 <c:forEach var="Item" items="${ itemList }">
                  	<tr>
-                    	<td><c:out value="${ member.memberId}" /></td>
-   						<td><c:out value="${ member.userName}" /></td>      	 
-                    	 <td><c:out value="${member.phoneNo}" /></td>
+                    	<td><c:out value="${Item.itemNo}" /></td>
+                    	<td style="text-align:left;padding-left:10px">
+						<c:choose>
+							<c:when test="${ not Item.deleted }">
+								<a href="detail?itemNo=${ Item.itemNo }&pageNo=${ pageNo }">${ Item.itemName }</a>
+							</c:when>
+							<c:otherwise>
+								<span class="deleted"> === 삭제된 글 === </span>
+							</c:otherwise>
+						</c:choose>
+						</td>      
+						<td><c:out value="${Item.itemPrice}" /></td>      	 
+                    	 <td><c:out value="${Item.viewCount}" /></td>
                     	 <td><fmt:formatDate pattern="yyyy-MM-dd"
-                    	  value="${ member.regDate }" /></td>
+                    	  value="${Item.itemDate }" /></td>
                   </tr>
                  </c:forEach>
          
                 </tbody>
               </table>
-
+              <br><br>
+                 ${ pager }
+                 <br /><br />
             </div>
           </div>
         </div>
