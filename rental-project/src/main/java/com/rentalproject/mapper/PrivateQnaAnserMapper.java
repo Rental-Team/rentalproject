@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.rentalproject.dto.PrivateQnaAnswerDto;
 
@@ -24,5 +25,10 @@ public interface PrivateQnaAnserMapper {
 										)
 	List<PrivateQnaAnswerDto> selectPrivateQnaAnserbyQnaNo(@Param("qnaNo") int qnaNo);
 	
-	
-}
+	@Update( "update PrivateA "
+			+ "set answerContent = #{ answerContent } "
+			+ "where QnaNo= #{ qnaNo } "
+										)
+		void updateAnswer(PrivateQnaAnswerDto privateQnaAnswer);
+
+}		

@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 
@@ -314,10 +315,7 @@
 		        </table> 
 			        <br>
 			        <div class="col text-center" >
-			         <input type="button"  id="getBack" class ="btn btn-sm btn-primary" value="목록으로 돌아가기" >
-			       <!--  <input type="button" id="btnEdit"  class ="btn btn-sm btn-primary"  value="게시글 수정하기" > -->
-			      <!--   <input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="게시글 삭제하기" > -->
-	              
+			         <input type="button"  id="getBack" class ="btn btn-sm btn-primary" value="목록으로 돌아가기" > 
 	                </div>
                 </form>
                 </div>
@@ -329,37 +327,38 @@
     </div>
 <br>
 <br>
-<!-- 자유게시글 댓글 보기 기능 구현 시작-->
+	
           		
-					<table id = "answer-list" style="text-align:center" class="table align-items-center table-flush">
-           				<thead class="thead-light">
-			             <tr style="text-align:center">
-			             
-			               <th scope="col" style="width:300px">답변내용</th>
-			               <th scope="col" style="width:150px">답변작성일자</th>
-			            
-			             </tr>
-			           </thead>
-			           <tbody>
-			            <c:forEach var="privateQnaAnswer" items="${ privateqna.privateQnaAnswerList }">
-			             <tr style="text-align:center">
-			                <td scope="col" style="width:100px"> ${ privateQnaAnswer.answerContent } </td>
-			                <td scope="col" style="width:200px"> ${ sessionScope.loginuser.memberId }
-					                							 <input type="hidden" name="memberNo" value="${ loginuser.memberId }"> 
-					                							 <!-- 오류 : 다시확인 로그인한 유저로 걍 다 바뀜 -->
-			               <%--  <td scope="col" style="width:100px">${ freeBoardReview.replyContent} </td>
-			                <td scope="col" style="width:150px"><fmt:formatDate value="${ freeBoardReview.replyCreateDate }" pattern="yyyy-MM-dd hh:mm"/></td> --%>
-			             	<td>
-			             <!-- 	<input type="button" class ="btn btn-sm btn-primary" id="btnedit" value="댓글수정" >
-				        	<input type="button" class ="btn btn-sm btn-primary" id="btndelete" value="댓글삭제" > -->
-			             	</td>
-			             </tr>
-			            </c:forEach>
-			           </tbody>
-			         </table>		
+			   <table id = "answer-list" style="text-align:center" class="table align-items-center table-flush">
+			       		<thead class="thead-light">
+			         <tr style="text-align:center">
+			              <th scope="col" style="width:300px">답변내용</th>
+			              <th scope="col" style="width:150px">답변작성일자</th>
+			         </tr>
+			          </thead>
+			          <tbody>
+<!--답변 조회 됨 --> <c:forEach var="privateAnswer" items="${ privateqna.privateQnaAnswerList }">
+					<tr style="text-align:center" id="answer-view-area-${ privateAnswer.qnaNo }">
+				        <td scope="col" style="width:100px">${ privateAnswer.answerContent }</td>
+				        <td scope="col" style="width:200px">${ sessionScope.loginuser.memberId }</td>
+						<td>
+			                <a class="btn btn-sm btn-primary edit-answer-link" data-reply-no="${privateAnswer.qnaNo}" href="javascript:void(0)" style="color: white">답변수정</a>
+				        </td>
+				    </tr>
+					<div id="answer-edit-area-${privateAnswer.qnaNo}" style="display: none">
+<!--답변 수정 -->	   <form action="edit-answer" method="post" style="width:105%; resize:none;">
+			            <input type="hidden" name="qnaNo" value="${privateAnswer.qnaNo}">
+			            <textarea name="answerContent" style="width:100%; resize:none;">${privateAnswer.answerContent}</textarea>
+			            <input type="submit" value="저장">
+				  </form>
+		        	</div>
+				 </c:forEach>
+				        </tbody>
+				 </table>	
 			         
-<!--답변 보기 기능 구현 끝-->	
-<br>
+	         
+			         
+			         
 <br>
 <br>
 <br>
@@ -372,39 +371,37 @@
 <br>
 <br>
 
-
-
-
-
-		<!-- 1대1문의글 답변  기능 구현 --> 
-	<div class="container-fluid mt--7">
-      <div class="row mt-5">
-        <div class="col-xl-8 mb-5 mb-xl-0">
-          <div class="card shadow">
-            <div class="card-header border-0">
-              <div class="row align-items-center">
-                <div class="col">
-                <h5 class="mb-0">1대1게시글 답변</h5>
-                	<form id="commentform" action="write-answer" method="post">
-                		<input type="hidden" name="qnaNo" value="${ privateqna.qnaNo}" />
-                		<table class="table align-items-center">
-                			<tr>
-                				<td style="width: 750px"><textarea id="comment_content"
-								name="answerContent" style="width: 100%; resize:none;" rows="2"></textarea></td>
-								<td style="width: 50px; vertical-align: middle; border-radius:80px">
-								<input type="submit" class ="btn btn-sm btn-primary" id="write-answer" value="답변등록하기" >
-								
-								</td>
-                			</tr>
-                		</table>
-                		</form>
-                 </div>
-              </div>
-           </div> 
-          </div>
-        </div>
-      </div>
-    </div>
+<!-- 1대1문의글 답변  등록  버튼 form있는 부분  --> 
+			<div class="container-fluid mt--7">
+		      <div class="row mt-5">
+		        <div class="col-xl-8 mb-5 mb-xl-0">
+		          <div class="card shadow">
+		            <div class="card-header border-0">
+		              <div class="row align-items-center">
+		                <div class="col">
+		                <h5 class="mb-0">1대1게시글 답변</h5>
+		                	<form id="comment-Answer" action="write-answer" method="post">
+		                		<input type="hidden" name="qnaNo" value="${ privateqna.qnaNo}" />
+		                		<table class="table align-items-center">
+		                			<tr>
+		                				<td style="width: 750px"><textarea id="comment_content"
+										name="answerContent" style="width: 100%; resize:none;" rows="2"></textarea></td>
+										<td style="width: 50px; vertical-align: middle; border-radius:80px">								 
+										<input type="submit" class ="btn btn-sm btn-primary" id="write-answer" value="답변등록하기" >
+										</td>
+		                			</tr>
+		                		</table>
+		                		</form>
+		                 </div>
+		              </div>
+		           </div> 
+		          </div>
+		        </div>
+		      </div>
+		       </div>
+<!-- 1대1문의글 답변  등록  버튼 form있는 부분 --> 
+   
+      
 <br>
 <br>
 <br>
@@ -476,16 +473,22 @@
  
  
  <script>
-$(function() {
-	$('#getBack').on('click', function(event) {
-		location.href= 'privateqnalist'
-		
-})
+$(function(event) {
+    $('#getBack').on('click', function() {
+        location.href = 'privateqnalist';
+    });
 
-	
+    $(".edit-answer-link").on('click', function() {
+        var qnaNo = $(this).attr("data-reply-no");
+        $('#answer-edit-area-' + qnaNo).css('display', '');
+        $('#answer-view-area-' + qnaNo).css('display', 'none');
+    });
+
+    $("form[id^='answer-edit-area-']").submit(function(event) {
+        event.preventDefault();
+        window.location.href = 'privateqnadetail';
+    });
 });
-
-
 </script>
   
   

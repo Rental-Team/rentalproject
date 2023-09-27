@@ -17,6 +17,13 @@ public class PrivateQnaAnswerServiceImpl implements PrivateQnaAnswerService {
 		privateQnaAnserMapper.insertAnswer(privateQnaAnswer);
 		
 	}
+
+
+	@Override
+	public void editAnswer(PrivateQnaAnswerDto privateQnaAnswer) {
+			privateQnaAnserMapper.updateAnswer(privateQnaAnswer);
+		
+	}
 	
 	
 

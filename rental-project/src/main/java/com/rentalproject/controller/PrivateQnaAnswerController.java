@@ -16,7 +16,7 @@ public class PrivateQnaAnswerController {
 	@Autowired
 	private PrivateQnaAnswerService privateQnaAnswerService; 
 	
-	@PostMapping(path ={"/write-answer"})
+	@PostMapping(path ={"/write-answer"})  //답변 
 	public String writeAnswer(PrivateQnaAnswerDto privateQnaAnswer){
 	
 	privateQnaAnswerService.writeAnswer(privateQnaAnswer);	
@@ -25,4 +25,10 @@ public class PrivateQnaAnswerController {
 		
 	return String.format("redirect:privateqnadetail?qnaNo=%d",privateQnaAnswer.getQnaNo());
 }
+
+	@PostMapping("/edit-answer")
+	public String editAnswer(PrivateQnaAnswerDto privateQnaAnswer) {
+	    privateQnaAnswerService.editAnswer(privateQnaAnswer);
+	    return String.format("redirect:privateqnadetail?qnaNo=%d" , privateQnaAnswer.getQnaNo());
+	}
 }
