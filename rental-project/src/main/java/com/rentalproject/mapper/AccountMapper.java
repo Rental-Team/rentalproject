@@ -21,7 +21,7 @@ public interface AccountMapper {
 	
 	// 로그인 = 프로필에 조회할 내용과 일치해서 따로 ProfileMapper에 만들지 않음
 	@Select("select memberNo, memberId, password, userName, nickname, " + 
-			"phoneNo, email, address, deposite, regDate, deleteCheck, introduce, imageName " + 
+			"phoneNo, email, address, deposite, regDate, deleteCheck, introduce, imageName, admin " + 
 			"from Member where memberId = #{memberId} and password = #{password}")
 	MemberDto selectMemberByIdAndPw(MemberDto member);
 	
