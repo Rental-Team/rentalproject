@@ -2,15 +2,11 @@ package com.rentalproject.common;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
-
-import javax.management.RuntimeErrorException;
-import javax.servlet.http.HttpServletRequest;
 
 public class Util {
 	
@@ -27,9 +23,9 @@ public class Util {
 		
 		try {
 			//암호화 처리 인스턴스 생성
-			MessageDigest md = MessageDigest.getInstance(algorithm);
-			hashedData = md.digest(source.getBytes());// 평문을 지정된 알고리즘으로 암호화 ( 결과 : byte [] )
- 		} catch (NoSuchAlgorithmException ex) {	
+			MessageDigest md = MessageDigest.getInstance(algorithm); // <- SHA-1 등을 넣는다
+			hashedData = md.digest(source.getBytes());// MessageDigest 평문을 지정된 알고리즘으로 암호화 (결과: byte[])
+		} catch (NoSuchAlgorithmException ex) {	
 			hashedData = null;
 		}
 		
@@ -51,7 +47,7 @@ public class Util {
 		String hashedString = "";
 		for (int i = 0; i < hashedData.length; i++) {
 			String hexString = 
-				Integer.toHexString((int)hashedData[i] & 0x000000ff);
+				Integer.toHexString((int)hashedData[i] & 0x000000ff); // 비트연산으로 00000001 을 더하므로 마지막 값으로만 결정한다는 것
 			if (hexString.length() < 2)
 				hexString = "0" + hexString;
 			

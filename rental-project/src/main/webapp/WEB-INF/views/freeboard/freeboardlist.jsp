@@ -39,10 +39,10 @@
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">자유게시판</h3>
+                  <h3 style="font-weight:bold" class="mb-0">자유게시판</h3>
                 </div>
                 <div class="col text-right">
-                  <a href="freeboardwrite" class="btn btn-sm btn-primary">게시글 작성</a>
+                  <a href="freeboardwrite" class="btn btn btn-primary">게시글 작성</a>
                 </div>
               </div>
             </div>
@@ -50,12 +50,12 @@
          <!-- Projects table -->
          <table class="table align-items-center table-flush">
            <thead class="thead-light">
-             <tr style="text-align:center">
-               <th scope="col" style="width:100px">게시글 번호</th>
-               <th scope="col" style="width:500px">게시글 제목</th> 
-               <th scope="col" style="width:200px">작성자</th>
-               <th scope="col" style="width:100px">조회수</th>
-               <th scope="col" style="width:150px">게시글 작성 일자</th>
+             <tr style="text-align:center;">
+               <th scope="col" style="width:100px; font-size:10pt">게시글 번호</th>
+               <th scope="col" style="width:500px; font-size:10pt">게시글 제목</th> 
+               <th scope="col" style="width:200px; font-size:10pt">작성자</th>
+               <th scope="col" style="width:100px; font-size:10pt">조회수</th>
+               <th scope="col" style="width:150px; font-size:10pt">게시글 작성 일자</th>
              </tr>
            </thead>
            <tbody>

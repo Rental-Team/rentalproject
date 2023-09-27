@@ -1,7 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-    
-    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><!-- tag library -->
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html lang="en">
 
@@ -38,7 +40,8 @@
       <div class="container-fluid d-flex align-items-center">
         <div class="row">
           <div class="col-lg-7 col-md-10">
-            <h1 class="display-2 text-white">${ loginuser.memberId }</h1>
+            <h1 class="display-2 text-white">${ profileuser.memberId }</h1>
+            <input type="hidden" name="memberId" value="${profileuser.memberId }">
             <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
             <input type="submit" value="complete" class="btn btn-info" />
             <a href="profile?memberId=${ loginuser.memberId }" class="btn btn-info">cancel</a>
@@ -118,65 +121,51 @@
               </div>
             </div>
             <div class="card-body">
-                <h6 class="heading-small text-muted mb-4">User information</h6>
+                <h6 class="heading-small text-muted mb-4">내 정보</h6>
                 
                 <div class="pl-lg-4">
                   <div class="row">
-                    <div class="col-lg-6">
+                  <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-username">ID</label>
-                        <!-- <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="lucky.jesse"> -->
-                        ${loginuser.memberId }
-                        <input type="hidden" name="memberId" value="${loginuser.memberId }">
+                        <label class="form-control-label" for="input-username">이름</label>
+                        <input type="text" name="userName" class="form-control form-control-alternative" value="${ profileuser.userName }" />
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-username">E-MAIL</label>
-                        <!-- <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="lucky.jesse"> -->
-                        <input type="email" name="email" style="width:580px" value="${ profileuser.email }" />
+                        <label class="form-control-label" for="input-username">별명</label>
+                        <input type="text" name="nickname" class="form-control form-control-alternative" value="${ profileuser.nickname }" />
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-username">NAME</label>
-                        <!-- <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="lucky.jesse"> -->
-                        <input type="text" name="userName" style="width:580px" value="${ profileuser.userName }" />
+                        <label class="form-control-label" for="input-username">이메일</label>
+						<input type="email" name="email" class="form-control form-control-alternative" value="${ profileuser.email }" />
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-username">NICKNAME</label>
-                        <!-- <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="lucky.jesse"> -->
-                        <input type="text" name="nickname" style="width:580px" value="${ profileuser.nickname }" />
+                        <label class="form-control-label" for="input-username">전화번호</label>
+                        <input type="text" name="phoneNo" class="form-control form-control-alternative" value="${ profileuser.phoneNo }" />
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-username">ADDRESS</label>
-                        <!-- <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="lucky.jesse"> -->
-                        <input type="text" name="address" style="width:580px" value="${ profileuser.address }" />
+                        <label class="form-control-label" for="input-username">주소</label>
+                        <input type="text" name="address" class="form-control form-control-alternative" value="${ profileuser.address }" />
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-username">PHONE.NO</label>
-                        <!-- <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="lucky.jesse"> -->
-                        <input type="text" name="phoneNo" style="width:580px" value="${ profileuser.phoneNo }" />
+                        <label class="form-control-label" for="input-username">보증금</label>
+                        <input type="text" name="deposite" class="form-control form-control-alternative" value="${ profileuser.deposite }" />
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-username">DEPOSITE</label>
-                        <!-- <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="lucky.jesse"> -->
-                        <input type="text" name="deposite" style="width:580px" value="${ profileuser.deposite }" />
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="form-group">
-                        <label class="form-control-label" for="input-username">REGISTER DATE</label>
-                        <!-- <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="lucky.jesse"> -->
-                        <td>${ loginuser.regDate }</td>
+                        <label class="form-control-label" for="input-username">등록일</label>
+                        <br>
+                        <div><fmt:formatDate value="${ profileuser.regDate }" pattern="yyyy-MM-dd" /></div>
                       </div>
                     </div>
 <!--                     <div class="col-lg-6">
@@ -242,7 +231,7 @@
                 <div class="pl-lg-4">
                   <div class="form-group">
                     <label>About Me</label>
-                    <textarea rows="4" class="form-control form-control-alternative" placeholder="A few words about you ...">A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea>
+                    <textarea rows="4" name="introduce" class="form-control form-control-alternative">${ profileuser.introduce }</textarea>
                   </div>
                 </div>
             </div>

@@ -19,6 +19,6 @@ public class MemberDto {
 	private Date regDate;
 	private boolean deleteCheck;
 	private String introduce;
-	private String photo;
+	private String imageName;
 	private int admin;
 }

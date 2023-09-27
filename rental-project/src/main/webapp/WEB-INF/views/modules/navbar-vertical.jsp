@@ -109,13 +109,7 @@
               <i class="ni ni-pin-3 text-orange"></i> 지도
             </a>
           </li>
-          <li class="nav-item">
-
-            <a class="nav-link " href="/rental-project/profile/profile?memberId=${loginuser.memberId}">
-              <i class="ni ni-single-02 text-yellow"></i> 유저프로필
-            </a>
-          </li>
-          <li class="nav-item">
+		  <li class="nav-item">
             <a class="nav-link " href="/rental-project/item/list">
               <i class="ni ni-bullet-list-67 text-red"></i> 상품 게시판
             </a>
@@ -140,6 +134,11 @@
           </li>
           </c:when>
           <c:otherwise>
+          <li class="nav-item">
+			<a class="nav-link " href="/rental-project/profile/profile?memberId=${loginuser.memberId}">
+              <i class="ni ni-single-02 text-yellow"></i> 유저프로필
+            </a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="/rental-project/account/logout">
               <i class="ni ni-circle-08 text-pink"></i> 로그아웃

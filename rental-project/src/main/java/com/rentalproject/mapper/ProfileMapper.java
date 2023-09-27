@@ -18,13 +18,9 @@ public interface ProfileMapper {
 	// 프로필 수정
 	@Update("update Member " + 
 			"set userName = #{userName}, nickname = #{nickname}, phoneNo = #{phoneNo}, email = #{email}, " + 
-			"address = #{address}, deposite = #{deposite}, introduce = #{introduce}, photo = #{photo} " + 
+			"address = #{address}, deposite = #{deposite}, introduce = #{introduce}, imageName = #{imageName} " + 
 			"where memberId = #{memberId}")
 	void updateProfile(MemberDto member);
-		
-	// 비밀번호 수정
-	@Update("update Member set password = #{password} where memberId = #{memberId})")
-	void updatepassword(@Param("password") String password);
 	
 	// 회원 탈퇴
 	@Update("update Member set deleteCheck = true where memberId = #{memberId} ")

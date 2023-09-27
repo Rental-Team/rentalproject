@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-    
-    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><!-- tag library -->
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html lang="en">
 
@@ -59,8 +61,6 @@
             </div>
             <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
               <div class="d-flex justify-content-between">
-                <a href="#" class="btn btn-sm btn-info mr-4">Connect</a>
-                <a href="#" class="btn btn-sm btn-default float-right">Message</a>
               </div>
             </div>
             <div class="card-body pt-0 pt-md-4">
@@ -121,60 +121,46 @@
                 <h6 class="heading-small text-muted mb-4">User information</h6>
                 <div class="pl-lg-4">
                   <div class="row">
-                    <div class="col-lg-6">
+                  <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-username">ID</label>
-                        <!-- <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="lucky.jesse"> -->
-                        <td>${ loginuser.memberId }</td>
+                        <label class="form-control-label" for="input-username">이름</label>
+                        <div>${ loginuser.userName }</div>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-username">E-MAIL</label>
-                        <!-- <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="lucky.jesse"> -->
-                        <td>${ loginuser.email }</td>
+                        <label class="form-control-label" for="input-username">별명</label>
+                        <div>${ loginuser.nickname }</div>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-username">NAME</label>
-                        <!-- <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="lucky.jesse"> -->
-                        <td>${ loginuser.userName }</td>
+                        <label class="form-control-label" for="input-username">이메일</label>
+                        <div>${ loginuser.email }</div>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-username">NICKNAME</label>
-                        <!-- <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="lucky.jesse"> -->
-                        <td>${ loginuser.nickname }</td>
+                        <label class="form-control-label" for="input-username">전화번호</label>
+                        <div>${ loginuser.phoneNo }</div>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-username">ADDRESS</label>
-                        <!-- <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="lucky.jesse"> -->
-                        <td>${ loginuser.address }</td>
+                        <label class="form-control-label" for="input-username">주소</label>
+                        <div>${ loginuser.address }</div>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-username">PHONE.NO</label>
-                        <!-- <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="lucky.jesse"> -->
-                        <td>${ loginuser.phoneNo }</td>
+                        <label class="form-control-label" for="input-username">보증금</label>
+                        <div>${ loginuser.deposite }</div>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-username">DEPOSITE</label>
-                        <!-- <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="lucky.jesse"> -->
-                        <td>${ loginuser.deposite }</td>
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="form-group">
-                        <label class="form-control-label" for="input-username">REGISTER DATE</label>
-                        <!-- <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="lucky.jesse"> -->
-                        <td>${ loginuser.regDate }</td>
+                        <label class="form-control-label" for="input-username">등록일</label>
+                        <div><fmt:formatDate value="${ profileuser.regDate }" pattern="yyyy-MM-dd" /></div>
                       </div>
                     </div>
 <!--                     <div class="col-lg-6">
@@ -237,8 +223,16 @@
                 <h6 class="heading-small text-muted mb-4">About me</h6>
                 <div class="pl-lg-4">
                   <div class="form-group">
-                    <label>About Me</label>
-                    <textarea rows="4" class="form-control form-control-alternative" placeholder="A few words about you ...">A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea>
+<tr>
+<c:set var="enter" value="
+" />
+<%-- enter(줄 바꿈) 설정 방법: 모양 안예쁘다고 수정하지 말 것--%>
+		                
+		                <td>${ fn:replace(profileuser.introduce, enter, "<br>") }</td>
+		                <%-- fn:replace(a, x, y)-> a에 x기능을 y기능으로 바꿔라 --%>
+		                
+		            </tr>                    
+
                   </div>
                 </div>
               </form>

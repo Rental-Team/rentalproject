@@ -27,18 +27,17 @@ public class ProfileServiceImpl implements ProfileService {
 	public void editProfile(MemberDto member) {
 		
 		profileMapper.updateProfile(member);
+		
+		
+		
 	}
 	
-	@Override // 비밀번호 수정
-	public void editPassword(String password) {
-		
-		profileMapper.updatepassword(password);
-	}
 	
 	@Override // 회원 탈퇴
 	public void deleteUser(String memberId) {
 		profileMapper.deleteUser(memberId);
 	}
+
 	
 
 }
