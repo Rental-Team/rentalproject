@@ -230,7 +230,6 @@
                 <h6 class="heading-small text-muted mb-4">About me</h6>
                 <div class="pl-lg-4">
                   <div class="form-group">
-                    <label>About Me</label>
                     <textarea rows="4" name="introduce" class="form-control form-control-alternative">${ profileuser.introduce }</textarea>
                   </div>
                 </div>

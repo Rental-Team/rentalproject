@@ -61,14 +61,6 @@ public class AccountController {
 		
 		MemberDto loginMember = accountService.findLoginMember(member);
 		
-//		if(loginMember != null) { // 회원가입해서 들어있는 정보가 null이 아니라면 = 회원가입된 유저라면
-//			session.setAttribute("loginuser", loginMember); //loginuser라는 이름으로 loginMember의 데이터를 세션에 저장
-//			return String.format("redirect:/home?memberId=%s", member.getMemberId());
-//		} else {
-//			model.addAttribute("loginfail", "x");
-//			return "account/login";
-//		}
-		
 		 if (loginMember != null) { // 회원 가입된 유저라면
 		        if (loginMember.isDeleteCheck() != false) { // 삭제된 계정인지 확인
 		            model.addAttribute("message", "이미 탈퇴한 계정입니다.");
@@ -124,13 +116,16 @@ public class AccountController {
 	@PostMapping(path= {"/findpw"})
 	public String findPw(MemberDto member, Model model, HttpSession session) {
 		MemberDto loginMember = accountService.findLoginMember(member);
-		String loginName = loginMember.getUserName();
-		String loginPhoneNo = loginMember.getPhoneNo();
-		String loginPassword = loginMember.getPassword();
 		
-		if (loginName != null && loginPhoneNo != null && loginPassword != null) {
-			session.setAttribute("findpw", loginMember);
-			return "redirect:account/editpw";
+		if (loginMember != null) { // 회원 가입된 유저라면
+//	        if (loginMember.isDeleteCheck() != false) { // 삭제된 계정인지 확인
+//	            model.addAttribute("message", "이미 탈퇴한 계정입니다.");
+//	            return "account/login";
+//	        }
+
+	        session.setAttribute("loginuser", loginMember);
+			
+			return "redirect:/account/newpw";
 		} else {
 			model.addAttribute("정보가 일치하지 않습니다", "x");
 			return "account/findpw";
@@ -139,21 +134,21 @@ public class AccountController {
 		
 	}
 	
-	// 비밀번호 변경 창
-	@GetMapping(path= {"/editpw"})
-	public String showEditPw(HttpSession session, Model model) {
-		MemberDto loginUser = (MemberDto)session.getAttribute("loginuser");
-		model.addAttribute("profileuser", loginUser);
-		return "account/editpw";
-	}
+//	// 비밀번호 변경 창
+//	@GetMapping(path= {"/newpw"})
+//	public String showEditPw(HttpSession session, Model model) {
+//		MemberDto loginUser = (MemberDto)session.getAttribute("loginuser");
+//		model.addAttribute("profileuser", loginUser);
+//		return "account/newpw";
+//	}
 	
-	// 비밀번호 변경 수행
-	@PostMapping(path= {"/editpw"})
-	public String editPw(MemberDto member, HttpSession session) {
-		accountService.editPassword(member);
-		session.setAttribute("editpw", member);
-		
-		return "redirect:/home";
-	}
+//	// 비밀번호 변경 수행
+//	@PostMapping(path= {"/newpw"})
+//	public String editPw(MemberDto member, HttpSession session) {
+//		accountService.editPassword(member);
+//		session.setAttribute("newpw", member);
+//		
+//		return "redirect:/home";
+//	}
 	
 }
