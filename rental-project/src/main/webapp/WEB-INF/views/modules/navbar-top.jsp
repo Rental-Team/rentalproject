@@ -44,7 +44,7 @@
                 	<c:otherwise>
                 		<c:if test="${ sessionScope.loginuser.admin == 2 }">
                 		<li>
-              				<a href="/rental-project/admin/home" style="color: black">관리자 화면</a>
+              				<a href="/rental-project/admin/home" style="color: black">관리자</a>
               			</li>	
                 		</c:if>
                 		${ sessionScope.loginuser.memberId }님

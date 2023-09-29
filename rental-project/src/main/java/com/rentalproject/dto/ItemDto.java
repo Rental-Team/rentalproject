@@ -1,6 +1,7 @@
 package com.rentalproject.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -20,5 +21,8 @@ public class ItemDto {
 	private String itemsort;
 	private int viewCount;
 	private boolean deleted;
+	
+	
+	private List<ItemAttachDto> itemAttachList;
 	
 }

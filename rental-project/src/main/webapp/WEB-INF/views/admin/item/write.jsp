@@ -60,12 +60,12 @@
             <div class="card-body">
               <form  action="write" method="post" autocomplete="on">
               
-              <div class="inputArea">
+              <!-- <div class="inputArea">
               	<label>상품 카테고리</label>
               	<select class="category">
               		<option value="">전체</option>
               	</select>
-              </div>
+              </div> -->
               <input type="hidden" name="categoryName" value="가전">
                 <!-- <h6 class="heading-small text-muted mb-4">User information</h6> -->
                 <div class="pl-lg-4">
@@ -96,21 +96,12 @@
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="form-group">
-                        <label class="form-control-label" id="itemPhoto" for="input-itemPhoto">이미지</label>
-                        <input type="file" id="input-itemPhoto" name="itemPhoto" class="form-control form-control-alternative">
+                        <label class="form-control-label" id="itemPhoto" for="input-itemPhoto">상품 이미지</label>
+                        <input type="file" id="input-itemPhoto" name="itemPhoto" class="form-control form-control-alternative" multiple>
                         <div class="select_img"><img src="" /></div>
                         
-                        <script>
-                        	$("#itemPhoto").change(function(){
-                        		if(this.files && this.files[0]) {
-                        			var reader = new FileReader;
-                        			reader.onload = function(data) {
-                        				$(".select_img img").attr("src", data.targer.result).width(500);
-                        			}
-                        			reader.readAsDataURL(this.files[0]);
-                        		}
-                        	});
-                        </script>
+                       
+                        
                       </div>
                     </div>
                   </div>
@@ -180,6 +171,20 @@
         token: "ee6fab19c5a04ac1a32a645abde4613a",
         application: "argon-dashboard-free"
       });
+  </script>
+  
+  <script>
+  $(document).ready(function(e){
+	  var formObj = $("form[role='form']");
+	  
+	  $("button[type='submit']").on("click", function(e){
+		  e.preventDefault();
+		  
+		  console.log("submit check");
+	  });
+	  
+	  
+  });
   </script>
 </body>
 
