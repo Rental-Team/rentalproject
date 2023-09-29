@@ -13,7 +13,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>
-    세숫대여 로그인
+    세숫대여 새 비밀번호 설정
   </title>
   <!-- Favicon -->
   <link href="/rental-project/resources/img/brand/favicon.png" rel="icon" type="image/png">
@@ -57,6 +57,12 @@
           <!-- Navbar items -->
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
+              <a class="nav-link nav-link-icon" href="/rental-project/account/login">
+                <i class="ni ni-key-25"></i>
+                <span class="nav-link-inner--text">로그인</span>
+              </a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link nav-link-icon" href="/rental-project/account/register">
                 <i class="ni ni-circle-08"></i>
                 <span class="nav-link-inner--text">회원가입</span>
@@ -90,21 +96,8 @@
       <div class="row justify-content-center">
         <div class="col-lg-5 col-md-7">
           <div class="card bg-secondary shadow border-0">
-            <div class="card-header bg-transparent pb-5">
-              <div class="text-muted text-center mt-2 mb-3"><small>Sign in with</small></div>
-              <div class="btn-wrapper text-center">
-                <a href="#" class="btn btn-neutral btn-icon">
-                  <span class="btn-inner--icon"><img src="/rental-project/resources/img/icons/common/github.svg"></span>
-                  <span class="btn-inner--text">Github</span>
-                </a>
-                <a href="#" class="btn btn-neutral btn-icon">
-                  <span class="btn-inner--icon"><img src="/rental-project/resources/img/icons/common/google.svg"></span>
-                  <span class="btn-inner--text">Google</span>
-                </a>
-              </div>
-            </div>
-            <div class="card-body px-lg-5 py-lg-5">            
-              <form action="login" method="post">
+            <div class="card-body px-lg-5 py-lg-5">
+              <form action="findpw" method="post">
                 <div class="form-group mb-3">
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
@@ -118,24 +111,20 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                     </div>
-                    <input name="password" class="form-control" placeholder="비밀번호" type="password">
+                    <input name="userName" class="form-control" placeholder="이름" type="text">
                   </div>
                 </div>
-                <!-- <div class="custom-control custom-control-alternative custom-checkbox">
-                  <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
-                  <label class="custom-control-label" for=" customCheckLogin">
-                    <span class="text-muted">Remember me</span>
-                  </label>
-                </div> -->
+                <div class="form-group">
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                    </div>
+                    <input name="userName" class="form-control" placeholder="전화번호" type="text">
+                  </div>
+                </div>
                 <p class="text-center">
-                  <input id="login" type="submit" class="btn btn-primary my-4" value="로그인" />
-                  <!-- <a href="/rental-project/account/register">
-                  <span class="btn btn-primary my-4">회원가입</span>
-                  </a> -->
+                  <input id="findpw" type="submit" class="btn btn-primary my-4" value="비밀번호 변경" />
                 </p>
-                <a href="/rental-project/account/findid">아이디 찾기</a><span style="margin: 80px"></span>
-                <a href="/rental-project/account/findpw">비밀번호 찾기</a>
-                
               </form>
             </div>
           </div>

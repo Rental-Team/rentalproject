@@ -276,6 +276,7 @@
   <!--   Argon JS   -->
   <script src="/rental-project/resources/js/argon-dashboard.min.js?v=1.1.2"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  
    <script>
       $(function(event){
     	  $('#delete-profile').on('click', function(event) {
