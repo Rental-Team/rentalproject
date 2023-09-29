@@ -57,7 +57,7 @@
                         <input disabled="disabled" type="text" id="input-freeBoardTitle"  name="freeBoardTitle" class="form-control form-control-alternative" value="${ freeBoard.freeBoardTitle }"/>
                            </div>
                     </div>
-                        <div class="col-lg-1">
+                        <div class="col-lg-6">
                       <div class="form-group">
                         <label style="font-size:12pt" class="form-control-label"  for="input-freeBoardNo">글번호</label>
                         <input disabled="disabled" type="text" id="input-freeBoardNo" name="freeBoardNo" class="form-control form-control-alternative"  value="${ requestScope.freeBoard.freeBoardNo }"/>
@@ -71,7 +71,7 @@
                         <input disabled="disabled" type="datetime" id="input-freeBoardDate"  name="freeBoardDate" class="form-control form-control-alternative" value="${ freeBoard.freeBoardDate }" pattern="yyyy-MM-dd HH:mm"/>
                            </div>
                     </div>
-                        <div class="col-lg-1">
+                        <div class="col-lg-6">
                       <div class="form-group">
                         <label style="font-size:12pt" class="form-control-label"  for="input-freeBoardNo">작성자</label>
                         <input disabled="disabled" type="text" id="input-freeBoardNo" name="freeBoardNo" class="form-control form-control-alternative"  value="${ requestScope.freeBoard.freeBoardNo }"/>
@@ -82,6 +82,7 @@
                     <div class="col-lg-6" >
                       <div class="form-group focused">
                         <label style="font-size:12pt" class="form-control-label"for="input-freeBoardAttach">첨부파일</label> 
+                        	<br>
 	                        <td>
 			                	<c:forEach var="freeBoardAttach" items="${ freeBoard.freeBoardAttachList }">
 			                		<a href="download?attachNo=${ freeBoardAttach.attachNo }"> ${freeBoardAttach.attachFileName}</a>
@@ -89,7 +90,7 @@
 			                </td>
                        </div>
                     </div>
-                        <div class="col-lg-1">
+                        <div class="col-lg-6">
 	                      	<div class="form-group">
 		                        <label style="font-size:12pt" class="form-control-label"  for="input-freeBoardViewCount">조회수</label>
 		                        <input disabled="disabled" type="text" id="input-freeBoardViewCount" name="freeBoardViewCount" class="form-control form-control-alternative"  value="${ freeBoard.freeBoardViewCount }"/>
@@ -127,6 +128,7 @@
                 	<h4 class="mb-0">자유게시글 댓글</h4>
                 	<form id="freeBaordReivewForm" action="freeboard-review" method="post">
                 		<input type="hidden" name="freeBoardNo" value="${ freeBoard.freeBoardNo }" />
+                		<input type="hidden" name="pageNo" value="${ pageNo }" />
 	                		<table class="table align-items-center">
 	                			<tr>
 	                				<td style="width: 1300px;">
@@ -183,6 +185,7 @@
 		                        <form action="edit-reply" method="post" style="width: 105%; resize: none;">
 		                            <input type="hidden" name="freeBoardReplyNo" value="${freeBoardReview.freeBoardReplyNo}" />
 		                            <input type="hidden" name="freeBoardNo" value="${freeBoard.freeBoardNo}" />
+		                            <input type="hidden" name="pageNo" value="${pageNo}" />
 		                            <textarea name="replyContent" style="width: 70%; resize: none; border-radius: 80px" rows="2" maxlength="200" >${freeBoardReview.replyContent}</textarea>
 		                            <br />
 		                            <div class="btn btn-sm btn-primary">
@@ -253,18 +256,18 @@
    <script>
 			$(function(event) {
 	    	$("#btnBackToList").on("click",function(event) {                // 자유게시판 목록으로 돌아가기 누르면 freeboardlist로 가기 
-	    		location.href="freeboardlist";
+	    		location.href="freeboardlist" +"?pageNo=" + ${pageNo};
     		})
 			
 	    	
         	$("#btnedit").on("click", function(event) {                     // 게시글 수정하기 누르면 게시글 수정하기 form으로가기
-	    		location.href="freeboardedit" + "?freeBoardNo=" +  ${ freeBoard.freeBoardNo };
+	    		location.href="freeboardedit" + "?freeBoardNo=" +  ${ freeBoard.freeBoardNo } + "&pageNo=" + ${pageNo};
 	    	})
 	    
 		   $("#btndelete").on("click",function(event) {                    // 게시글 삭제 이벤트    
 		   			const yes = confirm(${ freeBoard.freeBoardNo } + "번 게시글을 삭제할까요?");
 	   				if (yes) {
-	   					location.href="freeboarddelete/" + ${ freeBoard.freeBoardNo };
+	   					location.href="freeboarddelete/" + ${ freeBoard.freeBoardNo } + "?pageNo=" + ${pageNo};
 	   						}
 	   		})	
 	   		$(".delete-reply").on("click",function(event) {                    // 댓글 삭제하기 이벤트 
@@ -272,7 +275,8 @@
 	   			const yn = confirm(freeBoardReplyNo  + "번 댓글을 삭제할까요?");
    				if (yn) {
    					location.href='delete-reply?freeBoardReplyNo=' + freeBoardReplyNo +
-   												'&freeBoardNo=' + ${freeBoard.freeBoardNo};
+   												'&freeBoardNo=' + ${freeBoard.freeBoardNo} +
+   												'&pageNo=' + ${pageNo};
    						}
 	   		})	 
 	   		

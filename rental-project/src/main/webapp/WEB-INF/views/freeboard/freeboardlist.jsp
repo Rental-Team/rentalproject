@@ -65,7 +65,7 @@
                 <td scope="col" style="width:500px"> 
                 <c:choose>
                 	<c:when test="${ not freeBoard.freeBoardDelete }">
-                	<a href="freeboarddetail?freeBoardNo=${ freeBoard.freeBoardNo }"> ${ freeBoard.freeBoardTitle }</a>  <!-- 삭제 아닐때 그냥 제목 보이기 -->
+                	<a href="freeboarddetail?freeBoardNo=${ freeBoard.freeBoardNo }&pageNo=${ pageNo }"> ${ freeBoard.freeBoardTitle }</a>  <!-- 삭제 아닐때 그냥 제목 보이기 -->
                 	</c:when>
                 	<c:otherwise>
                 	<span class="freeBoardDelete" style="color : gray"><< 삭제된 게시글입니다 >></span> <!-- 삭제된 글 화면 보이기 -->
@@ -76,16 +76,21 @@
 		                							 <input type="hidden" name="memberNo" value="${ loginuser.memberId }"> 
 		                							 <!-- 오류 : 다시확인 로그인한 유저로 걍 다 바뀜 -->
                 
-                <td scope="col" style="width:100px">${ freeBoard.freeBoardViewCount } </td>
+                <td scope="col" style="width:100px">${ freeBoard.freeBoardViewCount }</td>
                 <td scope="col" style="width:150px"><fmt:formatDate value="${ freeBoard.freeBoardDate }" pattern="yyyy-MM-dd HH:mm"/></td>
              </tr>
             </c:forEach>
                 </tbody>
               </table>
+              	<br><br>
+                 ${ pager }
+                 <br /><br />
             </div>
           </div>
         </div>
       </div>
+     
+      
       <!-- Footer -->
       <footer class="footer">
         <div class="row align-items-center justify-content-xl-between">
