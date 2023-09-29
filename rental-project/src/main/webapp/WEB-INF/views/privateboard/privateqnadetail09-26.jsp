@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-    
+      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
@@ -285,12 +285,14 @@
 		                	${ privateqna.qnaTitle }
 		                </td>
 		            </tr>
+		      
 		            <tr>
 		                <th>문의글 내용 </th>
 		                <td>
 		                	${ privateqna.qnaContent }
 		                </td>
 		            </tr>
+		           
 		            <tr>
 		                <th>문의글 날짜</th>
 		                <td> 
@@ -313,8 +315,8 @@
 			        <br>
 			        <div class="col text-center" >
 			         <input type="button"  id="getBack" class ="btn btn-sm btn-primary" value="목록으로 돌아가기" >
-			        <!-- <input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="게시글 수정하기" > -->
-			        <input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="게시글 삭제하기" >
+			       <!--  <input type="button" id="btnEdit"  class ="btn btn-sm btn-primary"  value="게시글 수정하기" > -->
+			      <!--   <input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="게시글 삭제하기" > -->
 	              
 	                </div>
                 </form>
@@ -327,7 +329,50 @@
     </div>
 <br>
 <br>
-		<!-- 자유게시글 댓글 쓰기 기능 구현 --> 
+<!-- 1대1 답변 보기 기능 구현 시작-->
+          		
+					<table id = "answer-list" style="text-align:center" class="table align-items-center table-flush">
+           				<thead class="thead-light">
+			             <tr style="text-align:center">
+			             
+			               <th scope="col" style="width:300px">답변내용</th>
+			               <th scope="col" style="width:150px">답변작성일자</th>
+			            
+			             </tr>
+			           </thead>
+			           <tbody>
+			            <c:forEach var="privateQnaAnswer" items="${ privateqna.privateQnaAnswerList }">
+			             <tr style="text-align:center">
+			                <td scope="col" style="width:100px"> ${ privateQnaAnswer.answerContent } </td>
+			                <td scope="col" style="width:200px"> ${ sessionScope.loginuser.memberId }
+					                							 <input type="hidden" name="memberNo" value="${ loginuser.memberId }"> 
+					                							 <!-- 오류 : 다시확인 로그인한 유저로 걍 다 바뀜 -->
+			               <%--  <td scope="col" style="width:100px">${ freeBoardReview.replyContent} </td>
+			                <td scope="col" style="width:150px"><fmt:formatDate value="${ freeBoardReview.replyCreateDate }" pattern="yyyy-MM-dd hh:mm"/></td> --%>
+			             	<td>
+			             <input type="button" class ="btn btn-sm btn-primary" id="btnedit" value="댓글수정" >
+				       	<!--  <input type="button" class ="btn btn-sm btn-primary" id="btndelete" value="댓글삭제" >  -->
+			             	</td>
+			             </tr>
+			            </c:forEach>
+			           </tbody>
+			         </table>		
+			         
+<!--답변 보기 기능 구현 끝-->	
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+	<!-- 1대1문의글 답변  기능 구현 --> 
 	<div class="container-fluid mt--7">
       <div class="row mt-5">
         <div class="col-xl-8 mb-5 mb-xl-0">
@@ -336,18 +381,24 @@
               <div class="row align-items-center">
                 <div class="col">
                 <h5 class="mb-0">1대1게시글 답변</h5>
-                	<form id="commentform" action="freeboard-comment" method="post">
-                		<input type="hidden" name="" value="" />
+                	<form id="comment-Answer" action="write-answer" method="post">
+                		<input type="hidden" name="qnaNo" value="${ privateqna.qnaNo}" />
                 		<table class="table align-items-center">
+                			
                 			<tr>
                 				<td style="width: 750px"><textarea id="comment_content"
-								name="content" style="width: 100%; resize:none;" rows="2"></textarea></td>
+								name="answerContent" style="width: 100%; resize:none;" rows="2"></textarea></td>
 								<td style="width: 50px; vertical-align: middle; border-radius:80px">
-								<input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="댓글등록하기" >
-								</a>
+								 <%--  <a class= data-comment-no="${ privateQnaAnswer.answerContent }" href="javascript:">댓글수정 편집</a>
+									&nbsp;
+								 <a class="delete-comment" data-comment-no="${	privateqna.qnaNo	}" href="javascript:">댓글 삭제</a> --%>
+								<input type="submit" class ="btn btn-sm btn-primary" id="write-answer" value="답변등록하기" >
+								
 								</td>
                 			</tr>
+                			
                 		</table>
+                		</form>
                  </div>
               </div>
            </div> 
@@ -400,16 +451,8 @@
 <br>
 <br>
 <br>
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<script>
-$(function() {
-	$('#getBack').on('click', function(event) {
-		location.href= 'privateqnalist'
-	
-})
-		
-});
-</script>
+
+
 
 
 
@@ -431,6 +474,23 @@ $(function() {
         application: "argon-dashboard-free"
       });
   </script>
+ 
+ 
+ <script>
+$(function() {
+	$('#getBack').on('click', function(event) {
+		location.href= 'privateqnalist'
+		
+})
+
+	
+});
+
+
+
+</script>
+  
+  
 </body>
 
 </html>

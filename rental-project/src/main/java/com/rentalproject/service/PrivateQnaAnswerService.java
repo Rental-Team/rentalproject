@@ -6,4 +6,5 @@ public interface PrivateQnaAnswerService {
 
 	void writeAnswer(PrivateQnaAnswerDto privateQnaAnswer);
 
+	void editAnswer(PrivateQnaAnswerDto privateQnaAnswer);
 }

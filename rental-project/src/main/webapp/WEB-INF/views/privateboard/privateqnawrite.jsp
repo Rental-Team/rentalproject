@@ -62,17 +62,18 @@
                     </div>
                   </div>
                    <div class="row">
-                    <div class="col-lg-12">
-                      <div class="form-group">
-                        <label class="form-control-label" for="input-qnaType">문의유형</label>
-                         <select name="qnaType" >
-		                <option value="상품문의">상품문의</option>
-		                <option value="배송문의">배송문의</option>
-		                <option value="환물문의">환물문의</option>
-		                </select>
-                      </div>
-                    </div>
-                  </div>
+				        <div class="col-lg-12">
+				            <div class="form-group">
+				                <label class="form-control-label" for="input-qnaType">문의유형</label>
+				                <select name="qnaType" required> <!-- required 속성 추가 -->
+				                    <option value="" disabled selected>문의유형을 선택하세요</option>
+				                    <option value="상품문의">상품문의</option>
+				                    <option value="배송문의">배송문의</option>
+				                    <option value="환물문의">환물문의</option>
+				                </select>
+				            </div>
+				        </div>
+				    </div>
                    <div class="row">
                     <div class="col-lg-12">
                       <div class="form-group">
@@ -102,56 +103,7 @@
                    
 
                    
-               <%--     <table>
-		            <tr>
-		                <th>문의제목</th>
-		                <td>
-		                    <input type="text" name="qnaTitle" style="width:580px" />
-		                </td>
-		            </tr>
-		            <tr>
-		                <th>작성자</th>
-		                <td>
-		                	${ sessionScope.loginuser.memberId }
-		                	<input type="hidden" name="memberNo" value="${ loginuser.memberId }">
-		                </td>
-		            </tr>
-		            <tr>
-		                <th>문의유형</th>
-		                <td>
-		                <select name="qnaType" >
-		                <option value="상품문의">상품문의</option>
-		                <option value="배송문의">배송문의</option>
-		                <option value="환물문의">환물문의</option>
-		                </select>
-		                	<!-- <input type="radio" name="qnaType" value="상품문의"/>상품문의<br> 
-		                	<input type="radio" name="qnaType" value="배송문의"/>배송문의<br>
-		                	<input type="radio" name="qnaType" value="환불문의"/>환불문의<br> -->
-		                	 
-		                </td>
-		            </tr>
-		            <tr>
-		            <th>첨부파일</th>
-		           		<td>
-		           		<input type="file" name="attach" >
-		           		<td>
-		            </tr>
-		            <tr>
-		                <th>문의내용</th>
-		                <td>
-		                	<textarea name="qnaContent" style="width:580px" rows="15"></textarea>
-		                </td>
-		            </tr>
-		        </table>
-			        <div class="col text-center">
-			        <input type="submit" class ="btn btn-sm btn-primary" value="글쓰기" >
-			        <input type="button" id="btnCancel" value="취소" />
-	                </div> --%>
-                </form>
-                </div>
-              </div>
-           </div> 
-          </div>
+              
 
 
 
@@ -193,6 +145,22 @@
   <!--   Argon JS   -->
   <script src="/rental-project/resources/js/argon-dashboard.min.js?v=1.1.2"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+ 
+ <script>
+    $(document).ready(function() {
+        $("form").submit(function(event) {
+            var qnaType = $("select[name='qnaType']").val();
+            if (qnaType === "문의유형") {
+                alert("문의 유형을 선택하세요.");
+                event.preventDefault();
+            }
+        });
+    });
+</script>
+ 
+ 
+ 
+ 
   <script>
     window.TrackJS &&
       TrackJS.install({
@@ -200,6 +168,9 @@
         application: "argon-dashboard-free"
       });
   </script>
+ 
+  
+  
 </body>
 
 </html>

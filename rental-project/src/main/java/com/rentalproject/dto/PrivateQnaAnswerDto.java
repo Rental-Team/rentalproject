@@ -7,7 +7,7 @@ public class PrivateQnaAnswerDto {
 
 private int	qnaNo;
 private String answerContent;
-
+private boolean deleted;
 
 	
 	
