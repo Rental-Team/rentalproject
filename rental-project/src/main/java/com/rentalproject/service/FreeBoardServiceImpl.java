@@ -39,6 +39,19 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		
 	}
 	
+	@Override // 페이징
+	public List<FreeBoardDto> listFreeBoardByPage(int from, int count) {
+		List<FreeBoardDto> freeBoardList = freeboardMapper.selectFreeBoardByPage(from, count);
+		return freeBoardList;
+	}
+	
+
+	@Override  //페이징 - 총 게시물 개수를 db에서 가지고 오기 
+	public int getFreeBoardCount() {
+		int count = freeboardMapper.selectFreeBoardCount();
+		return count;
+	}
+	
 	@Override
 	public FreeBoardDto findFreeBoardByFreeBoardNo(int freeBoardNo) {
 		
@@ -81,7 +94,9 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	}
 	
 	@Override   // 자유게시판 조회수 증가 
-	public void updateFreeBoardviewCount(int freeBoardViewCount) {
-		freeboardMapper.updateFreeBoardviewCount(freeBoardViewCount);
+	public void updateFreeBoardviewCount(int freeBoardNo) {
+		freeboardMapper.updateFreeBoardviewCount(freeBoardNo);
 	}
+
+
 }

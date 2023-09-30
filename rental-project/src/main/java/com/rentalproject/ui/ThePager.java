@@ -29,17 +29,17 @@ public class ThePager {
 		//1. 처음, 이전 항목 만들기
 		if (pageNo > 1) {
 			linkString.append(
-				String.format("<a href='%s?pageNo=1' class='btn btn-primary'>처음</a>",linkUrl));
+				String.format("<a href='%s?pageNo=1' class='btn btn-outline-primary'>처음</a>",linkUrl));
 			linkString.append("&nbsp;");
 			linkString.append("&nbsp;");
 			linkString.append(String.format(
-				"<a href='%s?pageNo=%d' class='btn btn-primary'>이전</a>", linkUrl, pageNo - 1));
+				"<a href='%s?pageNo=%d' class='btn btn-outline-primary'>이전</a>", linkUrl, pageNo - 1));
 			linkString.append("&nbsp;");
 		} else {
-			linkString.append("<span class='btn btn-primary'>처음</span>");
+			linkString.append("<span class='btn btn-outline-primary'>처음</span>");
 			linkString.append("&nbsp;");
 			linkString.append("&nbsp;");
-			linkString.append("<span class='btn btn-primary'>이전</span>");
+			linkString.append("<span class='btn btn-outline-primary'>이전</span>");
 			linkString.append("&nbsp;");
 		}
 		
@@ -63,16 +63,16 @@ public class ThePager {
 		if (pageNo < pageCount) {
 			linkString.append("&nbsp;");
 			linkString.append(String.format(
-				"<a href='%s?pageNo=%d' class='btn btn-primary'>다음</a>",linkUrl, pageNo + 1));
+				"<a href='%s?pageNo=%d' class='btn btn-outline-primary' s>다음</a>",linkUrl, pageNo + 1));
 			linkString.append("&nbsp;");
 			linkString.append("&nbsp;");
 			linkString.append(String.format(
-				"<a href='%s?pageNo=%d' class='btn btn-primary'>마지막</a>", linkUrl, pageCount));
+				"<a href='%s?pageNo=%d' class='btn btn-outline-primary'>마지막</a>", linkUrl, pageCount));
 		} else {
-			linkString.append("<span class='btn btn-primary'>다음</span>");
+			linkString.append("<span class='btn btn-outline-primary'>다음</span>");
 			linkString.append("&nbsp;");
 			linkString.append("&nbsp;");
-			linkString.append("<span class='btn btn-primary'>마지막</span>");
+			linkString.append("<span class='btn btn-outline-primary'>마지막</span>");
 			linkString.append("&nbsp;");
 		}
 		

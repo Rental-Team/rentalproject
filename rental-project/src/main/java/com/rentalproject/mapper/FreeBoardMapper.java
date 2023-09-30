@@ -34,6 +34,17 @@ public interface FreeBoardMapper {
 	
 	List<FreeBoardDto> selectAllFreeBoard();
 	
+	@Select("select freeBoardNo, memberNo, freeBoardTitle, freeBoardViewCount, freeBoardDate, freeBoardDelete "     // 페이징
+			+ " from FreeBoard "
+			+ "order by freeBoardNo desc "
+			+ "limit #{from}, #{count}")
+
+	List<FreeBoardDto> selectFreeBoardByPage(@Param("from") int from, @Param("count") int count);
+	
+	@Select("select count(*) from FreeBoard")
+	int selectFreeBoardCount();
+	
+	
 	@Select("select freeBoardNo, freeBoardTitle, memberNo, freeBoardDate, freeBoardViewCount, freeBoardContent " // 자유게시판 게시글 상세보기
 			+ "from FreeBoard "
 			+ "where freeBoardNo = #{ freeBoardNo }")
@@ -64,7 +75,7 @@ public interface FreeBoardMapper {
 	
 	
 	@Update("update FreeBoard "                                     // 자유게시판 조회수 증가 
-			+ "set freeBoardViewCount = #{ freeBoardViewCount} + 1 "
+			+ "set freeBoardViewCount = freeBoardViewCount + 1 "
 			+ "where freeBoardNo = #{ freeBoardNo }")
-	void updateFreeBoardviewCount(int freeBoardViewCount);
+	void updateFreeBoardviewCount(int freeBoardNo);
 }

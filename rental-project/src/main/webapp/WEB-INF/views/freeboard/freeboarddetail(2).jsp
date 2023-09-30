@@ -312,9 +312,10 @@
 		        </table> 
 			        <br>
 			        <div class="col text-center" >
-				        <input type="button" class ="btn btn-sm btn-primary" id="btnBackToList" value="목록으로 돌아가기" >
-				        <input type="button" class ="btn btn-sm btn-primary" id="btnedit" value="게시글 수정하기" >
-				        <input type="button" class ="btn btn-sm btn-primary" id="btndelete" value="게시글 삭제하기" >
+					        <input type="button" class ="btn btn-sm btn-primary" id="btnBackToList" value="목록으로 돌아가기" >
+					        <input type="button" class ="btn btn-sm btn-primary" id="btnedit" value="게시글 수정하기" >
+					        <input type="button" class ="btn btn-sm btn-primary" id="btndelete" value="게시글 삭제하기" >
+               			
 	                </div> 
                 </div>
               </div>
