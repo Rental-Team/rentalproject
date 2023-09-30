@@ -1,5 +1,6 @@
 package com.rentalproject.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.rentalproject.dto.MemberDto;
 import com.rentalproject.service.AccountService;
@@ -27,7 +29,7 @@ public class AccountController {
 	}
 	
 	// 회원가입 창
-	@GetMapping(path= {"/register"})
+	@GetMapping(path= {"/register"}) //action
 	public String registerForm(@ModelAttribute("member") MemberDto member) { // = model.addAttribute("member", member);
 		
 		return "account/register";
@@ -84,71 +86,78 @@ public class AccountController {
 		return "redirect:/home";
 	}
 	
-	// ID 찾기 화면
+	// 아이디 찾기
 	@GetMapping(path= {"/findid"})
 	public String findIdForm() {
 		return "account/findid";
 	}
 	
-	// ID 찾기 수행
+	// 아이디 찾기 구현
 	@PostMapping(path= {"/findid"})
-	public String findId(MemberDto member, Model model) {
-		MemberDto loginMember = accountService.findLoginMember(member);
-		String loginName = loginMember.getUserName();
-		String loginPhoneNo = loginMember.getPhoneNo();
+	public String findUserId(MemberDto member, Model model) {
+		MemberDto findIdMember = accountService.findLoginId(member);
 		
-		if (loginName != null && loginPhoneNo != null) {
-			model.addAttribute("userName",loginName);
+		if(findIdMember != null && findIdMember.isDeleteCheck()== false) {
+			model.addAttribute("check", 0);
+			model.addAttribute("memberId", findIdMember.getMemberId());
+
 		} else {
-			model.addAttribute("일치하는 아이디가 없습니다", "x");
+			model.addAttribute("check", 1);
 		}
 		
-		return "account/login";
+		return "account/findid";
+		
 	}
 	
-	// PW 찾기 화면
+	// 비밀번호 찾기
 	@GetMapping(path= {"/findpw"})
-	public String findPwForm() {
+	public String findPasswordForm() {
 		return "account/findpw";
 	}
-
-	// PW 찾기 수행
+	
+	// 비밀번호 찾기 구현
 	@PostMapping(path= {"/findpw"})
-	public String findPw(MemberDto member, Model model, HttpSession session) {
-		MemberDto loginMember = accountService.findLoginMember(member);
+	public String findUserPw(MemberDto member, Model model) {
+		MemberDto findPwMember = accountService.findLoginPw(member);
 		
-		if (loginMember != null) { // 회원 가입된 유저라면
-//	        if (loginMember.isDeleteCheck() != false) { // 삭제된 계정인지 확인
-//	            model.addAttribute("message", "이미 탈퇴한 계정입니다.");
-//	            return "account/login";
-//	        }
-
-	        session.setAttribute("loginuser", loginMember);
+		if(findPwMember != null && findPwMember.isDeleteCheck() == false) {
+			model.addAttribute("check", 0);
+			model.addAttribute("memberId", findPwMember.getMemberId());
 			
-			return "redirect:/account/newpw";
 		} else {
-			model.addAttribute("정보가 일치하지 않습니다", "x");
-			return "account/findpw";
+			model.addAttribute("check", 1);
 		}
 		
-		
+		return "account/findpw";
 	}
 	
-//	// 비밀번호 변경 창
-//	@GetMapping(path= {"/newpw"})
-//	public String showEditPw(HttpSession session, Model model) {
-//		MemberDto loginUser = (MemberDto)session.getAttribute("loginuser");
-//		model.addAttribute("profileuser", loginUser);
-//		return "account/newpw";
-//	}
-	
-//	// 비밀번호 변경 수행
-//	@PostMapping(path= {"/newpw"})
-//	public String editPw(MemberDto member, HttpSession session) {
-//		accountService.editPassword(member);
-//		session.setAttribute("newpw", member);
-//		
-//		return "redirect:/home";
-//	}
-	
+	@PostMapping(path= {"editpw"})
+	public String editPassword() {
+		return "account/editpw";
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

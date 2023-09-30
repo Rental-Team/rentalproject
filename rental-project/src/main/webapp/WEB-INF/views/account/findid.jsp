@@ -13,7 +13,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>
-    세숫대여 비밀번호 찾기
+    세숫대여 아이디 찾기
   </title>
   <!-- Favicon -->
   <link href="/rental-project/resources/img/brand/favicon.png" rel="icon" type="image/png">
@@ -99,15 +99,7 @@
             <div class="card-body px-lg-5 py-lg-5">
             
             <!-- action 시작 -->
-              <form action="findpw" method="post">
-                <div class="form-group mb-3">
-                  <div class="input-group input-group-alternative">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-email-83"></i></span>
-                    </div>
-                    <input name="memberId" class="form-control" placeholder="아이디" type="text">
-                  </div>
-                </div>
+              <form action="findid" method="post">
                 <div class="form-group">
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
@@ -125,42 +117,27 @@
                   </div>
                 </div>
                 <p class="text-center">
-                  <input type="submit" class="btn btn-primary my-4" value="비밀번호 찾기" />
+                  <input type="submit" class="btn btn-primary my-4" value="아이디 찾기" />
                 </p>
                 
                 <c:if test="${check == 1}">
 					<label>일치하는 정보가 존재하지 않습니다.</label>
-					<br>
-					<span>아이디가 기억이 안나시나요??</span>
-	                <span style="mergin: 100px"></span>
-	                <a href="/rental-project/account/findid">아이디 찾기</a>
 				</c:if>
 
-				<!-- 정보가 일치할 때 -->
-				<c:if test="${check == 0 }">
-				
+				<!-- 이름과 비밀번호가 일치할 때 -->
+				<c:if test="${check == 0}">
+				<label>찾으시는 아이디는' ${memberId}' 입니다.</label>
 				<div class="form-label-group">
-				<input type="hidden" id="id" name="memberId" value="${memberId}">
-				
-					<input type="password" id="password" name="password" class="form-control"/>
-					<label for="password">password</label>
-				</div>
-				
-				<div class="form-label-group">
-					<input type="password" id="confirmpassword" name="passwordConfirm" class="form-control"/>
-					<label for="confirmpassword">confirm password</label>
-				</div>
-				
-				<div class="form-label-group">
-						<input class="btn btn-lg btn-secondary btn-block text-uppercase"
-							type="button" value="update password" onclick="updatePassword()">
-				</div>
-				
-				
+	                <a href="/rental-project/account/login" class="btn btn-lg btn-secondary btn-block text-uppercase">로그인으로 돌아가기</a>
+	            </div>
 				</c:if>
-				
+		
+			</form>
                 
-              </form>
+                
+                <span>비밀번호가 기억이 안나시나요??</span>
+                <span style="mergin: 100px"></span>
+                <a href="/rental-project/account/findpw">비밀번호 찾기</a>
             </div>
           </div>
         </div>
@@ -201,6 +178,8 @@
   <!--   Argon JS   -->
   <script src="/rental-project/resources/js/argon-dashboard.min.js?v=1.1.2"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  
+  
   <script>
     window.TrackJS &&
       TrackJS.install({

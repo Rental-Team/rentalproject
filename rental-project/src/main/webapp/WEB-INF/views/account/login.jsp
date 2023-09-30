@@ -128,7 +128,7 @@
                   </label>
                 </div> -->
                 <p class="text-center">
-                  <input id="login" type="submit" class="btn btn-primary my-4" value="로그인" />
+                  <input type="submit" class="btn btn-primary my-4" value="로그인" />
                   <!-- <a href="/rental-project/account/register">
                   <span class="btn btn-primary my-4">회원가입</span>
                   </a> -->

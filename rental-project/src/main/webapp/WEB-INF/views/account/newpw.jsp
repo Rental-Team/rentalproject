@@ -98,32 +98,27 @@
           <div class="card bg-secondary shadow border-0">
             <div class="card-body px-lg-5 py-lg-5">
               <form action="findpw" method="post">
-                <div class="form-group mb-3">
-                  <div class="input-group input-group-alternative">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-email-83"></i></span>
-                    </div>
-                    <input name="memberId" class="form-control" placeholder="아이디" type="text">
-                  </div>
-                </div>
                 <div class="form-group">
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                     </div>
-                    <input name="userName" class="form-control" placeholder="이름" type="text">
+                    <form:input id="password"  path="password" class="form-control" placeholder="비밀번호" type="password" />
+                    &nbsp;&nbsp;비밀번호는 특수문자와 영문자 포함 최소 6자, 최대 16자
                   </div>
                 </div>
+                <!-- <div id="passwordOption"></div> -->
                 <div class="form-group">
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                     </div>
-                    <input name="userName" class="form-control" placeholder="전화번호" type="text">
+                    <form:input id="passwordConfirm"  path="passwordConfirm" class="form-control" placeholder="비밀번호 확인" type="password" />
                   </div>
                 </div>
+                <p id="passwordCheck"></p>
                 <p class="text-center">
-                  <input id="findpw" type="submit" class="btn btn-primary my-4" value="비밀번호 변경" />
+                  <input id="newpw" type="submit" class="btn btn-primary my-4" value="비밀번호 변경" />
                 </p>
               </form>
             </div>
@@ -166,6 +161,50 @@
   <!--   Argon JS   -->
   <script src="/rental-project/resources/js/argon-dashboard.min.js?v=1.1.2"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+   
+		   var passwordField = document.getElementById('password');
+		   var passwordConfirmField = document.getElementById('passwordConfirm');
+   
+        function checkPassword(){
+ 
+            var password = passwordField.value;
+            var passwordConfirm = passwordConfirmField.value;
+            var passwordCheck = document.getElementById('passwordCheck')
+            var passwordOption = document.getElementById('passwordOption')
+/*          var SpecialChar = ["!","@","#","$","%"];
+            var checkSpecialChar = 0;
+ 
+            if(password.length < 6 || password.length>16){
+            	passwordOption.innerHTML = '비밀번호는 6글자 이상, 16글자 이하만 이용 가능합니다.';
+            	passwordOption.style.color = 'red';
+            }
+            for(var i=0; i<SpecialChar.length; i++){
+                if(password.indexOf(SpecialChar[i]) != -1){
+                checkSpecialChar = 1;
+                }
+            }
+            if(checkSpecialChar == 0){
+            	passwordOption.innerHTML = '!,@,#,$,% 의 특수문자가 들어가 있지 않습니다.'
+            } */
+            if(password != '' && passwordConfirm != ''){
+                if(password == passwordConfirm){
+                	passwordCheck.innerHTML = '비밀번호가 일치합니다.'
+                	passwordCheck.style.color = 'green';
+                	return true;
+				} else {
+                	passwordCheck.innerHTML = '비밀번호가 일치하지 않습니다.';
+                	passwordCheck.style.color = 'red';
+					return false;
+                }
+            }
+        }
+        
+        // input하면서 checkPassword function 실행
+        passwordField.addEventListener("input", checkPassword);
+        passwordConfirmField.addEventListener("input", checkPassword);
+        
+    </script>
   <script>
     window.TrackJS &&
       TrackJS.install({
