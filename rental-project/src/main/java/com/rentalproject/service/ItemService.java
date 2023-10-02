@@ -9,6 +9,8 @@ public interface ItemService {
 	public void writeItem(ItemDto item);
 
 	public ItemDto detail(int itemNo);
+	
+	public void updateItemViewCount(int itemNo);
 
 	public List<ItemDto> getList();
 

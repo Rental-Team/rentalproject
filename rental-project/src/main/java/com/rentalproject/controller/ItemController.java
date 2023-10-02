@@ -125,6 +125,7 @@ public class ItemController {
 //		}
 		
 		//log.info("/detail");
+		itemService.updateItemViewCount(itemNo);
 		
 		model.addAttribute("item", item);
 		
