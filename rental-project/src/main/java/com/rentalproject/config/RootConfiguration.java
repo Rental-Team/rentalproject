@@ -9,8 +9,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.rentalproject.mapper.AccountMapper;
 import com.rentalproject.service.AccountServiceImpl;
@@ -29,6 +32,7 @@ import com.rentalproject.service.ProfileServiceImpl;
 
 @Configuration
 @MapperScan(basePackages = {"com.rentalproject.mapper"})
+@EnableTransactionManagement
 public class RootConfiguration implements ApplicationContextAware{
 	
 	
@@ -129,6 +133,12 @@ public class RootConfiguration implements ApplicationContextAware{
 	public AdminService adminService() {
 		AdminServiceImpl adminService = new AdminServiceImpl();
 		return adminService;
+	}
+	
+	// 트랜잭션 설정
+	@Bean
+	public DataSourceTransactionManager txManager() {
+		return new DataSourceTransactionManager(dbcpDataSource());
 	}
 	
 }
