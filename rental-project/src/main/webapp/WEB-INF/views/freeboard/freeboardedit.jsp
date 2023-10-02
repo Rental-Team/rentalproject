@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -43,6 +44,7 @@
                   <div class="card-body">
                   <form action="freeboardedit" method="post" enctype="multipart/form-data">         
                   		<input type="hidden" name="freeBoardNo" value="${ requestScope.freeBoard.freeBoardNo }">
+                  		<input type="hidden" name="pageNo" value="${ pageNo }">
                   	<div class="pl-lg-4">
 	                  	<div class="row">
 	                  	<div class="col-lg-12">
@@ -65,7 +67,12 @@
 	                  	<div class="col-lg-12">
 	                  	<div class="form-group">
 	                  	<label style="font-size:12pt" class="form-control-label" for="input-freeBoardAttach">첨부파일</label>
-	                  	<input type="file" class ="btn btn-sm btn-primary" name="freeBoardAttach" style="width:200px">  
+	                  	<input type="file" id="attach" class ="btn btn-sm btn-primary" class="form-control form-control-alternative" name="attach" style="width:200px">  
+	                  		 <td>
+			                	<c:forEach var="freeBoardAttach" items="${ freeBoard.freeBoardAttachList }">
+			                		<a href="download?attachNo=${ freeBoardAttach.attachNo }"> ${freeBoardAttach.attachFileName}</a>
+			                	</c:forEach>
+			                </td>  
 	                  	</div>
 	                  	</div>
 	                  	</div>		                   
@@ -78,12 +85,12 @@
 	                  	</div>
 	                  	</div>    
 			            <div class="row">
-			            <div class="col-lg-12">
-			      <div class="col text-center">
-			        <input type="submit" class ="btn btn btn-primary" value="수정하기" >
-			        <input type="button" class ="btn btn btn-primary" id="btnCancel" value="취소" >
-			            </div>
-			            </div>
+				            <div class="col-lg-12">
+						      <div class="col text-center">
+						        <input type="submit" class ="btn btn btn-primary" value="수정하기" >
+						        <input type="button" class ="btn btn btn-primary" id="btnCancel" value="취소" >
+				              </div>
+				            </div>
 		                </div>
 	                </div>
                 </form>
@@ -139,8 +146,8 @@
   <script>
   window.addEventListener("load", function(event) {
   	const btnCancel = document.querySelector("#btnCancel");
-  	btnCancel.addEventListener("click",function(event) {
-  		location.href="freeboardlist";
+  	btnCancel.addEventListener("click",function(event) { 
+  		location.href="freeboardlist" +"?pageNo=" + ${pageNo};
   	});
   });
   </script>

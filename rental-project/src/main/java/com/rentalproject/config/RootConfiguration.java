@@ -54,15 +54,18 @@ public class RootConfiguration implements ApplicationContextAware{
 		return dataSource;
 	}
 	
-	// JDBC template 
-		@Bean
-		public JdbcTemplate jdbcTemplate () {
-			JdbcTemplate jdbcTemplate = new JdbcTemplate();
-			jdbcTemplate.setDataSource(dbcpDataSource());                       
-			
-			return jdbcTemplate;
-		}
+ 
+	@Bean // JDBC template
+	public JdbcTemplate jdbcTemplate () {
+		JdbcTemplate jdbcTemplate = new JdbcTemplate();
+		jdbcTemplate.setDataSource(dbcpDataSource());                       
+		
+		return jdbcTemplate;
+	}
 	
+		
+		
+		
 	@Bean // 계정 관련
 	public AccountServiceImpl accountService() {
 		AccountServiceImpl accountService = new AccountServiceImpl();

@@ -8,6 +8,10 @@ public interface AccountService {
 
 	MemberDto findLoginMember(MemberDto member);
 
-	void editPassword(MemberDto member);
+	MemberDto findLoginId(MemberDto member);
+
+	MemberDto findLoginPw(MemberDto member);
+
+	MemberDto updateLoginPassword(MemberDto member);
 
 }

@@ -13,7 +13,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>
-    세숫대여 아이디 찾기
+    세숫대여 새 비밀번호 설정
   </title>
   <!-- Favicon -->
   <link href="/rental-project/resources/img/brand/favicon.png" rel="icon" type="image/png">
@@ -97,47 +97,30 @@
         <div class="col-lg-5 col-md-7">
           <div class="card bg-secondary shadow border-0">
             <div class="card-body px-lg-5 py-lg-5">
-            
-            <!-- action 시작 -->
-              <form action="findid" method="post">
+              <form action="findpw" method="post">
                 <div class="form-group">
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                     </div>
-                    <input name="userName" class="form-control" placeholder="이름" type="text">
+                    <form:input id="password"  path="password" class="form-control" placeholder="비밀번호" type="password" />
+                    &nbsp;&nbsp;비밀번호는 특수문자와 영문자 포함 최소 6자, 최대 16자
                   </div>
                 </div>
+                <!-- <div id="passwordOption"></div> -->
                 <div class="form-group">
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                     </div>
-                    <input name="phoneNo" class="form-control" placeholder="전화번호" type="text">
+                    <form:input id="passwordConfirm"  path="passwordConfirm" class="form-control" placeholder="비밀번호 확인" type="password" />
                   </div>
                 </div>
+                <p id="passwordCheck"></p>
                 <p class="text-center">
-                  <input type="submit" class="btn btn-primary my-4" value="아이디 찾기" />
+                  <input id="newpw" type="submit" class="btn btn-primary my-4" value="비밀번호 변경" />
                 </p>
-                
-                <c:if test="${check == 1}">
-					<label>일치하는 정보가 존재하지 않습니다.</label>
-				</c:if>
-
-				<!-- 이름과 비밀번호가 일치할 때 -->
-				<c:if test="${check == 0}">
-				<label>찾으시는 아이디는' ${memberId}' 입니다.</label>
-				<div class="form-label-group">
-	                <a href="/rental-project/account/login" class="btn btn-lg btn-secondary btn-block text-uppercase">로그인으로 돌아가기</a>
-	            </div>
-				</c:if>
-		
-			</form>
-                
-                
-                <span>비밀번호가 기억이 안나시나요??</span>
-                <span style="mergin: 100px"></span>
-                <a href="/rental-project/account/findpw">비밀번호 찾기</a>
+              </form>
             </div>
           </div>
         </div>
@@ -178,8 +161,50 @@
   <!--   Argon JS   -->
   <script src="/rental-project/resources/js/argon-dashboard.min.js?v=1.1.2"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
-  
-  
+  <script>
+   
+		   var passwordField = document.getElementById('password');
+		   var passwordConfirmField = document.getElementById('passwordConfirm');
+   
+        function checkPassword(){
+ 
+            var password = passwordField.value;
+            var passwordConfirm = passwordConfirmField.value;
+            var passwordCheck = document.getElementById('passwordCheck')
+            var passwordOption = document.getElementById('passwordOption')
+/*          var SpecialChar = ["!","@","#","$","%"];
+            var checkSpecialChar = 0;
+ 
+            if(password.length < 6 || password.length>16){
+            	passwordOption.innerHTML = '비밀번호는 6글자 이상, 16글자 이하만 이용 가능합니다.';
+            	passwordOption.style.color = 'red';
+            }
+            for(var i=0; i<SpecialChar.length; i++){
+                if(password.indexOf(SpecialChar[i]) != -1){
+                checkSpecialChar = 1;
+                }
+            }
+            if(checkSpecialChar == 0){
+            	passwordOption.innerHTML = '!,@,#,$,% 의 특수문자가 들어가 있지 않습니다.'
+            } */
+            if(password != '' && passwordConfirm != ''){
+                if(password == passwordConfirm){
+                	passwordCheck.innerHTML = '비밀번호가 일치합니다.'
+                	passwordCheck.style.color = 'green';
+                	return true;
+				} else {
+                	passwordCheck.innerHTML = '비밀번호가 일치하지 않습니다.';
+                	passwordCheck.style.color = 'red';
+					return false;
+                }
+            }
+        }
+        
+        // input하면서 checkPassword function 실행
+        passwordField.addEventListener("input", checkPassword);
+        passwordConfirmField.addEventListener("input", checkPassword);
+        
+    </script>
   <script>
     window.TrackJS &&
       TrackJS.install({

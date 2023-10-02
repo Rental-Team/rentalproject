@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +13,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>
-    Argon Dashboard - Free Dashboard for Bootstrap 4 by Creative Tim
+    세숫대여 로그인
   </title>
   <!-- Favicon -->
   <link href="/rental-project/resources/img/brand/favicon.png" rel="icon" type="image/png">
@@ -26,7 +31,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
       <div class="container px-4">
-        <a class="navbar-brand" href="../index.html">
+        <a class="navbar-brand" href="/rental-project/home">
           <img src="/rental-project/resources/img/brand/white.png" />
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse-main" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,27 +57,9 @@
           <!-- Navbar items -->
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="../index.html">
-                <i class="ni ni-planet"></i>
-                <span class="nav-link-inner--text">Dashboard</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="../examples/register.html">
+              <a class="nav-link nav-link-icon" href="/rental-project/account/register">
                 <i class="ni ni-circle-08"></i>
-                <span class="nav-link-inner--text">Register</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="../examples/login.html">
-                <i class="ni ni-key-25"></i>
-                <span class="nav-link-inner--text">Login</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="../examples/profile.html">
-                <i class="ni ni-single-02"></i>
-                <span class="nav-link-inner--text">Profile</span>
+                <span class="nav-link-inner--text">회원가입</span>
               </a>
             </li>
           </ul>
@@ -81,8 +68,23 @@
     </nav>
 
 	<!-- Header -->
-	<jsp:include page="/WEB-INF/views/account/login-header.jsp" />
-
+    <div class="header bg-gradient-primary py-7 py-lg-8">
+     <div class="container">
+       <div class="header-body text-center mb-7">
+         <div class="row justify-content-center">
+           <div class="col-lg-5 col-md-6">
+             <h1 class="text-white">Welcome!</h1>
+             <p class="text-lead text-light">Use these awesome forms to login or create new account in your project for free.</p>
+           </div>
+         </div>
+       </div>
+     </div>
+     <div class="separator separator-bottom separator-skew zindex-100">
+       <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+         <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+        </svg>
+      </div>
+    </div>
     <!-- Page content -->
     <div class="container mt--8 pb-5">
       <div class="row justify-content-center">
@@ -101,18 +103,14 @@
                 </a>
               </div>
             </div>
-            <div class="card-body px-lg-5 py-lg-5">
-              <div class="text-center text-muted mb-4">
-                <small>Or sign in with credentials</small>
-              </div>
+            <div class="card-body px-lg-5 py-lg-5">            
               <form action="login" method="post">
-              <form role="form">
                 <div class="form-group mb-3">
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                     </div>
-                    <input name="memberId" class="form-control" placeholder="ID" type="text">
+                    <input name="memberId" class="form-control" placeholder="아이디" type="text">
                   </div>
                 </div>
                 <div class="form-group">
@@ -120,30 +118,25 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                     </div>
-                    <input name="password" class="form-control" placeholder="PASSWORD" type="password">
+                    <input name="password" class="form-control" placeholder="비밀번호" type="password">
                   </div>
                 </div>
-                <div class="custom-control custom-control-alternative custom-checkbox">
+                <!-- <div class="custom-control custom-control-alternative custom-checkbox">
                   <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
                   <label class="custom-control-label" for=" customCheckLogin">
                     <span class="text-muted">Remember me</span>
                   </label>
-                </div>
-                <div class="text-center">
-                  <input id="login" type="submit" class="btn btn-primary my-4" value="sign in" />
-                </div>
-                <a href="/rental-project/account/findid" >아이디 찾기</a>
-                <a href="/rental-project/account/findpw" >비밀번호 찾기</a>
+                </div> -->
+                <p class="text-center">
+                  <input type="submit" class="btn btn-primary my-4" value="로그인" />
+                  <!-- <a href="/rental-project/account/register">
+                  <span class="btn btn-primary my-4">회원가입</span>
+                  </a> -->
+                </p>
+                <a href="/rental-project/account/findid">아이디 찾기</a><span style="margin: 80px"></span>
+                <a href="/rental-project/account/findpw">비밀번호 찾기</a>
+                
               </form>
-              </form>
-            </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-6">
-              <a href="#" class="text-light"><small>Forgot password?</small></a>
-            </div>
-            <div class="col-6 text-right">
-              <a href="#" class="text-light"><small>Create new account</small></a>
             </div>
           </div>
         </div>
@@ -154,13 +147,13 @@
         <div class="row align-items-center justify-content-xl-between">
           <div class="col-xl-6">
             <div class="copyright text-center text-xl-left text-muted">
-              ⓒ 2018 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
+              ⓒ 2018 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Rental Team</a>
             </div>
           </div>
           <div class="col-xl-6">
             <ul class="nav nav-footer justify-content-center justify-content-xl-end">
               <li class="nav-item">
-                <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
+                <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Rental Team</a>
               </li>
               <li class="nav-item">
                 <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
