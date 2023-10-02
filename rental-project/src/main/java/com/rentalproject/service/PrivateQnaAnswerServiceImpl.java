@@ -3,25 +3,25 @@ package com.rentalproject.service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.rentalproject.dto.PrivateQnaAnswerDto;
-import com.rentalproject.mapper.PrivateQnaAnserMapper;
+import com.rentalproject.mapper.PrivateQnaAnswerMapper;
 
 public class PrivateQnaAnswerServiceImpl implements PrivateQnaAnswerService {
 	
 	@Autowired
-	private PrivateQnaAnserMapper privateQnaAnserMapper;
+	private PrivateQnaAnswerMapper privateQnaAnswerMapper;
 	
 	
 	@Override
 	public void writeAnswer(PrivateQnaAnswerDto privateQnaAnswer) {
 		
-		privateQnaAnserMapper.insertAnswer(privateQnaAnswer);
+		privateQnaAnswerMapper.insertAnswer(privateQnaAnswer);
 		
 	}
 
 
 	@Override
 	public void editAnswer(PrivateQnaAnswerDto privateQnaAnswer) {
-			privateQnaAnserMapper.updateAnswer(privateQnaAnswer);
+			privateQnaAnswerMapper.updateAnswer(privateQnaAnswer);
 		
 	}
 	

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.rentalproject.dto.PrivateQnaAnswerDto;
 import com.rentalproject.dto.PrivateQnaDto;
-import com.rentalproject.mapper.PrivateQnaAnserMapper;
+import com.rentalproject.mapper.PrivateQnaAnswerMapper;
 import com.rentalproject.mapper.PrivateQnaMapper;
 
 public class PrivateQnaServiceImpl implements PrivateQnaService {
@@ -15,7 +15,7 @@ public class PrivateQnaServiceImpl implements PrivateQnaService {
 	private PrivateQnaMapper privateQnaMapper;
 	
 	@Autowired
-	private PrivateQnaAnserMapper privateQnaAnserMapper;
+	private PrivateQnaAnswerMapper privateQnaAnswerMapper;
 	
 	@Override
 	public void writeBoard(PrivateQnaDto privateqna) {
@@ -36,10 +36,45 @@ public class PrivateQnaServiceImpl implements PrivateQnaService {
 	public PrivateQnaDto findQnaBoardByQnaNo(int qnaNo) {
 		
 		PrivateQnaDto qnaBoard = privateQnaMapper.selectQnaBoardByQnaNo(qnaNo);
-		List<PrivateQnaAnswerDto> answerList = privateQnaAnserMapper.selectPrivateQnaAnserbyQnaNo(qnaNo);
+		List<PrivateQnaAnswerDto> answerList = privateQnaAnswerMapper.selectPrivateQnaAnserbyQnaNo(qnaNo);
 		qnaBoard.setPrivateQnaAnswerList(answerList);
 		return qnaBoard;
 	}
 
-	
+	 @Override //답변 완료 업데이트
+	    public void updateAnswerStatus(int qnaNo, boolean answered) {
+	      
+	        privateQnaMapper.updateAnswerStatus(qnaNo, answered);
+ }
+	 @Override
+	 public boolean getAnswerStatus(int qnaNo) {
+	     boolean answerStatus = privateQnaMapper.getAnswerStatus(qnaNo);
+	     return answerStatus;
+	 }
+
+	 @Override
+	 public String getMemberIdByQnaNo(int qnaNo) {
+	     String memberId = privateQnaMapper.getMemberIdByQnaNo(qnaNo);
+	     return memberId;
+	 }
+
+		/*
+		 * @Override public List<PrivateQnaDto> listBoardByUserId(int userId) {
+		 * List<PrivateQnaDto> boardList = privateQnaMapper.selectBoardByUserId(userId);
+		 * return boardList; }
+		 */
+	 @Override
+	 public List<PrivateQnaDto> listBoardByUserId(int userId) {
+	     List<PrivateQnaDto> boardList;
+	     
+	     if (userId == 17) {
+	         boardList = privateQnaMapper.selectAllBoard();
+	     } else {
+	         boardList = privateQnaMapper.selectBoardByUserId(userId);
+	     }
+	     
+	     return boardList;
+	 }
+
+
 }

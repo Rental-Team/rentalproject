@@ -171,8 +171,8 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html">
-              <i class="ni ni-ui-04"></i> Components
+            <a class="nav-link" href="/rental-project/privateboard/privateqnalist">
+              <i class="ni ni-ui-04"></i> 1:1문의
             </a>
           </li>
         </ul>
@@ -300,6 +300,7 @@
 		                	${ privateqna.qnaDate }
 		                </td>
 		            </tr>
+		           
 		            <tr>
 		                <th></th>
 		                <td>
@@ -333,27 +334,29 @@
 			       		<thead class="thead-light">
 			         <tr style="text-align:center">
 			              <th scope="col" style="width:300px">답변내용</th>
-			              <th scope="col" style="width:150px">답변작성일자</th>
+			            <!--   <th scope="col" style="width:150px">답변작성일자</th> -->
 			         </tr>
 			          </thead>
 			          <tbody>
 <!--답변 조회 됨 --> <c:forEach var="privateAnswer" items="${ privateqna.privateQnaAnswerList }">
 					<tr style="text-align:center" id="answer-view-area-${ privateAnswer.qnaNo }">
 				        <td scope="col" style="width:100px">${ privateAnswer.answerContent }</td>
-				        <td scope="col" style="width:200px">${ sessionScope.loginuser.memberId }</td>
-						<td>
-			                <a class="btn btn-sm btn-primary edit-answer-link" data-reply-no="${privateAnswer.qnaNo}" href="javascript:void(0)" style="color: white">답변수정</a>
-				        </td>
+				        <%-- <td scope="col" style="width:200px">${ sessionScope.loginuser.memberId }</td> --%>
+					<td>
+	                    <c:if test="${requestScope.memberNo == 17}">
+	                        <a class="btn btn-sm btn-primary edit-answer-link" data-reply-no="${privateAnswer.qnaNo}" href="javascript:void(0)" style="color: white">답변수정</a>
+	                    </c:if>
+             	    </td>
 				    </tr>
-					<div id="answer-edit-area-${privateAnswer.qnaNo}" style="display: none">
+				<div id="answer-edit-area-${privateAnswer.qnaNo}" style="display: none">
 <!--답변 수정 -->	   <form action="edit-answer" method="post" style="width:105%; resize:none;">
 			            <input type="hidden" name="qnaNo" value="${privateAnswer.qnaNo}">
 			            <textarea name="answerContent" style="width:100%; resize:none;">${privateAnswer.answerContent}</textarea>
 			            <input type="submit" value="저장">
-				  </form>
-		        	</div>
+				  	</form>
+		        </div>
 				 </c:forEach>
-				        </tbody>
+				     </tbody>
 				 </table>	
 			         
 	         
@@ -489,6 +492,20 @@ $(function(event) {
         window.location.href = 'privateqnadetail';
     });
 });
+</script>
+  
+ <script>
+// 서버에서 memberNo 값을 JSP로부터 가져옴
+var memberNo = <%= request.getAttribute("memberNo") %>;
+
+// memberNo가 17인 경우에만 해당 요소를 표시
+if (memberNo !== 17) {
+    // 해당 요소의 ID나 클래스를 사용하여 숨김 처리
+    var commentAnswerForm = document.getElementById("comment-Answer");
+    if (commentAnswerForm) {
+        commentAnswerForm.style.display = "none";
+    }
+}
 </script>
   
   
