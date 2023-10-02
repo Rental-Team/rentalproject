@@ -56,14 +56,14 @@
                     
                     <th scope="col">문의유형</th>
                     <th scope="col">문의글 작성 일자</th>
-                      <th scope="col">답변여부</th>
+                    <th scope="col">답변여부</th>
                     
                   </tr>
                 </thead>
                  <c:forEach var="privateqna" items="${ requestScope.qnaBoardList}">
                   <tr>                  
                    <td>${ privateqna.qnaNo }</td>
-                    <td>${privateqna.memberId}</td>         		   
+                   <td>${privateqna.memberId}</td>         		   
                   <td>                      
                    <a href="privateqnadetail?qnaNo=${ privateqna.qnaNo }">${ privateqna.qnaTitle }</a>   
                   </td>         
