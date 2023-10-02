@@ -24,6 +24,7 @@ import com.rentalproject.dto.FreeBoardDto;
 import com.rentalproject.service.FreeBoardService;
 import com.rentalproject.ui.ThePager;
 import com.rentalproject.view.DownloadView;
+import com.rentalproject.dto.MemberDto;
 
 @Controller
 @RequestMapping(path = {"/freeboard"})
@@ -45,6 +46,11 @@ public class FreeBoardController {
 		
 		int from = (pageNo -1) * pageSize;
 		List<FreeBoardDto> freeBoardList = freeBoardService.listFreeBoardByPage(from, pageSize);
+		
+		for (FreeBoardDto freeboard : freeBoardList ) {  // 작성자 조회
+			String memberId = freeBoardService.getMemberId(freeboard.getFreeBoardNo());
+			freeboard.setMemberId(memberId);
+		}
 		
 		ThePager pager = new ThePager(dataCount, pageNo, pageSize, pagerSize, linkUrl);
 		
@@ -73,20 +79,22 @@ public class FreeBoardController {
 	@PostMapping(path= {"/freeboardwrite"})
 	
 		public String writeFreeBoard(FreeBoardDto freeboard, MultipartFile attach, 
-									 HttpServletRequest req, HttpSession session) throws Exception { 
+									 HttpServletRequest req) throws Exception { 
 		
-			if (session.getAttribute("loginuser") == null) {
-				return "redirect:/account/login";
-			}
-			
+
 		// 파일업로드 처리
 		String uploadAttachFile = req.getServletContext().getRealPath("/resources/upload/");
 		ArrayList<FreeBoardAttachDto> freeBoardAttachList = handleUploadFile(attach, uploadAttachFile);
 		freeboard.setFreeBoardAttachList(freeBoardAttachList);
 		
+		HttpSession session = req.getSession();   // 작성자로 글 등록하기 
+		int memberNo = ( (MemberDto) session.getAttribute("loginuser")).getMemberNo();
+		freeboard.setMemberNo(memberNo); 
+
+		
 		freeBoardService.writeFreeBoard(freeboard);
 		
-		return "redirect:freeboardlist";
+		return String.format("redirect:freeboardlist?memberNo=%d", freeboard.getMemberNo());
 		
 	}
 	
@@ -113,8 +121,6 @@ public class FreeBoardController {
 			return freeBoardAttachList;
 	}
 
-
-
 	// 자유게시글 클릭 후 상세보기
 	@GetMapping(path = {"/freeboarddetail"})
 	public String detail(@RequestParam(defaultValue = "-1") int freeBoardNo,
@@ -130,6 +136,10 @@ public class FreeBoardController {
 		if(freeboard == null) { // 조회된 글이 없을때 리스트로  
 			return "redirect:freeboardlist";
 		}
+		
+		 String memberId = freeBoardService.getMemberId(freeboard.getFreeBoardNo());
+		 freeboard.setMemberId(memberId);
+
 		
 		model.addAttribute("freeBoard", freeboard);
 		model.addAttribute("pageNo", pageNo);

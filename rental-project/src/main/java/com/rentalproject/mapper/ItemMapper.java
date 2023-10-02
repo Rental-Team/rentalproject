@@ -25,6 +25,11 @@ public interface ItemMapper {
 			"from Item " +
 			"order by itemNo desc")
 	public List<ItemDto> getList();
+	
+	@Update("update Item "                                     
+			+ "set viewCount = viewCount + 1 "
+			+ "where ItemNo = #{ itemNo }")
+	void itemViewCount(int itemNo);
 
 
 	@Select("select  itemNo, itemName, itemCode, itemDate, itemPrice, itemDetail, categoryName " +

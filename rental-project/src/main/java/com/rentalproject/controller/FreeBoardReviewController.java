@@ -1,5 +1,7 @@
 package com.rentalproject.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,12 +23,17 @@ public class FreeBoardReviewController {
 	private FreeBoardReviewService freeBoardReviewService;
 	
 	@PostMapping(path = {"/freeboard-review"})   // 자유게시글 댓글 쓰기 
-	public String wrtieFreeBoardReview(FreeBoardReviewDto freeBoardReview,
+	public String wrtieFreeBoardReview(FreeBoardReviewDto freeBoardReview,HttpSession session,
 									   @RequestParam (defaultValue="-1") int pageNo) {
 		
 		if(pageNo < 1) {
 			return "redirect:freeboardlist";
 		} 
+		
+		if (session.getAttribute("loginuser") == null) { // 댓글 작성하기 버튼 눌렀을 때 로그인 안되어 있으면 로그인 화면으로 
+			return "redirect:/account/login";
+		}
+		
 		freeBoardReviewService.WriteFreeBoardReview(freeBoardReview); 
 		
 		return String.format("redirect:freeboarddetail?freeBoardNo=%d&pageNo=%d", freeBoardReview.getFreeBoardNo(), pageNo);

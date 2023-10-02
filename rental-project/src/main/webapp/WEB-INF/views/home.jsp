@@ -87,11 +87,20 @@
       </div>
       <div class="row mt-5">
      		<div class="card" style="width: 18rem;">
-			  <img class="card-img-top" src="/rental-project/resources/img/brand/fridge.png" alt="Card image cap">
+			  <img class="card-img-top" src="/rental-project/resources/img/brand/fridge.png" alt="Card image cap" width=20% height=60%>
 			  <div class="card-body">
 			    <h1 class="card-title">냉장고</h1>
 			    <p class="card-text">SAMSUNG
 			    세프컬렉션 냉장고 930L, 세라블랙</p>
+			    <a href="#" class="btn btn-primary">상품보러가기</a>
+			  </div>
+			</div>
+			<div class="card" style="width: 18rem;">
+			  <img class="card-img-top" src="/rental-project/resources/img/brand/range.png" alt="Card image cap" width=20% height=60%>
+			  <div class="card-body">
+			    <h1 class="card-title">전자레인지</h1>
+			    <p class="card-text">SK매직
+			    MWO-M8A01, 용량20L, 출력 700W, 화이트</p>
 			    <a href="#" class="btn btn-primary">상품보러가기</a>
 			  </div>
 			</div>
