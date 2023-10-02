@@ -43,9 +43,7 @@ public class FreeBoardReviewController {
 	
 	@PostMapping(path = {"/edit-reply"}) // 자유게시글 댓글 수정
 	public String editFreeBoardReview(FreeBoardReviewDto freeBoardReview,
-									  @RequestParam(defaultValue="-1") int pageNo) {
-		
-		System.out.println("댓글수정내용:" + freeBoardReview);
+									  @RequestParam(defaultValue="-1") int pageNo) { 
 		 
 		freeBoardReviewService.editFreeBoardReview(freeBoardReview);
 		

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -58,7 +59,11 @@ public class FreeBoardController {
 	
 	// 자유게시글 작성 화면 불러오기
 	@GetMapping(path= {"/freeboardwrite"})
-	public String writeFreeBoardForm() {
+	public String writeFreeBoardForm(HttpSession session) { 
+		
+		if (session.getAttribute("loginuser") == null) { // 게시글 작성하기 버튼 눌렀을 때 로그인 안되어 있으면 로그인 화면으로 
+			return "redirect:/account/login";
+		}
 		
 		return "freeboard/freeboardwrite";
 		
@@ -67,8 +72,13 @@ public class FreeBoardController {
 	// 자유게시글 등록하기
 	@PostMapping(path= {"/freeboardwrite"})
 	
-		public String writeFreeBoard(FreeBoardDto freeboard, MultipartFile attach, HttpServletRequest req) throws Exception { 
+		public String writeFreeBoard(FreeBoardDto freeboard, MultipartFile attach, 
+									 HttpServletRequest req, HttpSession session) throws Exception { 
 		
+			if (session.getAttribute("loginuser") == null) {
+				return "redirect:/account/login";
+			}
+			
 		// 파일업로드 처리
 		String uploadAttachFile = req.getServletContext().getRealPath("/resources/upload/");
 		ArrayList<FreeBoardAttachDto> freeBoardAttachList = handleUploadFile(attach, uploadAttachFile);
@@ -124,7 +134,7 @@ public class FreeBoardController {
 		model.addAttribute("freeBoard", freeboard);
 		model.addAttribute("pageNo", pageNo);
 		
-		freeBoardService.updateFreeBoardviewCount(freeBoardNo);
+		freeBoardService.updateFreeBoardviewCount(freeBoardNo);  // 조회수 증가 
 		
 		return "freeboard/freeboarddetail";
 		

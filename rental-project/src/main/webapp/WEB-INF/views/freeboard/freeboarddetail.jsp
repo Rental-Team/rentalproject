@@ -69,12 +69,12 @@
                       <div class="form-group focused">
                         <label style="font-size:12pt" class="form-control-label"for="input-freeBoardDate">게시글 작성 일자</label>
                         <input disabled="disabled" type="datetime" id="input-freeBoardDate"  name="freeBoardDate" class="form-control form-control-alternative" value="${ freeBoard.freeBoardDate }" pattern="yyyy-MM-dd HH:mm"/>
-                           </div>
+                      </div>
                     </div>
                         <div class="col-lg-6">
                       <div class="form-group">
                         <label style="font-size:12pt" class="form-control-label"  for="input-freeBoardNo">작성자</label>
-                        <input disabled="disabled" type="text" id="input-freeBoardNo" name="freeBoardNo" class="form-control form-control-alternative"  value="${ requestScope.freeBoard.freeBoardNo }"/>
+                        <input disabled="disabled" type="text" id="input-freeBoardNo" name="freeBoardNo" class="form-control form-control-alternative"  value="${ sessionScope.loginuser.memberId }"/>
                    </div>
                     </div>
                   </div>
@@ -162,7 +162,7 @@
 		                	<a> ${ freeBoardReview.replyContent }</a>
 							</c:when>
 							<c:otherwise>
-							<span class="replyDelete" style="color : gray"><< 삭제된 게시글입니다 >></span> 
+							<span class="replyDelete" style="color : gray"><< 삭제된 댓글입니다 >></span> 
 							</c:otherwise>    
 						</c:choose>  
 						</td>     
@@ -180,7 +180,7 @@
 		            <tr>
 		                <td colspan="5">
 		                    <div id="reply-edit-area-${freeBoardReview.freeBoardReplyNo}" style="display: none">
-		                        ${sessionScope.loginuser.memberId} &nbsp;&nbsp; [댓글 수정 시간 : ${freeBoardReview.replyCreateDate}] <br />
+		                        ${sessionScope.loginuser.memberId} &nbsp;&nbsp; [${freeBoardReview.replyCreateDate}] <br />
 		                        <br />
 		                        <form action="edit-reply" method="post" style="width: 105%; resize: none;">
 		                            <input type="hidden" name="freeBoardReplyNo" value="${freeBoardReview.freeBoardReplyNo}" />
