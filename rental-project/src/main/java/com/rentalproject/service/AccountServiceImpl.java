@@ -24,11 +24,22 @@ public class AccountServiceImpl implements AccountService {
 		return loginMember;
 	}
 	
-	@Override // 비번 변경
-	public void editPassword(MemberDto member) {
-		
-		accountMapper.updatepassword(member);
-		
+	@Override // 아이디 찾기
+	public MemberDto findLoginId(MemberDto member) {
+		MemberDto userId = accountMapper.findIdByNameAndPhoneNo(member);
+		return userId;
+	}
+	
+	@Override // 비밀번호 찾기
+	public MemberDto findLoginPw(MemberDto member) {
+		MemberDto userPassword = accountMapper.findePwByIdAndNameAndPhoneNo(member);
+		return userPassword;
+	}
+	
+	@Override // 비밀번호 수정
+	public MemberDto updateLoginPassword(MemberDto member) {
+		MemberDto userNewPassword = accountMapper.updatepassword(member);
+		return userNewPassword;
 	}
 	
 }

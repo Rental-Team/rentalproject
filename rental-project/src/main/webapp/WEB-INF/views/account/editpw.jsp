@@ -13,7 +13,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>
-    세숫대여 비밀번호 찾기
+    세숫대여 새로운 비밀번호
   </title>
   <!-- Favicon -->
   <link href="/rental-project/resources/img/brand/favicon.png" rel="icon" type="image/png">
@@ -136,28 +136,6 @@
 	                <a href="/rental-project/account/findid">아이디 찾기</a>
 				</c:if>
 
-				<!-- 정보가 일치할 때 -->
-				<c:if test="${check == 0 }">
-				
-				<div class="form-label-group">
-				<input type="hidden" id="id" name="memberId" value="${memberId}">
-				
-					<input type="password" id="password" name="password" class="form-control"/>
-					<label for="password">password</label>
-				</div>
-				
-				<div class="form-label-group">
-					<input type="password" id="confirmpassword" name="passwordConfirm" class="form-control"/>
-					<label for="confirmpassword">confirm password</label>
-				</div>
-				
-				<div class="form-label-group">
-						<input class="btn btn-lg btn-secondary btn-block text-uppercase"
-							type="button" value="update password" onclick="updatePassword()">
-				</div>
-				
-				
-				</c:if>
 				
                 
               </form>
