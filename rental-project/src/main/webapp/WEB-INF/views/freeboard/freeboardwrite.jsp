@@ -56,7 +56,7 @@
 	                  	<div class="form-group">
 	                  	<label class="form-control-label" for="input-memberNo">작성자</label>
 	                  	${ sessionScope.loginuser.memberId }
-	                	<input type="hidden" id="input-memberNo" name="memberNo" class="form-control form-control-alternative" value="${ loginuser.memberId }">   	 
+	                	<input type="hidden" id="input-memberId" name="memberId" class="form-control form-control-alternative" value="${ loginuser.memberId }">   	 
 	                  	</div>
 	                  	</div>
 	                  	</div>

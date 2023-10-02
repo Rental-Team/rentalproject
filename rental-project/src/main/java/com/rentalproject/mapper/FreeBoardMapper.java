@@ -16,9 +16,8 @@ import com.rentalproject.dto.FreeBoardDto;
 @Mapper
 public interface FreeBoardMapper {
 	
-	@Insert("insert into FreeBoard (freeBoardTitle, freeBoardContent) "        // 자유게시판 게시글 작성 데이터 
-			+ "values (#{ freeBoardTitle }, #{ freeBoardContent })")
-	
+	@Insert("insert into FreeBoard (freeBoardTitle, memberNo, freeBoardContent) "        // 자유게시판 게시글 작성 데이터 
+			+ "values (#{ freeBoardTitle }, #{ memberNo }, #{ freeBoardContent })")
 	@Options(useGeneratedKeys = true, keyProperty = "freeBoardNo")             // insert 후 생성된 자동증가 번호 DTO에 저장
 	
 	void writeFreeBoard(FreeBoardDto freeboard) throws Exception;
@@ -78,4 +77,15 @@ public interface FreeBoardMapper {
 			+ "set freeBoardViewCount = freeBoardViewCount + 1 "
 			+ "where freeBoardNo = #{ freeBoardNo }")
 	void updateFreeBoardviewCount(int freeBoardNo);
+	
+	@Select("select memberId "
+			+ "from Member "
+			+ "where memberNo = "
+			+ "(select memberNo "
+			+ "from FreeBoard "
+			+ "where freeBoardNo = #{ freeBoardNo })")
+	String getMemberId(@Param("freeBoardNo") int freeBoardNo);  // memberNo로 memberId 찾아오기
+	
 }
+
+	

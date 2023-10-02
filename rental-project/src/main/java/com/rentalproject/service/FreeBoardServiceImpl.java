@@ -98,5 +98,11 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		freeboardMapper.updateFreeBoardviewCount(freeBoardNo);
 	}
 
+	@Override 
+	public String getMemberId(int freeBoardNo) {
+		String memberId = freeboardMapper.getMemberId(freeBoardNo);
+		return memberId;
+	}
+
 
 }
