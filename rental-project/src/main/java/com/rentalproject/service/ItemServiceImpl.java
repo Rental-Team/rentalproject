@@ -32,7 +32,9 @@ public class ItemServiceImpl implements ItemService{
 
 		//log.info("getList......");
 
-		return itemMapper.getList();
+		List<ItemDto> list = itemMapper.getList();
+		
+		return list;
 	}
 
 	@Override
