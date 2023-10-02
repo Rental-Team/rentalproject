@@ -359,8 +359,7 @@
 	                				<textarea id="comment_content" name="replyContent" style="width: 105%; resize:none;  border-radius:80px" rows="2"></textarea>
 	                				</td>
 									<td style="width: 50px; vertical-align: middle;">
-									<input type="submit" class ="btn btn-sm btn-primary" id="btninsertreview" value="댓글등록하기" >
-									
+									<input type="submit" class ="btn btn-sm btn-primary" id="btninsertreview" value="댓글등록하기" > 
 									</td>
 	                			</tr>
 	                		</table>

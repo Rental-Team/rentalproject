@@ -73,7 +73,7 @@
                	</c:choose>
                 </td>
                 <td scope="col" style="width:200px"> ${ freeBoard.freeBoardDelete? '' : sessionScope.loginuser.memberId } <!-- 게시글 삭제시 작성자 안보이게 설정 -->
-		                							 <input type="hidden" name="memberNo" value="${ loginuser.memberId }"> 
+		                							 <input type="hidden" name="memberId" value="${ loginuser.memberId }"> 
 		                							 <!-- 오류 : 다시확인 로그인한 유저로 걍 다 바뀜 -->
                 
                 <td scope="col" style="width:100px">${ freeBoard.freeBoardViewCount }</td>
