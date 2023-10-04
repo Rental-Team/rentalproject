@@ -100,11 +100,11 @@
                     <div class="col-lg-12">
                       <div class="form-group">
                         <label class="form-control-label" for="input-itemAttach">이미지</label>
-                        <input type="file" name='uploadFile' class="form-control form-control-alternative" multiple>
+                        <input type="file" name="uploadFile" id="imageInput" class="form-control form-control-alternative" >
                       	<div id="uploadResult">
                       		<div id="result_card">
                       			<div class="imgDeleteBtn">x</div>
-                      			<img src="/display?fileName=cheeseBall.jpg">
+                      			<img src="/resources/upload" id="imageInp">
                       		</div>
                       	</div>
                       </div>
@@ -186,104 +186,22 @@
   
   <script>
   
-  $(document).ready(function(e){
-	  
-	  var formObj = $("form[role='form']");
-	  
-	  $("button[type='submit']").on("click", function(e){
-		  
-		  e.preventDefault();
-		  
-		  console.log("submit clicked");
-	  
-	  })
-	  
-	  
-	  	
-	  	$("input[type='file']").change(function(e){	  		
-	  		
-	  		
-	  		let formData = new FormData;
-	  		
-	  		let inputFile = $("input[name='uploadFile']");
-	  		
-	  		let files = inputFile[0].files;
-	  		
-	  		let fileObj = files[0];
+  $("#imageInput").on("change", function(event) {
 
-	  		
-	  		
-	  			
-	  		if(!fileCheck(fileObj.name, fileObj.size) ){
-	  			return false;
-	  		}
-	  		
-	  		for(let i = 0; i < files.length; i++){
-	  			formData.append("uploadFile", files[i]);
-	  		}
-	  			
-	  		$.ajax({
-	  			url: '/admin/uploadAjaxAction',
-	  			processData: false,
-	  			contentType: false,
-	  			data: formData,
-	  			type: 'POST',
-	  			dataType: 'json'
-	  			success: function(result){
-	  				console.log(result);
-	  				showUploadImage(result);
-	  			}
-	  			error: function(result){
-	  				alert("이미지 파일이 아닙니다.");
-	  			}
-	  		});
-	  		
-	  	});
-	  	
-	  let regex = new RegExp("(.*?)\.(jpg|png)$");
-	  let maxSize = 1048576; //1MB	
+	    var file = event.target.files[0];
 
-	  function fileCheck(fileName, fileSize){
+	    var reader = new FileReader(); 
+	    reader.onload = function(e) {
 
-	  	if(fileSize >= maxSize){
-	  		alert("파일 사이즈 초과");
-	  		return false;
-	  	}
-	  		  
-	  	if(!regex.test(fileName)){
-	  		alert("해당 종류의 파일은 업로드할 수 없습니다.");
-	  		return false;
-	  	}
-	  	
-	  	return true;		
-	  	
-	  }
-	  
-	  /* 이미지 출력 */
-	  function showUploadImage(uploadResultArr){
-	  	
-	  	/* 전달받은 데이터 검증 */
-	  	if(!uploadResultArr || uploadResultArr.length == 0){return}
-	  	
-	  	let uploadResult = $("#uploadResult");
-	  	
-	  	let obj = uploadResultArr[0];
-	  	
-	  	let str = "";
-	  	
-	  	let fileCallPath = encodeURIComponent(obj.uploadPath.replace(/\\/g, '/') + "/s_" + obj.uuid + "_" + obj.fileName);
-	  	
-	  	str += "<div id='result_card'>";
-	  	str += "<img src='/display?fileName=" + fileCallPath +"'>";
-	  	str += "<div class='imgDeleteBtn'>x</div>";
-	  	str += "</div>";		
-	  	
-	  	uploadResult.append(str);     
-	      
-	  }
-	  	
-	  
-  })
+	        $("#imageInp").attr("src", e.target.result);
+	    }
+
+	    reader.readAsDataURL(file);
+	});
+	
+	</script>
+  
+  	<%=request.getRealPath("/") %>
   
   </script>
 </body>

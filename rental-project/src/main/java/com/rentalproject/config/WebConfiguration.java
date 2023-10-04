@@ -13,6 +13,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = { "com.rentalproject.controller" })
+@ComponentScan(basePackages = { "com.rentalproject.utils" })
 public class WebConfiguration implements WebMvcConfigurer {
 	
 	@Bean

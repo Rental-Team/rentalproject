@@ -36,7 +36,7 @@ public interface AdminMapper {
 			+ "order by itemNo desc")
 	public List<ItemDto> allItemList();
 	
-	@Select("select  itemNo, itemName, itemCode, itemDate, itemPrice, itemDetail, categoryName  " +
+	@Select("select itemNo, itemName, itemCode, itemDate, itemPrice, itemDetail, categoryName " +
 			"from Item " +
 			"where itemNo = #{ itemNo }")
 	public ItemDto read(int itemNo);
