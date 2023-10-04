@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,14 +22,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.rentalproject.dto.ItemDto;
+import com.rentalproject.dto.MemberDto;
+import com.rentalproject.dto.ZzimDto;
 import com.rentalproject.service.ItemService;
 import com.rentalproject.service.ItemServiceImpl;
 import com.rentalproject.ui.ThePager;
 
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -179,7 +184,15 @@ public class ItemController {
 	
 	
 	
-	
+	@ResponseBody
+	@RequestMapping(value = "/detail/zzim", method = RequestMethod.POST)
+	public void zzim(ZzimDto zzim, HttpSession session) {
+		
+		MemberDto member = (MemberDto)session.getAttribute("member");
+		zzim.setMemberId(member.getMemberId());
+		
+		itemService.zzim(zzim);
+	}
 	
 	
 

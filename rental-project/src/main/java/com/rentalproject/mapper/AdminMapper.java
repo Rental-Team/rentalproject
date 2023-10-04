@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Update;
 import com.rentalproject.dto.ItemAttachDto;
 import com.rentalproject.dto.ItemDto;
 import com.rentalproject.dto.MemberDto;
+import com.rentalproject.dto.ZzimDto;
 
 @Mapper
 public interface AdminMapper {

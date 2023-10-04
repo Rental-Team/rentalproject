@@ -49,7 +49,11 @@ public class AdminController {
 	private AdminService adminService;
 	
 	@GetMapping("/home")
-	public void adminHome() throws Exception {
+	public void adminHome(Model model) throws Exception {
+		List<MemberDto> memberList = adminService.MemberList();
+		
+		model.addAttribute("memberList", memberList);
+		
 		
 	}
 	

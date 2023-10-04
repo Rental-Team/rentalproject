@@ -28,4 +28,7 @@ public class ItemDto {
 	
 	private List<ItemAttachDto> itemAttachList;
 	
+	private List<ZzimDto> zzimDtoList;
+
+	
 }

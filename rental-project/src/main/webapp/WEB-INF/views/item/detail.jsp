@@ -33,6 +33,11 @@
   <link href="/rental-project/resources/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="/rental-project/resources/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
+  <style>
+  .float-right {
+    float: right;
+}
+  </style>
 </head>
 
 <body class="">
@@ -107,6 +112,10 @@
                       </div>
                     </div>
                   </div>
+                  
+                  <p class="zzim">
+                  	<button type="button" id="zzim_btn" class='btn btn-outline-primary float-right'>찜하기</button>
+                  </p>
                 </div>
                 
               </form>
@@ -161,6 +170,26 @@
       });
   </script>
   
+  <script>
+  	$('#zzim_btn').click(function(e){
+  		e.preventDefault();
+  		
+  		const itemNo = $('#itemNo').val();
+  		
+  		
+  		$.ajax({
+  			"url" : "/item/detail/zzim",
+  			"method" : "post",
+  			data : { "itemNo" : itemNo },
+  			success : function(){
+  				alert("찜!");
+  			},
+  			error : function() {
+  				alert("찜 실패");
+  			}
+  		});
+  	});
+  </script>
   
 </body>
 
