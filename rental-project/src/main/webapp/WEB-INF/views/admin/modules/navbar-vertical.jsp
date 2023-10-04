@@ -106,7 +106,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="/rental-project/item/list">
+            <a class="nav-link " href="/rental-project/admin/item/list">
               <i class="ni ni-bullet-list-67 text-red"></i> 상품 게시판
             </a>
           </li>

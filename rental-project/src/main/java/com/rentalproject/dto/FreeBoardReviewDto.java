@@ -17,10 +17,6 @@ public class FreeBoardReviewDto {
 	private int replySequence;
 	private int replyDepth;
 	private String replyWriter;
-	private boolean replyDelete;
+	private boolean replyDelete; 
 	
-
-	
-	
-
 }

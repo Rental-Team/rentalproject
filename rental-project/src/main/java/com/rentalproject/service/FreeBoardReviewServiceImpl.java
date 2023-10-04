@@ -3,6 +3,7 @@ package com.rentalproject.service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.rentalproject.dto.FreeBoardReviewDto;
+import com.rentalproject.mapper.FreeBoardMapper;
 import com.rentalproject.mapper.FreeBoardReviewMapper;
 
 import lombok.Setter;

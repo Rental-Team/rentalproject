@@ -171,8 +171,8 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html">
-              <i class="ni ni-ui-04"></i> Components
+            <a class="nav-link" href="/rental-project/privateboard/privateqnalist">
+              <i class="ni ni-ui-04"></i> 1:1문의
             </a>
           </li>
         </ul>
@@ -255,111 +255,120 @@
 	<br>
 	<br>
 	<br>
-    <!-- Header -->
-    <div class="container-fluid mt--7">
-      <div class="row mt-5">
-        <div class="col-xl-8 mb-5 mb-xl-0">
-          <div class="card shadow">
-            <div class="card-header border-0">
-              <div class="row align-items-center">
-                <div class="col">
-                  <h3 class="mb-0">1:1 문의 게시판</h3>
-                  <br>
-                  <br>
-                  <form action="write" method="post">
-                   <table>
-		            <tr>
-		                <th>문의글 번호</th>
-		                <td>
-		                 ${ requestScope.privateqna.qnaNo }  
-		                </td>
-		            </tr>
-		            <tr>
-		                <th>문의글 유형</th>
-		                <td>
-		                	${ privateqna.qnaType }
-		                </td>
-		            </tr>
-		            <tr>
-		                <th>문의글 제목</th>
-		                <td>
-		                	${ privateqna.qnaTitle }
-		                </td>
-		            </tr>
-		      
-		            <tr>
-		                <th>문의글 내용 </th>
-		                <td>
-		                	${ privateqna.qnaContent }
-		                </td>
-		            </tr>
-		           
-		            <tr>
-		                <th>문의글 날짜</th>
-		                <td> 
-		                	${ privateqna.qnaDate }
-		                </td>
-		            </tr>
-		            <tr>
-		                <th></th>
-		                <td>
-		                	
-		                </td>
-		            </tr>
-		            <tr>
-		                <th></th>
-		                <td>
-		                	
-		                </td>
-		            </tr> 
-		        </table> 
-			        <br>
-			        <div class="col text-center" >
-			         <input type="button"  id="getBack" class ="btn btn-sm btn-primary" value="목록으로 돌아가기" > 
-	                </div>
-                </form>
+   <!-- Header -->
+   <div class="container-fluid mt--7">
+     <div class="row mt-5">
+       <div class="col-xl-8 mb-5 mb-xl-0">
+         <div class="card shadow">
+           <div class="card-header border-0">
+             <div class="row align-items-center">
+               <div class="col">
+                 <h3 class="mb-0">1:1 문의 게시판</h3>
+                 <br>
+                 <br>
+                <form action="write" method="post">
+                 <table>
+	             
+	             
+	          <tr>
+			   		<th>1대1문의 작성자</th>
+			    	<td>
+			    		${privateqna.memberId}
+			    	</td>
+			   </tr>
+         
+	            <tr>
+	                <th>문의글 번호</th>
+	                <td>
+	                 ${ requestScope.privateqna.qnaNo }  
+	                </td>
+	            </tr>
+	            <tr>
+	                <th>문의글 유형</th>
+	                <td>
+	                	${ privateqna.qnaType }
+	                </td>
+	            </tr>
+	            <tr>
+	                <th>문의글 제목</th>
+	                <td>
+	                	${ privateqna.qnaTitle }
+	                </td>
+	            </tr>
+	      
+	            <tr>
+	                <th>문의글 내용 </th>
+	                <td>
+	                	${ privateqna.qnaContent }
+	                </td>
+	            </tr>
+	           
+	            <tr>
+	                <th>문의글 날짜</th>
+	                <td> 
+	                	${ privateqna.qnaDate }
+	                </td>
+	            </tr>
+	          
+
+		
+			</table> 
+		        <br>
+		        <div class="col text-center" >
+		         <input type="button"  id="getBack" class ="btn btn-sm btn-primary" value="목록으로 돌아가기" > 
                 </div>
-              </div>
-           </div> 
-          </div>
-        </div>
-      </div>
-    </div>
+               </form>
+               </div>
+             </div>
+          </div> 
+         </div>
+       </div>
+     </div>
+   </div>
 <br>
 <br>
-	
-          		
-			   <table id = "answer-list" style="text-align:center" class="table align-items-center table-flush">
-			       		<thead class="thead-light">
-			         <tr style="text-align:center">
-			              <th scope="col" style="width:300px">답변내용</th>
-			              <th scope="col" style="width:150px">답변작성일자</th>
-			         </tr>
-			          </thead>
-			          <tbody>
-<!--답변 조회 됨 --> <c:forEach var="privateAnswer" items="${ privateqna.privateQnaAnswerList }">
-					<tr style="text-align:center" id="answer-view-area-${ privateAnswer.qnaNo }">
-				        <td scope="col" style="width:100px">${ privateAnswer.answerContent }</td>
-				        <td scope="col" style="width:200px">${ sessionScope.loginuser.memberId }</td>
-						<td>
-			                <a class="btn btn-sm btn-primary edit-answer-link" data-reply-no="${privateAnswer.qnaNo}" href="javascript:void(0)" style="color: white">답변수정</a>
-				        </td>
-				    </tr>
-					<div id="answer-edit-area-${privateAnswer.qnaNo}" style="display: none">
-<!--답변 수정 -->	   <form action="edit-answer" method="post" style="width:105%; resize:none;">
-			            <input type="hidden" name="qnaNo" value="${privateAnswer.qnaNo}">
-			            <textarea name="answerContent" style="width:100%; resize:none;">${privateAnswer.answerContent}</textarea>
-			            <input type="submit" value="저장">
-				  </form>
-		        	</div>
-				 </c:forEach>
-				        </tbody>
-				 </table>	
-			         
-	         
-			         
-			         
-<br>
+
+
+		<table id="answer-list" style="text-align: center"
+			class="table align-items-center table-flush">
+			<thead class="thead-light">
+				<tr style="text-align: center">
+					<th scope="col" style="width: 300px">답변내용</th>
+					<!--   <th scope="col" style="width:150px">답변작성일자</th> -->
+				</tr>
+			</thead>
+			<tbody>
+				<!--답변 조회 됨 -->
+				<c:forEach var="privateAnswer"
+					items="${ privateqna.privateQnaAnswerList }">
+					<tr style="text-align: center"
+						id="answer-view-area-${ privateAnswer.qnaNo }">
+						<td scope="col" style="width: 100px">${ privateAnswer.answerContent }</td>
+						<%-- <td scope="col" style="width:200px">${ sessionScope.loginuser.memberId }</td> --%>
+						<td><c:if test="${requestScope.memberNo == 17}">
+								<a class="btn btn-sm btn-primary edit-answer-link"
+									data-reply-no="${privateAnswer.qnaNo}"
+									href="javascript:void(0)" style="color: white">답변수정</a>
+							</c:if></td>
+					</tr>
+					<div id="answer-edit-area-${privateAnswer.qnaNo}"
+						style="display: none">
+						<!--답변 수정 -->
+						<form action="edit-answer" method="post"
+							style="width: 105%; resize: none;">
+							<input type="hidden" name="qnaNo" value="${privateAnswer.qnaNo}">
+							<textarea name="answerContent" style="width: 100%; resize: none;">${privateAnswer.answerContent}</textarea>
+							<input type="submit" value="저장">
+						</form>
+					</div>
+				</c:forEach>
+			</tbody>
+		</table>
+
+
+
+
+		<br>
 <br>
 <br>
 <br>
@@ -489,6 +498,20 @@ $(function(event) {
         window.location.href = 'privateqnadetail';
     });
 });
+</script>
+  
+ <script>
+// 서버에서 memberNo 값을 JSP로부터 가져오는거임
+	var memberNo = <%= request.getAttribute("memberNo") %>;
+
+
+	if (memberNo !== 17) {
+   
+    var commentAnswerForm = document.getElementById("comment-Answer");
+    if (commentAnswerForm) {
+        commentAnswerForm.style.display = "none";
+    }
+}
 </script>
   
   

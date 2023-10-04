@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ import com.rentalproject.dto.FreeBoardDto;
 import com.rentalproject.service.FreeBoardService;
 import com.rentalproject.ui.ThePager;
 import com.rentalproject.view.DownloadView;
+import com.rentalproject.dto.MemberDto;
 
 @Controller
 @RequestMapping(path = {"/freeboard"})
@@ -45,6 +47,11 @@ public class FreeBoardController {
 		int from = (pageNo -1) * pageSize;
 		List<FreeBoardDto> freeBoardList = freeBoardService.listFreeBoardByPage(from, pageSize);
 		
+		for (FreeBoardDto freeboard : freeBoardList ) {  // 작성자 조회
+			String memberId = freeBoardService.getMemberId(freeboard.getFreeBoardNo());
+			freeboard.setMemberId(memberId);
+		}
+		
 		ThePager pager = new ThePager(dataCount, pageNo, pageSize, pagerSize, linkUrl);
 		
 		 
@@ -58,7 +65,11 @@ public class FreeBoardController {
 	
 	// 자유게시글 작성 화면 불러오기
 	@GetMapping(path= {"/freeboardwrite"})
-	public String writeFreeBoardForm() {
+	public String writeFreeBoardForm(HttpSession session) { 
+		
+		if (session.getAttribute("loginuser") == null) { // 게시글 작성하기 버튼 눌렀을 때 로그인 안되어 있으면 로그인 화면으로 
+			return "redirect:/account/login";
+		}
 		
 		return "freeboard/freeboardwrite";
 		
@@ -67,16 +78,23 @@ public class FreeBoardController {
 	// 자유게시글 등록하기
 	@PostMapping(path= {"/freeboardwrite"})
 	
-		public String writeFreeBoard(FreeBoardDto freeboard, MultipartFile attach, HttpServletRequest req) throws Exception { 
+		public String writeFreeBoard(FreeBoardDto freeboard, MultipartFile attach, 
+									 HttpServletRequest req) throws Exception { 
 		
+
 		// 파일업로드 처리
 		String uploadAttachFile = req.getServletContext().getRealPath("/resources/upload/");
 		ArrayList<FreeBoardAttachDto> freeBoardAttachList = handleUploadFile(attach, uploadAttachFile);
 		freeboard.setFreeBoardAttachList(freeBoardAttachList);
 		
+		HttpSession session = req.getSession();   // 작성자로 글 등록하기 
+		int memberNo = ( (MemberDto) session.getAttribute("loginuser")).getMemberNo();
+		freeboard.setMemberNo(memberNo); 
+
+		
 		freeBoardService.writeFreeBoard(freeboard);
 		
-		return "redirect:freeboardlist";
+		return String.format("redirect:freeboardlist?memberNo=%d", freeboard.getMemberNo());
 		
 	}
 	
@@ -103,8 +121,6 @@ public class FreeBoardController {
 			return freeBoardAttachList;
 	}
 
-
-
 	// 자유게시글 클릭 후 상세보기
 	@GetMapping(path = {"/freeboarddetail"})
 	public String detail(@RequestParam(defaultValue = "-1") int freeBoardNo,
@@ -121,10 +137,14 @@ public class FreeBoardController {
 			return "redirect:freeboardlist";
 		}
 		
+		 String memberId = freeBoardService.getMemberId(freeboard.getFreeBoardNo());
+		 freeboard.setMemberId(memberId);
+
+		
 		model.addAttribute("freeBoard", freeboard);
 		model.addAttribute("pageNo", pageNo);
 		
-		freeBoardService.updateFreeBoardviewCount(freeBoardNo);
+		freeBoardService.updateFreeBoardviewCount(freeBoardNo);  // 조회수 증가 
 		
 		return "freeboard/freeboarddetail";
 		

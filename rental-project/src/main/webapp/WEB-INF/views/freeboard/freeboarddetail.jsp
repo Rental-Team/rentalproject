@@ -1,9 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
     
-        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-        <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-		<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -42,8 +41,7 @@
                 <div class="col">
                   <h3 style="font-weight:bold" class="mb-0">자유게시글 상세정보</h3>
                 </div>
-                <div class="col text-right">
-                	
+                <div class="col text-right"> 
                 </div>
               </div>
             </div>
@@ -55,13 +53,13 @@
                       <div class="form-group focused">
                         <label style="font-size:12pt" class="form-control-label"for="input-freeBoardTitle">게시글 제목</label>
                         <input disabled="disabled" type="text" id="input-freeBoardTitle"  name="freeBoardTitle" class="form-control form-control-alternative" value="${ freeBoard.freeBoardTitle }"/>
-                           </div>
+                      </div>
                     </div>
                         <div class="col-lg-6">
                       <div class="form-group">
                         <label style="font-size:12pt" class="form-control-label"  for="input-freeBoardNo">글번호</label>
                         <input disabled="disabled" type="text" id="input-freeBoardNo" name="freeBoardNo" class="form-control form-control-alternative"  value="${ requestScope.freeBoard.freeBoardNo }"/>
-                   </div>
+               		  </div>
                     </div>
                   </div>
                      <div class="row">
@@ -69,12 +67,12 @@
                       <div class="form-group focused">
                         <label style="font-size:12pt" class="form-control-label"for="input-freeBoardDate">게시글 작성 일자</label>
                         <input disabled="disabled" type="datetime" id="input-freeBoardDate"  name="freeBoardDate" class="form-control form-control-alternative" value="${ freeBoard.freeBoardDate }" pattern="yyyy-MM-dd HH:mm"/>
-                           </div>
+                      </div>
                     </div>
                         <div class="col-lg-6">
                       <div class="form-group">
                         <label style="font-size:12pt" class="form-control-label"  for="input-freeBoardNo">작성자</label>
-                        <input disabled="disabled" type="text" id="input-freeBoardNo" name="freeBoardNo" class="form-control form-control-alternative"  value="${ requestScope.freeBoard.freeBoardNo }"/>
+                        <input disabled="disabled" type="text" id="input-freeBoardNo" name="freeBoardNo" class="form-control form-control-alternative"  value="${freeBoard.memberId}"> 
                    </div>
                     </div>
                   </div>
@@ -108,10 +106,13 @@
                  </div>
                 </form>
                 	<div class="col text-center" >
-				        <input type="button" class ="btn btn btn-primary" id="btnBackToList" value="목록으로 돌아가기" >
+				        <input type="button" class ="btn btn btn-primary" id="btnBackToList" value="목록으로 돌아가기" ></div>  
+				        <br />
+				        <div class="col text-center" style='display:${ (not empty loginuser and loginuser.memberId == freeBoard.memberId)? "block" : "none"}'>
 				        <input type="button" class ="btn btn btn-primary" id="btnedit" value="게시글 수정하기" >
 				        <input type="button" class ="btn btn btn-primary" id="btndelete" value="게시글 삭제하기" >
-	                </div> 
+				        </div>
+	             
                </div>  
              </div>
           	</div>
@@ -129,10 +130,11 @@
                 	<form id="freeBaordReivewForm" action="freeboard-review" method="post">
                 		<input type="hidden" name="freeBoardNo" value="${ freeBoard.freeBoardNo }" />
                 		<input type="hidden" name="pageNo" value="${ pageNo }" />
+                		<input type="hidden" name="replyWriter" value="${ loginuser.memberId }"/>
 	                		<table class="table align-items-center">
 	                			<tr>
 	                				<td style="width: 1300px;">
-	                				<textarea id="comment_content" name="replyContent" style="width:105%; resize:none;  border-radius:80px" rows="2">     </textarea>
+	                				<textarea id="comment_content" name="replyContent" style="width:100%; resize:none;  border-radius:80px" rows="2">     </textarea>
 	                				</td>
 									<td style="vertical-align: middle; text-align:right;">
 									<input type="submit" class ="btn btn-sm btn-primary" id="btninsertreview" value="댓글등록하기" > 
@@ -149,7 +151,7 @@
 		            <th scope="col" style="width: 300px">댓글내용</th>
 		             <th scope="col" style="width: 150px">댓글작성자</th>
 		            <th scope="col" style="width: 150px">댓글작성일자</th>
-		            <th scope="col" style="width: 150px">댓글수정삭제</th>
+		            <th scope="col" style="width: 150px"></th>
 		        </tr>
 		    </thead>
 		    <tbody>
@@ -162,25 +164,25 @@
 		                	<a> ${ freeBoardReview.replyContent }</a>
 							</c:when>
 							<c:otherwise>
-							<span class="replyDelete" style="color : gray"><< 삭제된 게시글입니다 >></span> 
+							<span class="replyDelete" style="color : gray"><< 삭제된 댓글입니다 >></span> 
 							</c:otherwise>    
 						</c:choose>  
 						</td>     
-						<td scope="col" style="width:200px"> ${ freeBoardReview.replyDelete? '' : sessionScope.loginuser.memberId } <!-- 게시글 삭제시 작성자 안보이게 설정 -->
-		                							 <input type="hidden" name="memberNo" value="${ loginuser.memberId }"> 
-		                							 <!-- 오류 : 다시확인 로그인한 유저로 걍 다 바뀜 -->   
+						<td scope="col" style="width:200px"> ${ freeBoardReview.replyDelete? '' : freeBoardReview.replyWriter } <!-- 게시글 삭제시 작성자 안보이게 설정 -->
 		                <td style="width: 150px">
 		                    <fmt:formatDate value="${freeBoardReview.replyCreateDate}" pattern="yyyy-MM-dd HH:mm" />
 		                </td>
 		                <td>
+		                	<div style='display:${ (not empty loginuser and loginuser.memberId == freeBoardReview.replyWriter and not freeBoardReview.replyDelete)? "block" : "none"}'>
 		                    <a class="btn btn-sm btn-primary edit-reply" data-reply-no="${freeBoardReview.freeBoardReplyNo}" href="javascript:void(0)" style="color: white">댓글수정하기</a>
 		                    <a class="btn btn-sm btn-primary delete-reply" data-reply-no="${freeBoardReview.freeBoardReplyNo}" href="javascript:void(0)" style="color: white">댓글삭제하기</a>
+		                	</div>
 		                </td>
 		            </tr>
 		            <tr>
 		                <td colspan="5">
 		                    <div id="reply-edit-area-${freeBoardReview.freeBoardReplyNo}" style="display: none">
-		                        ${sessionScope.loginuser.memberId} &nbsp;&nbsp; [댓글 수정 시간 : ${freeBoardReview.replyCreateDate}] <br />
+		                        ${sessionScope.loginuser.memberId} &nbsp;&nbsp; [${freeBoardReview.replyCreateDate}] <br />
 		                        <br />
 		                        <form action="edit-reply" method="post" style="width: 105%; resize: none;">
 		                            <input type="hidden" name="freeBoardReplyNo" value="${freeBoardReview.freeBoardReplyNo}" />

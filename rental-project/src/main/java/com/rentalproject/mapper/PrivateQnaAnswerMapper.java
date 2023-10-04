@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Update;
 import com.rentalproject.dto.PrivateQnaAnswerDto;
 
 @Mapper
-public interface PrivateQnaAnserMapper {
+public interface PrivateQnaAnswerMapper {
 
 	@Insert("insert into PrivateA (QnANo , answerContent) "
 			+ "values (#{qnaNo}, #{answerContent})")

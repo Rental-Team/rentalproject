@@ -14,15 +14,15 @@ import com.rentalproject.dto.FreeBoardReviewDto;
 @Mapper
 public interface FreeBoardReviewMapper {
 	
-	@Insert("insert into FreeBoardReview (freeBoardNo, replyContent, replyParents, replySequence, replyDepth) "
-			+ "values (#{freeBoardNo}, #{replyContent}, 0, 1, 0)")
+	@Insert("insert into FreeBoardReview (freeBoardNo, replyWriter, replyContent, replyParents, replySequence, replyDepth) "
+			+ "values (#{freeBoardNo}, #{ replyWriter }, #{replyContent}, 0, 1, 0)")
 	// 먼저 insert 하고, select 하게 하는 구문 : 자동증가된 컬럼(freeBoardReplyNo)의 값을 DTO 에 넣기
 	@Options(useGeneratedKeys = true, keyProperty = "freeBoardReplyNo", keyColumn = "freeBoardReplyNo")
 	
 	void insertFreeBoardReview(FreeBoardReviewDto freeBoardReview);
 	
 	// 댓글리스트 조회
-	@Select("select freeBoardReplyNo, freeBoardNo, replyContent, replyCreateDate, replyDelete "
+	@Select("select freeBoardReplyNo, freeBoardNo, replyWriter, replyContent, replyCreateDate, replyDelete "
 			+ "from FreeBoardReview "
 			+ "where freeBoardNo = #{freeBoardNo} "
 			+ "order by replyParents desc, replySequence asc")

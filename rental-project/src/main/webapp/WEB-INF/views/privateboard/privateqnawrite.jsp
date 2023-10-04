@@ -56,8 +56,11 @@
                    <div class="row">
                     <div class="col-lg-12">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-qnaName">작성자</label>
-                        <input type="text" id="input-qnaName" name="qnaName"  class="form-control form-control-alternative">
+                        <label class="form-control-label" for="input-qanName">작성자</label>
+                      	 
+                      	 ${ loginuser.memberId }
+                        <input type="hidden" id="input-qnaName" name="qnaName"  class="form-control form-control-alternative" value="${ loginuser.memberId }">
+                     	
                       </div>
                     </div>
                   </div>
@@ -86,7 +89,7 @@
                     <div class="col-lg-12">
                       <div class="form-group">
                         <label class="form-control-label" for="input-qnaContent">문의 내용</label>
-                        <textarea id="input-qnaContent" name="qnaContent" class="form-control form-control-alternative" placeholder="설명을 입력하세요" rows="15" style="resize: none"></textarea>
+                        <textarea id="input-qnaContent" name="qnaContent" class="form-control form-control-alternative" placeholder="설명을 입력하세요, 1대1문의 작성후 수정 삭제가 안되니 유의하시길 바랍니다" rows="15" style="resize: none"></textarea>
                       </div>
                     </div>
                   </div>
@@ -95,11 +98,15 @@
                   	<div class="text-right">
 			        <input type="submit" class ="btn btn-sm btn-primary" value="글쓰기" >
 			        <input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="취소" />
-                  	
-                  	</div>
-                  	</div>
+                  	 </div>
+                    </div>
+                 	 </div>
+                	</div>
+                   </form>
+                  </div>
+                </div>
        	     </div>
-       	     </div>
+       	    </div>
                    
 
                    
@@ -147,15 +154,34 @@
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
  
  <script>
-    $(document).ready(function() {
-        $("form").submit(function(event) {
-            var qnaType = $("select[name='qnaType']").val();
-            if (qnaType === "문의유형") {
-                alert("문의 유형을 선택하세요.");
+$(document).ready(function() {
+    // "취소" 버튼 클릭 시 이벤트 처리
+    $("#btnCancel").click(function() {
+       location.href = "privateqnalist";
+    });
+
+  
+    $("form").submit(function(event) {
+        var qnaType = $("select[name='qnaType']").val();
+        var qnaTitle = $("#input-qnaTitle").val();
+        var qnaContent = $("#input-qnaContent").val();
+
+        if (qnaType === "문의유형") {
+            alert("문의 유형을 선택하세요.");
+            event.preventDefault();
+        } else if (qnaTitle.trim() === "") {
+            alert("제목을 입력하세요.");
+            event.preventDefault();
+        } else if (qnaContent.trim() === "") {
+            alert("문의 내용을 입력하세요.");
+            event.preventDefault();
+        } else {
+            if (!confirm("게시글을 작성하시겠습니까? 작성 후 수정 및 삭제가 불가능합니다.")) {
                 event.preventDefault();
             }
-        });
+        }
     });
+});
 </script>
  
  

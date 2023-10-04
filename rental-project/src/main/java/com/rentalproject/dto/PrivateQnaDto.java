@@ -13,7 +13,9 @@ public class PrivateQnaDto {
 	private String qnaTitle;//문의제목 
 	private String qnaContent;//문의 내용 
 	private Date  qnaDate;//문의 작성일자
-	
+	private int memberNo;//회원번호
+	private String memberId; // 회원 ID
+	private boolean answered; //답변 여부 
 	private List<PrivateQnaAnswerDto> privateQnaAnswerList;
-	
+	private List<MemberDto> privateQnaWriteList;
 }
