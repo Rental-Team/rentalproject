@@ -8,17 +8,11 @@ import com.rentalproject.dto.MemberDto;
 
 @Mapper
 public interface ProfileMapper {
-	
-//	// 프로필 조회 -> AccountMapper의 로그인과 공유
-//		@Select("select memberNo, memberId, userName, nickname," + 
-//				" phoneNo, email, address, deposite, regDate " + 
-//				"from Member where memberId = #{memberId})")
-//		MemberDto selectProfileByMemberId(@Param("memberId") String MemberId);
 		
 	// 프로필 수정
 	@Update("update Member " + 
 			"set userName = #{userName}, nickname = #{nickname}, phoneNo = #{phoneNo}, email = #{email}, " + 
-			"address = #{address}, deposite = #{deposite}, introduce = #{introduce}, imageName = #{imageName} " + 
+			"address = #{address}, deposite = #{deposite}, imageName = #{imageName}, introduce = #{introduce} " + 
 			"where memberId = #{memberId}")
 	void updateProfile(MemberDto member);
 	

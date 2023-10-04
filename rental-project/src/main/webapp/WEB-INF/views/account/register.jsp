@@ -105,6 +105,8 @@
                 </a>
               </div>
             </div>
+            
+            <!-- action 시작 -->
             <div class="card-body px-lg-5 py-lg-5">
               <form:form id="registerform" action="register" method="post" modelAttribute="member">
               <form role="form">
@@ -113,9 +115,13 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                     </div>
-                    <form:input path="memberId" class="form-control" placeholder="아이디" type="text" />
+                    <form:input id="memberId" path="memberId" class="form-control" placeholder="아이디" type="text" />
+                    <button type="button" onclick="fn_dbCheckId()" name="dbcheckId" class="checkId">
+	                중복 확인
+	                </button>
                   </div>
                 </div>
+                <input type="hidden" name="idDuplication" value="idUncheck"/>
                 <div class="form-group">
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
@@ -140,7 +146,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                     </div>
-                    <form:input path="userName" class="form-control" placeholder="이름" type="text" />
+                    <form:input id="userName" path="userName" class="form-control" placeholder="이름" type="text" />
                   </div>
                 </div>
                 <div class="form-group">
@@ -148,7 +154,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                     </div>
-                    <form:input path="nickname" class="form-control" placeholder="별명" type="text" />
+                    <form:input id="nickname" path="nickname" class="form-control" placeholder="별명" type="text" />
                   </div>
                 </div>
                 <div class="form-group">
@@ -156,7 +162,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                     </div>
-                    <form:input path="phoneNo" class="form-control" placeholder="전화번호" type="text" />
+                    <form:input id="phoneNo" path="phoneNo" class="form-control" placeholder="전화번호" type="text" />
                   </div>
                 </div>
                 <div class="form-group">
@@ -164,7 +170,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                     </div>
-                    <form:input path="email" class="form-control" placeholder="이메일" type="email" />
+                    <form:input id="email" path="email" class="form-control" placeholder="이메일" type="email" />
                   </div>
                 </div>
                 <div class="form-group">
@@ -172,7 +178,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                     </div>
-                    <form:input path="address" class="form-control" placeholder="주소" type="text" />
+                    <form:input id="address" path="address" class="form-control" placeholder="주소" type="text" />
                   </div>
                 </div>
                 <div class="form-group">
@@ -180,7 +186,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                     </div>
-                    <form:input path="deposite" class="form-control" placeholder="보증금" type="text" />
+                    <form:input id="deposite" path="deposite" class="form-control" placeholder="보증금" type="text" />
                   </div>
                 </div>
                 <!-- <div class="text-muted font-italic"><small>password strength: <span class="text-success font-weight-700">strong</span></small></div>
@@ -196,7 +202,7 @@
                 </div> -->
                 <div class="text-center">
                 <!-- <a href="/rental-project/account/login" class="btn btn-primary mt-4"> create account </a> -->
-                  <input id="register" type="submit" onclick="checkPassword"  class="btn btn-primary mt-4" value="계정 생성" />
+                  <input id="register" type="submit" class="btn btn-primary mt-4" value="계정 생성" />
 				</div>
 			  </form>
               </form:form>
@@ -242,6 +248,35 @@
   <!--   Argon JS   -->
   <script src="/rental-project/resources/js/argon-dashboard.min.js?v=1.1.2"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script type="text/javascript">
+  
+  	function doRegister(){
+  		var registerform = document.registerform;
+  		var memberId = document.getElementById('memberId').value;
+  		var userName = document.getElementById('userName').value;
+  		var nickname = document.getElementById('nickname').value;
+  		var phoneNo = document.getElementById('phoneNo').value;
+  		var email = document.getElementById('emailName').value;
+  		var address = document.getElementById('emailName').value;
+  		
+  		if(memberId.length==0 || memberId==""){
+  			alert("아이디를 입력해주세요")
+  		} else if (userName.length==0 || userName==""){
+  			alert("이름을 입력해주세요")
+  		} else if (nickname.length==0 || nickname==""){
+  			alert("별명을 입력해주세요")
+  		} else if (phoneNo.length==0 || phoneNo==""){
+  			alert("전화번호를 입력해주세요")
+  		} else if (email.length==0 || email==""){
+  			alert("이메일을 입력해주세요")
+  		} else if (address.length==0 || address==""){
+  			alert("주소를 입력해주세요")
+  		} else {
+  			registerform.method="post"
+			registerform.action="register"
+  		}
+  	}
+  </script>
    <script>
    
 		   var passwordField = document.getElementById('password');

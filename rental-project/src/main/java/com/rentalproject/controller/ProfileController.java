@@ -38,7 +38,8 @@ public class ProfileController {
 		}
 		
 		model.addAttribute("profileuser", loginUser);
-		// 로그인 되어 있다면 프로필창으로
+		
+		// 로그인 되어 있다면 프로필 창으로
 		return "profile/profile";
 	}
 	// 프로필 수정 창
@@ -53,10 +54,11 @@ public class ProfileController {
 	
 	// 프로필 수정
 	@PostMapping(path= {"/profileedit"})
-	public String prifileEdit (MemberDto member, HttpSession session, MultipartFile attach, HttpServletRequest req) {
+	public String prifileEdit (MemberDto member, HttpSession session, MultipartFile attach, HttpServletRequest req) throws Exception {
 		
 //		String uploadDir = req.getServletContext().getRealPath("/resources/upload/");
 //		MemberDto attachImg = handleUpImg(attach, uploadDir);
+		
 		
 		profileService.editProfile(member); 
 		session.setAttribute("loginuser", member); 

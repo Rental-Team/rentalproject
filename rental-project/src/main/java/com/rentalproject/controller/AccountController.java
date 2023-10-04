@@ -1,6 +1,10 @@
 package com.rentalproject.controller;
 
-import javax.servlet.http.HttpServletRequest;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
+
+import java.beans.Encoder;
+import java.util.UUID;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.rentalproject.common.MailUtil;
 import com.rentalproject.dto.MemberDto;
 import com.rentalproject.service.AccountService;
 
@@ -22,6 +27,7 @@ public class AccountController {
 	
 	@Autowired
 	private AccountService accountService;
+	
 	
 	@Qualifier("accountService")
 	public void setAccountService(AccountService accountService) {
@@ -38,13 +44,6 @@ public class AccountController {
 	// 회원가입 등록
 	@PostMapping(path= {"register"})
 	public String register(@ModelAttribute("member") MemberDto member, HttpSession session) {
-		
-//		MemberDto registerMember = accountService.findLoginMember(member);
-//		String registerMemberId = registerMember.getMemberId();
-//		
-//		if(registerMemberId != null) {
-//			return "account/register";
-//		}
 			
 		accountService.register(member);
 		return "redirect:/account/login";
@@ -117,22 +116,37 @@ public class AccountController {
 	
 	// 비밀번호 찾기 구현
 	@PostMapping(path= {"/findpw"})
-	public String findUserPw(MemberDto member, Model model) {
+	public String findUserPw(MemberDto member, Model model) throws Exception {
+		
 		MemberDto findPwMember = accountService.findLoginPw(member);
+		String newpw = "";
 		
 		if(findPwMember != null && findPwMember.isDeleteCheck() == false) {
-			model.addAttribute("check", 0);
-			model.addAttribute("memberId", findPwMember.getMemberId());
+//			model.addAttribute("check", 0);
+//			model.addAttribute("memberId", findPwMember.getMemberId());
+			
+			UUID uid = UUID.randomUUID();
+			
+			newpw = uid.toString().substring(0,6);
+			findPwMember.setPassword(newpw);
+			
+			MailUtil mail = new MailUtil();
+			mail.sendEmail(findPwMember);
+			
+			accountService.newPw(findPwMember);
+			
+			return "account/login";
 			
 		} else {
-			model.addAttribute("check", 1);
+//			model.addAttribute("check", 1);
+			
+			return "account/findpw";
 		}
-		
-		return "account/findpw";
 	}
 	
 	@PostMapping(path= {"editpw"})
-	public String editPassword() {
+	public String newUserPw(MemberDto meber, RedirectAttributes rttr) {
+		
 		return "account/editpw";
 	}
 }

@@ -113,22 +113,14 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                     </div>
-                    <input name="userName" class="form-control" placeholder="이름" type="text">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="input-group input-group-alternative">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                    </div>
-                    <input name="phoneNo" class="form-control" placeholder="전화번호" type="text">
+                    <input name="email" class="form-control" placeholder="이메일" type="email">
                   </div>
                 </div>
                 <p class="text-center">
-                  <input type="submit" class="btn btn-primary my-4" value="비밀번호 찾기" />
+                  <input type="submit" class="btn btn-primary my-4" value="비밀번호 찾기" id="btn" />
                 </p>
                 
-                <c:if test="${check == 1}">
+                <%-- <c:if test="${check == 1}">
 					<label>일치하는 정보가 존재하지 않습니다.</label>
 					<br>
 					<span>아이디가 기억이 안나시나요??</span>
@@ -155,9 +147,7 @@
 						<input class="btn btn-lg btn-secondary btn-block text-uppercase"
 							type="button" value="update password" onclick="updatePassword()">
 				</div>
-				
-				
-				</c:if>
+				</c:if> --%>
 				
                 
               </form>
@@ -208,6 +198,25 @@
         application: "argon-dashboard-free"
       });
   </script>
-</body>
+  <script type="text/javascript">
+	$(function(){
+		$("#btn").click(function(){
+			let memberId=$("input[name='memberId']").val();
+			let email=$("input[name='email']").val();
+			$.ajax({
+				url:"/account/findpw",
+				dataType:'json',
+				data:{"memberId": memberId, "email": email},
+				success:function(data){
+					if(data == true){
+						alert("임시 비밀번호가 발급되었습니다.메일함을 확인해 주세요");
+					} else {
+						alert("아이디 또는 이메일을 정확하게 입력해 주세요");
+					}
+		   		}	
+			});
+		});
+	});
+</script>
 
 </html>
