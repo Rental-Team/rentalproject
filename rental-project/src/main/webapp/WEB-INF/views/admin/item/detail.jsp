@@ -99,6 +99,10 @@
                       </div>
                     </div>
                   </div>
+                  <div id="result_card">
+                      			<div class="imgDeleteBtn">x</div>
+                      			<img src="/resources/upload/${uploadedFileName}" id="imageTest" alt="Image Preview">
+                  </div>
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="form-group">
