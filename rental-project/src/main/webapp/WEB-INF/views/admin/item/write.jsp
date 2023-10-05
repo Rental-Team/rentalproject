@@ -60,13 +60,6 @@
             <div class="card-body">
               <form  action="write" method="post" enctype="multipart/form-data">
               
-
-              <!-- <div class="inputArea">
-              	<label>상품 카테고리</label>
-              	<select class="category">
-              		<option value="">전체</option>
-              	</select>
-              </div> -->
               <input type="hidden" name="categoryName" value="가전">
                 <!-- <h6 class="heading-small text-muted mb-4">User information</h6> -->
                 <div class="pl-lg-4">
@@ -97,7 +90,7 @@
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-itemAttach">상품 이미지</label>
+                        <label class="form-control-label" for="input-itemAttach">첨부 파일</label>
                         <input type="file" id="attach" name="attach" class="form-control form-control-alternative">
                         <div id="uploadResult">
                       		<div id="result_card">
@@ -105,36 +98,12 @@
                       			<img src="/resources/upload/${uploadedFileName}" id="imageTest" alt="Image Preview">
                       		</div>
                       	</div>
-                        
+                        <label class="form-control-label" id="itemPhoto" for="input-itemPhoto">상품 이미지</label>
+                        <input type="file" id="input-itemPhoto" name="itemPhoto" class="form-control form-control-alternative" multiple>
+                        <div class="select_img"><img src="" /></div>
                         
                        
                       </div>
-                    </div>
-                  </div>  
-  
-                  
-                  <!--  <div class="row">
-                    <div class="col-lg-12">
-                      <div class="form-group">
-                        <label class="form-control-label" for="input-itemAttach">상품 이미지</label>
-                        <input type="file" name="uploadFile" id="itemInput" class="form-control form-control-alternative">
-                      	<div id="uploadResult">
-                      		<div id="result_card">
-                      			<div class="imgDeleteBtn">x</div>
-                      			<img src="/resources/upload/${uploadedFileName}" id="imageTest" alt="Image Preview">
-                        <label class="form-control-label" for="input-itemAttach">이미지</label>
-                        <input type="file" name="uploadFile" id="imageInput" class="form-control form-control-alternative" >
-                      	<div id="uploadResult">
-                      		<div id="result_card">
-                      			<div class="imgDeleteBtn">x</div>
-                      			<img src="/resources/upload" id="imageInp">
-                      		</div>
-                      	</div>
-                      </div>
-                      -->
-                      
-                      
-                      
                     </div>
                   </div> 
                      
@@ -207,27 +176,27 @@
       });
   </script>
   
-<script>
-  $(function() {
-	function readURL(input) {
-	  if (input.files && input.files[0]) {
-		var reader = new FileReader();
-
-        reader.onload = function (e) {
-            $('#imageTest').attr('src', e.target.result);
-        }
-
-        reader.readAsDataURL(input.files[0]);
-	  }
-	}
-
-	$("#attach").change(function(){
-	    readURL(this);
-	});
-	
-  });
-
-</script>
+  <script>
+    $(function() {
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+      var reader = new FileReader();
+  
+          reader.onload = function (e) {
+              $('#imageTest').attr('src', e.target.result);
+          }
+  
+          reader.readAsDataURL(input.files[0]);
+      }
+    }
+  
+    $("#attach").change(function(){
+        readURL(this);
+    });
+    
+    });
+  
+    </script>
 </body>
 
 </html>

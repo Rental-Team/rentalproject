@@ -25,8 +25,8 @@ public interface AdminMapper {
 			+ "values (#{attachNo}, #{itemNo}, #{userFileName}, #{savedFileName}) ") 
 	public void insertItemAttach(ItemAttachDto attach);
 	
-	@Insert( "insert into Item ( itemDetail , itemCode, itemName, itemPrice, categoryName,  deleted ) "
-			+ "values ( #{ itemDetail }, #{ itemCode }, #{ itemName }, #{ itemPrice }, #{categoryName }) ")
+	@Insert( "insert into Item ( itemDetail , itemCode, itemName, itemPrice, categoryName, itemPhoto, deleted ) "
+			+ "values ( #{ itemDetail }, #{ itemCode }, #{ itemName }, #{ itemPrice }, #{categoryName }, #{itemPhoto}) ")
 	@Options(useGeneratedKeys = true, keyProperty = "itemNo")
 	public void insertItem(ItemDto item);
 	

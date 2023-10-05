@@ -1,42 +1,23 @@
 package com.rentalproject.controller;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 
 
 
-
-import java.awt.Graphics2D;
-
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
-import javax.imageio.ImageIO;
+
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -44,19 +25,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.rentalproject.common.Util;
 import com.rentalproject.dto.ItemAttachDto;
 import com.rentalproject.dto.ItemDto;
-import com.rentalproject.dto.ItemThumbDto;
 import com.rentalproject.dto.MemberDto;
 import com.rentalproject.service.AdminService;
 import com.rentalproject.ui.ThePager;
 import com.rentalproject.view.DownloadView;
 
-import lombok.extern.log4j.Log4j;
 import net.coobird.thumbnailator.Thumbnails;
 
-import com.rentalproject.dto.ItemDto;
-import com.rentalproject.dto.MemberDto;
-import com.rentalproject.service.AdminService;
-import com.rentalproject.ui.ThePager;
+
 
 @Controller
 @RequestMapping("/admin")
@@ -139,111 +115,6 @@ public class AdminController {
 	}
 	
 
-//	@PostMapping(value="/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-//	public ResponseEntity<List<ItemThumbDto>> uploadAjaxActionPost(MultipartFile[] uploadFile,  HttpServletRequest req) {
-//		
-//		// 이미지 파일 체크
-//		for(MultipartFile multipartFile: uploadFile) {
-//			
-//			File checkfile = new File(multipartFile.getOriginalFilename());
-//			String type = null;
-//			
-//			try {
-//				type = Files.probeContentType(checkfile.toPath());
-//				//logger.info("MIME TYPE : " + type);
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//			
-//			if(!type.startsWith("image")) {
-//				
-//				List<ItemThumbDto> list = null;
-//				return new ResponseEntity<>(list, HttpStatus.BAD_REQUEST);
-//				
-//			}
-//			
-//		}
-//		
-//		
-//		String uploadFolder = req.getServletContext().getRealPath("/resources/upload/");
-//		
-//		
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//		
-//		Date date = new Date();
-//		
-//		String str = sdf.format(date);
-//		
-//		String datePath = str.replace("-", File.separator);
-//		
-//		// 폴더 생성
-//		File uploadPath = new File(uploadFolder, datePath);
-//		
-//		if(uploadPath.exists() == false) {
-//			uploadPath.mkdirs();
-//		}
-//		
-//		List<ItemThumbDto> thumbList = new ArrayList();
-//		
-//		for(MultipartFile multipartFile : uploadFile) {
-//			
-//			// 이미지 정보 
-//			ItemThumbDto thumb = new ItemThumbDto();
-//			
-//			// 파일 이름
-//			String uploadFileName = multipartFile.getOriginalFilename();
-//			thumb.setFileName(uploadFileName);
-//			thumb.setUploadPath(datePath);
-//			
-//			String uuid = UUID.randomUUID().toString();
-//			thumb.setUuid(uuid);
-//			
-//			// 파일 위치
-//			File saveFile = new File(uploadPath, uploadFileName);
-//			
-//			// 파일 저장
-//			try {
-//				multipartFile.transferTo(saveFile);
-//				
-//				// 썸네일(ImageIO)
-//				File thumbnailFile = new File(uploadPath, "s_" + uploadFileName);
-//				
-//				BufferedImage bo_image = ImageIO.read(saveFile);
-//				
-//					double ratio = 3;
-//					
-//					int width = (int) (bo_image.getWidth()/ratio);
-//					int height = (int) (bo_image.getHeight()/ratio);
-//					
-//				// 방법 1
-//				
-//				BufferedImage bt_image = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
-//				
-//				Graphics2D graphic = bt_image.createGraphics();
-//				
-//				graphic.drawImage(bo_image, 0, 0, width, height, null);
-//				
-//				ImageIO.write(bt_image, "jpg", thumbnailFile);
-//				
-//				// 대체 가능
-////				Thumbnails.of(saveFile)
-////				.size(width, height)
-////				.toFile(thumbnailFile);
-//				
-//				
-//			} catch (Exception e) {
-//				// TODO: handle exception
-//				e.printStackTrace();
-//			}
-//			
-//			thumbList.add(thumb);
-//			
-//		}
-//		
-//		ResponseEntity<List<ItemThumbDto>> res = new ResponseEntity<List<ItemThumbDto>>(thumbList, HttpStatus.OK);
-//		
-//		return res;
-//	}
 	
 	// 첨부파일 
 	private ArrayList<ItemAttachDto> handleUploadFile(MultipartFile attach, String uploadDir) {
@@ -295,7 +166,7 @@ public class AdminController {
 		return downloadView;
 	}
 
-
+	// 상품 상세
 	@GetMapping("/item/detail")
 	public void detail(@RequestParam("itemNo") int itemNo,
 			 			Model model) { //@RequestParam(defaultValue = "-1")int pageNo,
@@ -304,19 +175,13 @@ public class AdminController {
 		ItemDto item = adminService.itemDetail(itemNo);
 		
 		
-//		if(item == null) {
-//			return "redirect:list";
-//		}
-		
-		//log.info("/detail");
-		
 		model.addAttribute("attach", attach);
 		model.addAttribute("item", item);
 		
 
 	}
 
-	
+	// 상품 수정 폼
 	@GetMapping("/item/edit")
 	public String editForm(@RequestParam("itemNo") int itemNo, Model model) {
 		
@@ -342,7 +207,7 @@ public class AdminController {
 		
 	}
 	
-	
+	// 상품 수정
 	@PostMapping("/item/edit")
 	public String edit(ItemDto item ) {
 		
@@ -351,7 +216,7 @@ public class AdminController {
 		return String.format("redirect:detail?itemNo=%d", item.getItemNo());
 	}
 	
-	
+	// 상품 삭제
 	@GetMapping("/delete/{itemNo}")
 	public String delete(@PathVariable("itemNo") int itemNo) {
 		
