@@ -111,6 +111,19 @@
                       </div>
                     </div>
                   </div>
+                  
+                  <div class="row">
+                    <div class="col-lg-6" >
+                      <div class="form-group focused">
+                        <label style="font-size:12pt" class="form-control-label"for="input-itemAttach">첨부파일</label> 
+                        	<br>
+	                        <td>
+			                	<c:forEach var="itemAttach" items="${ item.itemAttachList }">
+			                		<a href="download?attachNo=${ itemAttach.attachNo }"> ${itemAttach.userFileName}</a>
+			                	</c:forEach>
+			                </td>
+                       </div>
+                    </div>
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="text-right">

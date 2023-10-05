@@ -1,6 +1,7 @@
 package com.rentalproject.service;
 
 import com.rentalproject.dto.ItemDto;
+import com.rentalproject.dto.ZzimDto;
 
 import java.util.List;
 
@@ -21,5 +22,8 @@ public interface ItemService {
 	public int getItemCount();
 	
 	public List<ItemDto> listItemByPage(int from, int count);
+	
+	public void zzim(ZzimDto zzim);
+
 
 }

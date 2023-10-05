@@ -13,6 +13,7 @@ import org.apache.ibatis.annotations.Update;
 import com.rentalproject.dto.ItemAttachDto;
 import com.rentalproject.dto.ItemDto;
 import com.rentalproject.dto.MemberDto;
+import com.rentalproject.dto.ZzimDto;
 
 @Mapper
 public interface AdminMapper {
@@ -24,8 +25,8 @@ public interface AdminMapper {
 			+ "values (#{attachNo}, #{itemNo}, #{userFileName}, #{savedFileName}) ") 
 	public void insertItemAttach(ItemAttachDto attach);
 	
-	@Insert( "insert into Item ( itemDetail , itemCode, itemName, itemPrice, categoryName, itemPhoto, deleted ) "
-			+ "values ( #{ itemDetail }, #{ itemCode }, #{ itemName }, #{ itemPrice }, #{categoryName }), #{itemPhoto} ")
+	@Insert( "insert into Item ( itemDetail , itemCode, itemName, itemPrice, categoryName,  deleted ) "
+			+ "values ( #{ itemDetail }, #{ itemCode }, #{ itemName }, #{ itemPrice }, #{categoryName }) ")
 	@Options(useGeneratedKeys = true, keyProperty = "itemNo")
 	public void insertItem(ItemDto item);
 	
@@ -39,7 +40,6 @@ public interface AdminMapper {
 			+ "order by itemNo desc")
 	public List<ItemDto> allItemList();
 	
-
 	
 	@Select("select  itemNo, itemName, itemCode, itemDate, itemPrice, itemDetail, categoryName, itemPhoto " +
 			"from Item " +
