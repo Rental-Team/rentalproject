@@ -2,6 +2,7 @@ package com.rentalproject.mapper;
 
 import java.util.List;
 
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
@@ -17,14 +18,16 @@ import com.rentalproject.dto.MemberDto;
 public interface AdminMapper {
 
 	
-	@Insert( "insert into Item ( itemDetail , itemCode, itemName, itemPrice, categoryName ) "
-			+ "values ( #{ itemDetail }, #{ itemCode }, #{ itemName }, #{ itemPrice }, #{categoryName }) ")
-	@Options(useGeneratedKeys = true, keyProperty = "itemNo")
-	public void insertItem(ItemDto item);
+
 	
 	@Insert( "insert into itemAttach (attachNo, itemNo, userFileName, savedFileName) "
 			+ "values (#{attachNo}, #{itemNo}, #{userFileName}, #{savedFileName}) ") 
 	public void insertItemAttach(ItemAttachDto attach);
+	
+	@Insert( "insert into Item ( itemDetail , itemCode, itemName, itemPrice, categoryName, itemPhoto, deleted ) "
+			+ "values ( #{ itemDetail }, #{ itemCode }, #{ itemName }, #{ itemPrice }, #{categoryName }), #{itemPhoto} ")
+	@Options(useGeneratedKeys = true, keyProperty = "itemNo")
+	public void insertItem(ItemDto item);
 	
 	@Select("select memberId, userName, phoneNo, regDate "
 			+ "from Member ")
@@ -36,7 +39,9 @@ public interface AdminMapper {
 			+ "order by itemNo desc")
 	public List<ItemDto> allItemList();
 	
-	@Select("select  itemNo, itemName, itemCode, itemDate, itemPrice, itemDetail, categoryName  " +
+
+	
+	@Select("select  itemNo, itemName, itemCode, itemDate, itemPrice, itemDetail, categoryName, itemPhoto " +
 			"from Item " +
 			"where itemNo = #{ itemNo }")
 	public ItemDto read(int itemNo);
@@ -62,6 +67,8 @@ public interface AdminMapper {
 			"order by itemNo desc "
 			+ "limit #{from}, #{count}")
 	public List<ItemDto> selectItemByPage(@Param("from") int from, @Param("count") int count);
+	
+
 	
 	@Select(  "select attachNo, itemNo, userFileName, savedFileName "
 			+ "from itemAttach "

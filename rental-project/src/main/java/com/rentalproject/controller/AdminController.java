@@ -2,6 +2,7 @@ package com.rentalproject.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 
+
 import java.awt.Graphics2D;
 
 import java.awt.image.BufferedImage;
@@ -49,6 +50,11 @@ import com.rentalproject.view.DownloadView;
 
 import lombok.extern.log4j.Log4j;
 import net.coobird.thumbnailator.Thumbnails;
+
+import com.rentalproject.dto.ItemDto;
+import com.rentalproject.dto.MemberDto;
+import com.rentalproject.service.AdminService;
+import com.rentalproject.ui.ThePager;
 
 @Controller
 @RequestMapping("/admin")
@@ -99,7 +105,8 @@ public class AdminController {
 	}
 	
 	@GetMapping("/item/write")
-	public String itemWriteForm() {
+
+	public String itemWriteForm(ItemDto item, Model model) {
 		
 		
 		return "admin/item/write";
@@ -172,6 +179,7 @@ public class AdminController {
 		// return "download"; // "/WEB-INF/views/" + download + ".jsp"
 		return downloadView;
 	}
+
 
 	@GetMapping("/item/detail")
 	public void detail(@RequestParam("itemNo") int itemNo,

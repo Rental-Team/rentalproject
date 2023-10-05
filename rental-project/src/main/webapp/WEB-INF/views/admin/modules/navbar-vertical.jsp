@@ -94,11 +94,6 @@
         </form>
         <!-- Navigation -->
         <ul class="navbar-nav">
-          <li class="nav-item  active ">
-            <a class="nav-link  active " href="/rental-project/home">
-              <i class="ni ni-tv-2 text-primary"></i> 대시보드
-            </a>
-          </li>
           <li class="nav-item">
 
             <a class="nav-link " href="/rental-project/admin/member/list">
@@ -110,11 +105,12 @@
               <i class="ni ni-bullet-list-67 text-red"></i> 상품 게시판
             </a>
           </li>
-           <li class="nav-item">
-            <a class="nav-link " href="/rental-project/freeboard/freeboardlist">
-              <i class="ni ni-satisfied text-yellow"></i> 자유 게시판
+          <li class="nav-item  active ">
+            <a class="nav-link  active " href="/rental-project/home">
+              <i class="ni ni-tv-2 text-primary"></i>공지사항 
             </a>
           </li>
+           
           
           <c:choose>
 			<c:when test="${ loginuser eq null }">

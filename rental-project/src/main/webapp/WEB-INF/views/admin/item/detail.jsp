@@ -178,7 +178,7 @@
 	  $('#delete-item').on('click', function(event) {
 		  const ok = confirm(${ item.itemNo } + "번 삭제?");
 			if (ok) {
-				location.href = 'delete/' + ${ item.itemNo };
+				location.href = '/admin/delete/' + ${ item.itemNo };
 			}
 	  });
   });
