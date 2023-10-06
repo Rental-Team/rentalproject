@@ -355,7 +355,7 @@
 					<div id="answer-edit-area-${privateAnswer.qnaNo}"
 						style="display: none">
 						<!--답변 수정 -->
-						<form action="edit-answer" method="post"
+						<form action="ajex-edit-answer" method="post"
 							style="width: 105%; resize: none;">
 							<input type="hidden" name="qnaNo" value="${privateAnswer.qnaNo}">
 							<textarea name="answerContent" style="width: 100%; resize: none;">${privateAnswer.answerContent}</textarea>
@@ -494,15 +494,31 @@
     $(function() {
       $(".edit-answer-link").on('click', function() {
           var qnaNo = $(this).attr("data-reply-no");
+         // var qnaNo = $(this).attr("data-reply-no");
           $('#answer-edit-area-' + qnaNo).css('display', '');
           $('#answer-view-area-' + qnaNo).css('display', 'none');
       });
   
-      $('#answer-edit-area').submit(function(event) {
+      $("form[id^='answer-edit-area-']").submit(function(event) {
           event.preventDefault();
-        
-          window.location.href = 'privateqnadetail?pageNo=' + pageNo;
+          
+          var qnaNo = $(this).data("input[name='qnaNo']").val(); // 해당 폼의 qnaNo 값을 가져옴
+          var formData = $('#answer-edit-area').serialize(); // 폼 데이터 시리얼라이즈
+          
+          $.ajax({
+             " url": 'ajex-edit-answer', 
+              "method": 'post',
+              "data": formData,
+              "success": function(data, status, xhr) {
+                  // 답변 수정이 성공하면 여기에 대한 처리를 수행할 수 있습니다.
+                  goToPage(pageNo); // 페이지 이동 함수 호출
+              },
+              error: function(xhr, status, err) {
+                  alert('답변 수정 실패');
+              }
+          });
       });
+
   
       // 서버에서 memberNo 값을 JSP로부터 가져오는거임
       var memberNo = <%= request.getAttribute("memberNo") %>;
