@@ -142,6 +142,14 @@
   		location.href="freeboardlist";
   	});
   });
+  
+  $("form").submit(function(event) {
+	  var freeBoardTitle = $("#input-freeBoardTitle").val(); 
+	  if (freeBoardTitle.trim() === "") {
+		  alert("게시글 제목을 입력해주세요!");
+		  event.preventDefault();
+	  } 
+  });
   </script>
 </body>
 

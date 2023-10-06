@@ -11,7 +11,7 @@
       </button>
       <!-- Brand -->
       <a class="navbar-brand pt-0" href="/rental-project/home">
-        <img src="/rental-project/resources/img/brand/225.png" class="navbar-brand-img" alt="...">
+        <img src="/rental-project/resources/img/brand/225.png" class="navbar-brand-img" alt="..." style="width:91%;">
       </a>
       <!-- User -->
       <ul class="nav align-items-center d-md-none">
