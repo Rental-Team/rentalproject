@@ -1,8 +1,5 @@
 package com.rentalproject.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
-
-import java.beans.Encoder;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -15,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rentalproject.common.MailUtil;
@@ -41,6 +39,26 @@ public class AccountController {
 		return "account/register";
 	}
 	
+	// 회원가입 아이디 중복검사
+	@GetMapping(path= {"/check-id"}, produces = "text/plain;charset=utf-8")
+	@ResponseBody
+	public String checkIdDuplication(String memberId) {
+		
+		boolean valid = accountService.checkRegisterId(memberId);
+		return String.valueOf(valid);
+	}
+	
+	// 이메일 인증
+	@GetMapping("/mailCheck")
+	@ResponseBody
+	public String mailCheck(String email) {
+		
+		System.out.println("이메일 인증 요청이 들어옴!");
+		System.out.println("이메일 인증 이메일 : " + email);
+		return accountService.joinEmail(email);
+	}
+	
+	
 	// 회원가입 등록
 	@PostMapping(path= {"register"})
 	public String register(@ModelAttribute("member") MemberDto member, HttpSession session) {
@@ -63,18 +81,18 @@ public class AccountController {
 		MemberDto loginMember = accountService.findLoginMember(member);
 		
 		 if (loginMember != null) { // 회원 가입된 유저라면
-		        if (loginMember.isDeleteCheck() != false) { // 삭제된 계정인지 확인
-		            model.addAttribute("message", "이미 탈퇴한 계정입니다.");
-		            return "account/login";
-		        }
-
-		        session.setAttribute("loginuser", loginMember);
-		        return String.format("redirect:/home?memberId=%s", member.getMemberId());
-		    } else {
-		        model.addAttribute("loginfail", "x");
-		        return "account/login";
-		    }
-		
+	        if (loginMember.isDeleteCheck() != false) { // 삭제된 계정인지 확인
+	            model.addAttribute("message", "이미 탈퇴한 계정입니다.");
+	            return "account/login";
+	        }
+	        
+	        session.setAttribute("loginuser", loginMember);
+	        return String.format("redirect:/home?memberId=%s", member.getMemberId());
+	        
+	    } else {
+	        model.addAttribute("loginfail", "x");
+	        return "account/login";
+	    }
 	}
 	
 	// 로그아웃 실행

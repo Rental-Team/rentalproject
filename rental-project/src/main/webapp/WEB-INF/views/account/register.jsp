@@ -116,8 +116,8 @@
                       <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                     </div>
                     <form:input id="memberId" path="memberId" class="form-control" placeholder="아이디" type="text" />
-                    <button type="button" onclick="fn_dbCheckId()" name="dbcheckId" class="checkId">
-	                중복 확인
+                    <button id="checkDup">
+	                중복 검사
 	                </button>
                   </div>
                 </div>
@@ -165,14 +165,35 @@
                     <form:input id="phoneNo" path="phoneNo" class="form-control" placeholder="전화번호" type="text" />
                   </div>
                 </div>
+                
+                
+                
                 <div class="form-group">
                   <div class="input-group input-group-alternative mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                     </div>
                     <form:input id="email" path="email" class="form-control" placeholder="이메일" type="email" />
+                    <select class="form-control" name="selectEmail" id="selectEmail" >
+					<option>@naver.com</option>
+					<option>@daum.net</option>
+					<option>@gmail.com</option>
+					<option>@hanmail.com</option>
+					 <option>@yahoo.co.kr</option>
+					</select>
                   </div>
                 </div>
+                <div class="input-group-addon">
+				<button type="button" class="btn btn-primary" id="mail-Check-Btn">본인인증</button>
+				</div>
+				<div class="mail-check-box">
+					<input class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
+				</div>
+					<span id="mail-check-warn"></span>
+				
+                
+                
+
                 <div class="form-group">
                   <div class="input-group input-group-alternative mb-3">
                     <div class="input-group-prepend">
@@ -206,6 +227,7 @@
 				</div>
 			  </form>
               </form:form>
+              </div>
             </div>
           </div>
         </div>
@@ -248,34 +270,98 @@
   <!--   Argon JS   -->
   <script src="/rental-project/resources/js/argon-dashboard.min.js?v=1.1.2"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
-  <script type="text/javascript">
+  <script src="http://code.jquery.com/jquery-3.7.1.js"></script>
   
-  	function doRegister(){
-  		var registerform = document.registerform;
-  		var memberId = document.getElementById('memberId').value;
-  		var userName = document.getElementById('userName').value;
-  		var nickname = document.getElementById('nickname').value;
-  		var phoneNo = document.getElementById('phoneNo').value;
-  		var email = document.getElementById('emailName').value;
-  		var address = document.getElementById('emailName').value;
-  		
-  		if(memberId.length==0 || memberId==""){
-  			alert("아이디를 입력해주세요")
-  		} else if (userName.length==0 || userName==""){
-  			alert("이름을 입력해주세요")
-  		} else if (nickname.length==0 || nickname==""){
-  			alert("별명을 입력해주세요")
-  		} else if (phoneNo.length==0 || phoneNo==""){
-  			alert("전화번호를 입력해주세요")
-  		} else if (email.length==0 || email==""){
-  			alert("이메일을 입력해주세요")
-  		} else if (address.length==0 || address==""){
-  			alert("주소를 입력해주세요")
-  		} else {
-  			registerform.method="post"
-			registerform.action="register"
-  		}
-  	}
+  <script>
+  $('#mail-Check-Btn').click(function() {
+		const eamil = $('#email').val() + $('#selectEmail').val(); // 이메일 주소값 얻어오기!
+		const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
+		var code;
+		
+		$.ajax({
+			"type": 'get',
+			"url": "mailCheck?email=" + eamil, // GET방식이라 Url 뒤에 email을 붙힐수있다.
+			"success": function (data) {
+				console.log("data : " +  data);
+				checkInput.attr('disabled',false);
+				code = data;
+				alert('인증번호가 전송되었습니다.')
+			}			
+		}); // end ajax
+	}); // end send eamil
+	
+	// 인증번호 비교 
+	// blur -> focus가 벗어나는 경우 발생
+	$('.mail-check-input').blur(function () {
+		const inputCode = $(this).val();
+		const $resultMsg = $('#mail-check-warn');
+		
+		if(inputCode == code){
+			$resultMsg.html('인증번호가 일치합니다.');
+			$resultMsg.css('color','green');
+			$('#mail-Check-Btn').attr('disabled',true);
+			$('#userEamil1').attr('readonly',true);
+			$('#userEamil2').attr('readonly',true);
+			$('#selectEmail').attr('onFocus', 'this.initialSelect = this.selectedIndex');
+	         $('#selectEmail').attr('onChange', 'this.selectedIndex = this.initialSelect');
+		}else{
+			$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
+			$resultMsg.css('color','red');
+		}
+	});
+  
+// 아이디 중복 검사 function
+  $(function(){
+	  
+	let dupChecked = false; // 중복검사 실행했는지의 여부: 중복체크가 아직 안됐다.
+	
+	
+	$('#checkDup').on("click", function(event){
+		event.preventDefault();
+		
+		const memberId = $('#memberId').val();
+		if (!memberId){ // memberId가 null이거나 ""인 경우
+			alert('아이디를 입력하세요');
+			$('#memberId').focus();
+			return;
+		}
+		
+		$.ajax({
+			"url": "check-id",
+			"method": "get",
+			"data": {"memberId" : memberId},
+			"async": true,
+			"success": function(data, status, xhr){
+				if (data == "true"){
+					dupChecked = true;
+					alert("사용 가능한 아이디")
+				} else {
+					dupChecked = false;
+					alert("이미 사용 중인 아이디")
+				}
+			},
+			"error": function(xhr, status, err){
+				alert("error");
+			}
+		});
+	});
+	
+	$('#register').on('click', function(event){
+		event.preventDefault();
+		
+		if (!dupChecked) {
+			alert("아이디 중복 검사를 실행하세요");
+			return;
+		}
+		$('#registerform').submit();
+	});
+	
+	$('#memberId').on('keyup', function(){
+		dupChecked = false;
+	});
+	
+  });
+  
   </script>
    <script>
    
@@ -287,8 +373,9 @@
             var password = passwordField.value;
             var passwordConfirm = passwordConfirmField.value;
             var passwordCheck = document.getElementById('passwordCheck')
-            var passwordOption = document.getElementById('passwordOption')
-/*          var SpecialChar = ["!","@","#","$","%"];
+            
+/*          var passwordOption = document.getElementById('passwordOption')
+          	var SpecialChar = ["!","@","#","$","%"];
             var checkSpecialChar = 0;
  
             if(password.length < 6 || password.length>16){

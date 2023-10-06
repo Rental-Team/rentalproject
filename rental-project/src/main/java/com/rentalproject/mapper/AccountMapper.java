@@ -19,8 +19,8 @@ public interface AccountMapper {
 	void insertMember(MemberDto member);
 	
 	// 아이디 중복 검사
-	@Select("select memberId from Member where memberId = #{memberId}")
-	MemberDto checkId(@Param("memberId")String memberId);
+	@Select("select count(*) from Member where memberId = #{memberId}")
+	int checkId(@Param("memberId") String memberId);
 	
 	// 로그인 = 프로필에 조회할 내용과 일치해서 따로 ProfileMapper에 만들지 않음
 	@Select("select * from Member where memberId = #{memberId} and password = #{password}")

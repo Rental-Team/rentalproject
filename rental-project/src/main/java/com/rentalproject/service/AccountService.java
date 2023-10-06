@@ -16,7 +16,9 @@ public interface AccountService {
 	
 	MemberDto selfupdatePw(MemberDto member);
 
-	MemberDto checkRegisterId(MemberDto member);
+	boolean checkRegisterId(String memberId);
+
+	String joinEmail(String email);
 
 	
 

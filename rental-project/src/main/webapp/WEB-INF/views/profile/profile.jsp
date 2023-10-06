@@ -160,7 +160,7 @@
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-username">등록일</label>
-                        <div><fmt:formatDate value="${ profileuser.regDate }" pattern="yyyy-MM-dd" /></div>
+                        <div><fmt:formatDate value="${ loginuser.regDate }" pattern="yyyy-MM-dd" /></div>
                       </div>
                     </div>
                   </div>

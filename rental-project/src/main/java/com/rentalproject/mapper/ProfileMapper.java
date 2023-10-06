@@ -2,6 +2,7 @@ package com.rentalproject.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.rentalproject.dto.MemberDto;
@@ -15,6 +16,10 @@ public interface ProfileMapper {
 			"address = #{address}, deposite = #{deposite}, imageName = #{imageName}, introduce = #{introduce} " + 
 			"where memberId = #{memberId}")
 	void updateProfile(MemberDto member);
+	
+	// 프로필 조회
+	@Select("select * from Member where memberId = #{memberId}")
+	MemberDto selectProfile(MemberDto member);
 	
 	// 회원 탈퇴
 	@Update("update Member set deleteCheck = true where memberId = #{memberId} ")

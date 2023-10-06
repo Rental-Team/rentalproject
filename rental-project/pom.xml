@@ -165,6 +165,18 @@
 			<version>1.4.7</version>
 		</dependency>
 		
+		<dependency>
+		    <groupId>org.simplejavamail</groupId>
+		    <artifactId>simple-java-mail</artifactId>
+		    <version>6.0.4</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>javax.mail-api</artifactId>
+		    <version>1.6.2</version>
+		</dependency>
+
 		<!-- mail 서포트 -->
 		<dependency>
 			<groupId>org.springframework</groupId>

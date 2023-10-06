@@ -177,6 +177,16 @@
   <!--   Argon JS   -->
   <script src="/rental-project/resources/js/argon-dashboard.min.js?v=1.1.2"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script src="http://code.jquery.com/jquery-3.7.1.js"></script>
+  <script type="text/javascript">
+  $(function(){
+	  
+  })
+  
+  
+  </script>
+  
+  
   <script>
     window.TrackJS &&
       TrackJS.install({
