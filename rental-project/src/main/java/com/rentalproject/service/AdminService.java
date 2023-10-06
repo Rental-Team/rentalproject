@@ -2,9 +2,11 @@ package com.rentalproject.service;
 
 import java.util.List;
 
+
 import com.rentalproject.dto.ItemAttachDto;
 import com.rentalproject.dto.ItemDto;
 import com.rentalproject.dto.MemberDto;
+import com.rentalproject.dto.NoticeDto;
 
 public interface AdminService {
 	
@@ -27,4 +29,17 @@ public interface AdminService {
 	public ItemAttachDto findItemAttachByAttachNo(int attachNo);
 	
 	public ItemDto findItemByItemNo(int itemNo);
+
+	public void writeNotice(NoticeDto notice);
+
+	public List<NoticeDto> listNotice();
+
+	public NoticeDto findNoticeByNoticeNo(int noticeNo);
+
+	public void updateviewCount(int noticeNo);
+
+	public void editNotice(NoticeDto notice);
+
 }
+
+

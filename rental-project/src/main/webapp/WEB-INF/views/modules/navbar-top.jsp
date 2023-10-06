@@ -6,7 +6,7 @@
  <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./index.html">Dashboard</a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="rental-project/home">SESUSDAEYEO</a>
         <!-- Form -->
         <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
           <div class="form-group mb-0">
@@ -43,12 +43,20 @@
                 	</c:when>
                 	<c:otherwise>
                 		<c:if test="${ sessionScope.loginuser.admin == 2 }">
-                		<li>
-              				<a href="/rental-project/admin/home" style="color: black">관리자 화면</a>
-              			</li>	
+                		<div class="media-body ml-2 d-none d-lg-block">
+                		<a href="/rental-project/admin/home" style="color : inherit;">
+		                <span class="mb-0 text  font-weight-bold">관리자 화면</span>
+		                </a>
+              			</div>	
                 		</c:if>
+                		<div class="media-body ml-2 d-none d-lg-block">
                 		${ sessionScope.loginuser.memberId }님
-                		<a href="/rental-project/account/logout" style="color : inherit;">로그아웃</a>
+		                <a href="/rental-project/account/logout" style="color : inherit;">
+		                <span class="mb-0 text  font-weight-bold">로그아웃</span>
+		                </a>
+		                </div>
+              
+                		
                 	</c:otherwise>
                 </c:choose>
                 

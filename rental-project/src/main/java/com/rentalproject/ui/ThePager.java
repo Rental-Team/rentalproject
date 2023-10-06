@@ -25,6 +25,7 @@ public class ThePager {
 	
 	public String toString(){
 		StringBuffer linkString = new StringBuffer(2048);
+		linkString.append("<div style='text-align: center;'>");
 		
 		//1. 처음, 이전 항목 만들기
 		if (pageNo > 1) {
@@ -63,7 +64,7 @@ public class ThePager {
 		if (pageNo < pageCount) {
 			linkString.append("&nbsp;");
 			linkString.append(String.format(
-				"<a href='%s?pageNo=%d' class='btn btn-outline-primary' s>다음</a>",linkUrl, pageNo + 1));
+				"<a href='%s?pageNo=%d' class='btn btn-outline-primary'>다음</a>",linkUrl, pageNo + 1));
 			linkString.append("&nbsp;");
 			linkString.append("&nbsp;");
 			linkString.append(String.format(
@@ -75,6 +76,8 @@ public class ThePager {
 			linkString.append("<span class='btn btn-outline-primary'>마지막</span>");
 			linkString.append("&nbsp;");
 		}
+		
+		linkString.append("</div>");
 		
 		return linkString.toString();
 	}
