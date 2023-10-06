@@ -37,8 +37,9 @@
                                             </c:choose>
                                             <!-- 수정 버튼 추가 -->
                                             <div style='display:${ (not empty loginuser and loginuser.memberId == freeBoardReview.replyWriter and not freeBoardReview.replyDelete)? "block" : "none"}'>
-                                                <a class="btn btn-sm btn-secondary edit-reply" data-reply-no="${freeBoardReview.freeBoardReplyNo}" href="javascript:void(0)" style="color: navy;">댓글 수정하기</a>
-                                                <a class="btn btn-sm btn-secondary delete-reply" data-reply-no="${freeBoardReview.freeBoardReplyNo}" href="javascript:void(0)" style="color: navy">댓글 삭제하기</a>
+                                                <a class="btn btn-sm btn-secondary edit-reply" data-reply-no="${freeBoardReview.freeBoardReplyNo}" href="javascript:void(0)" style="color: navy;">댓글수정</a>
+                                                &nbsp;
+                                                <a class="btn btn-sm btn-secondary delete-reply" data-reply-no="${freeBoardReview.freeBoardReplyNo}" href="javascript:void(0)" style="color: navy">댓글삭제</a>
                                             </div>
                                         </div>
                                         <!-- 댓글 수정 폼 영역 (초기에는 display:none) -->

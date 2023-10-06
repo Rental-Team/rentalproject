@@ -173,12 +173,7 @@
                                                <a class="btn btn-sm btn-secondary edit-reply " data-reply-no="${freeBoardReview.freeBoardReplyNo}" href="javascript:void(0)" style="color: navy;">댓글수정</a>
                                                 &nbsp;
                                                <a class="btn btn-sm btn-secondary delete-reply" data-reply-no="${freeBoardReview.freeBoardReplyNo}" href="javascript:void(0)" style="color: navy">댓글삭제</a>
-                                          		&nbsp;&nbsp;
                                            </div>
-                                           <div style='float:left; display:${not empty loginuser and not freeBoardReview.replyDelete? "block" : "none"}'>
-                                           <a class="btn btn-sm btn-secondary write-review-reply" data-reply-no="${freeBoardReview.freeBoardReplyNo}" href="javascript:void(0)" style="color: navy">대댓글 작성</a>
-                                           </div>
-                                           <span style="clear:both"></span>
                                        </div> 
                                        <div class="reply-edit-area" id="reply-edit-area-${freeBoardReview.freeBoardReplyNo}" style="display: none">
                                            ${sessionScope.loginuser.memberId} &nbsp;&nbsp; [${freeBoardReview.replyCreateDate}] <br />
@@ -238,33 +233,7 @@
           </div>
         </div>
       </footer> 
-                  
- 	<!-- 대댓글 쓰기 Modal -->
-	<div class="modal fade" id="review-reply-Modal" tabindex="-1" role="dialog" aria-labelledby="review-eply-Modal-Label" aria-hidden="true">
-	  <div class="modal-dialog modal-dialog-centered" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" id="review-eply-Modal-Label">Modal title</h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
-	      <div class="modal-body">
-	       	<form id="review-replyform" action="freeboard-reviewreply" method="post"> 
-          		<input type="hidden" name="freeBoardReplyNo" value="" />
-          		<input type="hidden" name="replyWriter" value="${ loginuser.memberId }"/> 
-          		
-   				<textarea id="review-reply-content" name="reviewReplyContent" style="width:100%; resize:none;  border-radius:80px" rows="2"></textarea>		 
-   			</form> 
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary">Save changes</button>
-	      </div>
-	    </div>
-	  </div>
-	</div>       
-                      
+      
   <!--   Core   -->
   <script src="/rental-project/resources/js/plugins/jquery/dist/jquery.min.js"></script>
   <script src="/rental-project/resources/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -341,9 +310,8 @@
 	   		
 	   		let currentEditFreeBoardReplyNo = null;
 	   		
-	   		// 댓글 수정하기 클릭 이벤트 
-	   		
-	   		$(".edit-reply").on('click', function(event) {
+	   		// 댓글 수정하기 클릭 이벤트   
+	   		$("#review-list").on('click',".edit-reply", function(event) {
 	    		const freeBoardReplyNo = $(this).attr("data-reply-no");
 	    		
 	    		$('#reply-edit-area-' + freeBoardReplyNo).css('display', '');
@@ -358,7 +326,7 @@
     		})
     		
     		// 댓글 수정취소 이벤트 
-    		$(".cancel-edit-reply").on('click', function(event) {
+    		$("#review-list").on('click',".cancel-edit-reply", function(event) {
 	   			const freeBoardReplyNo = $(this).attr("data-reply-no");
 	   			
 	   			$('#reply-edit-area-' + freeBoardReplyNo).css('display', 'none');
@@ -368,8 +336,7 @@
 		   		
 	   		})
 	   		
-	   		// 댓글 수정완료 이벤트 
-	   		//$(".update-reply").on('click', function(event) {
+	   		// 댓글 수정완료 이벤트  
 	   		$("#review-list").on('click',".update-reply", function(event) {
 	   			const freeBoardReplyNo = $(this).data("reply-no");
 	   			//$('#reply-edit-area-' + freeBoardReplyNo + ' form').submit();
@@ -386,14 +353,7 @@
    						alert('댓글 수정을 실패하였습니다')
    					}
 	   			})
-	   		})
-	   		
-	   		/* // 대댓글 작성 버튼 누르면 작성 팝업 뜨는 이벤트 
-	   		$("#review-list").on('click',".write-review-reply", function(event) {
-	   			const freeBoardReplyNo = $(this).data("reply-no");
-	   			
-	   		 
-	   		}) */
+	   		}) 
     		
    	});
 			</script>
