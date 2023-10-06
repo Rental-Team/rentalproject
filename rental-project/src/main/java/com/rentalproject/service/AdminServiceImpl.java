@@ -2,6 +2,7 @@ package com.rentalproject.service;
 
 import java.util.List;
 
+
 import javax.mail.FetchProfile.Item;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,7 @@ public class AdminServiceImpl implements AdminService {
 		return itemList;
 		
 	}
+
 	
 	@Override
 	public ItemDto findItemByItemNo(int itemNo) {
@@ -73,6 +75,9 @@ public class AdminServiceImpl implements AdminService {
 		ItemAttachDto attach = adminMapper.selectItemAttachByAttachNo(attachNo);
 		return attach;
 	}
+
+
+	
 	
 	@Override
 	public void editItem(ItemDto item) {
@@ -103,6 +108,11 @@ public class AdminServiceImpl implements AdminService {
 			attach.setItemNo(item.getItemNo());
 			adminMapper.insertItemAttach(attach);
 		}
+		// TODO Auto-generated method stub
+
+		//log.info("write....." + item);
+
+		adminMapper.insertItem(item);
 	}
 
 	@Override

@@ -106,7 +106,7 @@
 			    <a href="#" class="btn btn-primary">상품보러가기</a>
 			  </div>
 			</div>
-        <div class="col-xl-6"  >
+        <div class="col-xl-7"  >
           <div class="card shadow">
             <div class="card-header border-0">
               <div class="row align-items-center">
@@ -116,6 +116,7 @@
                 </div>
                 <div class="col text-right">
                   <a href="./notice/list" class="btn btn-sm btn-primary">더보기</a>
+
                 </div>
               </div>
             </div>
@@ -125,8 +126,10 @@
            
               <!-- Projects table -->
               <table class="table align-items-center table-flush">
+
                    <tbody>
                  
+
                 </tbody>
               </table>
             </div>

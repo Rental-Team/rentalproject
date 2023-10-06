@@ -2,6 +2,7 @@ package com.rentalproject.service;
 
 import java.util.List;
 
+
 import com.rentalproject.dto.ItemAttachDto;
 import com.rentalproject.dto.ItemDto;
 import com.rentalproject.dto.MemberDto;
@@ -38,4 +39,7 @@ public interface AdminService {
 	public void updateviewCount(int noticeNo);
 
 	public void editNotice(NoticeDto notice);
+
 }
+
+

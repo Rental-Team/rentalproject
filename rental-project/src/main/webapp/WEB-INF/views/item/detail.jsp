@@ -33,6 +33,11 @@
   <link href="/rental-project/resources/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="/rental-project/resources/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
+  <style>
+  .float-right {
+    float: right;
+}
+  </style>
 </head>
 
 <body class="">
@@ -58,11 +63,18 @@
               </div>
             </div>
 			 <div class="card-body">
-              <form  action="write" method="post">
               <input type="hidden" name="categoryName" value="가전">
                 <!-- <h6 class="heading-small text-muted mb-4">User information</h6> -->
                 <div class="pl-lg-12" style="magin : 0 auto;">
                   <div class="row">
+                  
+                  	<div class="col-lg-6" >
+                      <div class="form-group focused">
+                        <label class="form-control-label"for="input-itemNo">상품 번호</label>
+                        <input disabled="disabled" type="number" id="itemNo"  name="itemNo" class="form-control form-control-alternative" value="${ item.itemNo }">
+                           </div>
+                    </div>
+                    
                     <div class="col-lg-6" >
                       <div class="form-group focused">
                         <label class="form-control-label"for="input-itemName">상품명</label>
@@ -107,9 +119,12 @@
                       </div>
                     </div>
                   </div>
+                  
+                  <p class="zzim">
+                  	<button type="button" id="zzim_btn" class='btn btn-outline-primary float-right'>찜하기</button>
+                  </p>
                 </div>
                 
-              </form>
             </div>
             </div>
           </div>
@@ -161,6 +176,31 @@
       });
   </script>
   
+  <script>
+  	$('#zzim_btn').click(function(e){
+  		e.preventDefault();
+  		
+  		const itemNo = $('#itemNo').val();
+  		
+  		
+  		$.ajax({
+  			"url" : "ajax-zzim",
+  			"method" : "get",
+  			"data" : { "itemNo" : itemNo },
+  			"success" : function(result){
+  				if (result == 1){
+  					alert("찜!");
+  				} else {
+  					alert("회원만 사용가능한 기능입니다.");
+  					location.href = "/rental-project/account/login";
+  				}
+  			},
+  			"error" : function() {
+  				alert("찜 실패");
+  			}
+  		});
+  	});
+  </script>
   
 </body>
 

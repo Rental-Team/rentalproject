@@ -64,7 +64,7 @@
 								<a href="detail?itemNo=${ Item.itemNo }&pageNo=${ pageNo }">${ Item.itemName }</a>
 							</c:when>
 							<c:otherwise>
-								<span class="deleted"> === 삭제된 글 === </span>
+								<span class="deleted" style="color=lightgray"> === 대여가 끝난 상품입니다. === </span>
 							</c:otherwise>
 						</c:choose>
 						</td>      
