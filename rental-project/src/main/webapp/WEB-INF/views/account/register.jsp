@@ -191,7 +191,7 @@
 				</div>
 					<span id="mail-check-warn"></span>
                 <div>
- 
+ 				<br>
                 <div class="form-group">
                   <div class="input-group input-group-alternative mb-3">
                     <div class="input-group-prepend">
@@ -271,19 +271,20 @@
   <script src="http://code.jquery.com/jquery-3.7.1.js"></script>
   
   <script>
+  var code = null;
   $('#mail-Check-Btn').click(function() {
 		const eamil = $('#email').val() + $('#selectEmail').val(); // 이메일 주소값 얻어오기!
 		const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
-		var code;
+		
 		
 		$.ajax({
 			"type": 'get',
 			"url": "mailCheck?email=" + eamil, // GET방식이라 Url 뒤에 email을 붙힐수있다.
 			"success": function (data) {
-				console.log("data : " +  data);
 				checkInput.attr('disabled',false);
 				code = data;
-				alert('인증번호가 전송되었습니다.')
+				// alert('인증번호가 전송되었습니다.');
+				alert(code);
 			}			
 		}); // end ajax
 	}); // end send eamil
@@ -294,7 +295,7 @@
 		const inputCode = $(this).val();
 		const $resultMsg = $('#mail-check-warn');
 		
-		if(inputCode == code){
+		if(inputCode === code){
 			$resultMsg.html('인증번호가 일치합니다.');
 			$resultMsg.css('color','green');
 			$('#mail-Check-Btn').attr('disabled',true);
