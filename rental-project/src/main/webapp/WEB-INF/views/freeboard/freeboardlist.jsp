@@ -42,7 +42,7 @@
                   <h3 style="font-weight:bold" class="mb-0">자유게시판</h3>
                 </div>
                 <div class="col text-right">
-                  <a href="freeboardwrite" class="btn btn btn-primary">게시글 작성</a>
+                  <a href="freeboardwrite" class="btn btn btn-success">게시글 작성</a>
                 </div>
               </div>
             </div>
@@ -94,7 +94,7 @@
 							<option value="memberId">작성자</option> 
 						</select> 
 						<input type="text" name="keyword" value="" style="width:70%" class="form-control form-control-alternative" placeholder="    검색어를 입력하세요">
-				        <input type="button" onclick="getSearchList()" class="btn btn btn-primary" id="btnsearch" value="검색">
+				        <input type="button" onclick="getSearchList()" class="btn btn btn-success" id="btnsearch" value="검색">
 				    </div> 
 					</form> 
 				</div>

@@ -94,7 +94,7 @@
 			    <h1 class="card-title">냉장고</h1>
 			    <p class="card-text">SAMSUNG
 			    세프컬렉션 냉장고 930L, 세라블랙</p>
-			    <a href="#" class="btn btn-primary">상품보러가기</a>
+			    <a href="#" class="btn btn-success">상품보러가기</a>
 			  </div>
 			</div>
 			<div class="card" style="width: 18rem;">
@@ -103,7 +103,7 @@
 			    <h1 class="card-title">전자레인지</h1>
 			    <p class="card-text">SK매직
 			    MWO-M8A01, 용량20L, 출력 700W, 화이트</p>
-			    <a href="#" class="btn btn-primary">상품보러가기</a>
+			    <a href="#" class="btn btn-success">상품보러가기</a>
 			  </div>
 			</div>
         <div class="col-xl-7"  >

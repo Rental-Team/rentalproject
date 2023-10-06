@@ -106,11 +106,11 @@
                  </div>
                 </form>
                 	<div class="col text-center" >
-				        <input type="button" class ="btn btn btn-primary" id="btnBackToList" value="목록으로 돌아가기" ></div>  
+				        <input type="button" class ="btn btn-outline-success" id="btnBackToList" value="목록으로 돌아가기" ></div>  
 				        <br />
 				        <div class="col text-center" style='display:${ (not empty loginuser and loginuser.memberId == freeBoard.memberId)? "block" : "none"}'>
-				        <input type="button" class ="btn btn btn-primary" id="btnedit" value="게시글 수정하기" >
-				        <input type="button" class ="btn btn btn-primary" id="btndelete" value="게시글 삭제하기" >
+				        <input type="button" class ="btn btn-outline-success" id="btnedit" value="게시글 수정하기" >
+				        <input type="button" class ="btn btn-outline-success" id="btndelete" value="게시글 삭제하기" >
 				        </div>
 	             
                </div>  
@@ -138,7 +138,7 @@
                 				<textarea id="comment_content" name="replyContent" style="width:100%; resize:none;  border-radius:80px" rows="2">     </textarea>
                 				</td>
 								<td style="vertical-align: middle; text-align:right;">
-								<a class ="btn btn-sm btn-primary" id="write-freeboard-review-lnk" href="javascript:void(0)">댓글등록하기</a> 
+								<a class ="btn btn-sm btn-success" id="write-freeboard-review-lnk" href="javascript:void(0)">댓글등록하기</a> 
 								</td>
                 			</tr>
                 		</table>
@@ -206,7 +206,7 @@
       </div>
       </div>
       </div>
-
+</div>
       <!-- Footer -->
       <footer class="footer">
         <div class="row align-items-center justify-content-xl-between">
