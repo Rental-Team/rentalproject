@@ -2,6 +2,7 @@ package com.rentalproject.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.rentalproject.dto.FreeBoardAttachDto;
@@ -35,8 +36,7 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		
 		List<FreeBoardDto> freeBoardList = freeboardMapper.selectAllFreeBoard();
 		
-		return freeBoardList;  // 자유게시판 전체 목록 조회
-		
+		return freeBoardList;  // 자유게시판 전체 목록 조회 
 	}
 	
 	@Override // 페이징
@@ -64,10 +64,8 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		
 			List<FreeBoardReviewDto> freeBoardReviewList = freeBoardReviewMapper.selectFreeBoardReviewByFreeBaordNo(freeBoardNo);  
 			freeBoard.setFreeBoardReviewList(freeBoardReviewList); // 자유게시판 상세보기 하단 댓글 조회
-		}
-		
-		return freeBoard; 
-		
+		} 
+		return freeBoard;  
 	}
 	
 	@Override
@@ -84,8 +82,7 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		for(FreeBoardAttachDto freeBoardAttach : freeBoard.getFreeBoardAttachList()) {
 			freeBoardAttach.setFreeBoardNo(freeBoard.getFreeBoardNo());
 			freeboardMapper.insertFreeBoardAttach(freeBoardAttach); // 자동 증가 번호 생성 
-		}
-		 
+		}  
 	}
 	
 	@Override // 자유게시판 게시글 삭제 
@@ -98,11 +95,16 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		freeboardMapper.updateFreeBoardviewCount(freeBoardNo);
 	}
 
-	@Override 
+	@Override  // 멤버번호로 멤버아이디 받아오기 
 	public String getMemberId(int freeBoardNo) {
 		String memberId = freeboardMapper.getMemberId(freeBoardNo);
 		return memberId;
 	}
 
+	@Override // 자유게시판 게시글 검색 
+	public List<FreeBoardDto> selectSearchFreeBoard(String keyword){
+		List<FreeBoardDto> freeBoardSearch = freeboardMapper.selectSearchFreeBoard(keyword);
+		return freeBoardSearch;
+	}
 
 }

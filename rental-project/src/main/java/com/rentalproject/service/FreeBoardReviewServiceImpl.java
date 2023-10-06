@@ -1,5 +1,7 @@
 package com.rentalproject.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.rentalproject.dto.FreeBoardReviewDto;
@@ -29,6 +31,14 @@ public class FreeBoardReviewServiceImpl implements FreeBoardReviewService{
 	@Override // 자유게시판 댓글 수정 
 	public void editFreeBoardReview(FreeBoardReviewDto freeBoardReview) {
 		freeboardReviewMapper.editFreeBoardReview(freeBoardReview);
+	}
+	
+
+	
+	@Override
+	public List<FreeBoardReviewDto> getReviewListByFreeBoardNo(int freeBoardNo) {
+		List<FreeBoardReviewDto> reviews = freeboardReviewMapper.selectFreeBoardReviewByFreeBaordNo(freeBoardNo);
+		return reviews;
 	}
 
 }

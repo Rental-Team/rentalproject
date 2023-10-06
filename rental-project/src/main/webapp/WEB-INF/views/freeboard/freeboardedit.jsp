@@ -63,27 +63,23 @@
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="form-group">
-												<label style="font-size: 12pt" class="form-control-label"
-													for="input-memberNo">작성자</label> ${ sessionScope.loginuser.memberId }
-												<input type="hidden" id="input-memberNo" name="memberNo"
-													class="form-control form-control-alternative"
-													value="${ loginuser.memberId }">
+												<label style="font-size: 12pt" class="form-control-label" for="input-memberId">작성자</label> ${ sessionScope.loginuser.memberId }
+												<input type="hidden" id="input-memberId" name="memberId" class="form-control form-control-alternative" value="${ loginuser.memberId }">
 											</div>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="form-group">
-												<label style="font-size: 12pt" class="form-control-label"
-													for="input-freeBoardAttach">첨부파일</label> <input type="file"
-													id="attach" class="btn btn-sm btn-primary"
-													class="form-control form-control-alternative" name="attach"
-													style="width: 200px">
-												<td><c:forEach var="freeBoardAttach"
-														items="${ freeBoard.freeBoardAttachList }">
+												<label style="font-size: 12pt" class="form-control-label" for="input-freeBoardAttach">첨부파일</label> 
+												<input type="file" id="attach" class="btn btn-sm btn-primary"
+													class="form-control form-control-alternative" name="attach" style="width: 200px">
+												<td>
+													<c:forEach var="freeBoardAttach" items="${ freeBoard.freeBoardAttachList }">
 														<a href="download?attachNo=${ freeBoardAttach.attachNo }">
 															${freeBoardAttach.attachFileName}</a>
-													</c:forEach></td>
+													</c:forEach>
+												</td>
 											</div>
 										</div>
 									</div>
@@ -102,9 +98,8 @@
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="col text-center">
-												<input type="submit" class="btn btn btn-primary"
-													value="수정하기"> <input type="button"
-													class="btn btn btn-primary" id="btnCancel" value="취소">
+												<input type="submit" class="btn btn btn-primary" value="수정하기"> 
+												<input type="button" class="btn btn btn-primary" id="btnCancel" value="취소">
 											</div>
 										</div>
 									</div>
@@ -163,7 +158,7 @@
   window.addEventListener("load", function(event) {
   	const btnCancel = document.querySelector("#btnCancel");
   	btnCancel.addEventListener("click",function(event) { 
-  		location.href="freeboardlist" +"?pageNo=" + ${pageNo};
+  		location.href="freeboarddetail" + "?freeBoardNo=" +  ${ freeBoard.freeBoardNo } + "&pageNo=" + ${pageNo};
   	});
   });
   </script>

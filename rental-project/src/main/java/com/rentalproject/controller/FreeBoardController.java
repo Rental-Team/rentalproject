@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.View;
 
@@ -217,6 +218,14 @@ public class FreeBoardController {
 		return String.format("redirect:/freeboard/freeboardlist?pageNo=%d", pageNo);
 	}
 		
+	// 자유게시판 게시글 검색 기능  
+	@GetMapping(path = {"/freeBoardSearch"}) 
+	public String searchFreeBoard(@RequestParam("keyword") String keyword, Model model) {
+		List<FreeBoardDto> searchResults = freeBoardService.selectSearchFreeBoard(keyword);
+		model.addAttribute("searchResults", searchResults);
+		return "searchResults";
+	
+	}
 }
 
 	
