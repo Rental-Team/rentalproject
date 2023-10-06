@@ -178,7 +178,7 @@
 					<option>@daum.net</option>
 					<option>@gmail.com</option>
 					<option>@hanmail.com</option>
-					 <option>@yahoo.co.kr</option>
+					<option>@yahoo.co.kr</option>
 					</select>
                   </div>
                 </div>
@@ -301,7 +301,7 @@
 			$('#userEamil1').attr('readonly',true);
 			$('#userEamil2').attr('readonly',true);
 			$('#selectEmail').attr('onFocus', 'this.initialSelect = this.selectedIndex');
-	         $('#selectEmail').attr('onChange', 'this.selectedIndex = this.initialSelect');
+	        $('#selectEmail').attr('onChange', 'this.selectedIndex = this.initialSelect');
 		}else{
 			$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
 			$resultMsg.css('color','red');
