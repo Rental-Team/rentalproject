@@ -105,6 +105,8 @@
                 </a>
               </div>
             </div>
+            
+            <!-- action 시작 -->
             <div class="card-body px-lg-5 py-lg-5">
               <form:form id="registerform" action="register" method="post" modelAttribute="member">
               <form role="form">
@@ -113,9 +115,14 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                     </div>
-                    <form:input path="memberId" class="form-control" placeholder="아이디" type="text" />
+                    <form:input id="memberId" path="memberId" class="form-control" placeholder="아이디" type="text" />
+                    <button id="checkDup">
+	                중복 검사
+	                </button>
                   </div>
                 </div>
+                <input type="hidden" name="idDuplication" value="idUncheck"/>
+                
                 <div class="form-group">
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
@@ -140,7 +147,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                     </div>
-                    <form:input path="userName" class="form-control" placeholder="이름" type="text" />
+                    <form:input id="userName" path="userName" class="form-control" placeholder="이름" type="text" />
                   </div>
                 </div>
                 <div class="form-group">
@@ -148,7 +155,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                     </div>
-                    <form:input path="nickname" class="form-control" placeholder="별명" type="text" />
+                    <form:input id="nickname" path="nickname" class="form-control" placeholder="별명" type="text" />
                   </div>
                 </div>
                 <div class="form-group">
@@ -156,15 +163,41 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                     </div>
-                    <form:input path="phoneNo" class="form-control" placeholder="전화번호" type="text" />
+                    <form:input id="phoneNo" path="phoneNo" class="form-control" placeholder="전화번호" type="text" />
                   </div>
                 </div>
+                          
                 <div class="form-group">
                   <div class="input-group input-group-alternative mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                     </div>
-                    <form:input path="email" class="form-control" placeholder="이메일" type="email" />
+                    <form:input id="email" path="email" class="form-control" placeholder="이메일" type="email" />
+                    <select class="form-control" name="selectEmail" id="selectEmail" >
+					<option>@naver.com</option>
+					<option>@daum.net</option>
+					<option>@gmail.com</option>
+					<option>@hanmail.com</option>
+					 <option>@yahoo.co.kr</option>
+					</select>
+                  </div>
+                </div>
+                <div class="input-group-addon">
+				<button type="button" class="btn btn-primary" id="mail-Check-Btn">본인인증</button>
+				</div>
+				<br>
+				<div class="mail-check-box">
+					<input class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
+				</div>
+					<span id="mail-check-warn"></span>
+                <div>
+ 
+                <div class="form-group">
+                  <div class="input-group input-group-alternative mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                    </div>
+                    <form:input id="address" path="address" class="form-control" placeholder="주소" type="text" />
                   </div>
                 </div>
                 <div class="form-group">
@@ -172,15 +205,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                     </div>
-                    <form:input path="address" class="form-control" placeholder="주소" type="text" />
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="input-group input-group-alternative mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
-                    </div>
-                    <form:input path="deposite" class="form-control" placeholder="보증금" type="text" />
+                    <form:input id="deposite" path="deposite" class="form-control" placeholder="보증금" type="text" />
                   </div>
                 </div>
                 <!-- <div class="text-muted font-italic"><small>password strength: <span class="text-success font-weight-700">strong</span></small></div>
@@ -196,10 +221,11 @@
                 </div> -->
                 <div class="text-center">
                 <!-- <a href="/rental-project/account/login" class="btn btn-primary mt-4"> create account </a> -->
-                  <input id="register" type="submit" onclick="checkPassword"  class="btn btn-primary mt-4" value="계정 생성" />
+                  <input id="register" type="submit" class="btn btn-primary mt-4" value="계정 생성" />
 				</div>
 			  </form>
               </form:form>
+              </div>
             </div>
           </div>
         </div>
@@ -242,6 +268,99 @@
   <!--   Argon JS   -->
   <script src="/rental-project/resources/js/argon-dashboard.min.js?v=1.1.2"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script src="http://code.jquery.com/jquery-3.7.1.js"></script>
+  
+  <script>
+  $('#mail-Check-Btn').click(function() {
+		const eamil = $('#email').val() + $('#selectEmail').val(); // 이메일 주소값 얻어오기!
+		const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
+		var code;
+		
+		$.ajax({
+			"type": 'get',
+			"url": "mailCheck?email=" + eamil, // GET방식이라 Url 뒤에 email을 붙힐수있다.
+			"success": function (data) {
+				console.log("data : " +  data);
+				checkInput.attr('disabled',false);
+				code = data;
+				alert('인증번호가 전송되었습니다.')
+			}			
+		}); // end ajax
+	}); // end send eamil
+	
+	// 인증번호 비교 
+	// blur -> focus가 벗어나는 경우 발생
+	$('.mail-check-input').blur(function () {
+		const inputCode = $(this).val();
+		const $resultMsg = $('#mail-check-warn');
+		
+		if(inputCode == code){
+			$resultMsg.html('인증번호가 일치합니다.');
+			$resultMsg.css('color','green');
+			$('#mail-Check-Btn').attr('disabled',true);
+			$('#userEamil1').attr('readonly',true);
+			$('#userEamil2').attr('readonly',true);
+			$('#selectEmail').attr('onFocus', 'this.initialSelect = this.selectedIndex');
+	         $('#selectEmail').attr('onChange', 'this.selectedIndex = this.initialSelect');
+		}else{
+			$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
+			$resultMsg.css('color','red');
+		}
+	});
+  
+// 아이디 중복 검사 function
+  $(function(){
+	  
+	let dupChecked = false; // 중복검사 실행했는지의 여부: 중복체크가 아직 안됐다.
+	
+	
+	$('#checkDup').on("click", function(event){
+		event.preventDefault();
+		
+		const memberId = $('#memberId').val();
+		if (!memberId){ // memberId가 null이거나 ""인 경우
+			alert('아이디를 입력하세요');
+			$('#memberId').focus();
+			return;
+		}
+		
+		$.ajax({
+			"url": "check-id",
+			"method": "get",
+			"data": {"memberId" : memberId},
+			"async": true,
+			"success": function(data, status, xhr){
+				if (data == "true"){
+					dupChecked = true;
+					alert("사용 가능한 아이디")
+				} else {
+					dupChecked = false;
+					alert("이미 사용 중인 아이디")
+				}
+			},
+			"error": function(xhr, status, err){
+				alert("error");
+			}
+		});
+	});
+	
+	$('#register').on('click', function(event){
+		event.preventDefault();
+		
+		if (!dupChecked) {
+			alert("아이디 중복 검사를 실행하세요");
+			return;
+		}
+		$('#registerform').submit();
+	});
+	
+	$('#memberId').on('keyup', function(){
+		dupChecked = false;
+	});
+	
+  });
+  
+  </script>
    <script>
    
 		   var passwordField = document.getElementById('password');
@@ -252,8 +371,9 @@
             var password = passwordField.value;
             var passwordConfirm = passwordConfirmField.value;
             var passwordCheck = document.getElementById('passwordCheck')
-            var passwordOption = document.getElementById('passwordOption')
-/*          var SpecialChar = ["!","@","#","$","%"];
+            
+/*          var passwordOption = document.getElementById('passwordOption')
+          	var SpecialChar = ["!","@","#","$","%"];
             var checkSpecialChar = 0;
  
             if(password.length < 6 || password.length>16){

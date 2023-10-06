@@ -12,6 +12,14 @@ public interface AccountService {
 
 	MemberDto findLoginPw(MemberDto member);
 
-	MemberDto updateLoginPassword(MemberDto member);
+	void newPw(MemberDto member);
+	
+	MemberDto selfupdatePw(MemberDto member);
+
+	boolean checkRegisterId(String memberId);
+
+	String joinEmail(String email);
+
+	
 
 }

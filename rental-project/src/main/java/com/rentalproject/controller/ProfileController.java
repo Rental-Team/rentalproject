@@ -1,7 +1,5 @@
 package com.rentalproject.controller;
 
-import java.io.File;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.rentalproject.common.Util;
 import com.rentalproject.dto.MemberDto;
 import com.rentalproject.service.ProfileService;
 
@@ -38,29 +35,36 @@ public class ProfileController {
 		}
 		
 		model.addAttribute("profileuser", loginUser);
-		// 로그인 되어 있다면 프로필창으로
+		
+		// 로그인 되어 있다면 프로필 창으로
 		return "profile/profile";
 	}
 	// 프로필 수정 창
 	@GetMapping(path= {"/profileedit"})
-	public String showProfileEditForm(HttpSession session, Model model) { 
+	public String showProfileEditForm(MemberDto member, HttpSession session, Model model) { 
+		
+		MemberDto selectForRegDate = profileService.selectProfile(member);
+		session.setAttribute("selectForRegDate", selectForRegDate);
 		
 		MemberDto loginUser = (MemberDto)session.getAttribute("loginuser");
 		model.addAttribute("profileuser", loginUser);
+		
 
 		return "profile/profileedit";
 	}
 	
 	// 프로필 수정
 	@PostMapping(path= {"/profileedit"})
-	public String prifileEdit (MemberDto member, HttpSession session, MultipartFile attach, HttpServletRequest req) {
+	public String prifileEdit (MemberDto member, HttpSession session, MultipartFile attach, HttpServletRequest req) throws Exception {
 		
 //		String uploadDir = req.getServletContext().getRealPath("/resources/upload/");
 //		MemberDto attachImg = handleUpImg(attach, uploadDir);
 		
-		profileService.editProfile(member); 
-		session.setAttribute("loginuser", member); 
 		
+		profileService.updateProfile(member); 
+		MemberDto selectForRegDate = profileService.selectProfile(member);
+		session.setAttribute("loginuser", selectForRegDate); 
+	
 		return String.format("redirect:profile?memberId=%s", member.getMemberId());
 	}
 	

@@ -6,10 +6,13 @@ public interface ProfileService {
 
 	MemberDto profileByMemberId(MemberDto member);
 
-	void editProfile(MemberDto member);
+	void updateProfile(MemberDto member);
 	
-//	void deleteUser(MemberDto member);
 	void deleteUser(String memberId);
+
+	MemberDto selectProfile(MemberDto member);
+
+	
 
 	
 

@@ -43,7 +43,7 @@
             <h1 class="display-2 text-white">${ profileuser.memberId }</h1>
             <input type="hidden" name="memberId" value="${profileuser.memberId }">
             <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
-            <input type="submit" value="complete" class="btn btn-info" />
+            <input type="submit" value="수정 완료" class="btn btn-info" />
             <a href="profile?memberId=${ loginuser.memberId }" class="btn btn-info">cancel</a>
           </div>
         </div>
@@ -165,7 +165,7 @@
                       <div class="form-group">
                         <label class="form-control-label" for="input-username">등록일</label>
                         <br>
-                        <div><fmt:formatDate value="${ profileuser.regDate }" pattern="yyyy-MM-dd" /></div>
+                        <div><fmt:formatDate value="${ loginuser.regDate }" pattern="yyyy-MM-dd" /></div>
                       </div>
                     </div>
                   </div>

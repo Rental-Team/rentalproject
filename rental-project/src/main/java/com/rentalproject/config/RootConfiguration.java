@@ -1,5 +1,7 @@
 package com.rentalproject.config;
 
+import java.util.Properties;
+
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -9,10 +11,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.rentalproject.mapper.AccountMapper;
@@ -69,8 +72,6 @@ public class RootConfiguration implements ApplicationContextAware{
 		return jdbcTemplate;
 	}
 	
-		
-		
 		
 	@Bean // 계정 관련
 	public AccountServiceImpl accountService() {
@@ -149,4 +150,32 @@ public class RootConfiguration implements ApplicationContextAware{
 		return noticeService;
 	}
 	
+	
+	// 이메일 설정
+	@Bean
+	public JavaMailSender javaMailSender() {
+		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+		mailSender.setHost("smtp.naver.com");
+        mailSender.setPort(465);
+        mailSender.setUsername("rlrkxks35");
+        mailSender.setPassword("ekrxj35+2=7");
+        
+        Properties properties = new Properties();
+        properties.put("mail.transport.protocol", "smtp");
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtps.checkserveridentity", "true");
+        properties.put("mail.smtps.ssl.trust", "*");
+        properties.put("mail.debug", "true");
+        properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory"); // gmail의 경우 보안문제 업데이트로 인해 SSLSocketFactory를 추가해야 smtp 사용 가능
+        
+        
+//      properties.put("mail.smtp.ssl.trust", "smtp.naver.com");
+//      properties.put("mail.smtp.ssl.protocols", "TLSv1.2");
+
+        mailSender.setJavaMailProperties(properties);
+
+        return mailSender;
+        
+	}
 }

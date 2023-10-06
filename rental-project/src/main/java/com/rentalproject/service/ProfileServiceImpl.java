@@ -19,17 +19,22 @@ public class ProfileServiceImpl implements ProfileService {
 	@Override // 프로필 보기
 	public MemberDto profileByMemberId(MemberDto member) {
 		MemberDto profile = accountMapper.selectMemberByIdAndPw(member);
-		
+	
 		return profile;
 	}
 	
 	@Override // 프로필 수정
-	public void editProfile(MemberDto member) {
+	public void updateProfile(MemberDto member) {
 		
-		profileMapper.updateProfile(member);
+	 	profileMapper.updateProfile(member);
 		
+	}
+	
+	@Override // 프로필 날짜를 위한 조회
+	public MemberDto selectProfile(MemberDto member) {
+		MemberDto selectprofile = profileMapper.selectProfile(member);
 		
-		
+		return selectprofile;
 	}
 	
 	
