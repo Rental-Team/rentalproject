@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -33,57 +31,48 @@
     <jsp:include page="/WEB-INF/views/modules/navbar-content.jsp" />
     <div class="container-fluid mt--7">
       <div class="row">
-      	<div class="col-xl-12 mb-5 mb-xl-0">
-          <div class="card shadow">
+        <div class="col-xl-12 mb-5 mb-xl-0">
+        	<div class="card bg-secondary shadow">
             <div class="card-header border-0">
               <div class="row align-items-center">
-                <div class="col">
-                  <h3 class="mb-0">상품 게시판</h3>
+                <div class="col-8">
+                  <h3 class="mb-0">공지사항 글쓰기</h3>
+                  </div>
+                  </div>
+                  </div>
+                  <div class="card-body">
+                  <form action="write" method="post" enctype="multipart/form-data">         
+                  	<div class="pl-lg-4">
+	                  	<div class="row">
+	                  	<div class="col-lg-12">
+	                  	<div class="form-group">
+	                  	<label class="form-control-label" for="input-noticeTitle">제목</label>
+	                  	<input type="text" id="input-noticeTitle" name="noticeTitle" class="form-control form-control-alternative" placeholder="제목을 입력하세요" />          	 
+	                  	</div>
+	                  	</div>
+	                  	</div>                  	
+	                   		<div class="row">
+	                  	<div class="col-lg-12">
+	                  	<div class="form-group">
+	                  	<label class="form-control-label"  for="input-noticeContent">글내용</label>
+	                  	 <textarea name="noticeContent" id="input-noticeContent" style="resize: none;" rows="15" placeholder="내용을 입력하세요" class="form-control form-control-alternative" ></textarea>
+	                  	</div>
+	                  	</div>
+	                  	</div>    
+			            <div class="row">
+			            <div class="col-lg-12">
+			            <div class="text-right">
+				        <input type="submit" class ="btn btn-primary" value="글쓰기" >
+				        <input type="button" class ="btn btn-primary" id="btnCancel" value="취소" >
+			            </div>
+			            </div>
+		                </div>
+	                </div>
+                </form>
                 </div>
-              </div>
-            </div>
-            <div class="table-responsive">
-              <!-- Projects table -->
-              <table class="table align-items-center table-flush">
-                <thead class="thead-light">
-                  <tr>
-                    <th scope="col" style="width:100px; font-size:12pt">게시글 번호</th>
-                    <th scope="col" style="width:200px; font-size:12pt">상품 제목</th>
-                    <th scope="col" style="width:100px; font-size:12pt">상품 가격</th>
-                    <th scope="col" style="width:100px; font-size:12pt">조회수</th>
-                    <th scope="col" style="width:150px; font-size:12pt">작성 일자</th>
-                  </tr>
-                </thead>
-                <tbody>
-                 <c:forEach var="Item" items="${ itemList }">
-                 	<tr style="text-align">
-                    	<td><c:out value="${Item.itemNo}" /></td>
-                    	<td style="text-align:left;padding-left:10px">
-						<c:choose>
-							<c:when test="${ not Item.deleted }">
-								<a href="detail?itemNo=${ Item.itemNo }&pageNo=${ pageNo }">${ Item.itemName }</a>
-							</c:when>
-							<c:otherwise>
-								<span class="deleted"> === 삭제된 글 === </span>
-							</c:otherwise>
-						</c:choose>
-						</td>      
-						<td><c:out value="${Item.itemPrice}" /></td>      	 
-                    	 <td><c:out value="${Item.viewCount}" /></td>
-                    	 <td><fmt:formatDate pattern="yyyy-MM-dd"
-                    	  value="${Item.itemDate }" /></td>
-                  </tr>
-                 </c:forEach>
-         
-                </tbody>
-              </table>
-              <br><br>
-                 ${ pager }
-                 <br /><br />
-            </div>
-          </div>
-        </div>
-      </div>
+			</div>
+           </div> 
+           </div>
       <!-- Footer -->
       <footer class="footer">
         <div class="row align-items-center justify-content-xl-between">
@@ -110,8 +99,8 @@
           </div>
         </div>
       </footer>
-    </div>
-  </div>
+            </div>
+      </div>
   <!--   Core   -->
   <script src="/rental-project/resources/js/plugins/jquery/dist/jquery.min.js"></script>
   <script src="/rental-project/resources/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -127,6 +116,15 @@
         token: "ee6fab19c5a04ac1a32a645abde4613a",
         application: "argon-dashboard-free"
       });
+  </script>
+  
+  <script>
+  window.addEventListener("load", function(event) {
+  	const btnCancel = document.querySelector("#btnCancel");
+  	btnCancel.addEventListener("click",function(event) {
+  		location.href="list";
+  	});
+  });
   </script>
 </body>
 

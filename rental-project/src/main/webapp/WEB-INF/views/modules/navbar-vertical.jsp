@@ -3,7 +3,7 @@
     
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
-<nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
+<nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-text-info" id="sidenav-main">
     <div class="container-fluid">
       <!-- Toggler -->
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle navigation">
@@ -99,16 +99,6 @@
               <i class="ni ni-tv-2 text-primary"></i> 대시보드
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link " href="./examples/icons.html">
-              <i class="ni ni-planet text-blue"></i> 아이콘
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link " href="./examples/maps.html">
-              <i class="ni ni-pin-3 text-orange"></i> 지도
-            </a>
-          </li>
 		  <li class="nav-item">
             <a class="nav-link " href="/rental-project/item/list">
               <i class="ni ni-bullet-list-67 text-red"></i> 상품 게시판
@@ -154,18 +144,13 @@
         <!-- Navigation -->
         <ul class="navbar-nav mb-md-3">
           <li class="nav-item">
-            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html">
-              <i class="ni ni-spaceship"></i> Getting started
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html">
-              <i class="ni ni-palette"></i> Foundation
+            <a class="nav-link" href="/rental-project/notice/list">
+              <i class="ni ni-world text-blue"></i> 공지사항
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/rental-project/privateboard/privateqnalist">
-              <i class="ni ni-ui-04"></i> 1대1문의
+              <i class="ni ni-ui-04 text-red"></i> 1대1문의
             </a>
           </li>
         </ul>

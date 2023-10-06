@@ -24,6 +24,8 @@ import com.rentalproject.service.FreeBoardReviewServiceImpl;
 import com.rentalproject.service.FreeBoardService;
 import com.rentalproject.service.FreeBoardServiceImpl;
 import com.rentalproject.service.ItemServiceImpl;
+import com.rentalproject.service.NoticeService;
+import com.rentalproject.service.NoticeServiceImpl;
 import com.rentalproject.service.PrivateQnaAnswerService;
 import com.rentalproject.service.PrivateQnaAnswerServiceImpl;
 import com.rentalproject.service.PrivateQnaService;
@@ -139,6 +141,12 @@ public class RootConfiguration implements ApplicationContextAware{
 	@Bean
 	public DataSourceTransactionManager txManager() {
 		return new DataSourceTransactionManager(dbcpDataSource());
+	
+	}
+	@Bean
+	public NoticeService noticeService() {
+		NoticeServiceImpl noticeService = new NoticeServiceImpl();
+		return noticeService;
 	}
 	
 }

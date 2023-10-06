@@ -35,6 +35,7 @@ import com.rentalproject.dto.ItemAttachDto;
 import com.rentalproject.dto.ItemDto;
 import com.rentalproject.dto.ItemThumbDto;
 import com.rentalproject.dto.MemberDto;
+import com.rentalproject.dto.NoticeDto;
 import com.rentalproject.service.AdminService;
 import com.rentalproject.ui.ThePager;
 import com.rentalproject.view.DownloadView;
@@ -314,5 +315,80 @@ public class AdminController {
 				
 		return "redirect:/admin/item/list";
 	}
+	
+	/////////////////////
+	
+	@GetMapping(path= {"/notice/list"})
+	public String list(Model model) {
+		
+		
+		
+		List<NoticeDto> List = adminService.listNotice();
+		
+		
+		 
+		model.addAttribute("noticeList", List);
+		
+		return "/admin/notice/list";
+	}
+	
+	@GetMapping("/notice/write")
+    public String showNoticeWriteForm() {
+        return "/admin/notice/write"; 
+    }
+	
+	@PostMapping(path= {"/notice/write"})
+	
+		public String writeNotice(NoticeDto notice) throws Exception {
+		
+		
+		
+		adminService.writeNotice(notice);
+		
+		return "redirect:/admin/notice/list";
+		
+	}
+	
+	@GetMapping(path = {"/notice/detail"})
+	public String noticedetail(@RequestParam(defaultValue = "-1") int noticeNo, Model model) {
+		
+		
+		NoticeDto notice = adminService.findNoticeByNoticeNo(noticeNo);
+		
+		
+	    
+	    adminService.updateviewCount(noticeNo); // 조회수
+	    
+		
+		model.addAttribute("notice", notice);
+		
+		return "/admin/notice/detail";
+		
+	}
+	
+	
+	 
+		@GetMapping(path = {"/notice/edit"})
+		public String showNoticeEditForm(@RequestParam(defaultValue = "-1") int noticeNo, 
+											Model model) {
+		
+		NoticeDto notice = adminService.findNoticeByNoticeNo(noticeNo);
+		
+		
+		 
+		model.addAttribute("notice", notice);
+		
+		return "/admin/notice/edit";
+	}
+	
+		@PostMapping(path = {"/notice/edit"})
+		public String noticeEdit(NoticeDto notice, HttpServletRequest req) {
+		
+		
+		adminService.editNotice(notice);
+		
+		return "redirect:/admin/notice/list";
+	}
+	
 	
 }

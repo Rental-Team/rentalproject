@@ -10,7 +10,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <!-- Brand -->
-      <a class="navbar-brand pt-0" href="/rental-project/home">
+      <a class="navbar-brand pt-0" href="/rental-project/admin/home">
         <img src="/rental-project/resources/img/brand/225.png" class="navbar-brand-img" alt="...">
       </a>
       <!-- User -->
@@ -143,20 +143,15 @@
         <!-- Heading -->
         <h6 class="navbar-heading text-muted">Documentation</h6>
         <!-- Navigation -->
-        <ul class="navbar-nav mb-md-3">
+        <ul class="navbar-nav mb-md-3"> 
           <li class="nav-item">
-            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html">
-              <i class="ni ni-spaceship"></i> Getting started
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html">
-              <i class="ni ni-palette"></i> Foundation
+            <a class="nav-link" href="/rental-project/admin/notice/list">
+              <i class="ni ni-world text-blue"></i> 공지사항
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/rental-project/privateboard/privateqnalist">
-              <i class="ni ni-ui-04"></i> 1대1문의
+              <i class="ni ni-ui-04 text-red"></i> 1대1문의
             </a>
           </li>
         </ul>

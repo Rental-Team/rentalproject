@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="ko">
-
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -104,119 +106,27 @@
 			    <a href="#" class="btn btn-primary">상품보러가기</a>
 			  </div>
 			</div>
-        <div class="col-xl-4">
+        <div class="col-xl-6"  >
           <div class="card shadow">
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">Social traffic</h3>
+                  <h3 class="mb-0">공지사항</h3>
+                 
                 </div>
                 <div class="col text-right">
-                  <a href="#!" class="btn btn-sm btn-primary">See all</a>
+                  <a href="./notice/list" class="btn btn-sm btn-primary">더보기</a>
                 </div>
               </div>
             </div>
-            <div class="table-responsive">
+            
+            <div class="table-responsive" id="notice-list">
+            
+           
               <!-- Projects table -->
               <table class="table align-items-center table-flush">
-                <thead class="thead-light">
-                  <tr>
-                    <th scope="col">Referral</th>
-                    <th scope="col">Visitors</th>
-                    <th scope="col"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">
-                      Facebook
-                    </th>
-                    <td>
-                      1,480
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">60%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      Facebook
-                    </th>
-                    <td>
-                      5,480
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">70%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      Google
-                    </th>
-                    <td>
-                      4,807
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">80%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      Instagram
-                    </th>
-                    <td>
-                      3,678
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">75%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      twitter
-                    </th>
-                    <td>
-                      2,645
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">30%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-warning" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%;"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
+                   <tbody>
+                 
                 </tbody>
               </table>
             </div>
@@ -267,6 +177,76 @@
         application: "argon-dashboard-free"
       });
   </script>
+  
+<!--   <script>
+  function loadNotices() {
+	  $.ajax({
+		  url: '/rental-project/notice/list',
+		  method: 'GET',
+		  dataType: 'json',
+		  success:function(data) {
+			  displayNotices(data);
+		  },
+		  error: function(err) {
+			  console.error("공지사항 목록을 가져오는 도중 오류 발생:", err);
+		  }
+	  })
+  }
+  
+  $(document).ready(function() {
+	  loadNotices();
+	  
+  
+  
+  setInterval(function() {
+	  loadNotices();
+  }, 5000);
+  });
+ 
+  
+  function displayNotices(notices) {
+	  var tbody = $('#notice-container table tbody');
+	  tbody.empty();
+	  
+	  for(var i = 0; i< notices.length; i++) {
+		  var notice = notices[i];
+		  var row = '<tr>';
+		  row += '<td>' + notice.noticeTitle + '</td>';
+		  row += '<td>' + notice.noticeDate + '</td>';
+	  
+		  row += '<td><a href="/rental-project/notice/detail?noticeNo=' + notice.noticeNo + '">상세보기</a></td>';
+		  row += '</tr>';
+		  tbody.append(row);
+	  }
+  }
+  
+  
+  
+  </script> -->
+  <script>
+function loadNoticeList() {
+  $.ajax({
+    url: '/rental-project/notice/notice2',
+    method: 'GET',
+    dataType: 'html', 
+    success: function (data) {
+      $('#notice-list').html(data);
+    },
+    error: function (err) {
+      console.error("공지사항 목록을 가져오는 도중 오류 발생:", err);
+    }
+  });
+}
+
+$(document).ready(function () { 
+  loadNoticeList();
+
+  // 일정 간격으로 공지사항 목록을 업데이트하려면 아래 코드를 사용하세요.
+  // setInterval(function () {
+  //   loadNoticeList();
+  // }, 5000); // 5초마다 업데이트
+});
+</script>
 </body>
 
 </html>
