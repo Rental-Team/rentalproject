@@ -24,18 +24,34 @@ public interface PrivateQnaMapper {
 	void insertBoard(PrivateQnaDto privateqna);
 	
 	
-	@Select( "SELECT QnANo, QnaType, QnATitle, QnAContent, QnaDate, memberNo "
+    //관리자만 볼수있는거
+    @Select( "SELECT QnANo, QnaType, QnATitle, QnAContent, QnaDate, memberNo "
 			+ "FROM PrivateQ "
-			+ "ORDER BY QnANo DESC")
-			List<PrivateQnaDto>selectAllBoard();
+			+ "ORDER BY QnANo DESC "
+			+ "LIMIT #{from}, #{count}")
+			List<PrivateQnaDto>selectAllBoard(@Param("from")int from,@Param("count")int count );
 	
 	@Select( "SELECT QnaNo, QnAType, QnAtitle, QnaContent, QnaDate, memberNo "
 			+ "FROM PrivateQ " 
 			+ "WHERE QnaNo = #{ qnaNo } ")
 	PrivateQnaDto selectQnaBoardByQnaNo(@Param("qnaNo")int qnaNo);
 	
+	//
+	@Select("SELECT QnANo, QnaType, QnaTitle,QnAContent,QnaDate,memberNo, answered " 
+			+ "FROM PrivateQ " 
+			+ "ORDER BY QnANo desc "
+			+ "limit #{from}, #{count}")
 	
+	List<PrivateQnaDto> selectPrivateQnaByPage(@Param("from") int from,@Param("count") int count);
 	 
+	
+	@Select("select count(*) from PrivateQ") //관리자 페이징 
+	int selectPrivateQnaCount();
+	
+	@Select("SELECT count(*) FROM PrivateQ WHERE memberNo = #{memberNo}") //일반 회원 페이징 
+	int selectPrivateQnaCountByMemberNo(@Param("memberNo") int memberNo);
+	
+	
 	/////////////////////
 	
 	@Update("UPDATE PrivateQ " 
@@ -48,7 +64,7 @@ public interface PrivateQnaMapper {
 	@Select("SELECT answered " 
 			+ "FROM PrivateQ " 
 			+ "WHERE QnaNo = #{qnaNo}")
-	boolean getAnswerStatus(@Param("qnaNo") int qnaNo);
+	boolean getAnswerStatus(@Param("qnaNo") int qnaNo); // 답변여부 
 	
 	
 	
@@ -61,10 +77,18 @@ public interface PrivateQnaMapper {
 	String getMemberIdByQnaNo(@Param("qnaNo") int qnaNo);
 	
 	
+	/*
+	 * @Select("SELECT * " + "FROM PrivateQ " + "WHERE memberNo = #{userId} " +
+	 * "ORDER BY QnANo DESC") List<PrivateQnaDto>
+	 * selectBoardByUserId(@Param("userId") int userId);
+	 */
+	
+	// 자기기 쓴글만 볼수있는거 
 	@Select("SELECT * "
 	        + "FROM PrivateQ "
-	        + "WHERE memberNo = #{userId} "
-	        + "ORDER BY QnANo DESC")
-	List<PrivateQnaDto> selectBoardByUserId(@Param("userId") int userId);
+	        + "WHERE memberNo = #{memberNo} "
+	        + "ORDER BY QnANo DESC "
+	        + "LIMIT #{from}, #{count}")
+	List<PrivateQnaDto> selectBoardByMemberNo(@Param("memberNo") int memberNo, @Param("from")int from , @Param("count")int count);
 	
 }
