@@ -105,11 +105,6 @@
               <i class="ni ni-bullet-list-67 text-red"></i> 상품 게시판
             </a>
           </li>
-          <li class="nav-item  active ">
-            <a class="nav-link  active " href="/rental-project/home">
-              <i class="ni ni-tv-2 text-primary"></i>공지사항 
-            </a>
-          </li>
            
           
           <c:choose>
