@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -33,53 +34,42 @@
     <jsp:include page="/WEB-INF/views/modules/navbar-content.jsp" />
     <div class="container-fluid mt--7">
       <div class="row">
-      	<div class="col-xl-12 mb-5 mb-xl-0">
+        <div class="col-xl-12 mb-5 mb-xl-0">
           <div class="card shadow">
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">상품 게시판</h3>
+                  <h3 style="font-weight:bold" class="mb-0">공지사항</h3>
+                </div>
+                <div class="col text-right">
+                  <a href="write" class="btn btn btn-primary">게시글 작성</a>
                 </div>
               </div>
             </div>
-            <div class="table-responsive">
-              <!-- Projects table -->
-              <table class="table align-items-center table-flush">
-                <thead class="thead-light">
-                  <tr>
-                    <th scope="col" style="width:100px; font-size:12pt">게시글 번호</th>
-                    <th scope="col" style="width:200px; font-size:12pt">상품 제목</th>
-                    <th scope="col" style="width:100px; font-size:12pt">상품 가격</th>
-                    <th scope="col" style="width:100px; font-size:12pt">조회수</th>
-                    <th scope="col" style="width:150px; font-size:12pt">작성 일자</th>
-                  </tr>
-                </thead>
-                <tbody>
-                 <c:forEach var="Item" items="${ itemList }">
-                 	<tr style="text-align">
-                    	<td><c:out value="${Item.itemNo}" /></td>
-                    	<td style="text-align:left;padding-left:10px">
-						<c:choose>
-							<c:when test="${ not Item.deleted }">
-								<a href="detail?itemNo=${ Item.itemNo }&pageNo=${ pageNo }">${ Item.itemName }</a>
-							</c:when>
-							<c:otherwise>
-								<span class="deleted" style="color=lightgray"> === 대여가 끝난 상품입니다. === </span>
-							</c:otherwise>
-						</c:choose>
-						</td>      
-						<td><c:out value="${Item.itemPrice}" /></td>      	 
-                    	 <td><c:out value="${Item.viewCount}" /></td>
-                    	 <td><fmt:formatDate pattern="yyyy-MM-dd"
-                    	  value="${Item.itemDate }" /></td>
-                  </tr>
-                 </c:forEach>
-         
+            <div class="table-responsive">  
+         <!-- Projects table -->
+         <table class="table align-items-center table-flush">
+           <thead class="thead-light">
+             <tr style="text-align:center;">
+               <th scope="col" style="width:100px; font-size:10pt">게시글 번호</th>
+               <th scope="col" style="width:500px; font-size:10pt">게시글 제목</th> 
+               <!-- <th scope="col" style="width:200px; font-size:10pt">작성자</th> -->
+               <th scope="col" style="width:100px; font-size:10pt">조회수</th>
+               <th scope="col" style="width:150px; font-size:10pt">게시글 작성 일자</th>
+             </tr>
+           </thead>
+           <tbody>
+            <c:forEach var="notice" items="${ requestScope.noticeList }">
+             <tr style="text-align:center">
+                <td scope="col" style="width:100px">${ notice.noticeNo } </td>
+                <td scope="col" style="width:500px"><a href="detail?noticeNo=${ notice.noticeNo }"> ${ notice.noticeTitle }</a> </td>
+                <%-- <td scope="col" style="width:100px">${ notice.viewCount } </td> --%>
+                <td scope="col" style="width:100px">${ notice.viewCount } </td>
+                <td scope="col" style="width:150px"><fmt:formatDate value="${ notice.noticeDate }" pattern="yyyy-MM-dd HH:mm"/></td>
+             </tr>
+            </c:forEach>
                 </tbody>
               </table>
-              <br><br>
-                 ${ pager }
-                 <br /><br />
             </div>
           </div>
         </div>
@@ -111,7 +101,7 @@
         </div>
       </footer>
     </div>
-  </div>
+    </div>
   <!--   Core   -->
   <script src="/rental-project/resources/js/plugins/jquery/dist/jquery.min.js"></script>
   <script src="/rental-project/resources/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

@@ -10,7 +10,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <!-- Brand -->
-      <a class="navbar-brand pt-0" href="/rental-project/home">
+      <a class="navbar-brand pt-0" href="/rental-project/admin/home">
         <img src="/rental-project/resources/img/brand/225.png" class="navbar-brand-img" alt="...">
       </a>
       <!-- User -->
@@ -94,11 +94,6 @@
         </form>
         <!-- Navigation -->
         <ul class="navbar-nav">
-          <li class="nav-item  active ">
-            <a class="nav-link  active " href="/rental-project/home">
-              <i class="ni ni-tv-2 text-primary"></i> 대시보드
-            </a>
-          </li>
           <li class="nav-item">
 
             <a class="nav-link " href="/rental-project/admin/member/list">
@@ -110,11 +105,12 @@
               <i class="ni ni-bullet-list-67 text-red"></i> 상품 게시판
             </a>
           </li>
-           <li class="nav-item">
-            <a class="nav-link " href="/rental-project/freeboard/freeboardlist">
-              <i class="ni ni-satisfied text-yellow"></i> 자유 게시판
+          <li class="nav-item  active ">
+            <a class="nav-link  active " href="/rental-project/home">
+              <i class="ni ni-tv-2 text-primary"></i>공지사항 
             </a>
           </li>
+           
           
           <c:choose>
 			<c:when test="${ loginuser eq null }">
@@ -143,20 +139,15 @@
         <!-- Heading -->
         <h6 class="navbar-heading text-muted">Documentation</h6>
         <!-- Navigation -->
-        <ul class="navbar-nav mb-md-3">
+        <ul class="navbar-nav mb-md-3"> 
           <li class="nav-item">
-            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html">
-              <i class="ni ni-spaceship"></i> Getting started
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html">
-              <i class="ni ni-palette"></i> Foundation
+            <a class="nav-link" href="/rental-project/admin/notice/list">
+              <i class="ni ni-world text-blue"></i> 공지사항
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/rental-project/privateboard/privateqnalist">
-              <i class="ni ni-ui-04"></i> 1대1문의
+              <i class="ni ni-ui-04 text-red"></i> 1대1문의
             </a>
           </li>
         </ul>

@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.rentalproject.dto.ItemDto;
+import com.rentalproject.dto.ZzimDto;
 import com.rentalproject.mapper.ItemMapper;
 
 import java.util.List;
@@ -86,6 +87,12 @@ public class ItemServiceImpl implements ItemService{
 		
 		
 		itemMapper.deleteBoard(itemNo);
+	}
+	
+	@Override
+	public void zzim(ZzimDto zzim) {
+		
+		itemMapper.insertZzim(zzim);
 	}
 	
 

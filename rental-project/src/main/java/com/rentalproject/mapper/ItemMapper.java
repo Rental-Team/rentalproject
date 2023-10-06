@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 
 import com.rentalproject.dto.ItemDto;
+import com.rentalproject.dto.ZzimDto;
+
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -37,6 +39,11 @@ public interface ItemMapper {
 			"where itemNo = #{ itemNo }")
 	public ItemDto read(int itemNo);
 	
+	@Insert("insert into Zzim (memberId, itemNo) "
+			+ "values (#{memberId}, #{itemNo}) ")
+	@Options(useGeneratedKeys = true, keyProperty = "zzimNo")
+    void insertZzim(ZzimDto zzim);
+		
 	
 	@Update("update Item "
 			+ "set itemName = #{ itemName }, itemDetail = #{ itemDetail } "
