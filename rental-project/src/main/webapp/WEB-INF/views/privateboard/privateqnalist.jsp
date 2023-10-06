@@ -77,7 +77,7 @@
 			          <span class="badge badge-success">답변 완료</span>
 			        </c:when>
 			        <c:otherwise>
-			          <span class="badge badge-dark">미답변</span>
+			          <span class="badge badge-warning">미답변</span>
 			        </c:otherwise>
 			      </c:choose>
 			    </td>
