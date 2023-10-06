@@ -65,34 +65,33 @@
                    <td>${ privateqna.qnaNo }</td>
                    <td>${privateqna.memberId}</td>         		   
                   <td>                      
-                   <a href="privateqnadetail?qnaNo=${ privateqna.qnaNo }">${ privateqna.qnaTitle }</a>   
+                   <a href="privateqnadetail?qnaNo=${ privateqna.qnaNo }&pageNo=${ pageNo }">${ privateqna.qnaTitle }</a>   
                   </td>         
                   <td>${ privateqna.qnaType }</td>                                        
                   <td>${ privateqna.qnaDate }</td>
                  
-    <!-- 답변 여부를 표시 -->
-   		 <td>
-      <c:choose>
-        <c:when test="${privateqna.answered}">
-          <span class="badge badge-success">답변 완료</span>
-        </c:when>
-        <c:otherwise>
-          <span class="badge badge-warning">미답변</span>
-        </c:otherwise>
-      </c:choose>
-    </td>
-                 
-                 
-                 
-                 
-                 
-                  </tr>
-                  </c:forEach>      
-              </table>
-            </div>
-          </div>
-        </div>
-        </div>
+   			 <!-- 답변 여부를 표시 -->
+			   	<td>
+			      <c:choose>
+			        <c:when test="${privateqna.answered}">
+			          <span class="badge badge-success">답변 완료</span>
+			        </c:when>
+			        <c:otherwise>
+			          <span class="badge badge-dark">미답변</span>
+			        </c:otherwise>
+			      </c:choose>
+			    </td>
+     
+           </tr>
+           </c:forEach>      
+       </table>
+       <br><br>
+       ${ pager }
+   		<br/><br/>
+     </div>
+   </div>
+ </div>
+ </div>
 
       <!-- Footer -->
       <footer class="footer">
