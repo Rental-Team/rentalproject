@@ -27,5 +27,9 @@ public class ItemDto {
 	private List<ItemThumbDto> itemThumb;
 	
 	private List<ItemAttachDto> itemAttachList;
+
+	
+	private List<ZzimDto> zzimDtoList;
+
 	
 }

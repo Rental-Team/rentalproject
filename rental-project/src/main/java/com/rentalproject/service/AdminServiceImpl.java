@@ -2,6 +2,7 @@ package com.rentalproject.service;
 
 import java.util.List;
 
+
 import javax.mail.FetchProfile.Item;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.rentalproject.dto.ItemAttachDto;
 import com.rentalproject.dto.ItemDto;
 import com.rentalproject.dto.MemberDto;
+import com.rentalproject.dto.NoticeDto;
 import com.rentalproject.mapper.AdminMapper;
 
 public class AdminServiceImpl implements AdminService {
@@ -53,6 +55,7 @@ public class AdminServiceImpl implements AdminService {
 		return itemList;
 		
 	}
+
 	
 	@Override
 	public ItemDto findItemByItemNo(int itemNo) {
@@ -72,6 +75,9 @@ public class AdminServiceImpl implements AdminService {
 		ItemAttachDto attach = adminMapper.selectItemAttachByAttachNo(attachNo);
 		return attach;
 	}
+
+
+	
 	
 	@Override
 	public void editItem(ItemDto item) {
@@ -102,6 +108,41 @@ public class AdminServiceImpl implements AdminService {
 			attach.setItemNo(item.getItemNo());
 			adminMapper.insertItemAttach(attach);
 		}
+		// TODO Auto-generated method stub
+
+		//log.info("write....." + item);
+
+		adminMapper.insertItem(item);
+	}
+
+	@Override
+	public void writeNotice(NoticeDto notice) {
+		adminMapper.writenotice(notice);
+		
+	}
+
+	@Override
+	public List<NoticeDto> listNotice() {
+		List<NoticeDto> noticeList = adminMapper.selectAllnotice();
+		return noticeList;
+	}
+
+	@Override
+	public NoticeDto findNoticeByNoticeNo(int noticeNo) {
+		NoticeDto notice = adminMapper.selectnoticeBynoticeNo(noticeNo);
+		return notice;
+	}
+
+	@Override
+	public void updateviewCount(int noticeNo) {
+		adminMapper.updateviewCount(noticeNo);
+		
+	}
+
+	@Override
+	public void editNotice(NoticeDto notice) {
+		adminMapper.updatenotice(notice);
+		
 	}
 	
 

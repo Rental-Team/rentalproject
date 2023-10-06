@@ -92,26 +92,18 @@
                       <div class="form-group">
                         <label class="form-control-label" for="input-itemAttach">첨부 파일</label>
                         <input type="file" id="attach" name="attach" class="form-control form-control-alternative">
-                      </div>
-                    </div>
-                  </div>  
-                  
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <div class="form-group">
-                        <label class="form-control-label" for="input-itemAttach">이미지</label>
-                        <input type="file" name='uploadFile' class="form-control form-control-alternative" multiple>
-                      	<div id="uploadResult">
+                        <div id="uploadResult">
                       		<div id="result_card">
                       			<div class="imgDeleteBtn">x</div>
-                      			<img src="/display?fileName=cheeseBall.jpg">
+                      			<img src="/resources/upload/${uploadedFileName}" id="imageTest" alt="Image Preview">
                       		</div>
                       	</div>
+                        <label class="form-control-label" id="itemPhoto" for="input-itemPhoto">상품 이미지</label>
+                        <input type="file" id="input-itemPhoto" name="itemPhoto" class="form-control form-control-alternative" multiple>
+                        <div class="select_img"><img src="" /></div>
+                        
+                       
                       </div>
-                      
-                      
-                      
-                      
                     </div>
                   </div> 
                      
@@ -185,107 +177,26 @@
   </script>
   
   <script>
+    $(function() {
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+      var reader = new FileReader();
   
-  $(document).ready(function(e){
-	  
-	  var formObj = $("form[role='form']");
-	  
-	  $("button[type='submit']").on("click", function(e){
-		  
-		  e.preventDefault();
-		  
-		  console.log("submit clicked");
-	  
-	  })
-	  
-	  
-	  	
-	  	$("input[type='file']").change(function(e){	  		
-	  		
-	  		
-	  		let formData = new FormData;
-	  		
-	  		let inputFile = $("input[name='uploadFile']");
-	  		
-	  		let files = inputFile[0].files;
-	  		
-	  		let fileObj = files[0];
-
-	  		
-	  		
-	  			
-	  		if(!fileCheck(fileObj.name, fileObj.size) ){
-	  			return false;
-	  		}
-	  		
-	  		for(let i = 0; i < files.length; i++){
-	  			formData.append("uploadFile", files[i]);
-	  		}
-	  			
-	  		$.ajax({
-	  			url: '/admin/uploadAjaxAction',
-	  			processData: false,
-	  			contentType: false,
-	  			data: formData,
-	  			type: 'POST',
-	  			dataType: 'json'
-	  			success: function(result){
-	  				console.log(result);
-	  				showUploadImage(result);
-	  			}
-	  			error: function(result){
-	  				alert("이미지 파일이 아닙니다.");
-	  			}
-	  		});
-	  		
-	  	});
-	  	
-	  let regex = new RegExp("(.*?)\.(jpg|png)$");
-	  let maxSize = 1048576; //1MB	
-
-	  function fileCheck(fileName, fileSize){
-
-	  	if(fileSize >= maxSize){
-	  		alert("파일 사이즈 초과");
-	  		return false;
-	  	}
-	  		  
-	  	if(!regex.test(fileName)){
-	  		alert("해당 종류의 파일은 업로드할 수 없습니다.");
-	  		return false;
-	  	}
-	  	
-	  	return true;		
-	  	
-	  }
-	  
-	  /* 이미지 출력 */
-	  function showUploadImage(uploadResultArr){
-	  	
-	  	/* 전달받은 데이터 검증 */
-	  	if(!uploadResultArr || uploadResultArr.length == 0){return}
-	  	
-	  	let uploadResult = $("#uploadResult");
-	  	
-	  	let obj = uploadResultArr[0];
-	  	
-	  	let str = "";
-	  	
-	  	let fileCallPath = encodeURIComponent(obj.uploadPath.replace(/\\/g, '/') + "/s_" + obj.uuid + "_" + obj.fileName);
-	  	
-	  	str += "<div id='result_card'>";
-	  	str += "<img src='/display?fileName=" + fileCallPath +"'>";
-	  	str += "<div class='imgDeleteBtn'>x</div>";
-	  	str += "</div>";		
-	  	
-	  	uploadResult.append(str);     
-	      
-	  }
-	  	
-	  
-  })
+          reader.onload = function (e) {
+              $('#imageTest').attr('src', e.target.result);
+          }
   
-  </script>
+          reader.readAsDataURL(input.files[0]);
+      }
+    }
+  
+    $("#attach").change(function(){
+        readURL(this);
+    });
+    
+    });
+  
+    </script>
 </body>
 
 </html>
