@@ -25,9 +25,11 @@ public interface FreeBoardService {
 
 	FreeBoardAttachDto selectFreeBoardAttachByAttachNo(int attachNo);  // 첨부번호를 이용해 첨부파일 찾기 
 
-	String getMemberId(int freeBoardNo);  //freeboardNo의 memberNo로 memberId 불러오기
+	String getMemberId(int freeBoardNo);  //freeboardNo의 memberNo로 memberId 불러오기 
 
+	List<FreeBoardDto> selectSearchFreeBoard(String keyword);
 
+	
 	
 	
 

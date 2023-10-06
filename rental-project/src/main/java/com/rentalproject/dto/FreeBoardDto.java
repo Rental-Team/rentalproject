@@ -18,6 +18,10 @@ public class FreeBoardDto {
 	private int freeBoardViewCount;
 	private boolean freeBoardDelete;
 	
+	//검색
+	private String type;
+	private String keyword;
+	
 	private List<FreeBoardReviewDto> freeBoardReviewList;
 	private List<FreeBoardAttachDto> freeBoardAttachList; 
 }

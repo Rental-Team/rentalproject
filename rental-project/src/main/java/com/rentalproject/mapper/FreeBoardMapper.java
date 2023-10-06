@@ -84,7 +84,17 @@ public interface FreeBoardMapper {
 			+ "(select memberNo "
 			+ "from FreeBoard "
 			+ "where freeBoardNo = #{ freeBoardNo })")
-	String getMemberId(@Param("freeBoardNo") int freeBoardNo);  // memberNo로 memberId 찾아오기
+	String getMemberId(@Param("freeBoardNo") int freeBoardNo);  // memberNo로 memberId 찾아오기 
+	
+	
+	
+	@Select("select freeBoardNo, memberNo, freeBoardTitle, freeBoardViewCount, freeBoardDate, freeBoardDelete "   // 자유게시판에서 검색한 데이터가져오기
+			+ "from FreeBoard "
+			+ "where freeBoardDelete = 0"
+			+ "and freeBoardTitle like concat('%', #{keyword}, '%') " 
+			+ "or freeBoardContent like concat('%', #{keyword}, '%') " 
+			+ "or memberNo in(select memberNo from Member where memberId like concat('%', #{keyword}, '%')))")
+	List<FreeBoardDto> selectSearchFreeBoard(@Param("keyword") String keyword); 
 	
 }
 

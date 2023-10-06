@@ -47,7 +47,7 @@
             </div>
                 <div class="card-body"> 
               <form action="freeboardwrite" method="post">
-               <div class="pl-lg-12" style="magin : 0 auto;">
+               <div class="pl-lg-12" style="margin : 0 auto;">
                   <div class="row">
                     <div class="col-lg-6" >
                       <div class="form-group focused">
@@ -91,7 +91,7 @@
                         <div class="col-lg-6">
 	                      	<div class="form-group">
 		                        <label style="font-size:12pt" class="form-control-label"  for="input-freeBoardViewCount">조회수</label>
-		                        <input disabled="disabled" type="text" id="input-freeBoardViewCount" name="freeBoardViewCount" class="form-control form-control-alternative"  value="${ freeBoard.freeBoardViewCount }"/>
+		                        <input disabled="disabled" type="text" id="input-freeBoardViewCount" name="freeBoardViewCount" class="form-control form-control-alternative"  value="${ freeBoard.freeBoardViewCount + 1 }"/>
 	                   		</div>
                     	</div>
                   </div>
@@ -118,97 +118,98 @@
           	</div>
      	   </div>
       	 </div>
-       <!-- 자유게시글 댓글 쓰기 기능 구현 --> 
-	<div class="container-fluid mt--5">
-      <div class="row mt-5">
-        <div class="col-xl-12 mb-5 mb-xl-0">
-          <div class="card shadow">
-            <div class="card-header border-0">
-              <div class="row align-items-center">
-                <div class="col">
-                	<h4 class="mb-0">자유게시글 댓글</h4>
-                	<form id="freeBaordReivewForm" action="freeboard-review" method="post">
-                		<input type="hidden" name="freeBoardNo" value="${ freeBoard.freeBoardNo }" />
-                		<input type="hidden" name="pageNo" value="${ pageNo }" />
-                		<input type="hidden" name="replyWriter" value="${ loginuser.memberId }"/>
-	                		<table class="table align-items-center">
-	                			<tr>
-	                				<td style="width: 1300px;">
-	                				<textarea id="comment_content" name="replyContent" style="width:100%; resize:none;  border-radius:80px" rows="2">     </textarea>
-	                				</td>
-									<td style="vertical-align: middle; text-align:right;">
-									<input type="submit" class ="btn btn-sm btn-primary" id="btninsertreview" value="댓글등록하기" > 
-									</td>
-	                			</tr>
-	                		</table>
-            		</form>
-            		<br>
-<!-- 자유게시글 댓글 리스트 보기 기능 구현 시작-->
-			<table id="review-list" class="table align-items-center table-flush">
-		    <thead class="thead-light">
-		        <tr style="text-align:center">
-		            <th scope="col" style="width: 50px">댓글번호</th> 
-		            <th scope="col" style="width: 300px">댓글내용</th>
-		             <th scope="col" style="width: 150px">댓글작성자</th>
-		            <th scope="col" style="width: 150px">댓글작성일자</th>
-		            <th scope="col" style="width: 150px"></th>
-		        </tr>
-		    </thead>
-		    <tbody>
-		        <c:forEach var="freeBoardReview" items="${freeBoard.freeBoardReviewList}">
-		            <tr style="text-align:center">
-		                <td style="width: 50px">${freeBoardReview.freeBoardReplyNo}</td>
-		                <td style="width: 150px">
-		                <c:choose>
-		                	<c:when test="${ not freeBoardReview.replyDelete }">
-		                	<a> ${ freeBoardReview.replyContent }</a>
-							</c:when>
-							<c:otherwise>
-							<span class="replyDelete" style="color : gray"><< 삭제된 댓글입니다 >></span> 
-							</c:otherwise>    
-						</c:choose>  
-						</td>     
-						<td scope="col" style="width:200px"> ${ freeBoardReview.replyDelete? '' : freeBoardReview.replyWriter } <!-- 게시글 삭제시 작성자 안보이게 설정 -->
-		                <td style="width: 150px">
-		                    <fmt:formatDate value="${freeBoardReview.replyCreateDate}" pattern="yyyy-MM-dd HH:mm" />
-		                </td>
-		                <td>
-		                	<div style='display:${ (not empty loginuser and loginuser.memberId == freeBoardReview.replyWriter and not freeBoardReview.replyDelete)? "block" : "none"}'>
-		                    <a class="btn btn-sm btn-primary edit-reply" data-reply-no="${freeBoardReview.freeBoardReplyNo}" href="javascript:void(0)" style="color: white">댓글수정하기</a>
-		                    <a class="btn btn-sm btn-primary delete-reply" data-reply-no="${freeBoardReview.freeBoardReplyNo}" href="javascript:void(0)" style="color: white">댓글삭제하기</a>
-		                	</div>
-		                </td>
-		            </tr>
-		            <tr>
-		                <td colspan="5">
-		                    <div id="reply-edit-area-${freeBoardReview.freeBoardReplyNo}" style="display: none">
-		                        ${sessionScope.loginuser.memberId} &nbsp;&nbsp; [${freeBoardReview.replyCreateDate}] <br />
-		                        <br />
-		                        <form action="edit-reply" method="post" style="width: 105%; resize: none;">
-		                            <input type="hidden" name="freeBoardReplyNo" value="${freeBoardReview.freeBoardReplyNo}" />
-		                            <input type="hidden" name="freeBoardNo" value="${freeBoard.freeBoardNo}" />
-		                            <input type="hidden" name="pageNo" value="${pageNo}" />
-		                            <textarea name="replyContent" style="width: 70%; resize: none; border-radius: 80px" rows="2" maxlength="200" >${freeBoardReview.replyContent}</textarea>
-		                            <br />
-		                            <div class="btn btn-sm btn-primary">
-		                                <a class="update-reply" data-reply-no="${freeBoardReview.freeBoardReplyNo}" href="javascript:void(0)" style="color: white">수정완료</a>
-		                            </div>
-		                            <div class="btn btn-sm btn-primary">
-		                                <a class="cancel-edit-reply" data-reply-no="${freeBoardReview.freeBoardReplyNo}" href="javascript:void(0)" style="color: white">수정취소</a>
-		                            </div>
-		                        </form>
-		                    </div>
-		                </td>
-		            </tr>
-		        </c:forEach>
-		    </tbody>
-		</table>
-<!-- 자유게시글 댓글 리스트 보기 기능 구현 끝-->	
-                 </div>
-              </div>
-           </div> 
-          </div>
+      <!-- 자유게시글 댓글 쓰기 기능 구현 --> 
+<div class="container-fluid mt--5">
+   <div class="row mt-5">
+   <div class="col-xl-12 mb-5 mb-xl-0">
+       <div class="card shadow"> 
+           <div class="card-body">
+             <div class="card-header border-0">
+             <div class="row align-items-center">
+               <div class="col">
+               	<h4 class="mb-0">자유게시글 댓글</h4>
+               	<form id="freeBoardReviewForm" action="freeboard-review" method="post">
+               		<input type="hidden" name="freeBoardNo" value="${ freeBoard.freeBoardNo }" />
+               		<input type="hidden" name="pageNo" value="${ pageNo }" />
+               		<input type="hidden" name="replyWriter" value="${ loginuser.memberId }"/>
+                		<table class="table align-items-center">
+                			<tr>
+                				<td style="width: 1500px;">
+                				<textarea id="comment_content" name="replyContent" style="width:100%; resize:none;  border-radius:80px" rows="2">     </textarea>
+                				</td>
+								<td style="vertical-align: middle; text-align:right;">
+								<a class ="btn btn-sm btn-primary" id="write-freeboard-review-lnk" href="javascript:void(0)">댓글등록하기</a> 
+								</td>
+                			</tr>
+                		</table>
+           		</form> 
+               <table id="review-list" class="table align-items-center table-flush">
+                   <thead class="thead-light">
+                       <tr style="text-align:center">
+                       </tr>
+                   </thead>
+                   <tbody>
+                       <c:forEach var="freeBoardReview" items="${freeBoard.freeBoardReviewList}">
+                           <tr style="text-align:center"> 
+                           </tr>
+                           <tr>
+                               <td colspan="5">
+                                   <div class="reply-view-edit-area" id="reply-view-edit-area-${freeBoardReview.freeBoardReplyNo}"> 
+                                       <div id="reply-view-area-${freeBoardReview.freeBoardReplyNo}">
+                                          ${freeBoardReview.replyWriter} &nbsp;&nbsp; 
+                                          <fmt:formatDate value="${freeBoardReview.replyCreateDate}" pattern="yyyy-MM-dd-HH:mm" />  <br />
+                                           <br />
+                                           <c:choose>
+                                               <c:when test="${ not freeBoardReview.replyDelete }">
+                                                   <a> ${ freeBoardReview.replyContent }</a>
+                                                   <br>
+                                                   <br>
+                                               </c:when>
+                                               <c:otherwise>
+                                                   <span class="replyDelete" style="color : gray"><< 삭제된 댓글입니다 >></span> 
+                                               </c:otherwise>
+                                           </c:choose> 
+                                           <div style='float:left; display:${ (not empty loginuser and loginuser.memberId == freeBoardReview.replyWriter and not freeBoardReview.replyDelete)? "block" : "none"}'>
+                                               <a class="btn btn-sm btn-secondary edit-reply " data-reply-no="${freeBoardReview.freeBoardReplyNo}" href="javascript:void(0)" style="color: navy;">댓글수정</a>
+                                                &nbsp;
+                                               <a class="btn btn-sm btn-secondary delete-reply" data-reply-no="${freeBoardReview.freeBoardReplyNo}" href="javascript:void(0)" style="color: navy">댓글삭제</a>
+                                          		&nbsp;&nbsp;
+                                           </div>
+                                           <div style='float:left; display:${not empty loginuser and not freeBoardReview.replyDelete? "block" : "none"}'>
+                                           <a class="btn btn-sm btn-secondary write-review-reply" data-reply-no="${freeBoardReview.freeBoardReplyNo}" href="javascript:void(0)" style="color: navy">대댓글 작성</a>
+                                           </div>
+                                           <span style="clear:both"></span>
+                                       </div> 
+                                       <div class="reply-edit-area" id="reply-edit-area-${freeBoardReview.freeBoardReplyNo}" style="display: none">
+                                           ${sessionScope.loginuser.memberId} &nbsp;&nbsp; [${freeBoardReview.replyCreateDate}] <br />
+                                           <br />
+                                           <form action="edit-reply" method="post" style="width: 105%; resize: none;">
+                                               <input type="hidden" name="freeBoardReplyNo" value="${freeBoardReview.freeBoardReplyNo}" />
+                                               <textarea name="replyContent" style="width: 70%; resize: none; border-radius: 80px" rows="2" maxlength="200" >${freeBoardReview.replyContent}</textarea>
+                                               <br />
+                                               <br />
+                                               <div class="btn btn-sm btn-secondary">
+                                                   <a class="update-reply" data-reply-no="${freeBoardReview.freeBoardReplyNo}" href="javascript:void(0)" style="color: ligtblue">수정완료</a>
+                                               </div>
+                                               <div class="btn btn-sm btn-secondary">
+                                                   <a class="cancel-edit-reply" data-reply-no="${freeBoardReview.freeBoardReplyNo}" href="javascript:void(0)" style="color: ligtblue">수정취소</a>
+                                               </div>
+                                           </form>
+                                       </div>
+                                   </div>
+                               </td>
+                           </tr>
+                       </c:forEach>
+                   </tbody>
+               </table>
+ <!-- 자유게시글 댓글 리스트 보기 기능 구현 끝-->  
+            </div>
         </div>
+    </div>
+</div>
+      </div>
+      </div>
+      </div>
       </div>
 
       <!-- Footer -->
@@ -236,9 +237,34 @@
             </ul>
           </div>
         </div>
-      </footer>
-    </div>
-  </div>
+      </footer> 
+                  
+ 	<!-- 대댓글 쓰기 Modal -->
+	<div class="modal fade" id="review-reply-Modal" tabindex="-1" role="dialog" aria-labelledby="review-eply-Modal-Label" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="review-eply-Modal-Label">Modal title</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	       	<form id="review-replyform" action="freeboard-reviewreply" method="post"> 
+          		<input type="hidden" name="freeBoardReplyNo" value="" />
+          		<input type="hidden" name="replyWriter" value="${ loginuser.memberId }"/> 
+          		
+   				<textarea id="review-reply-content" name="reviewReplyContent" style="width:100%; resize:none;  border-radius:80px" rows="2"></textarea>		 
+   			</form> 
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary">Save changes</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>       
+                      
   <!--   Core   -->
   <script src="/rental-project/resources/js/plugins/jquery/dist/jquery.min.js"></script>
   <script src="/rental-project/resources/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -271,16 +297,47 @@
 	   				if (yes) {
 	   					location.href="freeboarddelete/" + ${ freeBoard.freeBoardNo } + "?pageNo=" + ${pageNo};
 	   						}
-	   		})	
-	   		$(".delete-reply").on("click",function(event) {                    // 댓글 삭제하기 이벤트 
+	   		})
+	    	
+	    	$("#write-freeboard-review-lnk").on("click", function(event) {  // 댓글 작성하기 이벤트   
+	    		event.preventDefault();   
+	    		const formData = $('#freeBoardReviewForm').serialize();
+	    		$.ajax({
+	    			"url" : "write-freeboard-review",
+	    			"method" : "post",
+	    			"data" : formData,
+	    			"success" : function(data, status, xhr) {
+	    				if (data == "success") {
+	    					$('#review-list').load('review-list?freeBoardNo=${freeBoard.freeBoardNo}')
+	    					$('#comment_content').val('')
+	    				} else { 
+	    					alert("<<댓글을 작성하려면 먼저 로그인을 해주세요>>"); 
+    					} 
+	    			},
+	    			"error" : function(xhr, status, err){ 
+	    			}
+	    		})
+	    	})
+	    	
+	    	//$(".delete-reply").on("click",function(event) {
+	   		$("#review-list").on("click",".delete-reply", function(event) {                    // 댓글 삭제하기 이벤트 
    				const freeBoardReplyNo = $(this).attr("data-reply-no");
 	   			const yn = confirm(freeBoardReplyNo  + "번 댓글을 삭제할까요?");
-   				if (yn) {
-   					location.href='delete-reply?freeBoardReplyNo=' + freeBoardReplyNo +
-   												'&freeBoardNo=' + ${freeBoard.freeBoardNo} +
-   												'&pageNo=' + ${pageNo};
-   						}
-	   		})	 
+   				if (yn) { 
+					$.ajax({
+						"url" : "delete-reply",
+						"method" : "get",
+						"data" : "freeBoardReplyNo=" + freeBoardReplyNo,
+						"success" : function(data, status, xhr) {
+							$('#review-list').load('review-list?freeBoardNo=${freeBoard.freeBoardNo}')
+							currentEditFreeBoardReplyNo = null;
+						},
+						"error" : function(xhr, status, err) {
+							alert("댓글 삭제를 실패하였습니다.")
+						},
+					})
+					}
+	   			}) 
 	   		
 	   		let currentEditFreeBoardReplyNo = null;
 	   		
@@ -312,12 +369,33 @@
 	   		})
 	   		
 	   		// 댓글 수정완료 이벤트 
-	   		$(".update-reply").on('click', function(event) {
-	   			const freeBoardReplyNo = $(this).attr("data-reply-no");
-	   			$('#reply-edit-area-' + freeBoardReplyNo + ' form').submit();
+	   		//$(".update-reply").on('click', function(event) {
+	   		$("#review-list").on('click',".update-reply", function(event) {
+	   			const freeBoardReplyNo = $(this).data("reply-no");
+	   			//$('#reply-edit-area-' + freeBoardReplyNo + ' form').submit();
+	   			const formData = $('#reply-edit-area-' + freeBoardReplyNo + ' form').serialize();
+	   			$.ajax({
+	   				"url" : "edit-reply",
+	   				"method" : "post",
+	   				"data" : formData,
+	   				"success" : function(data, status, xhr){
+	   					$('#review-list').load('review-list?freeBoardNo=${freeBoard.freeBoardNo}');
+	   					currentEditFreeBoardReplyNo = null;
+   					},
+   					"error" : function(xhr, status, err) {
+   						alert('댓글 수정을 실패하였습니다')
+   					}
+	   			})
 	   		})
+	   		
+	   		/* // 대댓글 작성 버튼 누르면 작성 팝업 뜨는 이벤트 
+	   		$("#review-list").on('click',".write-review-reply", function(event) {
+	   			const freeBoardReplyNo = $(this).data("reply-no");
+	   			
+	   		 
+	   		}) */
     		
-	    	});
+   	});
 			</script>
 </body>
 
