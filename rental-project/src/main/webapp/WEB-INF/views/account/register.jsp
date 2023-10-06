@@ -122,6 +122,7 @@
                   </div>
                 </div>
                 <input type="hidden" name="idDuplication" value="idUncheck"/>
+                
                 <div class="form-group">
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
@@ -165,9 +166,7 @@
                     <form:input id="phoneNo" path="phoneNo" class="form-control" placeholder="전화번호" type="text" />
                   </div>
                 </div>
-                
-                
-                
+                          
                 <div class="form-group">
                   <div class="input-group input-group-alternative mb-3">
                     <div class="input-group-prepend">
@@ -186,14 +185,13 @@
                 <div class="input-group-addon">
 				<button type="button" class="btn btn-primary" id="mail-Check-Btn">본인인증</button>
 				</div>
+				<br>
 				<div class="mail-check-box">
 					<input class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
 				</div>
 					<span id="mail-check-warn"></span>
-				
-                
-                
-
+                <div>
+ 
                 <div class="form-group">
                   <div class="input-group input-group-alternative mb-3">
                     <div class="input-group-prepend">
