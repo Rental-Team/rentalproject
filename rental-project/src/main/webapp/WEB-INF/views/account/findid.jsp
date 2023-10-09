@@ -65,7 +65,7 @@
             <li class="nav-item">
               <a class="nav-link nav-link-icon" href="/rental-project/account/register">
                 <i class="ni ni-circle-08"></i>
-                <span class="nav-link-inner--text">회원가입</span>
+                <span class="nav-link-inner--text">계정 생성</span>
               </a>
             </li>
           </ul>
@@ -133,7 +133,6 @@
 				</c:if>
 		
 			</form>
-                
                 
                 <span>비밀번호가 기억이 안나시나요??</span>
                 <span style="mergin: 100px"></span>
