@@ -173,6 +173,12 @@
             </div>
           </div>
         </div>
+        
+        <!-- 주문 폼 -->
+        <form action="/order/${loginuser.memberNo}" method="get" class="order_form">
+				<input type="hidden" name="orders[0].itemNo" value="${item.itemNo}">
+				<input type="hidden" name="orders[0].itemCount" value="">
+		</form>
 
       
       <!-- Footer -->
@@ -301,11 +307,11 @@
 		}
 	}
 	
-  	/* 바로구매 버튼 */
+  	/* 바로 대여 버튼 */
 	$(".btn_buy").on("click", function(){
-		let bookCount = $(".quantity_input").val();
-		$(".rental_form").find("input[name='rentals[0].itemCount']").val(bookCount);
-		$(".rental_form").submit();
+		let itemCount = $(".quantity_input").val();
+		$(".order_form").find("input[name='orders[0].itemCount']").val(itemCount);
+		$(".order_form").submit();
 	});
   </script>
   
