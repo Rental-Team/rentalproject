@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
 <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-text-info" id="sidenav-main">
     <div class="container-fluid">
@@ -146,6 +146,11 @@
           <li class="nav-item">
             <a class="nav-link" href="/rental-project/notice/list">
               <i class="ni ni-world text-blue"></i> 공지사항
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/rental-project/zzim/${loginuser.memberNo}">
+              <i class="ni ni-world text-blue"></i> 장바구니
             </a>
           </li>
           <li class="nav-item">

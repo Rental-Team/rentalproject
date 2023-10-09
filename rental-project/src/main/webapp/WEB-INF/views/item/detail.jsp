@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!--
 
 =========================================================
@@ -62,55 +65,79 @@
                 </div>
               </div>
             </div>
+            <form action="write" method="post"> 
+        
+            <input type="hidden" name="itemNo" value="${ item.itemNo }" />
+			<input type="hidden" name="pageNo" value="${ pageNo }" />
+			<input type="hidden" name="writer" value="${ loginuser.memberNo }" />
 			 <div class="card-body">
-              <input type="hidden" name="categoryName" value="가전">
+			 	<input disabled="disabled" type="hidden" id="itemNo"  name="itemNo" class="form-control form-control-alternative" value="${ item.itemNo }">
                 <!-- <h6 class="heading-small text-muted mb-4">User information</h6> -->
-                <div class="pl-lg-12" style="magin : 0 auto;">
+                <div class="pl-lg-12" style="margin : 0 auto;">
                   <div class="row">
-                  
-                  	<div class="col-lg-6" >
-                      <div class="form-group focused">
-                        <label class="form-control-label"for="input-itemNo">상품 번호</label>
-                        <input disabled="disabled" type="number" id="itemNo"  name="itemNo" class="form-control form-control-alternative" value="${ item.itemNo }">
-                           </div>
-                    </div>
-                    
                     <div class="col-lg-6" >
                       <div class="form-group focused">
                         <label class="form-control-label"for="input-itemName">상품명</label>
                         <input disabled="disabled" type="text" id="input-itemName"  name="itemName" class="form-control form-control-alternative" value="${ item.itemName }">
                            </div>
                     </div>
+                    
                         <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label"  for="input-itemDate">등록 날짜</label>
-                        <input disabled="disabled" type="regDate" id="input-itemDate" name="itemDate" class="form-control form-control-alternative"  value="${ item.itemDate }"/>           
+                        <input disabled="disabled" type="datetime" id="input-itemDate" name="itemDate" class="form-control form-control-alternative"  value="${ item.itemDate }" pattern="yyyy-MM-dd HH:mm"/>           
                    </div>
                     </div>
                   </div>
+                  
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-categoryName">상품 분류</label>
-                        <input disabled="disabled" type="text" id="input-categoryName" name="categoryName" class="form-control form-control-alternative" value="${ item.categoryName }">
+                        <label class="form-control-label" for="input-itemStock">상품 수량</label>
+                        <input disabled="disabled" type="text" id="input-itemStock" name="itemStock" class="form-control form-control-alternative" value="${ item.itemStock }">
                       </div>
                   </div>
                   
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-itemCode">상품 코드</label>
-                        <input disabled="disabled" type="text" id="input-itemCode" name="itemCode" class="form-control form-control-alternative" value="${ item.itemCode }">
+                        <label class="form-control-label" for="input-cateName">카테고리</label>
+                        <input disabled="disabled" type="text" id="input-cateName" name="cateName" class="form-control form-control-alternative" value="${ item.cateName }">
                       </div>
                     </div>
                   </div>
+                  
                   <div class="row">
+                  
+                  	<div class="col-lg-6" >
+                      	<div class="form-group focused">
+                        	<label style="font-size:12pt" class="form-control-label" for="input-itemAttach">첨부파일</label> 
+                        		<br>
+	                        	<div>
+			                		<c:forEach var="itemAttach" items="${item.itemAttachList}">
+								    	<a href="download?attachNo=${itemAttach.attachNo}">${itemAttach.userFileName}</a>
+								    	<img src="/resources/upload/${savedFileName}">
+										<img src="${pageContext.request.contextPath}/resources/upload/${itemAttach.savedFileName}" alt="Image" height="100px" width="100px">
+									</c:forEach>
+			                	</div>
+			                	
+			  
+                       </div>
+                    </div>
+                  
                     <div class="col-lg-2">
                       <div class="form-group">
                         <label class="form-control-label" for="input-itemPrice">상품 가격</label>
                         <input disabled="disabled" type="number" id="input-itemPrice" name="itemPrice" class="form-control form-control-alternative" value="${ item.itemPrice }">
+                      	<div>
+						적립 포인트 : <span class="point_span"></span>원
+						</div>
                       </div>
                     </div>
-                  </div>
+                    
+                  
+                  </div>  
+                   	
+                  
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="form-group">
@@ -119,10 +146,27 @@
                       </div>
                     </div>
                   </div>
-                  
-                  <p class="zzim">
-                  	<button type="button" id="zzim_btn" class='btn btn-outline-primary float-right'>찜하기</button>
-                  </p>
+				</div>
+				</div>
+                  </form>
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="button_quantity">
+                      	대여 수량
+                      <input type="text" class="quantity_input" value="1">
+                      <span>
+                      	<button class="plus_btn">+</button>
+                      	<button class="minus_btn">-</button>
+                      </span>	
+                      </div>
+                      
+                      <div class="text-right">
+                      	<button type="button" id="btn_zzim" class='btn btn-outline-primary float-right'>찜하기</button>
+                      	<button type="button" id="btn_rental" class='btn btn-outline-primary float-right'>대여하기</button>                      	
+                      </div>
+                    </div>
+                    
+                  </div>
                 </div>
                 
             </div>
@@ -177,6 +221,9 @@
   </script>
   
   <script>
+  $(document).ready(function(){
+	  
+  
   	$('#zzim_btn').click(function(e){
   		e.preventDefault();
   		
@@ -200,7 +247,69 @@
   			}
   		});
   	});
+  	
+  	
+  	let itemPrice = "${item.itemPrice}"
+  	let point = itemPrice*0.05;
+  	point = Math.floor(point);
+  	$(".point_span").text(point);
+});  	
+  	// 주문 수량 조절
+  	let quantity = $(".quantity_input").val();
+  	
+	$(".plus_btn").on("click", function(){
+		$(".quantity_input").val(++quantity);
+	});
+	$(".minus_btn").on("click", function(){
+		if(quantity > 1) {
+		$(".quantity_input").val(--quantity);
+		}
+	});
+	
+	// 서버로 보낼 데이터
+	const form = {
+			memberNo : '${ loginuser.memberNo}',
+			itemNo : '${ item.itemNo }',
+			itemCount : ''
+	}
+	
+	
+	// 장바구니 추가 버튼
+	$("#btn_zzim").on("click", function(e){
+	
+	form.itemCount = $(".quantity_input").val();
+	$.ajax({
+		url: 'zzim-add', // 호출 url
+		type: 'post',  // 메서드
+		data: form,  // 서버로 보낼 데이터
+		success: function(result){
+			zzimAlert(result);
+		}
+	})
+	
+	});
+	
+	function zzimAlert(result){
+		if(result == '0'){
+			alert("찜하기에 실패하였습니다.");
+		} else if(result == '1'){
+			alert("찜 하였습니다!");
+		} else if(result == '2'){
+			alert("이미 찜한 상품입니다!");
+		} else if(result == '4'){
+			alert("로그인이 필요합니다.");	
+		}
+	}
+	
+  	/* 바로구매 버튼 */
+	$(".btn_buy").on("click", function(){
+		let bookCount = $(".quantity_input").val();
+		$(".rental_form").find("input[name='rentals[0].itemCount']").val(bookCount);
+		$(".rental_form").submit();
+	});
   </script>
+  
+  
   
 </body>
 

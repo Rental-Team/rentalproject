@@ -1,9 +1,9 @@
 package com.rentalproject.controller;
 
-
-
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +22,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rentalproject.common.Util;
+import com.rentalproject.dto.CategoryDto;
 import com.rentalproject.dto.ItemAttachDto;
 import com.rentalproject.dto.ItemDto;
 import com.rentalproject.dto.MemberDto;
@@ -32,7 +34,6 @@ import com.rentalproject.ui.ThePager;
 import com.rentalproject.view.DownloadView;
 
 import net.coobird.thumbnailator.Thumbnails;
-
 
 
 @Controller
@@ -68,7 +69,7 @@ public class AdminController {
 		//List<ItemDto> list = itemService.getList();
 		//log.info(list);
 		
-		int pageSize = 10;
+		int pageSize = 9;
 		int pagerSize = 5;
 		String linkUrl = "list";
 		int dataCount = adminService.getItemCount();
@@ -86,31 +87,32 @@ public class AdminController {
 		return "admin/item/list";
 	}
 	
+	// 상품 등록
 	@GetMapping("/item/write")
-
-	public String itemWriteForm(ItemDto item, Model model) {
+	public String itemWriteForm(Model model) throws Exception {
 		
+		ObjectMapper objm = new ObjectMapper();
+		List<CategoryDto> list = adminService.cateList();
+		String cateList = objm.writeValueAsString(list);
+		
+		model.addAttribute("cateList", cateList);
 		
 		return "admin/item/write";
 	}
 	
 	// 상품 등록
 	@PostMapping("/item/write")
-	public String write(ItemDto item, MultipartFile attach, HttpServletRequest req, RedirectAttributes rttr, Model model) {
+	public String write(ItemDto item, MultipartFile attach, HttpServletRequest req) {
 
+		// 아이템 업로드
 		//log.info("register: " + item);
 		String uploadDir = req.getServletContext().getRealPath("/resources/upload/");
 		ArrayList<ItemAttachDto> attachList = handleUploadFile(attach, uploadDir);
 		item.setItemAttachList(attachList);
 
+		// 상품 등록
 		adminService.writeItem(item);
-//		rttr.addAttribute("result", item.getItemNo());
-		
-		if (!attachList.isEmpty()) {
-	        model.addAttribute("imagePath", "/resources/upload/" + attachList.get(0).getSavedFileName());
-	    }
-		
-		rttr.addFlashAttribute("write_result", item.getItemName());
+	
 
 		return "redirect:/admin/item/list";
 	}
@@ -123,21 +125,8 @@ public class AdminController {
 		if (!attach.isEmpty()) {
 			try {
 				String savedFileName = Util.makeUniqueFileName(attach.getOriginalFilename());
-				File uploadPath = new File(uploadDir);
-				
-				if (!uploadPath.exists()) {
-	                uploadPath.mkdirs();
-	            }
-				
-				// 원본 이미지 저장
-				File target = new File(uploadDir, savedFileName);
-				attach.transferTo(target);
-				
-				// 썸네일 생성
-				Thumbnails.of(target)
-						.size(100, 100)
-						.toFile(new File(uploadDir, "thumb_" + savedFileName));
-				
+
+				attach.transferTo(new File(uploadDir, savedFileName)); // 파일을 컴퓨터에 저장
 				
 				// 파일 정보를 dto에 저장
 				ItemAttachDto itemAttach = new ItemAttachDto();
@@ -151,14 +140,36 @@ public class AdminController {
 		}
 		return attachList;
 	}
+
+	// 상품 상세
+	@GetMapping("/item/detail")
+	public String detail(@RequestParam(defaultValue = "-1") int itemNo, 
+			 			@RequestParam(defaultValue="-1") int pageNo, 
+			 			Model model) {
+		
+		if (itemNo == -1 || pageNo == -1) { // 글 번호가 요청에 포함되지 않은 경우
+			return "redirect:/admin/item/list";
+		}
+		
+		ItemDto item = adminService.itemDetail(itemNo);
+		
+		if (item == null) { // 조회된 상품이 없는 경우
+			return "redirect:/admin/item/list";
+		}
+		
+		model.addAttribute("item", item);
+		model.addAttribute("pageNo", pageNo);
+		
+		return "admin/item/detail";
+	}
 	
 	// 다운로드
-	@GetMapping(path = { "/download" })
+	@GetMapping( "/download" )
 	public View download(int attachNo, Model model) {
-		
+			
 		// 1. 첨부파일 조회
 		ItemAttachDto attach = adminService.findItemAttachByAttachNo(attachNo);
-		
+			
 		// 2. 다운로드 처리
 		model.addAttribute("attach", attach);	// View에서 사용할 수 있도록 데이터 저장
 		DownloadView downloadView = new DownloadView();
@@ -167,26 +178,13 @@ public class AdminController {
 		return downloadView;
 	}
 
-	// 상품 상세
-	@GetMapping("/item/detail")
-	public void detail(@RequestParam("itemNo") int itemNo,
-			 			Model model) { //@RequestParam(defaultValue = "-1")int pageNo,
-		
-		ItemAttachDto attach = adminService.findItemAttachByAttachNo(itemNo);
-		ItemDto item = adminService.itemDetail(itemNo);
-		
-		
-		model.addAttribute("attach", attach);
-		model.addAttribute("item", item);
-		
-
-	}
-
 	// 상품 수정 폼
 	@GetMapping("/item/edit")
-	public String editForm(@RequestParam("itemNo") int itemNo, Model model) {
+	public String editForm(@RequestParam("itemNo") int itemNo,
+							@RequestParam(defaultValue = "-1") int pageNo,
+							Model model) {
 		
-		if (itemNo == -1) {
+		if (itemNo == -1 || pageNo == -1) {
 			return "redirect:list";
 		}
 		
@@ -195,13 +193,13 @@ public class AdminController {
 		//log.info(item);
 		
 		if (item == null) {
-			return "redirect:/admin/item/list";
+			return "redirect:item/list";
 		}
 		
 		
 		
 		model.addAttribute("item", item);
-		model.addAttribute("itemNo", itemNo);
+		model.addAttribute("pageNo", itemNo);
 		
 		
 		return "admin/item/edit";
@@ -210,20 +208,37 @@ public class AdminController {
 	
 	// 상품 수정
 	@PostMapping("/item/edit")
-	public String edit(ItemDto item ) {
+	public String edit(ItemDto item, MultipartFile attach, HttpServletRequest req, 
+			  @RequestParam(defaultValue = "-1") int pageNo ) {
 		
+		if( pageNo < 1) {
+			return "redirect:list";
+		}
+		
+		// 파일 업로드 처리
+		String uploadDir = req.getServletContext().getRealPath("/resources/upload/");
+		ArrayList<ItemAttachDto> attachList = handleUploadFile(attach, uploadDir);
+		item.setItemAttachList(attachList);
+		
+		// 상품 수정 처리
 		adminService.editItem(item);
 		
-		return String.format("redirect:detail?itemNo=%d", item.getItemNo());
+		return String.format("redirect:detail?itemNo=%d&pageNo=%d", item.getItemNo(), pageNo);
 	}
 	
 	// 상품 삭제
 	@GetMapping("/delete/{itemNo}")
-	public String delete(@PathVariable("itemNo") int itemNo) {
+	public String delete(@PathVariable("itemNo") int itemNo,
+						  @RequestParam(defaultValue = "-1") int pageNo,
+						  RedirectAttributes rttr) {
+		
+		if(pageNo == -1) {
+			return "redirect:/admin/item/list";
+		}
 		
 		adminService.deleteItem(itemNo);
-				
-		return "redirect:/admin/item/list";
+		
+		return String.format("redirect:/item/list?pageNo=%d", pageNo);
 	}
 	
 	/////////////////////
@@ -278,8 +293,8 @@ public class AdminController {
 	
 	
 	 
-		@GetMapping(path = {"/notice/edit"})
-		public String showNoticeEditForm(@RequestParam(defaultValue = "-1") int noticeNo, 
+	@GetMapping(path = {"/notice/edit"})
+	public String showNoticeEditForm(@RequestParam(defaultValue = "-1") int noticeNo, 
 											Model model) {
 		
 		NoticeDto notice = adminService.findNoticeByNoticeNo(noticeNo);
@@ -291,8 +306,8 @@ public class AdminController {
 		return "/admin/notice/edit";
 	}
 	
-		@PostMapping(path = {"/notice/edit"})
-		public String noticeEdit(NoticeDto notice, HttpServletRequest req) {
+	@PostMapping(path = {"/notice/edit"})
+	public String noticeEdit(NoticeDto notice, HttpServletRequest req) {
 		
 		
 		adminService.editNotice(notice);

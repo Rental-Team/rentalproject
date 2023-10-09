@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!--
 
 =========================================================
@@ -33,6 +36,7 @@
   <link href="/rental-project/resources/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="/rental-project/resources/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
+  
 </head>
 
 <body class="">
@@ -58,10 +62,8 @@
               </div>
             </div>
 			 <div class="card-body">
-              <form  action="write" method="post">
-              <input type="hidden" name="categoryName" value="가전">
                 <!-- <h6 class="heading-small text-muted mb-4">User information</h6> -->
-                <div class="pl-lg-12" style="magin : 0 auto;">
+                <div class="pl-lg-12" style="margin : 0 auto;">
                   <div class="row">
                     <div class="col-lg-6" >
                       <div class="form-group focused">
@@ -69,40 +71,59 @@
                         <input disabled="disabled" type="text" id="input-itemName"  name="itemName" class="form-control form-control-alternative" value="${ item.itemName }">
                            </div>
                     </div>
+                    
                         <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label"  for="input-itemDate">등록 날짜</label>
-                        <input disabled="disabled" type="regDate" id="input-itemDate" name="itemDate" class="form-control form-control-alternative"  value="${ item.itemDate }"/>           
+                        <input disabled="disabled" type="datetime" id="input-itemDate" name="itemDate" class="form-control form-control-alternative"  value="${ item.itemDate }" pattern="yyyy-MM-dd HH:mm"/>           
                    </div>
                     </div>
                   </div>
+                  
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-categoryName">상품 분류</label>
-                        <input disabled="disabled" type="text" id="input-categoryName" name="categoryName" class="form-control form-control-alternative" value="${ item.categoryName }">
+                        <label class="form-control-label" for="input-itemStock">상품 수량</label>
+                        <input disabled="disabled" type="text" id="input-itemStock" name="itemStock" class="form-control form-control-alternative" value="${ item.itemStock }">
                       </div>
                   </div>
                   
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-itemCode">상품 코드</label>
-                        <input disabled="disabled" type="text" id="input-itemCode" name="itemCode" class="form-control form-control-alternative" value="${ item.itemCode }">
+                        <label class="form-control-label" for="input-cateName">카테고리</label>
+                        <input disabled="disabled" type="text" id="input-cateName" name="cateName" class="form-control form-control-alternative" value="${ item.cateName }">
                       </div>
                     </div>
                   </div>
+                  
                   <div class="row">
+                  
+                  	<div class="col-lg-6" >
+                      	<div class="form-group focused">
+                        	<label style="font-size:12pt" class="form-control-label" for="input-itemAttach">첨부파일</label> 
+                        		<br>
+	                        	<div>
+			                		<c:forEach var="itemAttach" items="${item.itemAttachList}">
+								    	<a href="download?attachNo=${itemAttach.attachNo}">${itemAttach.userFileName}</a>
+								    	<img src="/resources/upload/${savedFileName}">
+										<img src="${pageContext.request.contextPath}/resources/upload/${itemAttach.savedFileName}" alt="Image" height="100px" width="100px">
+									</c:forEach>
+			                	</div>
+			                	
+			  
+                       </div>
+                    </div>
+                  
                     <div class="col-lg-2">
                       <div class="form-group">
                         <label class="form-control-label" for="input-itemPrice">상품 가격</label>
                         <input disabled="disabled" type="number" id="input-itemPrice" name="itemPrice" class="form-control form-control-alternative" value="${ item.itemPrice }">
                       </div>
                     </div>
-                  </div>
-                  <div id="result_card">
-                      			<div class="imgDeleteBtn">x</div>
-                      			<img src="/resources/upload/${uploadedFileName}" id="imageTest" alt="Image Preview">
-                  </div>
+                  
+                  </div>  
+                   
+                  
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="form-group">
@@ -113,28 +134,15 @@
                   </div>
                   
                   <div class="row">
-                    <div class="col-lg-6" >
-                      <div class="form-group focused">
-                        <label style="font-size:12pt" class="form-control-label"for="input-itemAttach">첨부파일</label> 
-                        	<br>
-	                        <td>
-			                	<c:forEach var="itemAttach" items="${ item.itemAttachList }">
-			                		<a href="download?attachNo=${ itemAttach.attachNo }"> ${itemAttach.userFileName}</a>
-			                	</c:forEach>
-			                </td>
-                       </div>
-                    </div>
-                  <div class="row">
                     <div class="col-lg-12">
                       <div class="text-right">
-                        <a href="edit?itemNo=${ item.itemNo }" class ="btn btn-primary">수정</a> 
+                        <a href="edit?itemNo=${ item.itemNo }&pageNo=${ pageNo }" class ="btn btn-primary">수정</a> 
 				        <a href="javascript:" class ="btn btn-primary" id="delete-item">삭제</a>
                       </div>
                     </div>
                   </div>
                 </div>
                 
-              </form>
             </div>
             </div>
           </div>
@@ -191,9 +199,11 @@
 	  $('#delete-item').on('click', function(event) {
 		  const ok = confirm(${ item.itemNo } + "번 삭제?");
 			if (ok) {
-				location.href = '/admin/delete/' + ${ item.itemNo };
+				location.href = 'delete/' + ${ item.itemNo } + "?pageNo=" + ${pageNo};
 			}
 	  });
+	  
+	  
   });
   </script>
 </body>

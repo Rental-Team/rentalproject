@@ -33,11 +33,12 @@ public interface ItemMapper {
 			+ "where ItemNo = #{ itemNo }")
 	void itemViewCount(int itemNo);
 
-
-	@Select("select  itemNo, itemName, itemCode, itemDate, itemPrice, itemDetail, categoryName " +
+	
+	@Select("select itemNo, itemName, (select cateName from itemCate where cateCode = Item.cateCode) cateName, "
+			+ " cateCode, itemPrice, itemStock, itemDetail, itemDate , deleted " +
 			"from Item " +
-			"where itemNo = #{ itemNo }")
-	public ItemDto read(int itemNo);
+			"where itemNo = #{ itemNo } and deleted = false")
+	ItemDto read(@Param("itemNo") int itemNo);
 	
 	@Insert("insert into Zzim (memberId, itemNo) "
 			+ "values (#{memberId}, #{itemNo}) ")

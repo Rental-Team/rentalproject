@@ -84,6 +84,7 @@
 	                        <td>
 			                	<c:forEach var="freeBoardAttach" items="${ freeBoard.freeBoardAttachList }">
 			                		<a href="download?attachNo=${ freeBoardAttach.attachNo }"> ${freeBoardAttach.attachFileName}</a>
+			                		<img src="${pageContext.request.contextPath}/resources/upload/${freeBoardAttach.savedFileName}" alt="Image" height="100px" width="100px">
 			                	</c:forEach>
 			                </td>
                        </div>
