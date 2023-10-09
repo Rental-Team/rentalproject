@@ -109,33 +109,6 @@
               <i class="ni ni-satisfied text-yellow"></i> 자유 게시판
             </a>
           </li>
-          
-          <c:choose>
-			<c:when test="${ loginuser eq null }">
-          <li class="nav-item">
-            <a class="nav-link" href="/rental-project/account/login">
-              <i class="ni ni-key-25 text-info"></i> 로그인
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/rental-project/account/register">
-              <i class="ni ni-circle-08 text-pink"></i> 회원가입
-            </a>
-          </li>
-          </c:when>
-          <c:otherwise>
-          <li class="nav-item">
-			<a class="nav-link " href="/rental-project/profile/profile?memberId=${loginuser.memberId}">
-              <i class="ni ni-single-02 text-yellow"></i> 유저프로필
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/rental-project/account/logout">
-              <i class="ni ni-circle-08 text-pink"></i> 로그아웃
-            </a>
-          </li>
-          </c:otherwise>
-          </c:choose>
         </ul>
         <!-- Divider -->
         <hr class="my-3">

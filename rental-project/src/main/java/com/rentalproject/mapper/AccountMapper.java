@@ -13,9 +13,9 @@ public interface AccountMapper {
 	
 	// 회원가입 정보 입력
 	@Insert("INSERT INTO Member (memberId, password, passwordConfirm, " +
-			"userName, nickname, phoneNo, email, address, deposite)" +
+			"userName, nickname, phoneNo, email, address, addressDetail, deposite)" +
 			"VALUES (#{memberId}, #{password}, #{passwordConfirm}, #{userName}, " +
-			"#{nickname}, #{phoneNo}, #{email}, #{address}, #{deposite})")
+			"#{nickname}, #{phoneNo}, #{email}, #{address}, #{addressDetail}, #{deposite})")
 	void insertMember(MemberDto member);
 	
 	// 아이디 중복 검사

@@ -12,6 +12,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- content에 자신의 OAuth2.0 클라이언트ID를 넣습니다. -->
+<meta name ="google-signin-client_id" content="174300919032-nqj47kqqpmn2gjm8mt43u8kp2vb8l972.apps.googleusercontent.com">
   <title>
     세숫대여 로그인
   </title>
@@ -55,14 +57,6 @@
             </div>
           </div>
           <!-- Navbar items -->
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="/rental-project/account/register">
-                <i class="ni ni-circle-08"></i>
-                <span class="nav-link-inner--text">회원가입</span>
-              </a>
-            </li>
-          </ul>
         </div>
       </div>
     </nav>
@@ -108,7 +102,7 @@
                 <div class="form-group mb-3">
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                      <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
                     </div>
                     <input name="memberId" class="form-control" placeholder="아이디" type="text">
                   </div>
@@ -129,12 +123,13 @@
                 </div> -->
                 <p class="text-center">
                   <input type="submit" class="btn btn-primary my-4" value="로그인" />
-                  <!-- <a href="/rental-project/account/register">
-                  <span class="btn btn-primary my-4">회원가입</span>
-                  </a> -->
                 </p>
-                <a href="/rental-project/account/findid">아이디 찾기</a><span style="margin: 80px"></span>
+                <a href="/rental-project/account/findid">아이디 찾기</a><span> / </span>
                 <a href="/rental-project/account/findpw">비밀번호 찾기</a>
+                <br><br>
+                <div>계정이 없으시다구요?
+                <a href="/rental-project/account/register">계정 생성</a>
+                </div>
                 
               </form>
             </div>
