@@ -5,8 +5,10 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.rentalproject.controller.FreeBoardReport;
 import com.rentalproject.dto.FreeBoardAttachDto;
 import com.rentalproject.dto.FreeBoardDto;
+import com.rentalproject.dto.FreeBoardReportDto;
 import com.rentalproject.dto.FreeBoardReviewDto;
 import com.rentalproject.mapper.FreeBoardMapper;
 import com.rentalproject.mapper.FreeBoardReviewMapper;
@@ -105,6 +107,30 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	public List<FreeBoardDto> selectSearchFreeBoard(String keyword){
 		List<FreeBoardDto> freeBoardSearch = freeboardMapper.selectSearchFreeBoard(keyword);
 		return freeBoardSearch;
+	} 
+
+	@Override
+	public List<FreeBoardDto> selectSearchByTitle(String keyword) {
+		List<FreeBoardDto> freeBoardSearch = freeboardMapper.selectSearchByTitle(keyword);
+		return freeBoardSearch;
+	}
+
+	@Override
+	public List<FreeBoardDto> selectSearchByContent(String keyword) {
+		List<FreeBoardDto> freeBoardSearch = freeboardMapper.selectSearchByContent(keyword);
+		return freeBoardSearch;
+	}
+
+	@Override
+	public List<FreeBoardDto> selectSearchByMemeberId(String keyword) {
+		List<FreeBoardDto> freeBoardSearch = freeboardMapper.selectSearchByMemeberId(keyword);
+		return freeBoardSearch;
+	} 
+
+	@Override
+	public void reportFreeBoard(FreeBoardReportDto freeboardReport) {
+		freeboardMapper.insertFreeBoardReport(freeboardReport);
+		
 	}
 
 }

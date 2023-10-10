@@ -2,7 +2,7 @@ package com.rentalproject.service;
 
 import java.util.List;
 
-
+import com.rentalproject.dto.CategoryDto;
 import com.rentalproject.dto.ItemAttachDto;
 import com.rentalproject.dto.ItemDto;
 import com.rentalproject.dto.MemberDto;
@@ -13,6 +13,9 @@ public interface AdminService {
 	public void writeItem(ItemDto item);
 	
 	public List<MemberDto> MemberList();
+	
+	// 카테고리 리스트
+	public List<CategoryDto> cateList();
 
 	public List<ItemDto> ItemList();
 	

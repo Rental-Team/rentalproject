@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
-<html lang="ko">
 
 <head>
   <meta charset="utf-8" />
@@ -31,69 +33,68 @@
     <jsp:include page="/WEB-INF/views/modules/navbar-content.jsp" />
     <div class="container-fluid mt--7">
       <div class="row">
-         <div class="col-xl-12 mb-5 mb-xl-0">
+        <div class="col-xl-12 mb-5 mb-xl-0">
           <div class="card shadow">
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">상품 수정</h3>
-                  <br>
-                  <form action="edit" method="post">
-	                  <input type="hidden" name="categoryName" value="가전">
-	                  <input type="hidden" name="itemNo" value="${ item.itemNo }">
-	                  <div class="pl-lg-4">
-			              <div class="row">
-			              <div class="col-lg-12">
-			              <div class="form-group">
-			              	<label class="form-control-label" for="input-itemName">상품명</label>
-			               <input type="text" id="input-itemName" name="itemName" class="form-control form-control-alternative" value=${ item.itemName }/>
-			              </div>
-			              </div>
-			              </div>
-			            <div class="row">
-			            <div class="col-lg-12">
-			            <div class="form-group">
-			            <label class="form-control-label" for="input-cateName">카테고리</label>
-			            <input type="text" id="input-cateName" name="cateName" class="form-control form-control-alternative" value=${ item.cateName } />
-			            </div>
-			            </div>
-			            </div>
-		           
-		                    
-		            <div class="row">
-			            <div class="col-lg-12">
-			            <div class="form-group">
-			            <label class="form-control-label" for="input-itemPrice">상품 가격</label>
-			             <input type="text" id="input-itemPrice" name="itemPrice" class="form-control form-control-alternative" value="${ item.itemPrice }" />
-			            </div>
-			            </div>
-			            </div>
-		                   
-		            <div class="row">
-			            <div class="col-lg-12">
-			            <div class="form-group">
-			            <label class="form-control-label" for="input-itemDetail">상세 설명</label>
-			            <textarea name="itemDetail" id="input-itemDetail" class="form-control form-control-alternative" style="resize:none;" rows="15" > ${ item.itemDetail }</textarea>
-			            </div>
-			            </div>
-			            </div>
-		                	
-		          		<div class="row">
-		          		<div class="col-lg-12">
-		          		<div class="text-right">
-				        <input type="submit" class ="btn btn-sm btn-primary" value="상품 수정" >
-				        <input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="취소" >
-		          		</div>
-          			</div> 
-       	   	    </div>  
-               </div>
-                </form>
+                  <h3 style="font-weight:bold" class="mb-0">검색 결과</h3>
                 </div>
               </div>
-           </div> 
-          </div>
-        </div>
-          </div>
+            </div>
+            <div class="table-responsive">  
+         <!-- Projects table -->
+       <table class="table align-items-center table-flush">
+           <thead class="thead-light">
+	        <tr style="text-align:center;">
+               <th scope="col" style="width:100px; font-size:10pt">게시글 번호</th>
+               <th scope="col" style="width:500px; font-size:10pt">게시글 제목</th> 
+               <th scope="col" style="width:200px; font-size:10pt">작성자</th>
+               <th scope="col" style="width:100px; font-size:10pt">조회수</th>
+               <th scope="col" style="width:150px; font-size:10pt">게시글 작성 일자</th>
+             </tr>
+           </thead>
+	    <tbody>
+	        <c:if test="${not empty searchList}">
+	            <c:forEach var="freeBoard" items="${requestScope.searchList}">
+	                <tr style="text-align:center;">
+	                    <td>${freeBoard.freeBoardNo}</td>
+	                    <td>
+	                        <c:choose>
+	                            <c:when test="${not freeBoard.freeBoardDelete}">
+	                                <a href="freeboarddetail?freeBoardNo=${freeBoard.freeBoardNo}&pageNo=${pageNo}">
+	                                    ${freeBoard.freeBoardTitle}
+	                                </a>
+	                            </c:when>
+	                            <c:otherwise>
+	                                <span class="freeBoardDelete" style="color: gray">&lt;&lt; 삭제된 게시글입니다 &gt;&gt;</span>
+	                            </c:otherwise>
+	                        </c:choose>
+	                    </td>
+	                    <td>${freeBoard.memberId}</td>
+	                    <td>${freeBoard.freeBoardViewCount}</td>
+	                    <td>
+	                        <fmt:formatDate value="${freeBoard.freeBoardDate}" pattern="yyyy-MM-dd HH:mm" />
+	                    </td>
+	                </tr>
+	            </c:forEach>
+	        </c:if>
+	        <c:if test="${empty searchList}">
+	            <tr>
+	                <td colspan="5" style="text-align:center">검색결과가 없습니다.</td>
+	            </tr>
+	        </c:if> 
+	        <tr>
+            <td colspan="5" style="text-align:center">
+                <input type="button" class="btn btn-outline-success" id="btnBackToList" value="목록으로 돌아가기">
+            </td>
+        </tr>
+	    </tbody> 
+	</table> 
+    </div> 
+  </div>
+</div>
+</div>  
       <!-- Footer -->
       <footer class="footer">
         <div class="row align-items-center justify-content-xl-between">
@@ -121,8 +122,7 @@
         </div>
       </footer>
     </div>
-  </div>
-
+    </div>
   <!--   Core   -->
   <script src="/rental-project/resources/js/plugins/jquery/dist/jquery.min.js"></script>
   <script src="/rental-project/resources/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -138,6 +138,13 @@
         token: "ee6fab19c5a04ac1a32a645abde4613a",
         application: "argon-dashboard-free"
       });
+  </script>
+  <script>
+  	$(function(event) {
+  	$("#btnBackToList").on("click",function(event) {                // 자유게시판 목록으로 돌아가기 누르면 freeboardlist로 가기 
+  		location.href="freeboardlist" +"?pageNo=" + ${pageNo};
+		})
+  	});
   </script>
 </body>
 

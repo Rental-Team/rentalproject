@@ -25,5 +25,6 @@ public interface ItemService {
 	
 	public void zzim(ZzimDto zzim);
 
+	public List<ItemDto> searchItems(String keyword, int from, int count);
 
 }

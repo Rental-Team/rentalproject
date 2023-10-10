@@ -67,4 +67,27 @@ public class FreeBoardReviewController {
 		
 		return "success";
 	} 
+	
+	@PostMapping(path = {"/write-rereply"})
+	@ResponseBody
+	public String writeRereply(FreeBoardReviewDto freeBoardReview) {
+	    String replyContent = freeBoardReview.getReplyContent();
+
+	    if (replyContent != null && !replyContent.isEmpty()) {
+	        FreeBoardReviewDto parentFreeBoardReply = freeBoardReviewService.findFreeBoardReviewByFreeBoardReplyNo(freeBoardReview.getFreeBoardReplyNo());
+
+	        freeBoardReview.setFreeBoardNo(parentFreeBoardReply.getFreeBoardNo());
+	        freeBoardReview.setReplyParents(parentFreeBoardReply.getReplyParents());
+	        freeBoardReview.setReplySequence(parentFreeBoardReply.getReplySequence() + 1);
+	        freeBoardReview.setReplyDepth(parentFreeBoardReply.getReplyDepth() + 1);
+	        freeBoardReview.setReplyContent(replyContent);  
+
+	        freeBoardReviewService.updateReplySequence(freeBoardReview);
+	        freeBoardReviewService.writeRereply(freeBoardReview);
+
+	        return "success";
+	    } else {
+	        return "fail";
+	    }
+	}
 }

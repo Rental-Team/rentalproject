@@ -83,23 +83,26 @@
 			  </c:forEach>
 			</tbody>
            </table>
-           		<div class="p-4 bg-secondary" style="width:1733px">
-				  <form name="search-form" autocomplete="off" class="d-flex align-items-center justify-content-center" style="width:100%; text-align:center;">
-					<div class="input-group input-group-alternative" style="width:80%;"> 
+           <!-- 검색 form  -->
+           		<div class="p-4 bg-secondary" style="width:1735px">
+				  <form name="search-form" method="get" action="search-list" autocomplete="off" 
+				  class="d-flex align-items-center justify-content-center" style="width:100%; text-align:center;">
+					<div class="input-group input-group-alternative" style="width:180%;"> 
 					<div class="input-group-prepend"></div> 
 						<select name="type" class="form-control"> 
 							<option selected value=""> 검색내용을 선택하세요</option>
-					        <option value="freeBoardtTitle">제목</option> 
+					        <option value="freeBoardTitle">제목</option> 
 					        <option value="freeBoardContent">내용</option> 
 							<option value="memberId">작성자</option> 
 						</select> 
 						<input type="text" name="keyword" value="" style="width:70%" class="form-control form-control-alternative" placeholder="    검색어를 입력하세요">
-				        <input type="button" onclick="getSearchList()" class="btn btn btn-success" id="btnsearch" value="검색">
-				    </div> 
+				        <button type="submit" class="btn btn btn-success" id="btnsearch">검색</button>
+				    </div>  
+				    <input type="hidden" name="pageNo" value="${pageNo}"> 
 					</form> 
-				</div>
-				<ul id="searchResults"></ul>
+				</div> 
               	<br><br>
+           	 <!-- 검색 form  -->
                  ${ pager }
                  <br /><br />
 				
@@ -153,32 +156,7 @@
         application: "argon-dashboard-free"
       });
   </script>
-  <script>
-  	function getSearchList(){
-  		var type = $("select[name='type']").val();
-  		var keyword = $("input[name='keyword']").val();
-  		
-	  $.ajax({
-		"method" : "GET", 			 // 요청보내는 방식
-		"url" : "/freeboardlist",    // 요청 보내는 경로
-		data : { "keyword":keyword },
-			"success" : function(data){
-			var searchResults = $("#searchResults"); // 검색 결과를 표시할 요소
-			  searchResults.empty(); // 이전 검색 결과를 지우고 새로운 결과를 추가
-
-			  // 검색 결과 데이터(data)를 반복하여 리스트 아이템으로 추가
-				  for (var i = 0; i < data.length; i++) {
-				    var listItem = $("<li>");
-				    listItem.text(data[i].freeBoardTitle); // 예시: 검색 결과에서 제목을 가져와 표시
-				    searchResults.append(listItem); // 리스트에 아이템 추가
-				  }
-			},
-			"error": function (error) {
-			      console.error("Error:", error);
-			    }
-	  });
-  };
-  </script>
+  
 </body>
 
 </html>

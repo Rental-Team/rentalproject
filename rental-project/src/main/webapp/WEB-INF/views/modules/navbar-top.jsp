@@ -6,7 +6,7 @@
  <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="rental-project/home">SESUSDAEYEO</a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="/rental-project/home">SESUSDAEYEO</a>
         <!-- Form -->
         <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
           <div class="form-group mb-0">
@@ -34,12 +34,6 @@
 		                <span class="mb-0 text  font-weight-bold">로그인</span>
 		                </a>
 		                </div>
-                
-		                <div class="media-body ml-2 d-none d-lg-block">
-		                <a href="/rental-project/account/register" style="color : inherit;">
-		                <span class="mb-0 text  font-weight-bold">회원가입</span>
-		                </a>
-		                </div>
                 	</c:when>
                 	<c:otherwise>
                 		<c:if test="${ sessionScope.loginuser.admin == 2 }">
@@ -49,18 +43,21 @@
 		                </a>
               			</div>	
                 		</c:if>
+                		
                 		<div class="media-body ml-2 d-none d-lg-block">
+                		<a class="nav-link " href="/rental-project/profile/profile?memberId=${loginuser.memberId}">
+                		<i class="ni ni-circle-08 text-yellow"></i>
                 		${ sessionScope.loginuser.memberId }님
+                		</a>
+                		
 		                <a href="/rental-project/account/logout" style="color : inherit;">
 		                <span class="mb-0 text  font-weight-bold">로그아웃</span>
 		                </a>
 		                </div>
               
-                		
                 	</c:otherwise>
                 </c:choose>
                 
-               
               </div>
             </a>
             <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">

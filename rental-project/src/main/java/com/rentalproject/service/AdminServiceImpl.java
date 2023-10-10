@@ -7,11 +7,13 @@ import javax.mail.FetchProfile.Item;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.rentalproject.dto.CategoryDto;
 import com.rentalproject.dto.ItemAttachDto;
 import com.rentalproject.dto.ItemDto;
 import com.rentalproject.dto.MemberDto;
 import com.rentalproject.dto.NoticeDto;
 import com.rentalproject.mapper.AdminMapper;
+import com.rentalproject.mapper.ItemMapper;
 
 public class AdminServiceImpl implements AdminService {
 
@@ -25,6 +27,13 @@ public class AdminServiceImpl implements AdminService {
 		return adminMapper.allMemberList();
 	}
 	
+	// 카테고리 리스트
+	@Override
+	public List<CategoryDto> cateList() {
+		
+		return adminMapper.cateList();
+	};
+	
 	@Override
 	public List<ItemDto> ItemList() {
 		
@@ -33,10 +42,31 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
+	public void writeItem(ItemDto item) {
+		
+		// 상품을 저장해준다. (o)
+		adminMapper.insertItem(item);
+		
+		// 첨부 파일을 저장해준다. (o)
+		for (ItemAttachDto attach : item.getItemAttachList()) {
+			attach.setItemNo(item.getItemNo());
+			adminMapper.insertItemAttach(attach);
+		}
+
+		//log.info("write....." + item);
+	}
+	
+	@Override
 	public ItemDto itemDetail(int itemNo) {
 		
+		ItemDto item = adminMapper.read(itemNo);
 		
-		return adminMapper.read(itemNo);
+		if(item!=null) {
+			List<ItemAttachDto> itemList = adminMapper.selectItemAttachByItemNo(itemNo);
+			item.setItemAttachList(itemList);
+		}
+		
+		return item;
 	}
 	
 	@Override
@@ -59,6 +89,8 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public ItemDto findItemByItemNo(int itemNo) {
+		
+		// 상품을 조회한다.
 		ItemDto item = adminMapper.read(itemNo);
 		
 		if (item != null) {
@@ -77,13 +109,13 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 
-	
-	
 	@Override
 	public void editItem(ItemDto item) {
 		
+		// db 수정
 		adminMapper.updateItem(item);
 		
+		// 이미지 저장
 		for (ItemAttachDto attach : item.getItemAttachList()) {
 			attach.setItemNo(item.getItemNo());
 			adminMapper.insertItemAttach(attach);
@@ -96,24 +128,10 @@ public class AdminServiceImpl implements AdminService {
 		
 		
 		adminMapper.deleteBoard(itemNo);
+		
 	}
 	
-	@Override
-	public void writeItem(ItemDto item) {
-		
-
-		adminMapper.insertItem(item);
-		
-		for (ItemAttachDto attach : item.getItemAttachList()) {
-			attach.setItemNo(item.getItemNo());
-			adminMapper.insertItemAttach(attach);
-		}
-		// TODO Auto-generated method stub
-
-		//log.info("write....." + item);
-
-		adminMapper.insertItem(item);
-	}
+	// ================== 공지사항 ====================
 
 	@Override
 	public void writeNotice(NoticeDto notice) {

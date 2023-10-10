@@ -34,6 +34,7 @@ import com.rentalproject.service.PrivateQnaAnswerServiceImpl;
 import com.rentalproject.service.PrivateQnaService;
 import com.rentalproject.service.PrivateQnaServiceImpl;
 import com.rentalproject.service.ProfileServiceImpl;
+import com.rentalproject.service.ZzimServiceImpl;
 
 @Configuration
 @MapperScan(basePackages = {"com.rentalproject.mapper"})
@@ -177,5 +178,11 @@ public class RootConfiguration implements ApplicationContextAware{
 
         return mailSender;
         
+	}
+	
+	@Bean
+	public ZzimServiceImpl zzimService() {
+		ZzimServiceImpl zzimService = new ZzimServiceImpl();
+		return zzimService;
 	}
 }

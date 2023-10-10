@@ -10,8 +10,10 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.rentalproject.controller.FreeBoardReport;
 import com.rentalproject.dto.FreeBoardAttachDto;
 import com.rentalproject.dto.FreeBoardDto;
+import com.rentalproject.dto.FreeBoardReportDto;
 
 @Mapper
 public interface FreeBoardMapper {
@@ -36,8 +38,7 @@ public interface FreeBoardMapper {
 	@Select("select freeBoardNo, memberNo, freeBoardTitle, freeBoardViewCount, freeBoardDate, freeBoardDelete "     // 페이징
 			+ " from FreeBoard "
 			+ "order by freeBoardNo desc "
-			+ "limit #{from}, #{count}")
-
+			+ "limit #{from}, #{count}") 
 	List<FreeBoardDto> selectFreeBoardByPage(@Param("from") int from, @Param("count") int count);
 	
 	@Select("select count(*) from FreeBoard")
@@ -76,7 +77,27 @@ public interface FreeBoardMapper {
 	@Update("update FreeBoard "                                     // 자유게시판 조회수 증가 
 			+ "set freeBoardViewCount = freeBoardViewCount + 1 "
 			+ "where freeBoardNo = #{ freeBoardNo }")
-	void updateFreeBoardviewCount(int freeBoardNo);
+	void updateFreeBoardviewCount(int freeBoardNo); 
+	
+	@Select("select freeBoardGoodCount "
+			+ "from FreeBoard "
+			+ "where freeBoardNo = #{ freeBoardNo }")
+	int getFreeBoardGoodCount(int freeBoardNo); // 자유게시판 추천수 가져오기 
+	
+	@Select("select freeBoardBadCount "
+			+ "from FreeBoard "
+			+ "where freeBoardNo = #{ freeBoardNo }")
+	int getFreeBoardBadCount(int freeBoardNo);  // 자유게시판 반대수 가져오기 
+	
+	@Update("update FreeBoard "                                     
+			+ "set freeBoardGoodCount = freeBoardGoodCount + 1 "
+			+ "where freeBoardNo = #{ freeBoardNo }")
+	void updateFreeBoardGoodCount(int freeBoardNo);                // 자유게시판 추천수 증가 
+	
+	@Update("update FreeBoard "                                    
+			+ "set freeBoardBadCount = freeBoardBadCount + 1 "
+			+ "where freeBoardNo = #{ freeBoardNo }")
+	void updateFreeBoardBadCount(int freeBoardNo);                 // 자유게시판 반대수 증가 
 	
 	@Select("select memberId "
 			+ "from Member "
@@ -88,13 +109,43 @@ public interface FreeBoardMapper {
 	
 	
 	
-	@Select("select freeBoardNo, memberNo, freeBoardTitle, freeBoardViewCount, freeBoardDate, freeBoardDelete "   // 자유게시판에서 검색한 데이터가져오기
+	@Select("select freeBoardNo, memberNo, freeBoardTitle, freeBoardViewCount, freeBoardDate, freeBoardDelete "   // 전체 검색 데이터가져오기
 			+ "from FreeBoard "
-			+ "where freeBoardDelete = 0"
-			+ "and freeBoardTitle like concat('%', #{keyword}, '%') " 
+			+ "where freeBoardDelete = 0 "
+			+ "and ("
+			+ "freeBoardTitle like concat('%', #{keyword}, '%') " 
 			+ "or freeBoardContent like concat('%', #{keyword}, '%') " 
 			+ "or memberNo in(select memberNo from Member where memberId like concat('%', #{keyword}, '%')))")
-	List<FreeBoardDto> selectSearchFreeBoard(@Param("keyword") String keyword); 
+	List<FreeBoardDto> selectSearchFreeBoard(@Param("keyword") String keyword);
+
+	@Select("select freeBoardNo, memberNo, freeBoardTitle, freeBoardViewCount, freeBoardDate, freeBoardDelete "   // 제목 검색 데이터가져오기
+			+ "from FreeBoard "
+			+ "where freeBoardDelete = 0 "
+			+ "and ("
+			+ "freeBoardTitle like concat('%', #{keyword}, '%')) ") 
+	List<FreeBoardDto> selectSearchByTitle(String keyword);
+
+	@Select("select freeBoardNo, memberNo, freeBoardTitle, freeBoardViewCount, freeBoardDate, freeBoardDelete "   // 내용 검색 데이터가져오기
+			+ "from FreeBoard "
+			+ "where freeBoardDelete = 0 "
+			+ "and (" 
+			+ "freeBoardContent like concat('%', #{keyword}, '%')) ")
+	List<FreeBoardDto> selectSearchByContent(String keyword);
+	
+	@Select("select freeBoardNo, memberNo, freeBoardTitle, freeBoardViewCount, freeBoardDate, freeBoardDelete "   // 작성자 검색 데이터가져오기
+			+ "from FreeBoard "
+			+ "where freeBoardDelete = 0 "
+			+ "and (" 
+			+ "memberNo in(select memberNo from Member where memberId like concat('%', #{keyword}, '%')))")
+	List<FreeBoardDto> selectSearchByMemeberId(@Param("keyword") String keyword);
+
+ 
+	@Insert("insert into FreeBoardReport (memberNo, freeBoardNo) "
+			+ "values (#{memberNo}, #{freeBoardNo}) ")
+	@Options(useGeneratedKeys = true, keyProperty = "freeBoardNo")
+	void insertFreeBoardReport(FreeBoardReportDto freeboardReport);
+	
+	
 	
 }
 
