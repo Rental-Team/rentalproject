@@ -75,7 +75,7 @@
 								<td class="td_width_3">${zzim.itemName}</td>
 								<td class="td_width_4 price_td">
 									판매가 : <span class="red_color"><fmt:formatNumber value="${zzim.itemPrice}" pattern="#,### 원" /></span><br>
-									마일리지 : <span class="green_color"><fmt:formatNumber value="${zzim.point}" pattern="#,###" /></span>
+									포인트 : <span class="green_color"><fmt:formatNumber value="${zzim.point}" pattern="#,###" /></span>
 								</td>
 								<td class="td_width_4 table_text_align_center">
 									<div class="table_text_align_center quantity_div">

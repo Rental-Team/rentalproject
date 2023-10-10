@@ -10,7 +10,7 @@ public class ThePager {
 	private int pageCount;//총 페이지 수
 	
 	private String linkUrl;//페이저가 포함되는 페이지의 주소
-	
+	private String keyword; // 검색 키워드
 	
 	public ThePager(int dataCount, int pageNo, int pageSize, int pagerSize, String linkUrl) {
 		

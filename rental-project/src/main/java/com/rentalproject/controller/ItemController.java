@@ -77,6 +77,14 @@ public class ItemController {
 	
 	}
 	
+	// 검색
+	@ResponseBody
+    @GetMapping("/search")
+    public List<ItemDto> searchItems(@RequestParam("keyword") String keyword, @RequestParam("from") int from, @RequestParam("count") int count) {
+        List<ItemDto> searchResult = itemService.searchItems(keyword, from, count);
+        return searchResult;
+    }
+	
 	//업로드 이미지 출력
 	@GetMapping("/display")
 	public ResponseEntity<byte[]> getImage(String fileName) {

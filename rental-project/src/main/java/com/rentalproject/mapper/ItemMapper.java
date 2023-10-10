@@ -67,4 +67,12 @@ public interface ItemMapper {
 			+ "limit #{from}, #{count}")
 	public List<ItemDto> selectItemByPage(@Param("from") int from, @Param("count") int count);
 	
+	
+	@Select("select itemNo, itemName, viewCount, itemDate, itemPrice, deleted " +
+			"from Item " +
+			"where itemName like concat('%', #{keyword}, '%') " +
+			"order by itemNo desc " + 
+			"limit #{from}, #{count}")
+	List<ItemDto> searchItems(@Param("keyword") String keyword, @Param("from") int from, @Param("count") int count);
+	
 }

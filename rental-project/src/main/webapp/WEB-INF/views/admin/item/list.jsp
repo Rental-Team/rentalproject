@@ -50,7 +50,7 @@
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
-                    
+                    <th scope="col" style="width:100px">이미지</th>
                     <th scope="col" style="width:200px">상품 이름</th>
                     <th scope="col" style="width:100px">상품 가격</th>
                     <th scope="col" style="width:100px">재고</th>
@@ -61,6 +61,9 @@
                 <tbody>
                  <c:forEach var="item" items="${ itemList }">
                  	<tr>
+                 		<td>
+                        	<img src="${pageContext.request.contextPath}/resources/upload/thumbnail_${item.thumbnail}" alt="Image">                    	
+						</td>
                     	<td style="text-align:left;padding-left:10px">
 						<c:choose>
 							<c:when test="${ not item.deleted }">

@@ -104,8 +104,6 @@
                         		<br>
 	                        	<div>
 			                		<c:forEach var="itemAttach" items="${item.itemAttachList}">
-								    	<a href="download?attachNo=${itemAttach.attachNo}">${itemAttach.userFileName}</a>
-								    	<img src="/resources/upload/${savedFileName}">
 										<img src="${pageContext.request.contextPath}/resources/upload/${itemAttach.savedFileName}" alt="Image" height="100px" width="100px">
 									</c:forEach>
 			                	</div>

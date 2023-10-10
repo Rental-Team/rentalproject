@@ -43,18 +43,19 @@ public interface AdminMapper {
 			+ "order by cateCode ")
 	public List<CategoryDto> cateList();
 	
-	// 상품 게시판
-	@Select("select itemNo, itemName, viewCount, itemDate, deleted, itemStock "
-			+ "from Item "
-			+ "order by itemNo desc")
+	// 상품 게시판 리스트
+	@Select("select i.itemNo, i.itemName, i.viewCount, i.itemDate, i.deleted, i.itemStock, (select iA.savedFileName from itemAttach iA where iA.itemNo = i.itemNo) thumbnail "
+			+ "from Item i "
+			+ "order by i.itemNo desc")
 	List<ItemDto> allItemList();
 	
 	// 상품 페이징 정보
-	@Select("select itemNo, itemName, viewCount, itemDate, itemPrice, deleted " +
-			"from Item " +
-			"order by itemNo desc "
-			+ "limit #{from}, #{count}")
+	@Select("select i.itemNo, i.itemName, i.viewCount, i.itemDate, i.deleted, i.itemStock, (select iA.savedFileName from itemAttach iA where iA.itemNo = i.itemNo) thumbnail "
+			+ "from Item i "
+			+ "order by i.itemNo desc " + 
+			"limit #{from}, #{count}")
 	List<ItemDto> selectItemByPage(@Param("from") int from, @Param("count") int count);
+	
 	
 	// 상품 갯수
 	@Select("select count(*) "

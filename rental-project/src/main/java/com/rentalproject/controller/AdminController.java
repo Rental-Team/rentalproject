@@ -69,13 +69,26 @@ public class AdminController {
 		//List<ItemDto> list = itemService.getList();
 		//log.info(list);
 		
-		int pageSize = 9;
+		int pageSize = 5;
 		int pagerSize = 5;
 		String linkUrl = "list";
 		int dataCount = adminService.getItemCount();
 		
 		int from = (pageNo - 1)*pageSize;
 		List<ItemDto> itemList = adminService.listItemByPage(from, pageSize);
+		
+		// 썸네일 경로를 추가(여기서 ItemDto에 썸네일 필드 추가)
+//		for (ItemDto item : itemList) {
+//	            String thumbnail = item.getThumbnail();
+//	            if(thumbnail != null) {
+//	            	int dotIdx = thumbnail.lastIndexOf(".");
+//	            	if (dotIdx > 0) {
+//	            		item.setThumbnail(thumbnail.substring(0, dotIdx) + "_thumbnail" +thumbnail.substring(dotIdx)); 
+//	            	}
+//	            } 
+//	 
+//	    }
+		
 		
 		ThePager pager = new ThePager(dataCount, pageNo, pageSize, pagerSize, linkUrl);
 		
@@ -86,6 +99,7 @@ public class AdminController {
 		
 		return "admin/item/list";
 	}
+		
 	
 	// 상품 등록
 	@GetMapping("/item/write")
@@ -128,12 +142,26 @@ public class AdminController {
 
 				attach.transferTo(new File(uploadDir, savedFileName)); // 파일을 컴퓨터에 저장
 				
+				// 썸네일 생성
+				File thumbnailFile = new File(uploadDir, "thumbnail_" + savedFileName);
+				Thumbnails.of(new File(uploadDir, savedFileName))
+							.size(100, 100) // 썸네일 크기
+							.toFile(thumbnailFile);
+				
+				
 				// 파일 정보를 dto에 저장
 				ItemAttachDto itemAttach = new ItemAttachDto();
 				itemAttach.setUserFileName(attach.getOriginalFilename());
-				itemAttach.setSavedFileName(savedFileName);
-				
+				itemAttach.setSavedFileName(savedFileName);				
 				attachList.add(itemAttach);
+				
+				
+//				// 썸네일 이미지 정보 저장
+//				ItemAttachDto thumbnailAttach = new ItemAttachDto();
+//				thumbnailAttach.setUserFileName("thumbnail_" + attach.getOriginalFilename());
+//				thumbnailAttach.setSavedFileName("thumbnail_" + savedFileName);
+//				attachList.add(thumbnailAttach);
+				
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}

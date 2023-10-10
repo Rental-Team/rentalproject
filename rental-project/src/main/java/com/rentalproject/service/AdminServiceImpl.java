@@ -13,6 +13,7 @@ import com.rentalproject.dto.ItemDto;
 import com.rentalproject.dto.MemberDto;
 import com.rentalproject.dto.NoticeDto;
 import com.rentalproject.mapper.AdminMapper;
+import com.rentalproject.mapper.ItemMapper;
 
 public class AdminServiceImpl implements AdminService {
 
@@ -58,8 +59,14 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public ItemDto itemDetail(int itemNo) {
 		
+		ItemDto item = adminMapper.read(itemNo);
 		
-		return adminMapper.read(itemNo);
+		if(item!=null) {
+			List<ItemAttachDto> itemList = adminMapper.selectItemAttachByItemNo(itemNo);
+			item.setItemAttachList(itemList);
+		}
+		
+		return item;
 	}
 	
 	@Override
