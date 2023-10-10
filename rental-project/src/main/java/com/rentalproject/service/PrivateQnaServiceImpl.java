@@ -109,6 +109,36 @@ public class PrivateQnaServiceImpl implements PrivateQnaService {
 	     return  qnaBoardList;
 	 }
 
+	@Override
+	public List<PrivateQnaDto> unAnswerlist() {
+	List<PrivateQnaDto> qnaBoardList;
+		
+		qnaBoardList = privateQnaMapper.selectAllUnanswered();
+		return qnaBoardList;
+	}
+
+	@Override
+	public List<PrivateQnaDto> searchByMemberId(String memberId) {
+	List<PrivateQnaDto> qnaBoardList;
+	
+	qnaBoardList=privateQnaMapper.searchPrivateQnaByMemberId(memberId, getPrivateQnaCount(), getPrivateQnaCount());
+		
+		return qnaBoardList;
+	}
+
+//	@Override
+//	public PrivateQnaDto searchByQnaNo(int qnaNo) {
+//	    PrivateQnaDto result = privateQnaMapper.searchQnaNoByQnaNo(qnaNo);
+//	    return result;
+//	}
+	
+	@Override
+	public List<PrivateQnaDto> searchByQnaNo(int qnaNo) {
+	    List<PrivateQnaDto> result = privateQnaMapper.searchQnaNoByQnaNo(qnaNo);
+	   
+	    return result;
+	}
+	
 
 	 
 	

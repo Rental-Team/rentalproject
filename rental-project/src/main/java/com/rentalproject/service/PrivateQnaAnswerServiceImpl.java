@@ -1,5 +1,7 @@
 package com.rentalproject.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.rentalproject.dto.PrivateQnaAnswerDto;
@@ -23,6 +25,14 @@ public class PrivateQnaAnswerServiceImpl implements PrivateQnaAnswerService {
 	public void editAnswer(PrivateQnaAnswerDto privateQnaAnswer) {
 			privateQnaAnswerMapper.updateAnswer(privateQnaAnswer);
 		
+	}
+
+
+	@Override
+	public List<PrivateQnaAnswerDto> getAnswerListByQnaNo(int qnaNo) {
+		List<PrivateQnaAnswerDto> answers = privateQnaAnswerMapper.selectPrivateQnaAnserbyQnaNo(qnaNo);
+		
+		return answers;
 	}
 	
 	
