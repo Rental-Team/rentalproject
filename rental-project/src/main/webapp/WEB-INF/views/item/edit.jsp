@@ -53,8 +53,8 @@
 			            <div class="row">
 			            <div class="col-lg-12">
 			            <div class="form-group">
-			            <label class="form-control-label" for="input-itemCode">상품 코드</label>
-			            <input type="text" id="input-itemCode" name="itemCode" class="form-control form-control-alternative" value=${ item.itemCode } />
+			            <label class="form-control-label" for="input-cateName">카테고리</label>
+			            <input type="text" id="input-cateName" name="cateName" class="form-control form-control-alternative" value=${ item.cateName } />
 			            </div>
 			            </div>
 			            </div>

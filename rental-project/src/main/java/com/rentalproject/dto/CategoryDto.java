@@ -5,7 +5,9 @@ import lombok.Data;
 @Data
 public class CategoryDto {
 	
-	private String categoryName;
-	private String categoryNo;
+	private int tier;
+	private String cateName;
+	private String cateCode;
+	private String cateParent;
 	
 }
