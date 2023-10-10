@@ -14,6 +14,12 @@ public interface FreeBoardReviewService {
 	void editFreeBoardReview(FreeBoardReviewDto freeBoardReview);
 
 	List<FreeBoardReviewDto> getReviewListByFreeBoardNo(int freeboardNo);
+
+	FreeBoardReviewDto findFreeBoardReviewByFreeBoardReplyNo(int freeBoardReplyNo);
+	
+	void updateReplySequence(FreeBoardReviewDto freeBoardReview);
+	
+	void writeRereply(FreeBoardReviewDto freeBoardReview);
 	
 
 }

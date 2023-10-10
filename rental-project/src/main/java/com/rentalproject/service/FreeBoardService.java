@@ -1,9 +1,10 @@
 package com.rentalproject.service;
 
 import java.util.List;
-
+ 
 import com.rentalproject.dto.FreeBoardAttachDto;
 import com.rentalproject.dto.FreeBoardDto;
+import com.rentalproject.dto.FreeBoardReportDto;
 
 public interface FreeBoardService {
 	
@@ -21,14 +22,21 @@ public interface FreeBoardService {
 	
 	void deleteFreeBoard(int freeBoardNo);
 
-	void updateFreeBoardviewCount(int freeBoardNo); // 자유게시판 조회수 증가 
+	void updateFreeBoardviewCount(int freeBoardNo); // 자유게시판 조회수 증가  
 
 	FreeBoardAttachDto selectFreeBoardAttachByAttachNo(int attachNo);  // 첨부번호를 이용해 첨부파일 찾기 
 
 	String getMemberId(int freeBoardNo);  //freeboardNo의 memberNo로 memberId 불러오기 
 
-	List<FreeBoardDto> selectSearchFreeBoard(String keyword);
+	List<FreeBoardDto> selectSearchFreeBoard(String keyword);  // 검색어 전체 조회
 
+	List<FreeBoardDto> selectSearchByTitle(String keyword); // 검색어 - 제목으로 조회
+
+	List<FreeBoardDto> selectSearchByContent(String keyword); // 검색어 - 내용으로 조회
+
+	List<FreeBoardDto> selectSearchByMemeberId(String keyword); // 검색어 - 작성자아이디로 조회
+	
+	void reportFreeBoard(FreeBoardReportDto freeboardReport); 
 	
 	
 	

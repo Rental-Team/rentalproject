@@ -5,7 +5,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
-<html lang="ko">
 
 <head>
   <meta charset="utf-8" />
@@ -39,18 +38,15 @@
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 style="font-weight:bold" class="mb-0">자유게시판</h3>
-                </div>
-                <div class="col text-right">
-                  <a href="freeboardwrite" class="btn btn btn-success">게시글 작성</a>
+                  <h3 style="font-weight:bold" class="mb-0">검색 결과</h3>
                 </div>
               </div>
             </div>
             <div class="table-responsive">  
          <!-- Projects table -->
-         <table class="table align-items-center table-flush">
+       <table class="table align-items-center table-flush">
            <thead class="thead-light">
-             <tr style="text-align:center;">
+	        <tr style="text-align:center;">
                <th scope="col" style="width:100px; font-size:10pt">게시글 번호</th>
                <th scope="col" style="width:500px; font-size:10pt">게시글 제목</th> 
                <th scope="col" style="width:200px; font-size:10pt">작성자</th>
@@ -58,60 +54,47 @@
                <th scope="col" style="width:150px; font-size:10pt">게시글 작성 일자</th>
              </tr>
            </thead>
-           <tbody>
-			  <c:forEach var="freeBoard" items="${requestScope.freeBoardList}">
-			    <tr style="text-align:center">
-			      <td scope="col" style="width:100px">${freeBoard.freeBoardNo}</td>
-			      <td scope="col" style="width:500px">
-			        <c:choose>
-			          <c:when test="${not freeBoard.freeBoardDelete}">
-			            <a href="freeboarddetail?freeBoardNo=${freeBoard.freeBoardNo}&pageNo=${pageNo}">
-			              ${freeBoard.freeBoardTitle}
-			            </a>
-			          </c:when>
-			          <c:otherwise>
-			            <span class="freeBoardDelete" style="color: gray">&lt;&lt; 삭제된 게시글입니다 &gt;&gt;</span>
-			          </c:otherwise>
-			        </c:choose>
-			      </td>
-			      <td scope="col" style="width:200px">${freeBoard.memberId}</td>
-			      <td scope="col" style="width:100px">${freeBoard.freeBoardViewCount}</td>
-			      <td scope="col" style="width:150px">
-			        <fmt:formatDate value="${freeBoard.freeBoardDate}" pattern="yyyy-MM-dd HH:mm" />
-			      </td>
-			    </tr>
-			  </c:forEach>
-			</tbody>
-           </table>
-           <!-- 검색 form  -->
-           		<div class="p-4 bg-secondary" style="width:1735px">
-				  <form name="search-form" method="get" action="search-list" autocomplete="off" 
-				  class="d-flex align-items-center justify-content-center" style="width:100%; text-align:center;">
-					<div class="input-group input-group-alternative" style="width:180%;"> 
-					<div class="input-group-prepend"></div> 
-						<select name="type" class="form-control"> 
-							<option selected value=""> 검색내용을 선택하세요</option>
-					        <option value="freeBoardTitle">제목</option> 
-					        <option value="freeBoardContent">내용</option> 
-							<option value="memberId">작성자</option> 
-						</select> 
-						<input type="text" name="keyword" value="" style="width:70%" class="form-control form-control-alternative" placeholder="    검색어를 입력하세요">
-				        <button type="submit" class="btn btn btn-success" id="btnsearch">검색</button>
-				    </div>  
-				    <input type="hidden" name="pageNo" value="${pageNo}"> 
-					</form> 
-				</div> 
-              	<br><br>
-           	 <!-- 검색 form  -->
-                 ${ pager }
-                 <br /><br />
-				
-			</div>
-          </div>
-        </div>
-      </div>
-     
-      
+	    <tbody>
+	        <c:if test="${not empty searchList}">
+	            <c:forEach var="freeBoard" items="${requestScope.searchList}">
+	                <tr style="text-align:center;">
+	                    <td>${freeBoard.freeBoardNo}</td>
+	                    <td>
+	                        <c:choose>
+	                            <c:when test="${not freeBoard.freeBoardDelete}">
+	                                <a href="freeboarddetail?freeBoardNo=${freeBoard.freeBoardNo}&pageNo=${pageNo}">
+	                                    ${freeBoard.freeBoardTitle}
+	                                </a>
+	                            </c:when>
+	                            <c:otherwise>
+	                                <span class="freeBoardDelete" style="color: gray">&lt;&lt; 삭제된 게시글입니다 &gt;&gt;</span>
+	                            </c:otherwise>
+	                        </c:choose>
+	                    </td>
+	                    <td>${freeBoard.memberId}</td>
+	                    <td>${freeBoard.freeBoardViewCount}</td>
+	                    <td>
+	                        <fmt:formatDate value="${freeBoard.freeBoardDate}" pattern="yyyy-MM-dd HH:mm" />
+	                    </td>
+	                </tr>
+	            </c:forEach>
+	        </c:if>
+	        <c:if test="${empty searchList}">
+	            <tr>
+	                <td colspan="5" style="text-align:center">검색결과가 없습니다.</td>
+	            </tr>
+	        </c:if> 
+	        <tr>
+            <td colspan="5" style="text-align:center">
+                <input type="button" class="btn btn-outline-success" id="btnBackToList" value="목록으로 돌아가기">
+            </td>
+        </tr>
+	    </tbody> 
+	</table> 
+    </div> 
+  </div>
+</div>
+</div>  
       <!-- Footer -->
       <footer class="footer">
         <div class="row align-items-center justify-content-xl-between">
@@ -156,7 +139,13 @@
         application: "argon-dashboard-free"
       });
   </script>
-  
+  <script>
+  	$(function(event) {
+  	$("#btnBackToList").on("click",function(event) {                // 자유게시판 목록으로 돌아가기 누르면 freeboardlist로 가기 
+  		location.href="freeboardlist" +"?pageNo=" + ${pageNo};
+		})
+  	});
+  </script>
 </body>
 
 </html>

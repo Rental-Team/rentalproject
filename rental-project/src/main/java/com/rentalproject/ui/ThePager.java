@@ -7,7 +7,7 @@ public class ThePager {
 	private int dataCount;//총 데이터 수
 	
 	private int pageNo;//현재 페이지 번호
-	private int pageCount;//총 페이지 수
+	private int pageCount;//총 페이지 수 
 	
 	private String linkUrl;//페이저가 포함되는 페이지의 주소
 	
