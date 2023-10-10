@@ -10,13 +10,16 @@ import com.rentalproject.dto.NoticeDto;
 
 public interface AdminService {
 	
+	// 상품 입력
 	public void writeItem(ItemDto item);
 	
+	// 멤버 리스트 출력
 	public List<MemberDto> MemberList();
 	
 	// 카테고리 리스트
 	public List<CategoryDto> cateList();
 
+	// 상품 리스트
 	public List<ItemDto> ItemList();
 	
 	public ItemDto itemDetail(int itemNo);
@@ -31,7 +34,8 @@ public interface AdminService {
 		
 	public ItemAttachDto findItemAttachByAttachNo(int attachNo);
 	
-	public ItemDto findItemByItemNo(int itemNo);
+	//public ItemDto findItemByItemNo(int itemNo);
+	
 
 	public void writeNotice(NoticeDto notice);
 

@@ -51,10 +51,10 @@
                 <thead class="thead-light">
                   <tr>
                     <th scope="col" style="width:100px">이미지</th>
-                    <th scope="col" style="width:200px">상품 이름</th>
+                    <th scope="col" style="width:150px">상품 이름</th>
                     <th scope="col" style="width:100px">상품 가격</th>
-                    <th scope="col" style="width:100px">재고</th>
-                    <th scope="col" style="width:100px">조회수</th>
+                    <th scope="col" style="width:50px">재고</th>
+                    <th scope="col" style="width:50px">조회수</th>
                     <th scope="col" style="width:150px">등록 일자</th>
                   </tr>
                 </thead>
