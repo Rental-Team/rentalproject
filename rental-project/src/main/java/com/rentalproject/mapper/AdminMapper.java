@@ -2,7 +2,7 @@ package com.rentalproject.mapper;
 
 import java.util.List;
 
-
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.rentalproject.dto.CategoryDto;
 import com.rentalproject.dto.ItemAttachDto;
 import com.rentalproject.dto.ItemDto;
 import com.rentalproject.dto.MemberDto;
@@ -20,66 +21,83 @@ import com.rentalproject.dto.ZzimDto;
 public interface AdminMapper {
 
 	
-
-	
-	@Insert( "insert into itemAttach (attachNo, itemNo, userFileName, savedFileName) "
-			+ "values (#{attachNo}, #{itemNo}, #{userFileName}, #{savedFileName}) ") 
-	public void insertItemAttach(ItemAttachDto attach);
-	
-	@Insert( "insert into Item ( itemDetail , itemCode, itemName, itemPrice, categoryName, itemPhoto, deleted ) "
-			+ "values ( #{ itemDetail }, #{ itemCode }, #{ itemName }, #{ itemPrice }, #{categoryName }, #{itemPhoto}) ")
+	// 상품 등록을 위한 메서드
+	@Insert( "insert into Item ( itemDetail , itemName, itemPrice, cateCode, itemStock ) "
+			+ "values ( #{ itemDetail }, #{ itemName }, #{ itemPrice }, #{ cateCode }, #{itemStock}) ")
 	@Options(useGeneratedKeys = true, keyProperty = "itemNo")
-	public void insertItem(ItemDto item);
+	void insertItem(ItemDto item);
+
+	// 상품 이미지 저장을 위한 메서드
+	@Insert( "insert into itemAttach (attachNo, itemNo, userFileName, savedFileName) "
+			+ "values (#{attachNo}, #{itemNo} ,#{userFileName}, #{savedFileName}) ") 
+	void insertItemAttach(ItemAttachDto attach);
 	
+	// 멤버 리스트
 	@Select("select memberId, userName, phoneNo, regDate "
 			+ "from Member ")
-	public List<MemberDto> allMemberList();
+	List<MemberDto> allMemberList();
 	
+	// 카테고리 리스트
+	@Select("select * "
+			+ "from itemCate "
+			+ "order by cateCode ")
+	public List<CategoryDto> cateList();
 	
-	@Select("select itemNo, itemName, viewCount, itemDate, deleted "
+	// 상품 게시판
+	@Select("select itemNo, itemName, viewCount, itemDate, deleted, itemStock "
 			+ "from Item "
 			+ "order by itemNo desc")
-	public List<ItemDto> allItemList();
+	List<ItemDto> allItemList();
 	
-	
-	@Select("select  itemNo, itemName, itemCode, itemDate, itemPrice, itemDetail, categoryName, itemPhoto " +
-			"from Item " +
-			"where itemNo = #{ itemNo }")
-	public ItemDto read(int itemNo);
-	
-	
-	@Update("update Item "
-			+ "set itemName = #{ itemName }, itemDetail = #{ itemDetail } "
-			+ "where itemNo = #{ itemNo } ")
-	void updateItem(ItemDto item);
-	
-	@Update("update Item "
-			+ "set deleted = true "
-			+ "where itemNo = #{ itemNo } ")
-	void deleteBoard(@Param("itemNo") int itemNo);
-	
-	
-	@Select("select count(*) "
-			+ "from Item")
-	int selectItemCount();
-	
+	// 상품 페이징 정보
 	@Select("select itemNo, itemName, viewCount, itemDate, itemPrice, deleted " +
 			"from Item " +
 			"order by itemNo desc "
 			+ "limit #{from}, #{count}")
-	public List<ItemDto> selectItemByPage(@Param("from") int from, @Param("count") int count);
+	List<ItemDto> selectItemByPage(@Param("from") int from, @Param("count") int count);
 	
+	// 상품 갯수
+	@Select("select count(*) "
+			+ "from Item")
+	int selectItemCount();
+	
+//	select itemNo, itemName, (select cateName from itemCate where cateCode = itemCate.cateCode) cateName, 
+//	cateCode, itemPrice, itemStock, itemDetail
+//	from Item 
+//	where itemNo = #{itemNo}
 
 	
+	// 상세 보기
+	@Select("select itemNo, itemName, (select cateName from itemCate where cateCode = Item.cateCode) cateName, "
+			+ " cateCode, itemPrice, itemStock, itemDetail, itemDate , deleted " +
+			"from Item " +
+			"where itemNo = #{ itemNo } and deleted = false")
+	ItemDto read(@Param("itemNo") int itemNo);
+	
+	// 상품 수정
+	@Update("update Item "
+			+ "set itemName = #{ itemName } , itemDetail = #{ itemDetail }, itemPrice = #{ itemPrice }, itemStock = #{ itemStock } "
+			+ "where itemNo = #{ itemNo } ")
+	void updateItem(ItemDto item);
+	
+	// 상품 삭제
+	@Delete("delete from Item "
+			+ "where itemNo = #{itemNo} ")
+	void deleteBoard(@Param("itemNo") int itemNo);
+	
+	
+	// 상품 첨부파일(특정 상품 이미지에 있는) 다운로드
 	@Select(  "select attachNo, itemNo, userFileName, savedFileName "
 			+ "from itemAttach "
 			+ "where itemNo = #{ itemNo }")
 	List<ItemAttachDto> selectItemAttachByItemNo(@Param("itemNo") int itemNo);
 	
+	// 상품 이미지 정보를 조회
 	@Select(  "select attachNo, itemNo, userFileName, savedFileName "
 			+ "from itemAttach "
 			+ "where attachNo = #{ attachNo }")
 	ItemAttachDto selectItemAttachByAttachNo(@Param("attachNo") int attachNo);
+	
 	
 	////////////////////////////////////////////
 	// notice

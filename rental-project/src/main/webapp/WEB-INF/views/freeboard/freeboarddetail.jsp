@@ -84,6 +84,7 @@
 	                        <td>
 			                	<c:forEach var="freeBoardAttach" items="${ freeBoard.freeBoardAttachList }">
 			                		<a href="download?attachNo=${ freeBoardAttach.attachNo }"> ${freeBoardAttach.attachFileName}</a>
+			                		<img src="${pageContext.request.contextPath}/resources/upload/${freeBoardAttach.savedFileName}" alt="Image" height="100px" width="100px">
 			                	</c:forEach>
 			                </td>
                        </div>
@@ -271,6 +272,11 @@
 	    	$("#write-freeboard-review-lnk").on("click", function(event) {  // 댓글 작성하기 이벤트   
 	    		event.preventDefault();   
 	    		const formData = $('#freeBoardReviewForm').serialize();
+	    		var replyContent = $("#comment_content").val();
+	    		if (replyContent.trim()== ""){
+					alert("댓글 내용을 입력하세요.");
+		            return;
+				} 
 	    		$.ajax({
 	    			"url" : "write-freeboard-review",
 	    			"method" : "post",
@@ -282,10 +288,11 @@
 	    				} else { 
 	    					alert("<<댓글을 작성하려면 먼저 로그인을 해주세요>>"); 
     					} 
+	    				
 	    			},
 	    			"error" : function(xhr, status, err){ 
 	    			}
-	    		})
+	    		});
 	    	})
 	    	
 	    	//$(".delete-reply").on("click",function(event) {

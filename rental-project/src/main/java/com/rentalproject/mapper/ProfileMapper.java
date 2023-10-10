@@ -13,7 +13,7 @@ public interface ProfileMapper {
 	// 프로필 수정
 	@Update("update Member " + 
 			"set userName = #{userName}, nickname = #{nickname}, phoneNo = #{phoneNo}, email = #{email}, " + 
-			"address = #{address}, deposite = #{deposite}, imageName = #{imageName}, introduce = #{introduce} " + 
+			"address = #{address}, addressDetail = #{addressDetail}, deposite = #{deposite}, imageName = #{imageName}, introduce = #{introduce} " + 
 			"where memberId = #{memberId}")
 	void updateProfile(MemberDto member);
 	

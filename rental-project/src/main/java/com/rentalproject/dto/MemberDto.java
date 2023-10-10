@@ -35,6 +35,8 @@ public class MemberDto {
 	@NotBlank(message = "주소를 입력해주세요")
 	private String address;
 	
+	private String addressDetail;
+	
 	private int deposite;
 	private Date regDate;
 	private boolean deleteCheck;

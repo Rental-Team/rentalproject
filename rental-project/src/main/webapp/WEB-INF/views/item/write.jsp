@@ -53,7 +53,7 @@
                   <h3 class="mb-0">상품 등록</h3>
                 </div>
                 <div class="col-4 text-right">
-                  <a href="#!" class="btn btn-primary">목록</a>
+                  <a href="list" class="btn btn-primary">목록</a>
                 </div>
               </div>
             </div>

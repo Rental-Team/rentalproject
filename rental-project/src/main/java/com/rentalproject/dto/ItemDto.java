@@ -10,26 +10,23 @@ public class ItemDto {
 	
 	
 	private int itemNo;
-	private String categoryName;
-	private String itemCode;
 	private String itemName;
 	private Date itemDate;
 	private int itemPrice;
 	private boolean itemRentalCheck;
-	private boolean reserv;
+	private boolean itemReserv;
 	private String itemDetail;
-	private String itemsort;
 	private int viewCount;
 	private boolean deleted;
-	private String itemPhoto;
-	private String itemThumbPhoto;
+	private String cateCode;
+	private int itemStock;
+	private String cateName;
+	private String memberId;
+
 	
-	private List<ItemThumbDto> itemThumb;
-	
+	// item 테이블과 ItemAttach 테이블 간의 1대 N, 한 상품에 여러개의 상품 첨부파일이 들어갈 수 있다.
 	private List<ItemAttachDto> itemAttachList;
 
-	
 	private List<ZzimDto> zzimDtoList;
 
-	
 }

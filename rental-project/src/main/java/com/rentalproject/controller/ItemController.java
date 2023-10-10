@@ -120,21 +120,24 @@ public class ItemController {
 	}
 
 	@GetMapping("/detail")
-	public void detail(@RequestParam("itemNo") int itemNo,
-			 			Model model) { //@RequestParam(defaultValue = "-1")int pageNo,
+	public String detail(@RequestParam(defaultValue = "-1") int itemNo, 
+			 			@RequestParam(defaultValue="-1") int pageNo, 
+			 			Model model) {
+		
+		if (itemNo == -1 || pageNo == -1) { // 글 번호가 요청에 포함되지 않은 경우
+			return "redirect:/admin/item/list";
+		}
 		
 		ItemDto item = itemService.detail(itemNo);
 		
-//		if(item == null) {
-//			return "redirect:list";
-//		}
-		
-		//log.info("/detail");
-		itemService.updateItemViewCount(itemNo);
+		if (item == null) { // 조회된 상품이 없는 경우
+			return "redirect:/item/list";
+		}
 		
 		model.addAttribute("item", item);
+		model.addAttribute("pageNo", pageNo);
 		
-
+		return "item/detail";
 	}
 
 	

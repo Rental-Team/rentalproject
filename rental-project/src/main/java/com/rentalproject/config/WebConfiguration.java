@@ -13,6 +13,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.rentalproject.interceptor.AdminInterceptor;
 import com.rentalproject.interceptor.AuthInterceptor;
+import com.rentalproject.interceptor.ZzimInterceptor;
 
 @Configuration
 @EnableWebMvc
@@ -22,9 +23,17 @@ public class WebConfiguration implements WebMvcConfigurer {
 	
 	@Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new AdminInterceptor()) // 사용할 인터셉터를 등록합니다.
+        // 관리자 인터셉터
+		registry.addInterceptor(new AdminInterceptor()) // 사용할 인터셉터를 등록합니다.
                 .addPathPatterns("/admin/**"); // 적용할 URL 패턴을 설정합니다.
+        
+        // 찜 인터셉터
+        registry.addInterceptor(new ZzimInterceptor())
+        		.addPathPatterns("/zzim/**") // 적용할 URL 패턴을 설정합니다.
+        		.excludePathPatterns("/zzim/add");
     }
+	
+	
 	
 	@Bean
 	public InternalResourceViewResolver internalResourceViewResolver() {
