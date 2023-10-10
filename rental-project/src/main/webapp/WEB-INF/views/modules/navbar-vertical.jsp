@@ -123,7 +123,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/rental-project/zzim/${loginuser.memberNo}">
-              <i class="ni ni-world text-blue"></i> 장바구니
+              <i class="ni ni-favourite-28"></i> 찜하기
             </a>
           </li>
           <li class="nav-item">

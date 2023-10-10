@@ -39,6 +39,10 @@ public class ZzimServiceImpl implements ZzimService{
 	public List<ZzimDto> getZzimList(int memberNo) {
 		List<ZzimDto> zzim = zzimMapper.getZzim(memberNo);
 		
+		for(ZzimDto dto : zzim) {
+			dto.initSaleTotal();
+		}
+		
 		return zzim;
 	}
 	

@@ -31,8 +31,8 @@ public interface ZzimMapper {
 	
 	
 	// 찜 목록
-	@Select("select z.itemNo, (select memberId from Member where memberNo = z.memberNo) memberId, "
-			+ "z.itemNo, z.itemCount, i.itemName, i.itemPrice "
+	@Select("select z.itemNo, (select memberId from Member where memberNo = z.memberNo) memberId, z.zzimNo, "
+			+ "z.itemCount, i.itemName, i.itemPrice "
 			+ "from Zzim z left outer join Item i on z.itemNo = i.itemNo "
 			+ "where memberNo = #{memberNo} ")
 	public List<ZzimDto> getZzim(int memberNo);	

@@ -44,7 +44,6 @@ public class ZzimController {
 		
 		model.addAttribute("zzimInfo", zzimService.getZzimList(memberNo));
 		
-		System.out.println( zzimService.getZzimList(memberNo));
 		
 		return "/zzim";
 	}

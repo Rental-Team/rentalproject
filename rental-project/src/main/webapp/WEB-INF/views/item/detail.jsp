@@ -155,8 +155,8 @@
                       	대여 수량
                       <input type="text" class="quantity_input" value="1">
                       <span>
-                      	<button class="plus_btn">+</button>
-                      	<button class="minus_btn">-</button>
+                      	<button class="plus_btn btn-secondary">+</button>
+                      	<button class="minus_btn btn-secondary">-</button>
                       </span>	
                       </div>
                       

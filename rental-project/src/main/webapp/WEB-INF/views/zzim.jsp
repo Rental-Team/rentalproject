@@ -21,6 +21,11 @@
   <link href="/rental-project/resources/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="/rental-project/resources/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
+  <style>
+	  .red_color {
+	    color: red; 
+	}
+  </style>
 </head>
 
 <body class="">
@@ -37,7 +42,7 @@
         <div class="col">
           <div class="card bg-default shadow">
             <div class="card-header bg-transparent border-0">
-              <h3 class="text-white mb-0">Card tables</h3>
+              <h3 class="text-white mb-0">내가 찜한 목록</h3>
             </div>
             <div class="table-responsive">
               <table class="table align-items-center table-white table-flush">
@@ -69,14 +74,14 @@
 								</td>
 								<td class="td_width_3">${zzim.itemName}</td>
 								<td class="td_width_4 price_td">
-									<del>가격 : <fmt:formatNumber value="${zzim.bookPrice}" pattern="#,### 원" /></del><br>
+									판매가 : <span class="red_color"><fmt:formatNumber value="${zzim.itemPrice}" pattern="#,### 원" /></span><br>
 									마일리지 : <span class="green_color"><fmt:formatNumber value="${zzim.point}" pattern="#,###" /></span>
 								</td>
 								<td class="td_width_4 table_text_align_center">
 									<div class="table_text_align_center quantity_div">
 										<input type="text" value="${zzim.itemCount}" class="quantity_input">	
-										<button class="quantity_btn plus_btn">+</button>
-										<button class="quantity_btn minus_btn">-</button>
+										<button class="quantity_btn plus_btn btn-secondary">+</button>
+										<button class="quantity_btn minus_btn btn-secondary">-</button>
 									</div>
 									<a class="quantity_modify_btn" data-cartId="${zzim.zzimNo}">변경</a>
 								</td>
@@ -84,13 +89,50 @@
 									<fmt:formatNumber value="${zzim.itemPrice * zzim.itemCount}" pattern="#,### 원" />
 								</td>
 								<td class="td_width_4 table_text_align_center">
-									<button class="delete_btn" data-cartid="${zzim.zzimNo}">삭제</button>
+									<button class="delete_btn btn-primary" data-cartid="${zzim.zzimNo}">삭제</button>
 								</td>
 							</tr>
 						</c:forEach>
                   
                 </tbody>
               </table>
+              
+              <div class="total">
+              	<div class="total_wrap">
+              		<table class="table align-items-center table-white table-flush">
+              			<tr>
+							<td>
+								<table>
+									<tr>
+										<td>총 상품 가격</td>
+										<td>
+											<span class="totalPrice_span">70000</span> 원
+										</td>
+									</tr>
+									<tr>
+										<td>배송비</td>
+										<td>
+											<span class="delivery_price">3000</span>원
+										</td>
+									</tr>									
+									<tr>
+										<td>총 주문 상품수</td>
+										<td><span class="totalKind_span"></span>종 <span class="totalCount_span"></span>권</td>
+									</tr>
+								</table>
+							</td>
+							<td>
+								<table>
+									<tr>
+										<td></td>
+										<td></td>
+									</tr>
+								</table>							
+							</td>
+						</tr>
+              		</table>
+              	</div>
+              </div>
             </div>
           </div>
         </div>
@@ -113,6 +155,23 @@
         token: "ee6fab19c5a04ac1a32a645abde4613a",
         application: "argon-dashboard-free"
       });
+  </script>
+  
+  <script>
+  $(document).ready(funtion(){
+	  
+  });
+  
+  let quantity = $(".quantity_input").val();
+	
+	$(".quantity_btn plus_btn").on("click", function(){
+		$(".quantity_input").val(++quantity);
+	});
+	$(".quantity_btn minus_btn").on("click", function(){
+		if(quantity > 1) {
+		$(".quantity_input").val(--quantity);
+		}
+	});
   </script>
 </body>
 
