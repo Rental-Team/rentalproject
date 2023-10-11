@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 
+import com.rentalproject.dto.ItemAttachDto;
 import com.rentalproject.dto.ItemDto;
 import com.rentalproject.dto.ZzimDto;
 
@@ -61,13 +62,20 @@ public interface ItemMapper {
 			+ "from Item")
 	int selectItemCount();
 	
-	@Select("select itemNo, itemName, viewCount, itemDate, itemPrice, deleted " +
-			"from Item " +
-			"order by itemNo desc "
-			+ "limit #{from}, #{count}")
-	public List<ItemDto> selectItemByPage(@Param("from") int from, @Param("count") int count);
+	// 페이징이 적용된 상품 게시판
+	@Select("select i.itemNo, i.itemPrice , i.itemName, i.viewCount, i.itemDate, i.deleted, i.itemStock, (select iA.savedFileName from itemAttach iA where iA.itemNo = i.itemNo) thumbnail "
+			+ "from Item i "
+			+ "order by i.itemNo desc " + 
+			"limit #{from}, #{count}")
+	List<ItemDto> selectItemByPage(@Param("from") int from, @Param("count") int count);
 	
+	// 상품 첨부파일(특정 상품 이미지에 있는) 다운로드
+	@Select(  "select attachNo, itemNo, userFileName, savedFileName "
+			+ "from itemAttach "
+			+ "where itemNo = #{ itemNo }")
+	List<ItemAttachDto> selectItemAttachByItemNo(@Param("itemNo") int itemNo);
 	
+	// 검색
 	@Select("select itemNo, itemName, viewCount, itemDate, itemPrice, deleted " +
 			"from Item " +
 			"where itemName like concat('%', #{keyword}, '%') " +

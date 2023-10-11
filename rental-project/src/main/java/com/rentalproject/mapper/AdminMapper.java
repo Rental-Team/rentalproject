@@ -49,7 +49,7 @@ public interface AdminMapper {
 			+ "order by i.itemNo desc")
 	List<ItemDto> allItemList();
 	
-	// 상품 페이징 정보
+	// 페이징이 적용된 상품 게시판
 	@Select("select i.itemNo, i.itemPrice , i.itemName, i.viewCount, i.itemDate, i.deleted, i.itemStock, (select iA.savedFileName from itemAttach iA where iA.itemNo = i.itemNo) thumbnail "
 			+ "from Item i "
 			+ "order by i.itemNo desc " + 
