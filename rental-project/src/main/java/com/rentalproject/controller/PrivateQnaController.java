@@ -27,28 +27,28 @@ import com.rentalproject.ui.ThePager;
 @RequestMapping(path = {"/privateboard"})
 public class PrivateQnaController {
 
-   @Autowired
+	@Autowired
 	private PrivateQnaService privateQnaService;
 	
 	
 ////////////////////////////////////미답변 목록 테스트 
-@GetMapping(path = {"/unanswer-list"})
-public String showUnAnswerlist(Model model,HttpSession session) {
-
-	MemberDto loginuser = (MemberDto) session.getAttribute("loginuser");	
+	@GetMapping(path = {"/unanswer-list"})
+	public String showUnAnswerlist(Model model,HttpSession session) {
 	
-	int memberNo = -1;
+		MemberDto loginuser = (MemberDto) session.getAttribute("loginuser");	
+		
+		int memberNo = -1;
+		
+		if (loginuser != null) {
+			memberNo = loginuser.getMemberNo();
+			
+			
+		}
 	
-	if (loginuser != null) {
-		memberNo = loginuser.getMemberNo();
-		
-		
-	}
-
-	if (memberNo != 17) {
-      
-        return "redirect:/privateboard/privateqnalist"; 
-    }
+		if (memberNo != 17) {
+	      
+	        return "redirect:/privateboard/privateqnalist"; 
+	    }
 
 	
 	
@@ -246,10 +246,11 @@ public String showUnAnswerlist(Model model,HttpSession session) {
 		privateqna.setMemberNo(memberNo);
 		/////
 
-		/*
+		/* <model로 변경>
 		 * request.setAttribute("memberNo", memberNo); // 필요함 privateqnadetail JSP 페이지에서
-		 * memberNo 속성을 사용 // JSP 페이지에서 ${requestScope.memberNo}를 사용
+		 * memberNo 속성을 사용 // JSP 페이지에서 ${requestScope.memberNo}를 사용 
 		 */
+	
 		model.addAttribute("memberNo", memberNo); //request.setAttribute("memberNo", memberNo); 대신 사용 
 		
 		/* model.addAttribute("privateqna", privateqna); */
