@@ -1,12 +1,8 @@
 package com.rentalproject.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.List;
-
 
 import javax.servlet.http.HttpServletRequest;
 

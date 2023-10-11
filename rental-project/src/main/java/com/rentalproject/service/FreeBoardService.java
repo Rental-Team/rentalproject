@@ -34,11 +34,5 @@ public interface FreeBoardService {
 
 	List<FreeBoardDto> selectSearchByContent(String keyword); // 검색어 - 내용으로 조회
 
-	List<FreeBoardDto> selectSearchByMemeberId(String keyword); // 검색어 - 작성자아이디로 조회
-	
-	void reportFreeBoard(FreeBoardReportDto freeboardReport); 
-	
-	
-	
-
+	List<FreeBoardDto> selectSearchByMemeberId(String keyword); // 검색어 - 작성자아이디로 조회  
 }

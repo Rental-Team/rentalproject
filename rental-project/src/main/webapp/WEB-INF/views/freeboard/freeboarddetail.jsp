@@ -118,7 +118,7 @@
 					    </a> 
 			    	    <a title="신고" id="reportbtn">
 							<img src="/rental-project/resources/img/icons/report.png" alt="신고" width="50" height="50"/>
-							<span id="freeBoard-Report" class="count">0</span> 
+							<span id="reportCount" class="count">${count}</span> 
 						</a>
 					    </div> <br><br>
 					    <div class="col text-center" >
@@ -219,9 +219,7 @@
 						            &nbsp;
 						            <a class="btn btn-sm btn-secondary delete-reply" data-reply-no="${freeBoardReview.freeBoardReplyNo}"
 						                href="javascript:void(0)" style="color: navy">댓글삭제</a>
-						            &nbsp;&nbsp;
-						        </div>
-						        <div style='display:${(not empty loginuser and not freeBoardReview.replyDelete)? "block" : "none" }'>
+						            &nbsp;&nbsp; 
 						            <a class="write-rereply btn btn-sm btn-secondary" data-reply-no="${freeBoardReview.freeBoardReplyNo}"
 						                href="javascript:void(0)" style="color: navy">대댓글 작성</a>
 						        </div>
@@ -477,30 +475,45 @@
 					"error" : function(xhr, status, err){ 
 					}
 				}) 
-			}) 
-			$('#reportbtn').click(function(e){   // 신고버튼 클릭 이벤트 
-				e.preventDefault();
-				
-				const freeBoardNo = $('#freeBoardNo').val();
-				
-				$.ajax({
-					"url" : "freeBoard-report",
-					"method" : "get",
-					"data" : {"freeBoardNo" : freeBoardNo},
-					"success" : function(result){
-						if (result == 1) {
-							alert("신고되었습니다.")	
-					} else {
-						alert("로그인 해주세요")
+			})  
+			// 서버로 보낼 데이터 
+			const form = {
+	   			memberNo : '${loginuser.memberNo}',
+	   			freeBoardNo : '${freeBoard.freeBoardNo}' 
+	   		}
+			
+			// 게시글 신고버튼
+			$("#reportbtn").on("click", function(e){ 
+				if (!form.memberNo) {
+					const yn = confirm('로그인이 필요합니다.로그인 화면으로 이동할까요?');
+					if (yn) {
 						location.href = "/rental-project/account/login";
 					}
-				},
-					"error" : function(err) {
-						alert("이미 신고되었습니다.");
-					}
-					
-				})
-			})
+					return;
+				}
+				
+	   			$.ajax({
+	   			url : 'freeBoard-report',
+	   			method : 'post',
+	   			data : form,
+	   			success : function(result) {
+	   				reportAlert(result);
+	   			}
+   			})	 
+	   		})
+	   		
+	   		function reportAlert(result) {
+	   			if(result == '0'){
+	   				alert("신고가 안되었습니다 !");
+	   			} else if(result == '1') {
+	   				const yn = confirm("정말 신고하시겠습니까? 신고 후에는 취소할 수 없습니다.")
+	   				if(yn){
+	   				alert("신고가 완료되었습니다.");}
+	   				return;
+	   			} else if (result === '2'){
+	   				alert("이미 신고한 게시글입니다.");
+	   			}  
+	   		}
 			
 });
 			
