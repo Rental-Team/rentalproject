@@ -87,10 +87,11 @@
             <div class="card-header bg-transparent pb-5">
               <div class="text-muted text-center mt-2 mb-3"><small>Sign in with</small></div>
               <div class="btn-wrapper text-center">
-                <a href="#" class="btn btn-neutral btn-icon">
-                  <span class="btn-inner--icon"><img src="/rental-project/resources/img/icons/common/github.svg"></span>
-                  <span class="btn-inner--text">Github</span>
+                <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=51aa4581e2f4765686dd6faec72c568d&redirect_uri=http://localhost:8080/rental-project/account/login" class="btn btn-neutral btn-icon" id="kakao-login-btn" >
+                  <span class="btn-inner--icon"><img src="/rental-project/resources/img/icons/common/kakao.png"></span>
+                  <span class="btn-inner--text">kakao</span>
                 </a>
+                <p id="token-result"></p>
                 <a href="#" class="btn btn-neutral btn-icon">
                   <span class="btn-inner--icon"><img src="/rental-project/resources/img/icons/common/google.svg"></span>
                   <span class="btn-inner--text">Google</span>
@@ -170,17 +171,72 @@
   <script src="/rental-project/resources/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <!--   Optional JS   -->
   <!--   Argon JS   -->
+  <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.4.0/kakao.min.js" 
+  integrity="sha384-mXVrIX2T/Kszp6Z0aEWaA8Nm7J6/ZeWXbL8UpGRjKwWe56Srd/iyNmWMBhcItAjH" crossorigin="anonymous"></script>
+  <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
   <script src="/rental-project/resources/js/argon-dashboard.min.js?v=1.1.2"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script src="http://code.jquery.com/jquery-3.7.1.js"></script>
-  <script type="text/javascript">
-  $(function(){
-	  
-  })
-  
-  
-  </script>
-  
+  <script>
+  window.Kakao.init('1e893c5a78182f018f6b362c8fbbb59d');
+
+  /* $("#kakao-login-btn").on("click", function(){
+	    //1. 로그인 시도
+	    Kakao.Auth.login({
+	        success: function(authObj) {
+	         
+	          //2. 로그인 성공시, API 호출
+	          Kakao.API.request({
+	            url: '/v2/user/me',
+	            success: function(res) {
+	              console.log(res);
+	              var id = res.id;
+				  scope : 'account_email', 'account_nickname';
+				alert('로그인성공');
+	              location.href= "http://localhost:8080/rental-project/home";
+	              
+	        }
+	          })
+	          console.log(authObj);
+	          var token = authObj.access_token;
+	        },
+	        fail: function(err) {
+	          alert(JSON.stringify(err));
+	        }
+	      });
+	        
+	}) */
+  function loginWithKakao() {
+    window.Kakao.Auth.authorize({
+      redirectUri: 'http://localhost:8080/rental-project/account/login',
+    });
+  }
+
+  // 아래는 데모를 위한 UI 코드입니다.
+  displayToken()
+  function displayToken() {
+    var token = getCookie('authorize-access-token');
+
+    if(token) {
+      Kakao.Auth.setAccessToken(token);
+      Kakao.Auth.getStatusInfo()
+        .then(function(res) {
+          if (res.status === 'connected') {
+            document.getElementById('token-result').innerText
+              = 'login success, token: ' + Kakao.Auth.getAccessToken();
+          }
+        })
+        .catch(function(err) {
+          Kakao.Auth.setAccessToken(null);
+        });
+    }
+  }
+
+  function getCookie(name) {
+    var parts = document.cookie.split(name + '=');
+    if (parts.length === 2) { return parts[1].split(';')[0]; }
+  }
+</script>
   
   <script>
     window.TrackJS &&

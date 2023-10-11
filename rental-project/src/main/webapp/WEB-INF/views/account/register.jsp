@@ -182,7 +182,7 @@
                     <button type="button" class="btn btn-primary" id="mail-Check-Btn">
 	                본인 인증
 	                </button>
-                    <input class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
+                    <input class="form-control" id="mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
                   </div>
                 </div>
                 <span id="mail-check-warn"></span>
@@ -325,6 +325,7 @@
   
   <script>
   // 패스워드 일치 여부
+  
   var passwordField = document.getElementById('password');
   var passwordConfirmField = document.getElementById('passwordConfirm');
 
@@ -351,6 +352,16 @@
 		  passwordOption.innerHTML = '!,@,#,$,% 의 특수문자가 들어가 있지 않습니다.'  
 	  }  */
 	
+	  /* $('#register').on('click', function(event){
+		event.preventDefault();
+		
+		if (password != passwordConfirm){
+			alert("비밀번호가 일치하지 않습니다");
+			$('#password').focus();
+			return
+		}
+	  }); */
+	  
 	  if(password != '' && passwordConfirm != ''){
 		  if(password == passwordConfirm){
 			  passwordCheck.innerHTML = '비밀번호가 일치합니다.'
@@ -359,9 +370,9 @@
 		  } else {
 			  passwordCheck.innerHTML = '비밀번호가 일치하지 않습니다.';
 			  passwordCheck.style.color = 'red';
-			  return false;  
-		  }  
-	  }  
+			  return false;    
+	  	  }
+	  }
   }
   // input하면서 checkPassword function 실행
   passwordField.addEventListener("input", checkPassword);
@@ -373,7 +384,7 @@
     var code = null;
     $('#mail-Check-Btn').click(function() {
    		const eamil = $('#email').val() + $('#selectEmail').val(); // 이메일 주소값 얻어오기!
-   		const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
+   		const checkInput = $('#mail-check-input') // 인증번호 입력하는곳 
     		
    		$.ajax({
    			"type": 'get',
@@ -389,8 +400,8 @@
     	
    	// 인증번호 비교 
    	// blur -> focus가 벗어나는 경우 발생
-   	$('.mail-check-input').blur(function () {
-   		const inputCode = $(this).val();
+   	$('#mail-check-input').blur(function () { // '.~~'은 클래스, '#~~'은 id
+   		const inputCode = $(this).val(); // this = '#mail-check-input'
    		const $resultMsg = $('#mail-check-warn');
     		
    		if(inputCode === code){

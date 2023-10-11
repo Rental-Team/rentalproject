@@ -12,11 +12,15 @@ import com.rentalproject.dto.MemberDto;
 public interface AccountMapper {
 	
 	// 회원가입 정보 입력
-	@Insert("INSERT INTO Member (memberId, password, passwordConfirm, " +
+	@Insert("insert into Member (memberId, password, passwordConfirm, " +
 			"userName, nickname, phoneNo, email, address, addressDetail, deposite)" +
-			"VALUES (#{memberId}, #{password}, #{passwordConfirm}, #{userName}, " +
+			"values (#{memberId}, #{password}, #{passwordConfirm}, #{userName}, " +
 			"#{nickname}, #{phoneNo}, #{email}, #{address}, #{addressDetail}, #{deposite})")
 	void insertMember(MemberDto member);
+	
+//	// 카카오 회원 정보 입력
+//	@Insert("insert into Member (memberId) values (#{memberId})")
+//	void insertKakaoMember(MemberDto member);
 	
 	// 아이디 중복 검사
 	@Select("select count(*) from Member where memberId = #{memberId}")
