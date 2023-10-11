@@ -34,6 +34,18 @@ public interface PrivateQnaService {
 
 	List<PrivateQnaDto> listBoardByMemberNo(int memberNo, int from, int count);
 
+	List<PrivateQnaDto> unAnswerlist();
+
+	List<PrivateQnaDto> searchByMemberId(String memberId); //memberId 검색조회 
+
+	/* PrivateQnaDto searchByQnaNo(int qnaNo); */
+	
+	List<PrivateQnaDto> searchByQnaNo(int qnaNo);
+
+	
+
+	
+
 	
 
 	

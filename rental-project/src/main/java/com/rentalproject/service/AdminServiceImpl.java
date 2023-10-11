@@ -20,6 +20,7 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private AdminMapper adminMapper;
 	
+	// 멤버 리스트 조회
 	@Override
 	public List<MemberDto> MemberList() {
 		
@@ -34,6 +35,7 @@ public class AdminServiceImpl implements AdminService {
 		return adminMapper.cateList();
 	};
 	
+	// 상품 리스트 출력
 	@Override
 	public List<ItemDto> ItemList() {
 		
@@ -41,6 +43,7 @@ public class AdminServiceImpl implements AdminService {
 		return adminMapper.allItemList();
 	}
 	
+	// 상품 등록
 	@Override
 	public void writeItem(ItemDto item) {
 		
@@ -56,6 +59,7 @@ public class AdminServiceImpl implements AdminService {
 		//log.info("write....." + item);
 	}
 	
+	// 상품 상세
 	@Override
 	public ItemDto itemDetail(int itemNo) {
 		
@@ -69,6 +73,8 @@ public class AdminServiceImpl implements AdminService {
 		return item;
 	}
 	
+	
+	// 상품 갯수
 	@Override
 	public int getItemCount() {
 		
@@ -77,6 +83,7 @@ public class AdminServiceImpl implements AdminService {
 		return count;
 	}
 	
+	// 상품 리스트 (페이징 기능)
 	@Override
 	public List<ItemDto> listItemByPage(int from, int count) {
 		
@@ -86,29 +93,15 @@ public class AdminServiceImpl implements AdminService {
 		
 	}
 
-	
-	@Override
-	public ItemDto findItemByItemNo(int itemNo) {
-		
-		// 상품을 조회한다.
-		ItemDto item = adminMapper.read(itemNo);
-		
-		if (item != null) {
-			List<ItemAttachDto> attachList = adminMapper.selectItemAttachByItemNo(itemNo);
-			item.setItemAttachList(attachList);
-		}
-		
-		return item;
-	}
 
-
+	// 첨부 파일 정보 조회(첨부파일 번호로)
 	@Override
 	public ItemAttachDto findItemAttachByAttachNo(int attachNo) {
 		ItemAttachDto attach = adminMapper.selectItemAttachByAttachNo(attachNo);
 		return attach;
 	}
 
-
+	// 상품 수정
 	@Override
 	public void editItem(ItemDto item) {
 		
@@ -122,7 +115,7 @@ public class AdminServiceImpl implements AdminService {
 		}
 	}
 	
-	
+	// 상품 삭제
 	@Override
 	public void deleteItem(int itemNo) {
 		

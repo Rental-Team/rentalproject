@@ -546,32 +546,21 @@
   
       // 서버에서 memberNo 값을 JSP로부터 가져오는거임
       var memberNo = <%= request.getAttribute("memberNo") %>;
-
+  
       if (memberNo !== 17) {
         var commentAnswerForm = document.getElementById("comment-Answer");
         if (commentAnswerForm) {
-          commentAnswerForm.style.display = "none";
-        }
-        
-        // 미답변 목록으로 돌아가기 버튼 숨기기
-        var getBackUnanswerButton = document.getElementById("getBack-unanswer");
-        if (getBackUnanswerButton) {
-          getBackUnanswerButton.style.display = "none";
+            commentAnswerForm.style.display = "none";
         }
       }
     });
-
-    // 미답변 목록으로 돌아가기 버튼 표시/숨김
-    function gotoPageUnanswer() {
-      var memberNo = <%= request.getAttribute("memberNo") %>;
-      if (memberNo === 17) {
-        var url = 'unanswer-list';
-        location.href = url;
-      } else {
-        alert("17번 멤버만 접근 가능합니다.");
-      }
-    }
-  </script>
+    
+  
+  function gotoPageUnanswer() {
+    var url = 'unanswer-list'; // 미답변 목록 페이지 URL로 변경
+    location.href = url;
+  }
+</script>
   
   
   

@@ -50,7 +50,7 @@ public interface AdminMapper {
 	List<ItemDto> allItemList();
 	
 	// 상품 페이징 정보
-	@Select("select i.itemNo, i.itemName, i.viewCount, i.itemDate, i.deleted, i.itemStock, (select iA.savedFileName from itemAttach iA where iA.itemNo = i.itemNo) thumbnail "
+	@Select("select i.itemNo, i.itemPrice , i.itemName, i.viewCount, i.itemDate, i.deleted, i.itemStock, (select iA.savedFileName from itemAttach iA where iA.itemNo = i.itemNo) thumbnail "
 			+ "from Item i "
 			+ "order by i.itemNo desc " + 
 			"limit #{from}, #{count}")

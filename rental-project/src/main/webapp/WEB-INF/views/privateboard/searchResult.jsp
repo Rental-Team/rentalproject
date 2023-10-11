@@ -43,7 +43,7 @@
 				
 						
 <!--미답변 목록 조회 	 -->			
-		<div class="container mt-2">
+<div class="container mt-2">
   <div class="row">
     <div class="col-md-6 d-flex align-items-start">
       <select id="viewOption" class="form-control form-control-sm" style="width: 150px;">
@@ -54,18 +54,51 @@
     </div>
   </div>
 </div>
-<!--미답변 목록 조회   --> 
-			
-<div id="qnaSearchSection" class="col-md-6">
+
+			<!-- 	 <div class="col-md-6">
+                            <form action="/searchInquiryByMemberId" method="get">
+                                <label for="memberId">회원 ID:</label>
+                                <input type="text" id="memberId" name="memberId">
+                                <button type="submit">검색</button>
+                            </form>
+                        </div>
+
+ -->
+ <div id="qnaSearchSection" class="col-md-6">
     <form action="searchByQnaNo" method="get" onsubmit="return validateSearch();">
         <label for="qnaNo">Qna No:</label>
         <input type="text" id="qnaNo" name="qnaNo">
         <button type="submit" id="searchButton">검색</button>
     </form>
 </div>
+ 
+ 
 
 
-             
+
+
+<!--미답변 목록 조회   --> 
+
+
+<!-- <div class="container mt-2">
+  <div class="row">
+    <div class="col-md-6">
+      <select id="searchOption" class="form-control form-control-sm">
+        <option value="memberId">멤버 검색</option>
+      </select>
+    </div>
+    <div class="col-md-6 d-flex align-items-start">
+      <input type="text" id="searchQuery" class="form-control form-control-sm" placeholder="멤버 ID 입력">
+      <button class="btn btn-primary btn-sm" onclick="searchByMemberId()">검색</button>
+    </div>
+  </div>
+</div> -->
+
+                
+                
+                
+                
+              
                 <div class="col text-right">
                   <a href="privateqnawrite" class="btn btn-sm btn-primary">1대1문의 작성</a>
                 </div>
@@ -94,8 +127,8 @@
     				<!-- 검색 결과가 여기에 동적으로 추가????. -->
   				</tbody>
    					 
-                
-                 <c:forEach var="privateqna" items="${ requestScope.qnaBoardList}">
+              
+                 <c:forEach var="privateqna" items="${ requestScope.searchResult}">
                   <tr>                  
                    <td>${ privateqna.qnaNo }</td>
                    <td>${privateqna.memberId}</td>         		   
@@ -118,7 +151,8 @@
 			    </td>
      
            </tr>
-           </c:forEach>      
+           </c:forEach>  
+             
        </table>
        <br><br>
        ${ pager }
@@ -173,39 +207,37 @@
       });
   </script>
   
-	<script>
-	  var memberNo = <%= request.getAttribute("memberNo") %>;
-	
-	  // memberNo 값을 콘솔에 로깅하여 확인
-	  console.log("memberNo: " + memberNo);
-	
-	  // memberNo가 17인 경우에만 보이도록 설정
-	  if (memberNo === 17) {
-	    document.getElementById("viewOption").style.display = "block"; // 보이게 설정
-	    document.getElementById("viewButton").style.display = "block"; // 보이게 설정
-	  } else {
-	    document.getElementById("viewOption").style.display = "none"; // 숨기게 설정
-	    document.getElementById("viewButton").style.display = "none"; // 숨기게 설정
-	  }
-	</script>
+<script>
+  var memberNo = <%= request.getAttribute("memberNo") %>;
+
+  // memberNo 값을 콘솔에 로깅하여 확인
+  console.log("memberNo: " + memberNo);
+
+  // memberNo가 17인 경우에만 보이도록 설정
+  if (memberNo === 17) {
+    document.getElementById("viewOption").style.display = "block"; // 보이게 설정
+    document.getElementById("viewButton").style.display = "block"; // 보이게 설정
+  } else {
+    document.getElementById("viewOption").style.display = "none"; // 숨기게 설정
+    document.getElementById("viewButton").style.display = "none"; // 숨기게 설정
+  }
+</script>
   
   
   
-	 <script>
-	  function viewList() {
-	    var viewOption = document.getElementById("viewOption").value;
-	    if (viewOption === "unanswered") {
-	      window.location.href = "unanswer-list"; // 미답변 목록 조회 페이지로 이동
-	    } else if (viewOption === "all") {
-	      window.location.href = "privateqnalist"; // 전체 목록 조회 페이지로 이동
-	    }
-	  }
-	</script>
+  <script>
+  function viewList() {
+    var viewOption = document.getElementById("viewOption").value;
+    if (viewOption === "unanswered") {
+      window.location.href = "unanswer-list"; // 미답변 목록 조회 페이지로 이동
+    } else if (viewOption === "all") {
+      window.location.href = "privateqnalist"; // 전체 목록 조회 페이지로 이동
+    }
+  }
+</script>
   
  
- 
-	 
-	 <script>
+  <script>
 	 if (memberNo === 17) {
 		    document.getElementById("qnaSearchSection").style.display = "block"; // 보이게 설정
 		  } else {
@@ -216,10 +248,10 @@
 	 
 	</script>
  
-	 
-	
  
-	<script>
+ 
+ 
+ <script>
 	  function validateSearch() {
 	    var qnaNo = document.getElementById("qnaNo").value;
 	    if (qnaNo.trim() === "") {
@@ -229,6 +261,8 @@
 	    return true;
 	  }
 	</script>
+ 
+ 
  
  
  

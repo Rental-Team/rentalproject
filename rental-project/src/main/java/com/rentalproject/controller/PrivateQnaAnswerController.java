@@ -1,5 +1,7 @@
 package com.rentalproject.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,18 @@ public class PrivateQnaAnswerController {
 	private PrivateQnaService privateQnaService;
 	
 	
+	@GetMapping(path = {"/answer-list"})
+	public String showAnswerList(int qnaNo, Model model) { 
+		
+		
+		List<PrivateQnaAnswerDto> answers = privateQnaAnswerService.getAnswerListByQnaNo(qnaNo);
+		model.addAttribute("answers" ,answers);
+		
+		
+		return "privateboard/answer-list";
+	}
+	
+
 	
 	@PostMapping(path ={"/write-answer"})  //답변 
 	public String writeAnswer(PrivateQnaAnswerDto privateQnaAnswer ,@RequestParam("qnaNo") int qnaNo,	@RequestParam(defaultValue = "-1") int pageNo){
@@ -35,21 +49,25 @@ public class PrivateQnaAnswerController {
 	return String.format("redirect:privateqnadetail?qnaNo=%d&pageNo=%d", privateQnaAnswer.getQnaNo(), pageNo);
 
 }
-/*
- * @PostMapping(path ={"/ajax-write-answer"}) //ajax답변
- * 
- * @ResponseBody public String ajaxwriteAnswer(PrivateQnaAnswerDto
- * privateQnaAnswer ,@RequestParam("qnaNo") int
- * qnaNo, @RequestParam(defaultValue = "-1") int pageNo){
- * 
- * privateQnaAnswerService.writeAnswer(privateQnaAnswer);
- * 
- * privateQnaService.updateAnswerStatus(qnaNo, true); // 답변여부 업데이트
- * 
- * return "success";
- * 
- * }
- */
+
+//  @PostMapping(path ={"/ajax-write-answer"}) //ajax답변
+//  @ResponseBody public String ajaxWriteAnswer(PrivateQnaAnswerDto privateQnaAnswer ,@RequestParam("qnaNo") int qnaNo,
+//  @RequestParam(defaultValue = "-1") int pageNo){
+////	  if (pageNo < 1) {
+////			return "redirect:privateqnalist";
+////		}
+////		
+//	  
+//	  
+//	  
+//  privateQnaAnswerService.writeAnswer(privateQnaAnswer);
+//  
+//  privateQnaService.updateAnswerStatus(qnaNo, true); // 답변여부 업데이트
+//  
+//  return "success";
+//  
+//  }
+ 
 	
 	
 	
