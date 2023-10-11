@@ -8,7 +8,6 @@ public class FreeBoardReportDto {
 	private int freeBoardReportNo;
 	private int memberNo;
 	private String memberId;
-	private int freeBoardNo;
-	private int freeBoardCount;
+	private int freeBoardNo; 
 	
 }

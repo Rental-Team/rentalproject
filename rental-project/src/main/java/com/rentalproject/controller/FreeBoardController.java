@@ -23,6 +23,7 @@ import com.rentalproject.common.Util;
 import com.rentalproject.dto.FreeBoardAttachDto;
 import com.rentalproject.dto.FreeBoardDto;
 import com.rentalproject.dto.FreeBoardReportDto;
+import com.rentalproject.service.FreeBoardReportService;
 import com.rentalproject.service.FreeBoardService;
 import com.rentalproject.ui.ThePager;
 import com.rentalproject.view.DownloadView;
@@ -34,6 +35,8 @@ public class FreeBoardController {
 	
 	@Autowired
 	private FreeBoardService freeBoardService;
+	@Autowired
+	private FreeBoardReportService freeBoardReportService;
 	
 	// 자유게시글 리스트 화면 불러오기 ( 전체 게시글 불러오기 )
 	@GetMapping(path= {"/freeboardlist"})
@@ -141,8 +144,10 @@ public class FreeBoardController {
 		
 		 String memberId = freeBoardService.getMemberId(freeboard.getFreeBoardNo());
 		 freeboard.setMemberId(memberId);
-
+		 
+		int count = freeBoardReportService.reportcount(freeBoardNo);
 		
+		model.addAttribute("count", count);
 		model.addAttribute("freeBoard", freeboard);
 		model.addAttribute("pageNo", pageNo); 
 		
@@ -250,24 +255,6 @@ public class FreeBoardController {
 		
 		return "freeboard/search-list"; 
 	} 
-		
-	// 게시글 신고하기
-		@GetMapping("/freeBoard-report")
-		@ResponseBody
-		public String freeBoardReport(FreeBoardReportDto freeBoardReport, HttpSession session) {
-			
-			int result = 0;
-			MemberDto member = (MemberDto)session.getAttribute("loginuser");
-			
-			if (member != null) {
-				freeBoardReport.setMemberId(member.getMemberId());
-				
-				freeBoardService.reportFreeBoard(freeBoardReport);
-				result = 1;
-			}
-			return result + ""; 
-				 
-		}
 }
 
 	

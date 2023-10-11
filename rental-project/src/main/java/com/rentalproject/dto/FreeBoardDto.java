@@ -15,9 +15,7 @@ public class FreeBoardDto {
 	private String freeBoardTitle;
 	private String freeBoardContent;
 	private Date freeBoardDate;
-	private int freeBoardViewCount;
-	private int freeBoardGoodCount;
-	private int freeBoardBadCount;
+	private int freeBoardViewCount; 
 	private boolean freeBoardDelete;
 	
 	//검색 기능 구현
