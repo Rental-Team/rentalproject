@@ -29,7 +29,7 @@ public class ZzimController {
 		HttpSession session = req.getSession();
 		MemberDto member = (MemberDto)session.getAttribute("loginuser");
 		if(member == null) {
-			return "4";
+			return 4 + "";
 		}
 		
 		// 찜 등록

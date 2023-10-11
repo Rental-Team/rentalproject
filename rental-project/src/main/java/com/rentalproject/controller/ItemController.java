@@ -58,7 +58,7 @@ public class ItemController {
 		//List<ItemDto> list = itemService.getList();
 		//log.info(list);
 		
-		int pageSize = 10;
+		int pageSize = 5;
 		int pagerSize = 5;
 		String linkUrl = "list";
 		int dataCount = itemService.getItemCount();

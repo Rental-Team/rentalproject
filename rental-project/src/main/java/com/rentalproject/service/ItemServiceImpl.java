@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.rentalproject.dto.ItemAttachDto;
 import com.rentalproject.dto.ItemDto;
 import com.rentalproject.dto.ZzimDto;
 import com.rentalproject.mapper.ItemMapper;
@@ -43,7 +44,10 @@ public class ItemServiceImpl implements ItemService{
 		
 		ItemDto item = itemMapper.read(itemNo);
 		
-		//log.info("get....." + itemNo);
+		if(item!=null) {
+			List<ItemAttachDto> itemList = itemMapper.selectItemAttachByItemNo(itemNo);
+			item.setItemAttachList(itemList);
+		}
 
 		return item;
 	}

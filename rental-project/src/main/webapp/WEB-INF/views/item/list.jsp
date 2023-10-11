@@ -47,31 +47,35 @@
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
-                    <th scope="col" style="width:100px; font-size:12pt">게시글 번호</th>
-                    <th scope="col" style="width:200px; font-size:12pt">상품 제목</th>
-                    <th scope="col" style="width:100px; font-size:12pt">상품 가격</th>
-                    <th scope="col" style="width:100px; font-size:12pt">조회수</th>
-                    <th scope="col" style="width:150px; font-size:12pt">작성 일자</th>
+                    <th scope="col" style="width:100px">이미지</th>
+                    <th scope="col" style="width:150px">상품 이름</th>
+                    <th scope="col" style="width:100px">상품 가격</th>
+                    <th scope="col" style="width:50px">재고</th>
+                    <th scope="col" style="width:50px">조회수</th>
+                    <th scope="col" style="width:150px">등록 일자</th>
                   </tr>
                 </thead>
                 <tbody>
-                 <c:forEach var="Item" items="${ itemList }">
-                 	<tr style="text-align">
-                    	<td><c:out value="${Item.itemNo}" /></td>
+                 <c:forEach var="item" items="${ itemList }">
+                 	<tr>
+                 		<td>
+                        	<img src="${pageContext.request.contextPath}/resources/upload/thumbnail_${item.thumbnail}" alt="Image">                    	
+						</td>
                     	<td style="text-align:left;padding-left:10px">
 						<c:choose>
-							<c:when test="${ not Item.deleted }">
-								<a href="detail?itemNo=${ Item.itemNo }&pageNo=${ pageNo }">${ Item.itemName }</a>
+							<c:when test="${ not item.deleted }">
+								<a href="detail?itemNo=${ item.itemNo }&pageNo=${ pageNo }">${ item.itemName }</a>
 							</c:when>
 							<c:otherwise>
 								<span class="deleted" style="color=lightgray"> === 대여가 끝난 상품입니다. === </span>
 							</c:otherwise>
 						</c:choose>
 						</td>      
-						<td><c:out value="${Item.itemPrice}" /></td>      	 
-                    	 <td><c:out value="${Item.viewCount}" /></td>
+						<td><c:out value="${item.itemPrice}" /></td>
+						<td><c:out value="${item.itemStock}" /></td>      	 
+                    	 <td><c:out value="${item.viewCount}" /></td>
                     	 <td><fmt:formatDate pattern="yyyy-MM-dd"
-                    	  value="${Item.itemDate }" /></td>
+                    	  value="${item.itemDate }" /></td>
                   </tr>
                  </c:forEach>
          
