@@ -32,6 +32,7 @@ public interface ZzimMapper {
 	
 	// 찜 목록
 	@Select("select z.itemNo, (select memberId from Member where memberNo = z.memberNo) memberId, "
+			+ "(select iA.savedFileName from itemAttach iA where iA.itemNo = i.itemNo) thumbnail, "
 			+ "z.itemNo, z.itemCount, i.itemName, i.itemPrice "
 			+ "from Zzim z left outer join Item i on z.itemNo = i.itemNo "
 			+ "where memberNo = #{memberNo} ")

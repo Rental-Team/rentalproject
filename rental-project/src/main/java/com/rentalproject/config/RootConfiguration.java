@@ -29,6 +29,7 @@ import com.rentalproject.service.FreeBoardReviewServiceImpl;
 import com.rentalproject.service.FreeBoardService;
 import com.rentalproject.service.FreeBoardServiceImpl;
 import com.rentalproject.service.ItemServiceImpl;
+import com.rentalproject.service.KakaoService;
 import com.rentalproject.service.NoticeService;
 import com.rentalproject.service.NoticeServiceImpl;
 import com.rentalproject.service.PrivateQnaAnswerService;
@@ -186,6 +187,12 @@ public class RootConfiguration implements ApplicationContextAware{
 
         return mailSender;
         
+	}
+	
+	@Bean
+	public KakaoService ks() {
+		KakaoService ks = new KakaoService();
+		return ks;
 	}
 	
 	@Bean

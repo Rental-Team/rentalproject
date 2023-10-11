@@ -25,6 +25,9 @@ public class ZzimDto {
 	private int point;
 	private int totalPoint;
 	
+	// 썸네일
+	private String thumbnail;
+	
 
 	public void initSaleTotal() {
 		this.totalPrice = this.itemPrice*this.itemCount;

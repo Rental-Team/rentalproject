@@ -5,6 +5,12 @@ import com.rentalproject.dto.MemberDto;
 public interface AccountService {
 
 	void register(MemberDto member);
+	
+	boolean checkRegisterId(String memberId);
+	
+	String joinEmail(String email);
+	
+//	void insertKakao(MemberDto member);
 
 	MemberDto findLoginMember(MemberDto member);
 
@@ -16,9 +22,11 @@ public interface AccountService {
 	
 	MemberDto selfupdatePw(MemberDto member);
 
-	boolean checkRegisterId(String memberId);
+	
 
-	String joinEmail(String email);
+	
+
+	
 
 	
 
