@@ -25,12 +25,12 @@ public interface PrivateQnaMapper {
 	@Options(useGeneratedKeys = true, keyProperty = "qnaNo")
 	void insertBoard(PrivateQnaDto privateqna);
 	
-////////미답변 조회 
-@Select("SELECT QnaNo, QnaType, QnaTitle, QnaContent, QnaDate, memberNo "
-        + "FROM PrivateQ "
-        + "WHERE answered = false "
-        + "ORDER BY QnaDate ASC")
-List<PrivateQnaDto> selectAllUnanswered();
+	////////미답변 조회 
+	@Select("SELECT QnaNo, QnaType, QnaTitle, QnaContent, QnaDate, memberNo "
+	        + "FROM PrivateQ "
+	        + "WHERE answered = false "
+	        + "ORDER BY QnaDate ASC")
+	List<PrivateQnaDto> selectAllUnanswered();
     
     
     
@@ -47,7 +47,7 @@ List<PrivateQnaDto> selectAllUnanswered();
 			+ "WHERE QnaNo = #{ qnaNo } ")
 	PrivateQnaDto selectQnaBoardByQnaNo(@Param("qnaNo")int qnaNo);
 	
-	//
+	//페이징
 	@Select("SELECT QnANo, QnaType, QnaTitle,QnAContent,QnaDate,memberNo, answered " 
 			+ "FROM PrivateQ " 
 			+ "ORDER BY QnANo desc "
@@ -65,10 +65,11 @@ List<PrivateQnaDto> selectAllUnanswered();
 	
 	/////////////////////
 	
+	//답변 업데이트// 미답변에서 답변완료로 업데이트 
 	@Update("UPDATE PrivateQ " 
 			+ "SET answered = #{answered} " 
 			+ "WHERE QnaNo = #{qnaNo}")
-	 void updateAnswerStatus(@Param("qnaNo") int qnaNo, @Param("answered") boolean answered);
+	void updateAnswerStatus(@Param("qnaNo") int qnaNo, @Param("answered") boolean answered);
 	
 	 
 	
@@ -79,7 +80,7 @@ List<PrivateQnaDto> selectAllUnanswered();
 	
 	
 	
-	
+	//MemberId 조회//
 	@Select("SELECT memberId "
 	        + "FROM Member "
 	        + "WHERE memberNo = (SELECT memberNo "
@@ -94,14 +95,15 @@ List<PrivateQnaDto> selectAllUnanswered();
 	 * selectBoardByUserId(@Param("userId") int userId);
 	 */
 	
-	// 자기기 쓴글만 볼수있는거 
+	// 본인 쓴글만 조회 
 	@Select("SELECT * "
 	        + "FROM PrivateQ "
 	        + "WHERE memberNo = #{memberNo} "
 	        + "ORDER BY QnANo DESC "
 	        + "LIMIT #{from}, #{count}")
 	List<PrivateQnaDto> selectBoardByMemberNo(@Param("memberNo") int memberNo, @Param("from")int from , @Param("count")int count);
-///////////////////////////////
+	
+	
 	
 	@Select("SELECT * " +
 	        "FROM PrivateQ " +
@@ -116,7 +118,7 @@ List<PrivateQnaDto> selectAllUnanswered();
 	 * searchQnaNoByQnaNo(@Param("qnaNo") int qnaNo);
 	 */
 	
-	
+	//QnaNO검색
 	@Select("SELECT * FROM PrivateQ WHERE QnaNo = #{qnaNo}")
 	List<PrivateQnaDto> searchQnaNoByQnaNo(@Param("qnaNo") int qnaNo);
 	

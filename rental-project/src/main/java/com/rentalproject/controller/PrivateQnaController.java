@@ -31,7 +31,7 @@ public class PrivateQnaController {
 	private PrivateQnaService privateQnaService;
 	
 	
-////////////////////////////////////미답변 목록 테스트 
+	//미답변 목록  
 	@GetMapping(path = {"/unanswer-list"})
 	public String showUnAnswerlist(Model model,HttpSession session) {
 	
@@ -50,21 +50,17 @@ public class PrivateQnaController {
 	        return "redirect:/privateboard/privateqnalist"; 
 	    }
 
-	
-	
-	
-	
-	List<PrivateQnaDto> unAnswer = privateQnaService.unAnswerlist();
+		List<PrivateQnaDto> unAnswer = privateQnaService.unAnswerlist();
 
-	for (PrivateQnaDto privateqna : unAnswer) {
-		String memberId = privateQnaService.getMemberIdByQnaNo(privateqna.getQnaNo());
-		privateqna.setMemberId(memberId);
-	}
+		for (PrivateQnaDto privateqna : unAnswer) {
+			String memberId = privateQnaService.getMemberIdByQnaNo(privateqna.getQnaNo());
+			privateqna.setMemberId(memberId);
+		}
 	
-	model.addAttribute("unAnswer",unAnswer);
-	model.addAttribute("memberNo", memberNo);
-	
-	return "privateboard/unanswer-list";
+			model.addAttribute("unAnswer",unAnswer);
+			model.addAttribute("memberNo", memberNo);
+			
+			return "privateboard/unanswer-list";
 	}
 	
 
@@ -157,7 +153,7 @@ public class PrivateQnaController {
 		model.addAttribute("memberNo", memberNo); // 미답변 목록 조회 하기 할떄 memberNo17번만 사용해야해서 필요 
 		if (session.getAttribute("loginuser") == null) { 
 
-			return "redirect:/account/login";
+		return "redirect:/account/login";
 
 		}
 
@@ -172,7 +168,7 @@ public class PrivateQnaController {
 
 
 		if (session.getAttribute("loginuser") == null) { 
-			return"redirect:/account/login";
+		return"redirect:/account/login";
 		}
 		return "privateboard/privateqnawrite";
 

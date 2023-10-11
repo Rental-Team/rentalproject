@@ -23,64 +23,74 @@ public class PrivateQnaServiceImpl implements PrivateQnaService {
 			privateQnaMapper.insertBoard(privateqna);
 	}
 
-	//여기 리스트 
+	/* 리스트조회 */ 
+	
+	
 	@Override
 	public List<PrivateQnaDto> listBoard(int from, int count) {
 		
 		   List<PrivateQnaDto>  qnaBoardList = privateQnaMapper.selectAllBoard(from,count);
 		   return qnaBoardList;
 	}
-
-	@Override // 페이징
+	
+	
+	/* 페이징 */
+	
+	@Override 
 	public List<PrivateQnaDto> listPrivateQnaByPage(int from, int count) {
 		   List<PrivateQnaDto> privateQnaList = privateQnaMapper.selectPrivateQnaByPage(from, count);
-		   return privateQnaList;
+		  
+		  return privateQnaList;
 	}
-
+		
+	
+	
 	@Override // 페이징 - 총 게시물 개수를 db에서 가져오기 
 	public int getPrivateQnaCount() {
 		   int count = privateQnaMapper.selectPrivateQnaCount();
-		   return count;
+		return count;
 	}
 
 
-
+	/* 멤버본인이 쓴 글 카운트 */
+	
 	@Override
 	public int getPrivateQnaCountByMemberNo(int memberNo) {
-	    int count = privateQnaMapper.selectPrivateQnaCountByMemberNo(memberNo);
-	    return count;
+	    	int count = privateQnaMapper.selectPrivateQnaCountByMemberNo(memberNo);
+	     return count;
 	}
 	
 	
 	
 	
-   // 여기 디테일 
-	@Override
-	public PrivateQnaDto findQnaBoardByQnaNo(int qnaNo) {
+	/* 여기 디테일 */
+	 @Override
+	 public PrivateQnaDto findQnaBoardByQnaNo(int qnaNo) {
+		 	PrivateQnaDto  qnaBoardList = privateQnaMapper.selectQnaBoardByQnaNo(qnaNo);
 		
-		   PrivateQnaDto  qnaBoardList = privateQnaMapper.selectQnaBoardByQnaNo(qnaNo);
-		   List<PrivateQnaAnswerDto> answerList = privateQnaAnswerMapper.selectPrivateQnaAnserbyQnaNo(qnaNo);
-		   qnaBoardList.setPrivateQnaAnswerList(answerList);
-		   return  qnaBoardList;
+	   List<PrivateQnaAnswerDto> answerList = privateQnaAnswerMapper.selectPrivateQnaAnserbyQnaNo(qnaNo);
+	   		   
+	   qnaBoardList.setPrivateQnaAnswerList(answerList);
+	   return  qnaBoardList;
 	}
 
 	 @Override //답변 완료 업데이트
-	    public void updateAnswerStatus(int qnaNo, boolean answered) {
+	 public void updateAnswerStatus(int qnaNo, boolean answered) {
 	      
-	    privateQnaMapper.updateAnswerStatus(qnaNo, answered);
+	  privateQnaMapper.updateAnswerStatus(qnaNo, answered);
  }
 	 @Override
 	 public boolean getAnswerStatus(int qnaNo) {
-		 	boolean answerStatus = privateQnaMapper.getAnswerStatus(qnaNo);
+		   boolean answerStatus = privateQnaMapper.getAnswerStatus(qnaNo);
 		 	
 		 	return answerStatus;
 	 }
 
 	 @Override
 	 public String getMemberIdByQnaNo(int qnaNo) {
-	     	String memberId = privateQnaMapper.getMemberIdByQnaNo(qnaNo);
-	     
-	     	return memberId;
+		 	String memberId = privateQnaMapper.getMemberIdByQnaNo(qnaNo);
+		 
+		 	return memberId;
 	 }
 
 		
@@ -95,46 +105,53 @@ public class PrivateQnaServiceImpl implements PrivateQnaService {
 	 * return boardList; }
 	 */
 	 
-	
+	 //관리자는 모든 리스트 조회 , 일반 회원은 본인글만 조회
 	 @Override
 	 public List<PrivateQnaDto> listBoardByMemberNo(int memberNo, int from, int count) {
-	     List<PrivateQnaDto> qnaBoardList;
+	     	List<PrivateQnaDto> qnaBoardList;
 
 	     if (memberNo == 17) {
-	    	 qnaBoardList = privateQnaMapper.selectAllBoard(from, count);
+	    	 	qnaBoardList = privateQnaMapper.selectAllBoard(from, count);
 	     } else {
-	    	 qnaBoardList = privateQnaMapper.selectBoardByMemberNo(memberNo, from, count);
+	    	 	qnaBoardList = privateQnaMapper.selectBoardByMemberNo(memberNo, from, count);
 	     }
 
-	     return  qnaBoardList;
+	     return qnaBoardList;
 	 }
-
+	
+	 
+	 /* 미답변 목록 조회 */
+	
 	@Override
 	public List<PrivateQnaDto> unAnswerlist() {
-	List<PrivateQnaDto> qnaBoardList;
+		   List<PrivateQnaDto> qnaBoardList;
 		
-		qnaBoardList = privateQnaMapper.selectAllUnanswered();
-		return qnaBoardList;
+		   qnaBoardList = privateQnaMapper.selectAllUnanswered();
+	return qnaBoardList;
 	}
-
+	
+	 
+	 
 	@Override
 	public List<PrivateQnaDto> searchByMemberId(String memberId) {
-	List<PrivateQnaDto> qnaBoardList;
+		   List<PrivateQnaDto> qnaBoardList;
 	
-	qnaBoardList=privateQnaMapper.searchPrivateQnaByMemberId(memberId, getPrivateQnaCount(), getPrivateQnaCount());
+		   	   qnaBoardList=privateQnaMapper.searchPrivateQnaByMemberId(memberId, getPrivateQnaCount(), getPrivateQnaCount());
 		
 		return qnaBoardList;
 	}
-
+	
 //	@Override
 //	public PrivateQnaDto searchByQnaNo(int qnaNo) {
 //	    PrivateQnaDto result = privateQnaMapper.searchQnaNoByQnaNo(qnaNo);
 //	    return result;
 //	}
 	
+	/* qnaNo검색 */
+	
 	@Override
 	public List<PrivateQnaDto> searchByQnaNo(int qnaNo) {
-	    List<PrivateQnaDto> result = privateQnaMapper.searchQnaNoByQnaNo(qnaNo);
+		   List<PrivateQnaDto> result = privateQnaMapper.searchQnaNoByQnaNo(qnaNo);
 	   
 	    return result;
 	}
