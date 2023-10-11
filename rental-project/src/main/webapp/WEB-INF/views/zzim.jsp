@@ -70,7 +70,7 @@
 									<input type="hidden" class="individual_itemNo_input" value="${zzim.itemNo}">								
 								</td>
 								<td class="td_width_2">
-									이미지							
+									<img src="${pageContext.request.contextPath}/resources/upload/thumbnail_${zzim.thumbnail}" alt="Image">							
 								</td>
 								<td class="td_width_3">${zzim.itemName}</td>
 								<td class="td_width_4 price_td">

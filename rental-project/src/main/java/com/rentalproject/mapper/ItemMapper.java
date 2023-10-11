@@ -75,6 +75,7 @@ public interface ItemMapper {
 			+ "where itemNo = #{ itemNo }")
 	List<ItemAttachDto> selectItemAttachByItemNo(@Param("itemNo") int itemNo);
 	
+	// 검색
 	@Select("select itemNo, itemName, viewCount, itemDate, itemPrice, deleted " +
 			"from Item " +
 			"where itemName like concat('%', #{keyword}, '%') " +

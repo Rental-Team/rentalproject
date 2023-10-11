@@ -85,29 +85,6 @@ public class ItemController {
         return searchResult;
     }
 	
-	//업로드 이미지 출력
-	@GetMapping("/display")
-	public ResponseEntity<byte[]> getImage(String fileName) {
-		
-		
-		File file = new File("d:\\upload\\" + fileName);
-		
-		ResponseEntity<byte[]> result = null;
-		
-		try {
-			
-			HttpHeaders header = new HttpHeaders();
-			
-			header.add("Content-type", Files.probeContentType(file.toPath()));
-			
-			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return result;
-	}
 	
 	@GetMapping("/write")
 	public String itemWriteForm(ItemDto item, Model model) {

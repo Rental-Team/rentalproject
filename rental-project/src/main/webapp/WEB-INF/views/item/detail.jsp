@@ -257,9 +257,17 @@
 	
 	
 	// 찜 추가 버튼
-	$("#btn_zzim").on("click", function(result){
+	$("#btn_zzim").on("click", function(e){
 		
 	form.itemCount = $(".quantity_input").val();
+	
+	if (!form.memberNo) {
+		const yn = confirm('로그인이 필요합니다.');
+		if (yn) {
+			location.href = "/rental-project/account/login";
+		} 
+		return;
+	}
 		
 	$.ajax({
 		url: 'zzim-add', // 호출 url

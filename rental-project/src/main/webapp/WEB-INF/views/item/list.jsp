@@ -21,6 +21,11 @@
   <link href="/rental-project/resources/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="/rental-project/resources/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
+  <style>
+  	#list_itemList {
+  		text-overflow: ellipsis;
+  	}
+  </style>
 </head>
 
 <body class="">
@@ -48,7 +53,7 @@
                 <thead class="thead-light">
                   <tr>
                     <th scope="col" style="width:100px">이미지</th>
-                    <th scope="col" style="width:150px">상품 이름</th>
+                    <th scope="col" style="width:150px" id="list_itemName">상품 이름</th>
                     <th scope="col" style="width:100px">상품 가격</th>
                     <th scope="col" style="width:50px">재고</th>
                     <th scope="col" style="width:50px">조회수</th>
