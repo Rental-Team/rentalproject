@@ -316,6 +316,7 @@
 		        <br>
 		        <div class="col text-center" >
 		   <input type="button" id="getBack" class="btn btn-sm btn-primary" value="목록으로 돌아가기" onclick="goToPage(${pageNo})">
+		   <input type="button" id="getBack-unanswer" class="btn btn-primary btn-sm" value="미답변 목록으로 돌아가기" onclick="gotoPageUnanswer()">
 
                 </div>
                </form>
@@ -369,7 +370,7 @@
 
 
 
-		<br>
+<br>
 <br>
 <br>
 <br>
@@ -381,34 +382,34 @@
 <br>
 <br>
 
-<!-- 1대1문의글 답변  등록  버튼 form있는 부분  --> 
-			<div class="container-fluid mt--7">
-		      <div class="row mt-5">
-		        <div class="col-xl-8 mb-5 mb-xl-0">
-		          <div class="card shadow">
-		            <div class="card-header border-0">
-		              <div class="row align-items-center">
-		                <div class="col">
-		                <h5 class="mb-0">1대1게시글 답변</h5>
-		                	<form id="comment-Answer" action="write-answer" method="post">
-		                		<input type="hidden" name="qnaNo" value="${ privateqna.qnaNo}" />
-		                		<table class="table align-items-center">
-		                			<tr>
-		                				<td style="width: 750px"><textarea id="comment_content"
-										name="answerContent" style="width: 100%; resize:none;" rows="2"></textarea></td>
-										<td style="width: 50px; vertical-align: middle; border-radius:80px">								 
-										<input type="submit" class ="btn btn-sm btn-primary" id="write-answer" value="답변등록하기" >
-										</td>
-		                			</tr>
-		                		</table>
-		                		</form>
-		                 </div>
-		              </div>
-		           </div> 
-		          </div>
-		        </div>
-		      </div>
-		       </div>
+		<!-- 1대1문의글 답변  등록  버튼 form있는 부분  --> 
+	  <div class="container-fluid mt--7">
+	   <div class="row mt-5">
+	    <div class="col-xl-8 mb-5 mb-xl-0">
+	    <div class="card shadow">
+	     <div class="card-header border-0">
+	      <div class="row align-items-center">
+	       <div class="col">
+             <h5 class="mb-0">1대1게시글 답변</h5>
+		      <form id="comment-Answer" action="write-answer" method="post">
+			<input type="hidden" name="qnaNo" value="${ privateqna.qnaNo}" />
+			  <table class="table align-items-center">
+				<tr>
+				 <td style="width: 750px">
+					<textarea id="comment_content"name="answerContent" style="width: 100%; resize:none;" rows="2"></textarea></td>
+				 <td style="width: 50px; vertical-align: middle; border-radius:80px">								 
+				  	<input type="submit" class ="btn btn-sm btn-primary" id="write-answer-lnk" value="답변등록하기" >
+				</td>
+			  </tr>
+		      </table>
+		     </form>
+	       </div>
+	      </div>
+	     </div> 
+	    </div>
+	   </div>
+	  </div>
+	 </div>
 <!-- 1대1문의글 답변  등록  버튼 form있는 부분 --> 
    
       
@@ -481,11 +482,48 @@
       });
   </script>
  
+<!--  <script>
+ $("#write-answer-lnk").on("click",function(event){
+	 
+	 const formData =$('#comment-Answer').serialize();
+	 $.ajax({
+		"url":"ajax-write-answer",
+		"method": "post",
+		"data":formData,
+		"success":function(data, status, xhr){
+			$('#answer-list').load('answer-list?qnaNo=${privateqna.qnaNo}');
+			$('#comment_content').val('')
+		},
+		"error":function(xhr, status, err) {
+			alert("fail");
+		}
+		
+	 });
  
+ }); 
 
+ </script> -->
+ 
+ 
+ 
+ 
+ 
+<script>
+  $(function() {
+    $("#comment-Answer").submit(function(event) {
+      var answerContent = $("#comment_content").val();
 
+      if (answerContent.trim() === "") {
+        alert("답변을 입력하세요.");
+        event.preventDefault();
+      } else {
+        if (!confirm("답변을 등록하시겠습니까?")) {
+          event.preventDefault();
+        }
+      }
+    });
+  });
 
-    <script>
     function goToPage(pageNo) {
       var url = 'privateqnalist?pageNo=' + pageNo;
       location.href = url;
@@ -506,15 +544,33 @@
   
       // 서버에서 memberNo 값을 JSP로부터 가져오는거임
       var memberNo = <%= request.getAttribute("memberNo") %>;
-  
+
       if (memberNo !== 17) {
         var commentAnswerForm = document.getElementById("comment-Answer");
         if (commentAnswerForm) {
-            commentAnswerForm.style.display = "none";
+          commentAnswerForm.style.display = "none";
+        }
+        
+        // 미답변 목록으로 돌아가기 버튼 숨기기
+        var getBackUnanswerButton = document.getElementById("getBack-unanswer");
+        if (getBackUnanswerButton) {
+          getBackUnanswerButton.style.display = "none";
         }
       }
     });
+
+    // 미답변 목록으로 돌아가기 버튼 표시/숨김
+    function gotoPageUnanswer() {
+      var memberNo = <%= request.getAttribute("memberNo") %>;
+      if (memberNo === 17) {
+        var url = 'unanswer-list';
+        location.href = url;
+      } else {
+        alert("17번 멤버만 접근 가능합니다.");
+      }
+    }
   </script>
+  
   
   
 </body>

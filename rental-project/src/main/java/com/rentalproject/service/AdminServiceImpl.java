@@ -7,17 +7,20 @@ import javax.mail.FetchProfile.Item;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.rentalproject.dto.CategoryDto;
 import com.rentalproject.dto.ItemAttachDto;
 import com.rentalproject.dto.ItemDto;
 import com.rentalproject.dto.MemberDto;
 import com.rentalproject.dto.NoticeDto;
 import com.rentalproject.mapper.AdminMapper;
+import com.rentalproject.mapper.ItemMapper;
 
 public class AdminServiceImpl implements AdminService {
 
 	@Autowired
 	private AdminMapper adminMapper;
 	
+	// 멤버 리스트 조회
 	@Override
 	public List<MemberDto> MemberList() {
 		
@@ -25,6 +28,14 @@ public class AdminServiceImpl implements AdminService {
 		return adminMapper.allMemberList();
 	}
 	
+	// 카테고리 리스트
+	@Override
+	public List<CategoryDto> cateList() {
+		
+		return adminMapper.cateList();
+	};
+	
+	// 상품 리스트 출력
 	@Override
 	public List<ItemDto> ItemList() {
 		
@@ -32,13 +43,38 @@ public class AdminServiceImpl implements AdminService {
 		return adminMapper.allItemList();
 	}
 	
+	// 상품 등록
+	@Override
+	public void writeItem(ItemDto item) {
+		
+		// 상품을 저장해준다. (o)
+		adminMapper.insertItem(item);
+		
+		// 첨부 파일을 저장해준다. (o)
+		for (ItemAttachDto attach : item.getItemAttachList()) {
+			attach.setItemNo(item.getItemNo());
+			adminMapper.insertItemAttach(attach);
+		}
+
+		//log.info("write....." + item);
+	}
+	
+	// 상품 상세
 	@Override
 	public ItemDto itemDetail(int itemNo) {
 		
+		ItemDto item = adminMapper.read(itemNo);
 		
-		return adminMapper.read(itemNo);
+		if(item!=null) {
+			List<ItemAttachDto> itemList = adminMapper.selectItemAttachByItemNo(itemNo);
+			item.setItemAttachList(itemList);
+		}
+		
+		return item;
 	}
 	
+	
+	// 상품 갯수
 	@Override
 	public int getItemCount() {
 		
@@ -47,6 +83,7 @@ public class AdminServiceImpl implements AdminService {
 		return count;
 	}
 	
+	// 상품 리스트 (페이징 기능)
 	@Override
 	public List<ItemDto> listItemByPage(int from, int count) {
 		
@@ -56,64 +93,38 @@ public class AdminServiceImpl implements AdminService {
 		
 	}
 
-	
-	@Override
-	public ItemDto findItemByItemNo(int itemNo) {
-		ItemDto item = adminMapper.read(itemNo);
-		
-		if (item != null) {
-			List<ItemAttachDto> attachList = adminMapper.selectItemAttachByItemNo(itemNo);
-			item.setItemAttachList(attachList);
-		}
-		
-		return item;
-	}
 
-
+	// 첨부 파일 정보 조회(첨부파일 번호로)
 	@Override
 	public ItemAttachDto findItemAttachByAttachNo(int attachNo) {
 		ItemAttachDto attach = adminMapper.selectItemAttachByAttachNo(attachNo);
 		return attach;
 	}
 
-
-	
-	
+	// 상품 수정
 	@Override
 	public void editItem(ItemDto item) {
 		
+		// db 수정
 		adminMapper.updateItem(item);
 		
+		// 이미지 저장
 		for (ItemAttachDto attach : item.getItemAttachList()) {
 			attach.setItemNo(item.getItemNo());
 			adminMapper.insertItemAttach(attach);
 		}
 	}
 	
-	
+	// 상품 삭제
 	@Override
 	public void deleteItem(int itemNo) {
 		
 		
 		adminMapper.deleteBoard(itemNo);
+		
 	}
 	
-	@Override
-	public void writeItem(ItemDto item) {
-		
-
-		adminMapper.insertItem(item);
-		
-		for (ItemAttachDto attach : item.getItemAttachList()) {
-			attach.setItemNo(item.getItemNo());
-			adminMapper.insertItemAttach(attach);
-		}
-		// TODO Auto-generated method stub
-
-		//log.info("write....." + item);
-
-		adminMapper.insertItem(item);
-	}
+	// ================== 공지사항 ====================
 
 	@Override
 	public void writeNotice(NoticeDto notice) {

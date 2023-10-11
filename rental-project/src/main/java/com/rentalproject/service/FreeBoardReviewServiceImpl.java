@@ -41,4 +41,22 @@ public class FreeBoardReviewServiceImpl implements FreeBoardReviewService{
 		return reviews;
 	}
 
+	@Override
+	public FreeBoardReviewDto findFreeBoardReviewByFreeBoardReplyNo(int freeBoardReplyNo) {
+		FreeBoardReviewDto freeBoardReview = freeboardReviewMapper.selectFreeBoardReviewByFreeBoardNo(freeBoardReplyNo);
+		return freeBoardReview;
+	}
+
+	@Override
+	public void updateReplySequence(FreeBoardReviewDto freeBoardReview) {
+		freeboardReviewMapper.updateReplySequence(freeBoardReview);
+		
+	}
+
+	@Override
+	public void writeRereply(FreeBoardReviewDto freeBoardReview) {
+		freeboardReviewMapper.insertRereply(freeBoardReview);
+		
+	}
+
 }

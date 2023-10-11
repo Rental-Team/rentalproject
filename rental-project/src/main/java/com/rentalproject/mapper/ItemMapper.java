@@ -33,11 +33,12 @@ public interface ItemMapper {
 			+ "where ItemNo = #{ itemNo }")
 	void itemViewCount(int itemNo);
 
-
-	@Select("select  itemNo, itemName, itemCode, itemDate, itemPrice, itemDetail, categoryName " +
+	
+	@Select("select itemNo, itemName, (select cateName from itemCate where cateCode = Item.cateCode) cateName, "
+			+ " cateCode, itemPrice, itemStock, itemDetail, itemDate , deleted " +
 			"from Item " +
-			"where itemNo = #{ itemNo }")
-	public ItemDto read(int itemNo);
+			"where itemNo = #{ itemNo } and deleted = false")
+	ItemDto read(@Param("itemNo") int itemNo);
 	
 	@Insert("insert into Zzim (memberId, itemNo) "
 			+ "values (#{memberId}, #{itemNo}) ")
@@ -65,5 +66,13 @@ public interface ItemMapper {
 			"order by itemNo desc "
 			+ "limit #{from}, #{count}")
 	public List<ItemDto> selectItemByPage(@Param("from") int from, @Param("count") int count);
+	
+	
+	@Select("select itemNo, itemName, viewCount, itemDate, itemPrice, deleted " +
+			"from Item " +
+			"where itemName like concat('%', #{keyword}, '%') " +
+			"order by itemNo desc " + 
+			"limit #{from}, #{count}")
+	List<ItemDto> searchItems(@Param("keyword") String keyword, @Param("from") int from, @Param("count") int count);
 	
 }

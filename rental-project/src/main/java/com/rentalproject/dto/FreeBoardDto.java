@@ -15,10 +15,10 @@ public class FreeBoardDto {
 	private String freeBoardTitle;
 	private String freeBoardContent;
 	private Date freeBoardDate;
-	private int freeBoardViewCount;
+	private int freeBoardViewCount; 
 	private boolean freeBoardDelete;
 	
-	//검색
+	//검색 기능 구현
 	private String type;
 	private String keyword;
 	

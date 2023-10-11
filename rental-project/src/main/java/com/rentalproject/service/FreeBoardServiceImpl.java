@@ -2,9 +2,7 @@ package com.rentalproject.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.beans.factory.annotation.Autowired; 
 import com.rentalproject.dto.FreeBoardAttachDto;
 import com.rentalproject.dto.FreeBoardDto;
 import com.rentalproject.dto.FreeBoardReviewDto;
@@ -105,6 +103,24 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	public List<FreeBoardDto> selectSearchFreeBoard(String keyword){
 		List<FreeBoardDto> freeBoardSearch = freeboardMapper.selectSearchFreeBoard(keyword);
 		return freeBoardSearch;
+	} 
+
+	@Override
+	public List<FreeBoardDto> selectSearchByTitle(String keyword) {
+		List<FreeBoardDto> freeBoardSearch = freeboardMapper.selectSearchByTitle(keyword);
+		return freeBoardSearch;
 	}
+
+	@Override
+	public List<FreeBoardDto> selectSearchByContent(String keyword) {
+		List<FreeBoardDto> freeBoardSearch = freeboardMapper.selectSearchByContent(keyword);
+		return freeBoardSearch;
+	}
+
+	@Override
+	public List<FreeBoardDto> selectSearchByMemeberId(String keyword) {
+		List<FreeBoardDto> freeBoardSearch = freeboardMapper.selectSearchByMemeberId(keyword);
+		return freeBoardSearch;
+	}   
 
 }

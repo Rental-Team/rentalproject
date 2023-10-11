@@ -3,6 +3,7 @@ package com.rentalproject.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -10,6 +11,7 @@ import org.apache.ibatis.annotations.Update;
 
 import com.rentalproject.dto.PrivateQnaDto;
 
+@Mapper
 public interface PrivateQnaMapper {
 
 	
@@ -23,6 +25,15 @@ public interface PrivateQnaMapper {
 	@Options(useGeneratedKeys = true, keyProperty = "qnaNo")
 	void insertBoard(PrivateQnaDto privateqna);
 	
+////////미답변 조회 
+@Select("SELECT QnaNo, QnaType, QnaTitle, QnaContent, QnaDate, memberNo "
+        + "FROM PrivateQ "
+        + "WHERE answered = false "
+        + "ORDER BY QnaDate ASC")
+List<PrivateQnaDto> selectAllUnanswered();
+    
+    
+    
 	
     //관리자만 볼수있는거
     @Select( "SELECT QnANo, QnaType, QnATitle, QnAContent, QnaDate, memberNo "
@@ -90,5 +101,25 @@ public interface PrivateQnaMapper {
 	        + "ORDER BY QnANo DESC "
 	        + "LIMIT #{from}, #{count}")
 	List<PrivateQnaDto> selectBoardByMemberNo(@Param("memberNo") int memberNo, @Param("from")int from , @Param("count")int count);
+///////////////////////////////
+	
+	@Select("SELECT * " +
+	        "FROM PrivateQ " +
+	        "WHERE memberNo = (SELECT memberNo FROM Member WHERE memberId = #{memberId}) " +
+	        "ORDER BY QnaNo DESC " +
+	        "LIMIT #{from}, #{count}")
+	List<PrivateQnaDto> searchPrivateQnaByMemberId(@Param("memberId") String memberId, @Param("from") int from, @Param("count") int count);
+	
+	
+	/*
+	 * @Select("SELECT * FROM PrivateQ WHERE QnaNo = #{qnaNo}") PrivateQnaDto
+	 * searchQnaNoByQnaNo(@Param("qnaNo") int qnaNo);
+	 */
+	
+	
+	@Select("SELECT * FROM PrivateQ WHERE QnaNo = #{qnaNo}")
+	List<PrivateQnaDto> searchQnaNoByQnaNo(@Param("qnaNo") int qnaNo);
+	
+	
 	
 }

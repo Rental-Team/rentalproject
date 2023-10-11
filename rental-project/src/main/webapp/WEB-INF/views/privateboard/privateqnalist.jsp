@@ -40,6 +40,49 @@
                 <div class="col">
                   <h3 class="mb-0">1:1문의</h3>
                 </div>
+				
+						
+<!--미답변 목록 조회 	 -->			
+		<div class="container mt-2">
+  <div class="row">
+    <div class="col-md-6 d-flex align-items-start">
+      <select id="viewOption" class="form-control form-control-sm" style="width: 150px;">
+        <option value="unanswered">미답변 목록 조회</option>
+        <option value="all">전체 목록 조회</option>
+      </select>
+      <button id="viewButton" class="btn btn-primary btn-sm ml-2" onclick="viewList()">목록 조회</button>
+    </div>
+  </div>
+</div>
+<!--미답변 목록 조회   --> 
+			
+
+
+<!--검색   -->
+<!-- <div id="qnaSearchSection" class="col-md-6">
+    <form action="searchByQnaNo" method="get" onsubmit="return validateSearch();">
+        <label for="qnaNo">Qna No:</label>
+        <input type="text" id="qnaNo" name="qnaNo">
+        <button type="submit" id="searchButton">검색</button>
+    </form>
+</div>
+ -->
+
+<!--검색   -->
+  <div id="qnaSearchSection" class="col-md-6">
+  <form action="searchByQnaNo" method="get" onsubmit="return validateSearch();">
+    <select id="searchType" name="searchType">
+      <option value="qnaNo">문의번호</option>
+    </select>
+    <input type="text" id="qnaNo" name="qnaNo">
+    <button type="submit" id="searchButton">검색</button>
+  </form>
+</div>
+<!--검색   -->
+
+
+
+             
                 <div class="col text-right">
                   <a href="privateqnawrite" class="btn btn-sm btn-primary">1대1문의 작성</a>
                 </div>
@@ -60,6 +103,15 @@
                     
                   </tr>
                 </thead>
+                	 <tbody id="unansweredQnasTable">
+       					 <!-- 여기에 미답변 목록이 표시. -->
+   				</tbody>
+   				
+   				 <tbody id="searchResultTable">
+    				<!-- 검색 결과가 여기에 동적으로 추가????. -->
+  				</tbody>
+   					 
+                
                  <c:forEach var="privateqna" items="${ requestScope.qnaBoardList}">
                   <tr>                  
                    <td>${ privateqna.qnaNo }</td>
@@ -137,6 +189,71 @@
         application: "argon-dashboard-free"
       });
   </script>
+  
+	<script>
+	  var memberNo = <%= request.getAttribute("memberNo") %>;
+	
+	  // memberNo 값을 콘솔에 로깅하여 확인
+	  console.log("memberNo: " + memberNo);
+	
+	  // memberNo가 17인 경우에만 보이도록 설정
+	  if (memberNo === 17) {
+	    document.getElementById("viewOption").style.display = "block"; // 보이게 설정
+	    document.getElementById("viewButton").style.display = "block"; // 보이게 설정
+	  } else {
+	    document.getElementById("viewOption").style.display = "none"; // 숨기게 설정
+	    document.getElementById("viewButton").style.display = "none"; // 숨기게 설정
+	  }
+	</script>
+  
+  
+  
+	 <script>
+	  function viewList() {
+	    var viewOption = document.getElementById("viewOption").value;
+	    if (viewOption === "unanswered") {
+	      window.location.href = "unanswer-list"; // 미답변 목록 조회 페이지로 이동
+	    } else if (viewOption === "all") {
+	      window.location.href = "privateqnalist"; // 전체 목록 조회 페이지로 이동
+	    }
+	  }
+	</script>
+  
+ 
+ 
+	 
+	 <script>
+	 if (memberNo === 17) {
+		    document.getElementById("qnaSearchSection").style.display = "block"; // 보이게 설정
+		  } else {
+		    document.getElementById("qnaSearchSection").style.display = "none"; // 숨기게 설정
+		  }
+	 
+	 
+	 
+	</script>
+ 
+	 
+	
+ 
+	<script>
+	  function validateSearch() {
+	    var qnaNo = document.getElementById("qnaNo").value;
+	    if (qnaNo.trim() === "") {
+	      alert("Qna No를 입력해주세요"); 
+	      return false; 
+	    }
+	    return true;
+	  }
+	</script>
+ 
+ 
+ 
+ 
+  
+  
+  
+  
 </body>
 
 </html>

@@ -22,6 +22,8 @@ import org.springframework.web.servlet.View;
 import com.rentalproject.common.Util;
 import com.rentalproject.dto.FreeBoardAttachDto;
 import com.rentalproject.dto.FreeBoardDto;
+import com.rentalproject.dto.FreeBoardReportDto;
+import com.rentalproject.service.FreeBoardReportService;
 import com.rentalproject.service.FreeBoardService;
 import com.rentalproject.ui.ThePager;
 import com.rentalproject.view.DownloadView;
@@ -33,6 +35,8 @@ public class FreeBoardController {
 	
 	@Autowired
 	private FreeBoardService freeBoardService;
+	@Autowired
+	private FreeBoardReportService freeBoardReportService;
 	
 	// 자유게시글 리스트 화면 불러오기 ( 전체 게시글 불러오기 )
 	@GetMapping(path= {"/freeboardlist"})
@@ -136,20 +140,23 @@ public class FreeBoardController {
 		
 		if(freeboard == null) { // 조회된 글이 없을때 리스트로  
 			return "redirect:freeboardlist";
-		}
+		} 
 		
 		 String memberId = freeBoardService.getMemberId(freeboard.getFreeBoardNo());
 		 freeboard.setMemberId(memberId);
-
+		 
+		int count = freeBoardReportService.reportcount(freeBoardNo);
 		
+		model.addAttribute("count", count);
 		model.addAttribute("freeBoard", freeboard);
-		model.addAttribute("pageNo", pageNo);
+		model.addAttribute("pageNo", pageNo); 
 		
-		freeBoardService.updateFreeBoardviewCount(freeBoardNo);  // 조회수 증가 
+ 
+		freeBoardService.updateFreeBoardviewCount(freeBoardNo);  // 조회수 증가 ;
 		
 		return "freeboard/freeboarddetail";
 		
-	}
+	}  
 	
 		// 첨부파일 조회 및 다운로드하기
 		@GetMapping(path = {"/download"})
@@ -218,14 +225,36 @@ public class FreeBoardController {
 		return String.format("redirect:/freeboard/freeboardlist?pageNo=%d", pageNo);
 	}
 		
-	// 자유게시판 게시글 검색 기능  
-	@GetMapping(path = {"/freeBoardSearch"}) 
-	public String searchFreeBoard(@RequestParam("keyword") String keyword, Model model) {
-		List<FreeBoardDto> searchResults = freeBoardService.selectSearchFreeBoard(keyword);
-		model.addAttribute("searchResults", searchResults);
-		return "searchResults";
-	
-	}
+	// 자유게시판 검색한 게시글 불러오기   
+		@GetMapping(path = {"/search-list"}) 
+		public String searchFreeBoard(@RequestParam(defaultValue = "-1") int freeBoardNo,
+									  @RequestParam(defaultValue = "1") int pageNo, 
+									  @RequestParam(defaultValue = "") String type,
+									  @RequestParam("keyword") String keyword, 
+									  Model model) { 
+			
+		List<FreeBoardDto> searchList;
+		
+		if("freeBoardTitle".equals(type)) {
+			searchList = freeBoardService.selectSearchByTitle(keyword);
+		} else if("freeBoardContent".equals(type)) {
+			searchList = freeBoardService.selectSearchByContent(keyword);
+		} else if("memberId".equals(type)) {
+			searchList = freeBoardService.selectSearchByMemeberId(keyword);
+		} else {
+			searchList = freeBoardService.selectSearchFreeBoard(keyword);
+		}
+		
+		for (FreeBoardDto freeboard : searchList ) {  // 작성자 조회
+			String memberId = freeBoardService.getMemberId(freeboard.getFreeBoardNo());
+			freeboard.setMemberId(memberId);
+		} 
+		
+		model.addAttribute("searchList", searchList);
+		model.addAttribute("pageNo", pageNo);
+		
+		return "freeboard/search-list"; 
+	} 
 }
 
 	

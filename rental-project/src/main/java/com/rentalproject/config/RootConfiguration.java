@@ -22,6 +22,8 @@ import com.rentalproject.mapper.AccountMapper;
 import com.rentalproject.service.AccountServiceImpl;
 import com.rentalproject.service.AdminService;
 import com.rentalproject.service.AdminServiceImpl;
+import com.rentalproject.service.FreeBoardReportService;
+import com.rentalproject.service.FreeBoardReportServiceImpl;
 import com.rentalproject.service.FreeBoardReviewService;
 import com.rentalproject.service.FreeBoardReviewServiceImpl;
 import com.rentalproject.service.FreeBoardService;
@@ -35,6 +37,7 @@ import com.rentalproject.service.PrivateQnaAnswerServiceImpl;
 import com.rentalproject.service.PrivateQnaService;
 import com.rentalproject.service.PrivateQnaServiceImpl;
 import com.rentalproject.service.ProfileServiceImpl;
+import com.rentalproject.service.ZzimServiceImpl;
 
 @Configuration
 @MapperScan(basePackages = {"com.rentalproject.mapper"})
@@ -115,6 +118,12 @@ public class RootConfiguration implements ApplicationContextAware{
 	}
 	
 	@Bean
+	public FreeBoardReportService freeboardReportService () {
+		FreeBoardReportService freeboardReportService = new FreeBoardReportServiceImpl ();
+		return freeboardReportService;
+	}
+	
+	@Bean
 	public FreeBoardReviewService freeboardReviewService () {
 		FreeBoardReviewService freeboardReviewService = new FreeBoardReviewServiceImpl ();
 		return freeboardReviewService;
@@ -184,5 +193,11 @@ public class RootConfiguration implements ApplicationContextAware{
 	public KakaoService ks() {
 		KakaoService ks = new KakaoService();
 		return ks;
+	}
+	
+	@Bean
+	public ZzimServiceImpl zzimService() {
+		ZzimServiceImpl zzimService = new ZzimServiceImpl();
+		return zzimService;
 	}
 }

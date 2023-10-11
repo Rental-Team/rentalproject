@@ -94,6 +94,14 @@ public class ItemServiceImpl implements ItemService{
 		
 		itemMapper.insertZzim(zzim);
 	}
+
+
+	@Override
+	public List<ItemDto> searchItems(String keyword, int from, int count) {
+		
+		
+		return itemMapper.searchItems(keyword, from, count);
+	}
 	
 
 }

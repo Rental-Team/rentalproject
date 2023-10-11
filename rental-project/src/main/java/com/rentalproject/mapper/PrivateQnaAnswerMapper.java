@@ -31,4 +31,6 @@ public interface PrivateQnaAnswerMapper {
 										)
 		void updateAnswer(PrivateQnaAnswerDto privateQnaAnswer);
 
+	
+
 }		
