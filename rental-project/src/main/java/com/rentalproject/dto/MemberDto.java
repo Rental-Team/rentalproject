@@ -43,4 +43,5 @@ public class MemberDto {
 	private String introduce;
 	private String imageName;
 	private int admin;
+	private int kakao;
 }
