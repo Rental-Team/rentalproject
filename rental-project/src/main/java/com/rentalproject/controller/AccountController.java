@@ -87,14 +87,22 @@ public class AccountController {
         	Map<String, Object> userInfo = ks.getUserInfo(access_token);
         	
         	String email = (String) userInfo.get("email");
+        	String nickname = (String) userInfo.get("nickname");
         	System.out.println(email);
         	
         	member.setMemberId(email);
         	member.setPassword("a1s2d3");
         	member.setPasswordConfirm("a1s2d3");
+        	member.setUserName(nickname);
+        	member.setNickname(nickname);
+        	member.setPhoneNo("");
+        	member.setEmail(email);
+        	member.setAddress("");
         	member.setKakao(1);
        
         	accountService.register(member);
+        	
+        	member.setPassword("a1s2d3");
         	
         	model.addAttribute("code", code);
             model.addAttribute("access_token", access_token);
