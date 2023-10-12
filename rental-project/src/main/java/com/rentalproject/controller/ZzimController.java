@@ -56,7 +56,7 @@ public class ZzimController {
 		model.addAttribute("zzimInfo", zzimService.getZzimList(memberNo));
 		
 		
-		return "/zzim";
+		return "zzim";
 	}
 	
 	
