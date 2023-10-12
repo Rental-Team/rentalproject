@@ -37,15 +37,16 @@
         <div class="col-xl-12 mb-5 mb-xl-0">
           <div class="card shadow">
             <div class="card-header border-0">
-              <div class="row align-items-center">
-                <div class="col">
-                  <h3 style="font-weight:bold" class="mb-0">자유게시판</h3>
-                </div>
-                <div class="col text-right">
-                  <a href="freeboardwrite" class="btn btn btn-success">게시글 작성</a>
-                </div>
-              </div>
-            </div>
+		    <div class="row align-items-center">
+		        <div class="col">
+		            <h3 style="font-weight: bold" class="mb-0">자유게시판</h3>
+		        </div>   
+		        	<a href="reported-List" class="btn btn-success" id="reportshowbtn" style="width: 8cm">신고된 글 조회 및 관리하기</a>
+		        <div class="col text-right">
+		            <a href="freeboardwrite" class="btn btn-success" style="margin: 0">게시글 작성</a>
+		        </div>
+	    	</div>
+			</div>
             <div class="table-responsive">  
          <!-- Projects table -->
          <table class="table align-items-center table-flush">
@@ -70,7 +71,14 @@
 			            </a>
 			          </c:when>
 			          <c:otherwise>
-			            <span class="freeBoardDelete" style="color: gray">&lt;&lt; 삭제된 게시글입니다 &gt;&gt;</span>
+			           <c:choose>
+			            <c:when test="${freeBoard.memberNo == 17}">
+			                <span class="freeBoardDelete" style="color: gray">&lt;&lt; 관리자에 의해 삭제된 게시글입니다 &gt;&gt;</span>
+			            </c:when>
+			            <c:otherwise>
+			                <span class="freeBoardDelete" style="color: gray">&lt;&lt; 삭제된 게시글입니다 &gt;&gt;</span>
+			            </c:otherwise>
+			        </c:choose>
 			          </c:otherwise>
 			        </c:choose>
 			      </td>
@@ -85,7 +93,7 @@
            </table>
            <!-- 검색 form  -->
            		<div class="p-4 bg-secondary" style="width:1735px">
-				  <form name="search-form" method="get" action="search-list" autocomplete="off" 
+				  <form name="search-form" method="get" action="freeboardlist" autocomplete="off" 
 				  class="d-flex align-items-center justify-content-center" style="width:100%; text-align:center;">
 					<div class="input-group input-group-alternative" style="width:180%;"> 
 					<div class="input-group-prepend"></div> 
@@ -156,6 +164,20 @@
         application: "argon-dashboard-free"
       });
   </script>
+  <script>
+		  var memberNo = <%= request.getAttribute("memberNo") %> 
+		  
+		  var reportshowbtn = document.getElementById("reportshowbtn");
+		
+		  if (memberNo === 17) {
+			  reportshowbtn.style.display = "block";
+		  } else {
+			  reportshowbtn.style.display = "none";
+		  }
+</script>
+  
+  
+  
   
 </body>
 

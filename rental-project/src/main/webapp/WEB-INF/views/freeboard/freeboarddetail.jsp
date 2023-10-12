@@ -108,13 +108,9 @@
                 </form>
                 	<br><br>
                 	<div class="col text-center" >
-                		<a title="추천" id="goodbtn">
+                		<a title="추천" id="recommandbtn">
 					        <img src="/rental-project/resources/img/icons/good.png" alt="추천" width="50" height="50"/>
-					        <span id="goodCount" class="count">0</span>
-					    </a>
-					    <a title="반대" id="badbtn">
-						    <img src="/rental-project/resources/img/icons/bad.png" alt="반대" width="50" height="50"/>
-						    <span id="badCount" class="count">0</span> 
+					        <span id="recommandCount" class="count">${recommandCount}</span>
 					    </a> 
 			    	    <a title="신고" id="reportbtn">
 							<img src="/rental-project/resources/img/icons/report.png" alt="신고" width="50" height="50"/>
@@ -124,10 +120,14 @@
 					    <div class="col text-center" >
 				        <input type="button" class ="btn btn-outline-success" id="btnBackToList" value="목록으로 돌아가기" ></div>  
 				        <br />
-				        <div class="col text-center" style='display:${ (not empty loginuser and loginuser.memberId == freeBoard.memberId)? "block" : "none"}'>
-				        <input type="button" class ="btn btn-outline-success" id="btnedit" value="게시글 수정하기" >
-				        <input type="button" class ="btn btn-outline-success" id="btndelete" value="게시글 삭제하기" >
-				        </div>
+				        <div class="row text-center justify-content-center">
+						    <div class="col-2" style='display:${(not empty loginuser and loginuser.memberId == freeBoard.memberId) ? "block" : "none"};margin-right: -50px;'>
+						        <input type="button" class="btn btn-outline-success" id="btnedit" value="게시글 수정하기">
+						    </div>
+						    <div class="col-2" style='display:${(not empty loginuser and (loginuser.memberId == freeBoard.memberId or loginuser.memberNo == 17)) ? "block" : "none"};margin-left: -50px;'>
+						        <input type="button" class="btn btn-outline-success" id="btndelete" value="게시글 삭제하기">
+						    </div>
+						</div>
 	             
                </div>  
              </div>
@@ -190,10 +190,6 @@
 									    <a title="추천" id="goodbtn">
 									        <img src="/rental-project/resources/img/icons/good.png" alt="추천" width="20" height="20"/>
 									        <span id="goodCount" class="FreeBoardGoodCount">0</span>
-									    </a>
-									    <a title="반대" id="badbtn">
-										    <img src="/rental-project/resources/img/icons/bad.png" alt="반대" width="20" height="20"/>
-										    <span id="badCount" class="count">0</span> 
 									    </a> 
 									    <a title="신고" id="reportbtn">
 										<img src="/rental-project/resources/img/icons/report.png" alt="신고" width="20" height="20"/>
@@ -512,6 +508,36 @@
 	   				return;
 	   			} else if (result === '2'){
 	   				alert("이미 신고한 게시글입니다.");
+	   			}  
+	   		}
+	   		
+	   	// 게시글 추천버튼
+			$("#recommandbtn").on("click", function(e){ 
+				if (!form.memberNo) {
+					const yn = confirm('로그인이 필요합니다.로그인 화면으로 이동할까요?');
+					if (yn) {
+						location.href = "/rental-project/account/login";
+					}
+					return;
+				}
+				
+	   			$.ajax({
+	   			url : 'freeBoard-recommand',
+	   			method : 'post',
+	   			data : form,
+	   			success : function(recommandresult) {
+	   				recommandAlert(recommandresult);
+	   			}
+   			})	 
+	   		})
+	   		
+	   		function recommandAlert(recommandresult) {
+	   			if(recommandresult == '0'){
+	   				alert("추천이 안되었습니다 !");
+	   			} else if(recommandresult == '1') { 
+	   				alert("게시글이 추천 되었습니다 !"); 
+	   			} else if (recommandresult === '2'){
+	   				alert("이미 추천한 게시글입니다.");
 	   			}  
 	   		}
 			

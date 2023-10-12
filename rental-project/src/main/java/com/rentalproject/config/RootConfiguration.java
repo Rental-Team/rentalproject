@@ -22,6 +22,8 @@ import com.rentalproject.mapper.AccountMapper;
 import com.rentalproject.service.AccountServiceImpl;
 import com.rentalproject.service.AdminService;
 import com.rentalproject.service.AdminServiceImpl;
+import com.rentalproject.service.FreeBoardRecommandService;
+import com.rentalproject.service.FreeBoardRecommandServiceImpl;
 import com.rentalproject.service.FreeBoardReportService;
 import com.rentalproject.service.FreeBoardReportServiceImpl;
 import com.rentalproject.service.FreeBoardReviewService;
@@ -120,6 +122,12 @@ public class RootConfiguration implements ApplicationContextAware{
 	public FreeBoardReportService freeboardReportService () {
 		FreeBoardReportService freeboardReportService = new FreeBoardReportServiceImpl ();
 		return freeboardReportService;
+	}
+	
+	@Bean
+	public FreeBoardRecommandService freeboardRecommandService () {
+		FreeBoardRecommandService freeboardRecommandService = new FreeBoardRecommandServiceImpl ();
+		return freeboardRecommandService;
 	}
 	
 	@Bean

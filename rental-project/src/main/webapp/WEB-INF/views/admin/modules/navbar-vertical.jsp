@@ -126,6 +126,11 @@
               <i class="ni ni-circle-08 text-pink"></i> 로그아웃
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/rental-project/freeboard/freeboardlist">
+              <i class="ni ni-satisfied text-yellow"></i> 자유 게시판
+            </a>
+          </li>
           </c:otherwise>
           </c:choose>
         </ul>
