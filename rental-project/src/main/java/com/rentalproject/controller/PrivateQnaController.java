@@ -33,8 +33,18 @@ public class PrivateQnaController {
 	
 	//미답변 목록  
 	@GetMapping(path = {"/unanswer-list"})
-	public String showUnAnswerlist(Model model,HttpSession session) {
+	public String showUnAnswerlist(Model model,HttpSession session , @RequestParam(defaultValue = "1") int pageNo) {
 	
+		int pageSize = 10 ;
+		int pagerSize =5;
+		String linkurl = "unanswer-list";
+		int dataCount = privateQnaService.getUnanswerListCount();
+		
+		int from = (pageNo -1) * pageSize;
+		
+		
+		
+		
 		MemberDto loginuser = (MemberDto) session.getAttribute("loginuser");	
 		
 		int memberNo = -1;
@@ -50,17 +60,21 @@ public class PrivateQnaController {
 	        return "redirect:/privateboard/privateqnalist"; 
 	    }
 
-		List<PrivateQnaDto> unAnswer = privateQnaService.unAnswerlist();
+		List<PrivateQnaDto> unAnswer = privateQnaService.unAnswerlist(from , pageSize);
 
 		for (PrivateQnaDto privateqna : unAnswer) {
 			String memberId = privateQnaService.getMemberIdByQnaNo(privateqna.getQnaNo());
 			privateqna.setMemberId(memberId);
 		}
 	
+		ThePager pager = new ThePager(dataCount, pageNo, pageSize , pagerSize , linkurl);
+		
 			model.addAttribute("unAnswer",unAnswer);
 			model.addAttribute("memberNo", memberNo);
-			
+			model.addAttribute("pager",pager);
 			return "privateboard/unanswer-list";
+        	
+	
 	}
 	
 
@@ -69,8 +83,12 @@ public class PrivateQnaController {
 
 
 
-	@GetMapping(path= {"/privateqnalist"}) //리스트
-	public String list(@RequestParam(defaultValue = "1")int pageNo, Model model, HttpSession session  ) {
+	@GetMapping(path = {"/privateqnalist"}) // 리스트
+	public String list(
+	        @RequestParam(defaultValue = "1") int pageNo,
+	        @RequestParam(value = "qnaNo", required = false) Integer qnaNo,
+	        Model model,
+	        HttpSession session) {
 
 		MemberDto loginuser = (MemberDto) session.getAttribute("loginuser");
 
@@ -107,15 +125,21 @@ public class PrivateQnaController {
 	    List<PrivateQnaDto> qnaBoardList;
 	   
 	    
-	    if (memberNo == 17) {
-	        dataCount = privateQnaService.getPrivateQnaCount();
-	        int from = (pageNo - 1) * pageSize;
-	        qnaBoardList = privateQnaService.listBoard(from, pageSize);
+	    if (qnaNo != null) {
+	        qnaBoardList = privateQnaService.searchByQnaNo(qnaNo);
+	        
+	        
+	        dataCount = qnaBoardList.size(); // 검색 결과의 크기를 데이터 카운트로 설정
 	    } else {
-	       
-	    	dataCount = privateQnaService.getPrivateQnaCountByMemberNo(memberNo );
-	        int from = (pageNo - 1) * pageSize;
-	        qnaBoardList = privateQnaService.listBoardByMemberNo(memberNo , from, pageSize);
+	        if (memberNo == 17) {
+	            dataCount = privateQnaService.getPrivateQnaCount();
+	            int from = (pageNo - 1) * pageSize;
+	            qnaBoardList = privateQnaService.listBoard(from, pageSize);
+	        } else {
+	            dataCount = privateQnaService.getPrivateQnaCountByMemberNo(memberNo);
+	            int from = (pageNo - 1) * pageSize;
+	            qnaBoardList = privateQnaService.listBoardByMemberNo(memberNo, from, pageSize);
+	        }
 	    }
 
 
@@ -242,12 +266,12 @@ public class PrivateQnaController {
 		privateqna.setMemberNo(memberNo);
 		/////
 
-		/* <model로 변경>
-		 * request.setAttribute("memberNo", memberNo); // 필요함 privateqnadetail JSP 페이지에서
-		 * memberNo 속성을 사용 // JSP 페이지에서 ${requestScope.memberNo}를 사용 
-		 */
+		 //<model로 변경>
+		  request.setAttribute("memberNo", memberNo); // 필요함 privateqnadetail JSP 페이지에서
+		  //memberNo 속성을 사용 // JSP 페이지에서 ${requestScope.memberNo}를 사용 
+		 
 	
-		model.addAttribute("memberNo", memberNo); //request.setAttribute("memberNo", memberNo); 대신 사용 
+		//model.addAttribute("memberNo", memberNo); //request.setAttribute("memberNo", memberNo); 대신 사용 
 		
 		/* model.addAttribute("privateqna", privateqna); */
 		
@@ -273,55 +297,56 @@ public class PrivateQnaController {
 
 	
 	
-	// 검색 
-	@GetMapping(path={"/searchByQnaNo"})
-	public String searchByQnaNo(@RequestParam("qnaNo") int qnaNo, Model model,HttpSession session) {
-	    List<PrivateQnaDto> searchResult = privateQnaService.searchByQnaNo(qnaNo);
-	    
-	    
-	    
-	/////// 작성자 조회 부분 
-			for (PrivateQnaDto privateqna : searchResult) {
-				String memberId = privateQnaService.getMemberIdByQnaNo(privateqna.getQnaNo());
-				privateqna.setMemberId(memberId);
-			}
-	    
-	    
-			MemberDto loginuser = (MemberDto) session.getAttribute("loginuser");	
-			
-			int memberNo = -1;
-			
-			if (loginuser != null) {
-				memberNo = loginuser.getMemberNo();
-				
-				
-			}
-
-			if (memberNo != 17) {
-		      
-		        return "redirect:/privateboard/privateqnalist"; 
-		    }
-
-	  
-			
-			
-			
-			
-			
-			
-			model.addAttribute("searchResult", searchResult);
-			model.addAttribute("memberNo",memberNo);
-	    
-	    
-	    
-	    
-	    
-	    return "privateboard/searchResult"; // 검색 결과를 표시할 뷰 페이지 이름
+	/*
+	 * // 검색
+	 * 
+	 * @GetMapping(path={"/searchByQnaNo"}) public String
+	 * searchByQnaNo(@RequestParam("qnaNo") int qnaNo, Model model,HttpSession
+	 * session) {
+	 * 
+	 * 
+	 * 
+	 * List<PrivateQnaDto> searchResult = privateQnaService.searchByQnaNo(qnaNo);
+	 * 
+	 * 
+	 * 
+	 * /////// 작성자 조회 부분 for (PrivateQnaDto privateqna : searchResult) { String
+	 * memberId = privateQnaService.getMemberIdByQnaNo(privateqna.getQnaNo());
+	 * privateqna.setMemberId(memberId); }
+	 * 
+	 * 
+	 * MemberDto loginuser = (MemberDto) session.getAttribute("loginuser");
+	 * 
+	 * int memberNo = -1;
+	 * 
+	 * if (loginuser != null) { memberNo = loginuser.getMemberNo();
+	 * 
+	 * 
+	 * }
+	 * 
+	 * if (memberNo != 17) {
+	 * 
+	 * return "redirect:/privateboard/privateqnalist"; }
+	 * 
+	 * 
+	 * model.addAttribute("searchResult", searchResult);
+	 * model.addAttribute("memberNo",memberNo);
+	 * 
+	 * 
+	 * 
+	 * return "privateboard/searchResult"; // 검색 결과를 표시할 뷰 페이지 이름
+	 * 
+	 * 
+	 * 
+	 * 
+	 * }
+	 */
 	
 	
 	
 	
-	}
+	
+	
 //	
 //	
 	

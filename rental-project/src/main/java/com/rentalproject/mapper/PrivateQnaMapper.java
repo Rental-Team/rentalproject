@@ -29,10 +29,18 @@ public interface PrivateQnaMapper {
 	@Select("SELECT QnaNo, QnaType, QnaTitle, QnaContent, QnaDate, memberNo "
 	        + "FROM PrivateQ "
 	        + "WHERE answered = false "
-	        + "ORDER BY QnaDate ASC")
-	List<PrivateQnaDto> selectAllUnanswered();
+	        + "ORDER BY QnaDate ASC "
+			+ "LIMIT #{from}, #{count}")
+	List<PrivateQnaDto> selectAllUnanswered(@Param("from")int from,@Param("count")int count);
     
-    
+	 @Select("SELECT COUNT(*)"
+		 		+ "FROM PrivateQ "
+		 		+ "WHERE answered = 0" )
+		 int selectPrivateQnaUnansweredCountByFalse();
+	
+	
+	
+	
     
 	
     //관리자만 볼수있는거
@@ -61,6 +69,8 @@ public interface PrivateQnaMapper {
 	
 	@Select("SELECT count(*) FROM PrivateQ WHERE memberNo = #{memberNo}") //일반 회원 페이징 
 	int selectPrivateQnaCountByMemberNo(@Param("memberNo") int memberNo);
+	
+	
 	
 	
 	/////////////////////

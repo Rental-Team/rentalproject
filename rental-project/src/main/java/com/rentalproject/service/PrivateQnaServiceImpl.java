@@ -123,12 +123,22 @@ public class PrivateQnaServiceImpl implements PrivateQnaService {
 	 /* 미답변 목록 조회 */
 	
 	@Override
-	public List<PrivateQnaDto> unAnswerlist() {
+	public List<PrivateQnaDto> unAnswerlist(int from, int count) {
 		   List<PrivateQnaDto> qnaBoardList;
 		
-		   qnaBoardList = privateQnaMapper.selectAllUnanswered();
-	return qnaBoardList;
+				  qnaBoardList = privateQnaMapper.selectAllUnanswered(from, count);
+	
+		   return qnaBoardList;
 	}
+	
+	@Override
+	public int getUnanswerListCount() {
+		int count = privateQnaMapper.selectPrivateQnaUnansweredCountByFalse();
+		return count;
+	}
+	
+	
+	
 	
 	 
 	 
@@ -155,6 +165,7 @@ public class PrivateQnaServiceImpl implements PrivateQnaService {
 	   
 	    return result;
 	}
+
 	
 
 	 
