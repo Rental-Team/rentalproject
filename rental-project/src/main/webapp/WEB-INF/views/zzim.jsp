@@ -67,7 +67,8 @@
 									<input type="hidden" class="individual_totalPrice_input" value="${zzim.itemPrice * zzim.itemCount}">
 									<input type="hidden" class="individual_point_input" value="${zzim.point}">
 									<input type="hidden" class="individual_totalPoint_input" value="${zzim.totalPoint}">
-									<input type="hidden" class="individual_itemNo_input" value="${zzim.itemNo}">								
+									<input type="hidden" class="individual_itemNo_input" value="${zzim.itemNo}">
+																	
 								</td>
 								<td class="td_width_2">
 									<img src="${pageContext.request.contextPath}/resources/upload/thumbnail_${zzim.thumbnail}" alt="Image">							
@@ -78,12 +79,12 @@
 									포인트 : <span class="green_color"><fmt:formatNumber value="${zzim.point}" pattern="#,###" /></span>
 								</td>
 								<td class="td_width_4 table_text_align_center">
-									<div class="table_text_align_center quantity_div">
-										<input type="text" value="${zzim.itemCount}" class="quantity_input">	
-										<button class="quantity_btn plus_btn btn-secondary">+</button>
-										<button class="quantity_btn minus_btn btn-secondary">-</button>
+									<div class="table_text_align_center count_div">
+										<input type="text" value="${zzim.itemCount}" class="count_input">	
+										<button class="count_btn plus_btn btn-secondary">+</button>
+										<button class="count_btn minus_btn btn-secondary">-</button>
 									</div>
-									<a class="quantity_modify_btn" data-cartId="${zzim.zzimNo}">변경</a>
+									<a class="count_modify_btn" data-cartId="${zzim.zzimNo}">변경</a>
 								</td>
 								<td class="td_width_4 table_text_align_center">
 									<fmt:formatNumber value="${zzim.itemPrice * zzim.itemCount}" pattern="#,### 원" />
@@ -132,6 +133,15 @@
 						</tr>
               		</table>
               	</div>
+              	
+              	<div class="content_btn">
+              		<a class="rental_btn">대여하기</a>
+              	</div>
+              	
+              	<form action="/rental/{memberNo}" method="get" class="rental_form">
+              	
+              	</form>
+              	
               </div>
             </div>
           </div>
@@ -159,6 +169,48 @@
   
   <script>
 
+  // 대여하기
+  $(".rental_btn").on("click", function(){
+	  
+	  // 폼 정보를 담을 변수
+	  let form_contents = "";
+	  // 대여 번호 초기화
+	  let rentalNo = 0;
+	  
+	  // 체크된 찜 상품들을 받아올 순회 함수
+	  $(".zzim_info_td").each(function(index, element){
+		  
+		  // 체크 박스 체크 되어있는지
+		  if($(element).find(".individual_zzim_checkbox").is(":checked")== true ){
+		 
+			// 보내줄 itemNo 값 변수에 넣기   
+			let itemNo = $(element).find("individual_itemNo_input").val();
+			// 보내줄 itemCount 값 변수에 넣기 
+			let itemCount = $(element).find("individual_itemCount_input").val();
+	 		
+			// 변수들을 서버로 보내기 위한 input 태그
+			let itemNo_input = "<input name='orderDetailList[" + rentalNo + "].itemNo' type='hidden' value='" + itemNo + "'>";
+			// 폼에 담고
+			form_contents += itemNo_input;
+		 
+			// 상품 수량 값 입력 받아 input에 넣어 변수에 넣고
+			let itemCount_input = "<input name='orderDetailList[" + rentalNo + "].itemCount' type='hidden' value='" + itemCount + "'>";
+			// 폼에 담고
+			form_contents += itemCount_input;
+			
+			// 끝나면 다음 체크된 상품으로
+			rentalNo += 1;
+			
+		  }
+	
+	});
+	
+	// rental_form 안에 form_contents에 담긴 문자열들을 태그를 보존한 상태로 적용해서 변경
+	// rental_form은 위에 있음
+	$(".rental_form").html(form_contents);
+	$(".rental_form").submit();
+	 
+  });
 
   </script>
 </body>

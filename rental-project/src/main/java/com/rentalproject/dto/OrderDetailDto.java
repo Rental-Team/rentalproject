@@ -13,7 +13,7 @@ public class OrderDetailDto {
 	private String orderId;  // 주문 번호
 	
 	// 회원에서 받을 값
-	private int itemNo;  // 상품 코드
+	private int itemNo;  
 	private int itemCount;
 	private int itemPrice;
 	

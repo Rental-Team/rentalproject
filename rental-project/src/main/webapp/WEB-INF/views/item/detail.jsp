@@ -149,9 +149,9 @@
                   </form>
                   <div class="row">
                     <div class="col-lg-12">
-                      <div class="button_quantity">
+                      <div class="button_count">
                       	대여 수량
-                      <input type="text" class="quantity_input" value="1">
+                      <input type="text" class="quantity_count" value="1">
                       <span>
                       	<button class="plus_btn btn-secondary">+</button>
                       	<button class="minus_btn btn-secondary">-</button>
@@ -173,9 +173,9 @@
         </div>
         
         <!-- 주문 폼 -->
-        <form action="/order/${loginuser.memberNo}" method="get" class="order_form">
-				<input type="hidden" name="orders[0].itemNo" value="${item.itemNo}">
-				<input type="hidden" name="orders[0].itemCount" value="">
+        <form action="/rental/${loginuser.memberNo}" method="get" class="rental_form">
+				<input type="hidden" name="orderDetailList[0].itemNo" value="${item.itemNo}">
+				<input type="hidden" name="orderDetailList[0].itemCount" value="">
 		</form>
 
       
@@ -236,15 +236,15 @@
 	});  	
   	
   	// 대여 수량 조절
-  	let quantity = $(".quantity_input").val();
+  	let quantity = $(".count_input").val();
   	
 	$(".plus_btn").on("click", function(){
-		$(".quantity_input").val(++quantity);
+		$(".count_input").val(++quantity);
 	});
 	
 	$(".minus_btn").on("click", function(){
 		if(quantity > 1) {
-		$(".quantity_input").val(--quantity);
+		$(".count_input").val(--quantity);
 		}
 	});
 	
@@ -259,7 +259,7 @@
 	// 찜 추가 버튼
 	$("#btn_zzim").on("click", function(e){
 		
-	form.itemCount = $(".quantity_input").val();
+	form.itemCount = $(".count_input").val();
 	
 	if (!form.memberNo) {
 		const yn = confirm('로그인이 필요합니다.');
@@ -292,12 +292,13 @@
 		}
 	}
 	
-  	// 바로 대여 버튼 
-	$(".btn_buy").on("click", function(){
-		let itemCount = $(".quantity_input").val();
-		$(".order_form").find("input[name='orders[0].itemCount']").val(itemCount);
-		$(".order_form").submit();
+	$(".btn_rental").on("click", function(){
+		var itemCount = $(".count_input").val();
+		$(".rental_form").find("input[name='orderDetailList[0].itemCount']").val(itemCount);
+		$(".rental_form").submit();		
 	});
+	
+  	
   </script>
   
   
