@@ -48,8 +48,8 @@
               <table class="table align-items-center table-white table-flush">
                 <thead class="thead-white">
                   <tr>
-                  	<th class="td_width_1"></th>
-					<th class="td_width_2"></th>
+                  	<th class="td_width_1">선택</th>
+					<th class="td_width_2">이미지</th>
                     <th class="td_width_3">상품명</th>
                     <th class="td_width_4">가격</th>
                     <th class="td_width_4">수량</th>
@@ -70,7 +70,7 @@
 									<input type="hidden" class="individual_itemNo_input" value="${zzim.itemNo}">								
 								</td>
 								<td class="td_width_2">
-									이미지							
+									<img src="${pageContext.request.contextPath}/resources/upload/thumbnail_${zzim.thumbnail}" alt="Image">							
 								</td>
 								<td class="td_width_3">${zzim.itemName}</td>
 								<td class="td_width_4 price_td">
@@ -106,7 +106,7 @@
 									<tr>
 										<td>총 상품 가격</td>
 										<td>
-											<span class="totalPrice_span">70000</span> 원
+											<span class="totalPrice_span">1000000</span> 원
 										</td>
 									</tr>
 									<tr>
@@ -117,7 +117,7 @@
 									</tr>									
 									<tr>
 										<td>총 주문 상품수</td>
-										<td><span class="totalKind_span"></span>종 <span class="totalCount_span"></span>권</td>
+										<td><span class="totalKind_span"></span>총 <span class="totalCount_span"></span>개</td>
 									</tr>
 								</table>
 							</td>
@@ -158,20 +158,8 @@
   </script>
   
   <script>
-  $(document).ready(funtion(){
-	  
-  });
-  
-  let quantity = $(".quantity_input").val();
-	
-	$(".quantity_btn plus_btn").on("click", function(){
-		$(".quantity_input").val(++quantity);
-	});
-	$(".quantity_btn minus_btn").on("click", function(){
-		if(quantity > 1) {
-		$(".quantity_input").val(--quantity);
-		}
-	});
+
+
   </script>
 </body>
 

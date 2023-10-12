@@ -73,17 +73,6 @@ public class AdminController {
 		int from = (pageNo - 1)*pageSize;
 		List<ItemDto> itemList = adminService.listItemByPage(from, pageSize);
 		
-		// 썸네일 경로를 추가(여기서 ItemDto에 썸네일 필드 추가)
-//		for (ItemDto item : itemList) {
-//	            String thumbnail = item.getThumbnail();
-//	            if(thumbnail != null) {
-//	            	int dotIdx = thumbnail.lastIndexOf(".");
-//	            	if (dotIdx > 0) {
-//	            		item.setThumbnail(thumbnail.substring(0, dotIdx) + "_thumbnail" +thumbnail.substring(dotIdx)); 
-//	            	}
-//	            } 
-//	 
-//	    }
 		
 		
 		ThePager pager = new ThePager(dataCount, pageNo, pageSize, pagerSize, linkUrl);

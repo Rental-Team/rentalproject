@@ -56,13 +56,30 @@
 </div>
 <!--미답변 목록 조회   --> 
 			
-<div id="qnaSearchSection" class="col-md-6">
+
+
+<!--검색   -->
+<!-- <div id="qnaSearchSection" class="col-md-6">
     <form action="searchByQnaNo" method="get" onsubmit="return validateSearch();">
         <label for="qnaNo">Qna No:</label>
         <input type="text" id="qnaNo" name="qnaNo">
         <button type="submit" id="searchButton">검색</button>
     </form>
 </div>
+ -->
+
+<!--검색   -->
+  <div id="qnaSearchSection" class="col-md-6">
+  <form action="searchByQnaNo" method="get" onsubmit="return validateSearch();">
+    <select id="searchType" name="searchType">
+      <option value="qnaNo">문의번호</option>
+    </select>
+    <input type="text" id="qnaNo" name="qnaNo">
+    <button type="submit" id="searchButton">검색</button>
+  </form>
+</div>
+<!--검색   -->
+
 
 
              

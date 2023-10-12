@@ -38,6 +38,16 @@ public class AccountServiceImpl implements AccountService {
 		
 	}
 	
+	// 아이디 중복 검사
+	@Override
+	public boolean checkRegisterId(String memberId) {
+		
+		int count = accountMapper.checkId(memberId);
+		
+		return count == 0;
+	}
+	
+	
 	// 인증번호 난수 발생
 	public void makeRandomNumber() {
 		Random r = new Random();
@@ -79,13 +89,14 @@ public class AccountServiceImpl implements AccountService {
 		}
 	}
 		
-	@Override
-	public boolean checkRegisterId(String memberId) {
-		
-		int count = accountMapper.checkId(memberId);
-		
-		return count == 0;
-	}
+//	// 카카오 회원 정보 입력
+//	@Override
+//	public void insertKakao(MemberDto member) {
+//		
+//		accountMapper.insertKakaoMember(member);
+//		
+//	}
+	
 	
 	@Override // 로그인
 	public MemberDto findLoginMember(MemberDto member) {

@@ -1,6 +1,7 @@
 package com.rentalproject.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -43,4 +44,9 @@ public class MemberDto {
 	private String introduce;
 	private String imageName;
 	private int admin;
+	private int kakao;
+	
+	// 한 회원은 여러개의 주문이 가능하다.
+	List<RentalOrderDto> rentalOrderList;
+	
 }

@@ -370,7 +370,7 @@
 
 
 
-		<br>
+<br>
 <br>
 <br>
 <br>
@@ -382,36 +382,34 @@
 <br>
 <br>
 
-<!-- 1대1문의글 답변  등록  버튼 form있는 부분  --> 
-			<div class="container-fluid mt--7">
-		      <div class="row mt-5">
-		        <div class="col-xl-8 mb-5 mb-xl-0">
-		          <div class="card shadow">
-		            <div class="card-header border-0">
-		              <div class="row align-items-center">
-		                <div class="col">
-		                <h5 class="mb-0">1대1게시글 답변</h5>
-		                	<form id="comment-Answer" action="write-answer" method="post">
-		                		<input type="hidden" name="qnaNo" value="${ privateqna.qnaNo}" />
-		                		<table class="table align-items-center">
-		                			<tr>
-		                				<td style="width: 750px">
-		                				<textarea id="comment_content"
-										name="answerContent" style="width: 100%; resize:none;" rows="2">
-										</textarea></td>
-										<td style="width: 50px; vertical-align: middle; border-radius:80px">								 
-										<input type="submit" class ="btn btn-sm btn-primary" id="write-answer-lnk" value="답변등록하기" >
-										</td>
-		                			</tr>
-		                		</table>
-		                		</form>
-		                 </div>
-		              </div>
-		           </div> 
-		          </div>
-		        </div>
-		      </div>
-		       </div>
+		<!-- 1대1문의글 답변  등록  버튼 form있는 부분  --> 
+	  <div class="container-fluid mt--7">
+	   <div class="row mt-5">
+	    <div class="col-xl-8 mb-5 mb-xl-0">
+	    <div class="card shadow">
+	     <div class="card-header border-0">
+	      <div class="row align-items-center">
+	       <div class="col">
+             <h5 class="mb-0">1대1게시글 답변</h5>
+		      <form id="comment-Answer" action="write-answer" method="post">
+			<input type="hidden" name="qnaNo" value="${ privateqna.qnaNo}" />
+			  <table class="table align-items-center">
+				<tr>
+				 <td style="width: 750px">
+					<textarea id="comment_content"name="answerContent" style="width: 100%; resize:none;" rows="2"></textarea></td>
+				 <td style="width: 50px; vertical-align: middle; border-radius:80px">								 
+				  	<input type="submit" class ="btn btn-sm btn-primary" id="write-answer-lnk" value="답변등록하기" >
+				</td>
+			  </tr>
+		      </table>
+		     </form>
+	       </div>
+	      </div>
+	     </div> 
+	    </div>
+	   </div>
+	  </div>
+	 </div>
 <!-- 1대1문의글 답변  등록  버튼 form있는 부분 --> 
    
       

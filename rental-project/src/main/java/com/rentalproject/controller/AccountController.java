@@ -1,5 +1,7 @@
 package com.rentalproject.controller;
 
+import java.io.IOException;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -12,12 +14,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rentalproject.common.MailUtil;
 import com.rentalproject.dto.MemberDto;
 import com.rentalproject.service.AccountService;
+import com.rentalproject.service.KakaoService;
 
 @Controller
 @RequestMapping(path= {"/account"})
@@ -25,6 +29,9 @@ public class AccountController {
 	
 	@Autowired
 	private AccountService accountService;
+	
+	@Autowired
+	private KakaoService ks;
 	
 	
 	@Qualifier("accountService")
@@ -70,10 +77,45 @@ public class AccountController {
 	
 	// 로그인 창
 	@GetMapping(path= {"/login"})
-	public String loginForm(@ModelAttribute("member") MemberDto member) {
-		
-		return "account/login";
+	public String loginForm(@ModelAttribute("member") MemberDto member,
+							@RequestParam(name = "code", required = false) String code,
+							Model model, HttpSession session) throws IOException {
+	
+        if (code != null) { // 코드가 있다면
+        	System.out.println("성공: " + code);
+        	String access_token = ks.getToken(code); 
+        	Map<String, Object> userInfo = ks.getUserInfo(access_token);
+        	
+        	String email = (String) userInfo.get("email");
+        	String nickname = (String) userInfo.get("nickname");
+        	System.out.println(email);
+        	
+        	member.setMemberId(email);
+        	member.setPassword("a1s2d3");
+        	member.setPasswordConfirm("a1s2d3");
+        	member.setUserName(nickname);
+        	member.setNickname(nickname);
+        	member.setPhoneNo("");
+        	member.setEmail(email);
+        	member.setAddress("");
+        	member.setKakao(1);
+       
+        	accountService.register(member);
+        	
+        	member.setPassword("a1s2d3");
+        	
+        	model.addAttribute("code", code);
+            model.addAttribute("access_token", access_token);
+            model.addAttribute("userInfo", userInfo);
+            
+            MemberDto loginMember = accountService.findLoginMember(member);
+            session.setAttribute("loginuser", loginMember);
+            return String.format("redirect:/home?memberId=%s", member.getMemberId());
+        }
+
+	        return "account/login"; // 오류 처리 페이지로 리디렉션하거나, 다른 로직을 수행하도록 수정 가능
 	}
+	
 	
 	// 로그인 실행
 	@PostMapping(path= {"/login"})
