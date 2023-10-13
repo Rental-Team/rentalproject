@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -59,79 +59,67 @@
                 </thead>
                 <tbody>
                   <c:forEach items="${zzimInfo}" var="zzim">
-							<tr>
-								<td class="td_width_1 zzim_info_td">
-									<input type="checkbox" class="individual_zzim_checkbox input_size_20" checked="checked">
-									<input type="hidden" class="individual_itemPrice_input" value="${zzim.itemPrice}">
-									<input type="hidden" class="individual_itemCount_input" value="${zzim.itemCount}">
-									<input type="hidden" class="individual_totalPrice_input" value="${zzim.itemPrice * zzim.itemCount}">
-									<input type="hidden" class="individual_point_input" value="${zzim.point}">
-									<input type="hidden" class="individual_totalPoint_input" value="${zzim.totalPoint}">
-									<input type="hidden" class="individual_itemNo_input" value="${zzim.itemNo}">								
-								</td>
-								<td class="td_width_2">
-									<img src="${pageContext.request.contextPath}/resources/upload/thumbnail_${zzim.thumbnail}" alt="Image">							
-								</td>
-								<td class="td_width_3">${zzim.itemName}</td>
-								<td class="td_width_4 price_td">
-									판매가 : <span class="red_color"><fmt:formatNumber value="${zzim.itemPrice}" pattern="#,### 원" /></span><br>
-									포인트 : <span class="green_color"><fmt:formatNumber value="${zzim.point}" pattern="#,###" /></span>
-								</td>
-								<td class="td_width_4 table_text_align_center">
-									<div class="table_text_align_center quantity_div">
+						<tr>
+							<td class="td_width_1 zzim_info_td">
+								<input type="checkbox" class="individual_zzim_checkbox input_size_20" checked="checked">
+								<input type="hidden" class="individual_itemPrice_input" value="${zzim.itemPrice}">
+								<input type="hidden" class="individual_itemCount_input" value="${zzim.itemCount}">
+								<input type="hidden" class="individual_totalPrice_input" value="${zzim.itemPrice * zzim.itemCount}">
+								<input type="hidden" class="individual_point_input" value="${zzim.point}">
+								<input type="hidden" class="individual_totalPoint_input" value="${zzim.totalPoint}">
+								<input type="hidden" class="individual_itemNo_input" value="${zzim.itemNo}">
+																
+							</td>
+							<td class="td_width_2">
+								<img src="${pageContext.request.contextPath}/resources/upload/thumbnail_${zzim.thumbnail}" alt="Image">							
+							</td>
+							<td class="td_width_3">${zzim.itemName}</td>
+							<td class="td_width_4 price_td">
+								판매가 : <span class="red_color"><fmt:formatNumber value="${zzim.itemPrice}" pattern="#,### 원" /></span><br>
+								포인트 : <span class="green_color"><fmt:formatNumber value="${zzim.point}" pattern="#,###" /></span>
+							</td>
+							<td class="td_width_4 table_text_align_center">
+								<div class="table_text_align_center count_div">
 										<input type="text" value="${zzim.itemCount}" class="quantity_input">	
-										<button class="quantity_btn plus_btn btn-secondary">+</button>
-										<button class="quantity_btn minus_btn btn-secondary">-</button>
-									</div>
-									<a class="quantity_modify_btn" data-cartId="${zzim.zzimNo}">변경</a>
-								</td>
-								<td class="td_width_4 table_text_align_center">
-									<fmt:formatNumber value="${zzim.itemPrice * zzim.itemCount}" pattern="#,### 원" />
-								</td>
-								<td class="td_width_4 table_text_align_center">
-									<button class="delete_btn btn-primary" data-cartid="${zzim.zzimNo}">삭제</button>
-								</td>
-							</tr>
-						</c:forEach>
+									<button class="quantity_btn plus_btn btn-secondary">+</button>
+								<button class="quantity_btn minus_btn btn-secondary">-</button>
+								</div>
+								<a class="quantity_modify_btn" data-zzimNo="${zzim.zzimNo}">변경</a>
+							</td>
+							<td class="td_width_4 table_text_align_center">
+								<fmt:formatNumber value="${zzim.itemPrice * zzim.itemCount}" pattern="#,### 원" />
+							</td>
+							<td class="td_width_4 table_text_align_center">
+								<button class="delete_btn btn-primary" data-zzimNo="${zzim.zzimNo}">삭제</button>
+							</td>
+						</tr>
+					</c:forEach>
                   
                 </tbody>
               </table>
               
-              <div class="total">
-              	<div class="total_wrap">
-              		<table class="table align-items-center table-white table-flush">
-              			<tr>
-							<td>
-								<table>
-									<tr>
-										<td>총 상품 가격</td>
-										<td>
-											<span class="totalPrice_span">1000000</span> 원
-										</td>
-									</tr>
-									<tr>
-										<td>배송비</td>
-										<td>
-											<span class="delivery_price">3000</span>원
-										</td>
-									</tr>									
-									<tr>
-										<td>총 주문 상품수</td>
-										<td><span class="totalKind_span"></span>총 <span class="totalCount_span"></span>개</td>
-									</tr>
-								</table>
-							</td>
-							<td>
-								<table>
-									<tr>
-										<td></td>
-										<td></td>
-									</tr>
-								</table>							
-							</td>
-						</tr>
-              		</table>
+              
+              	
+              	<div class="content_btn">
+              		<button class="rental_btn btn-primary">대여하기</button>
               	</div>
+              	
+              	<form action="/rental-project/zzim/update" method="post" class="quantity_update_form">
+					<input type="hidden" name="zzimNo" class="update_zzimNo">
+					<input type="hidden" name="itemCount" class="update_itemCount">
+					<input type="hidden" name="memberNo" value="${loginuser.memberNo}">
+				</form>
+				
+				<form action="/rental-project/zzim/delete" method="post" class="delete_form">
+					<input type="hidden" name="zzimNo" class="delete_zzimNo">
+					<input type="hidden" name="memberId" value="${loginuser.memberId}">
+				</form>
+              	
+              	<form action="/rental-project/rental" method="get" class="rental_form">
+              		<input type="hidden" name='itemNos'>
+              		<input type="hidden" name='itemCounts'>
+              	</form>
+              	
               </div>
             </div>
           </div>
@@ -158,7 +146,82 @@
   </script>
   
   <script>
+  
+  $(".plus_btn").on("click", function(){
+	  
+	  let quantity = $(this).parent("div").find("input").val();
+	  $(this).parent("div").find("input").val(++quantity);
+		
+	});
+  
+  $(".minus_btn").on("click", function(){
+	  
+	  let quantity = $(this).parent("div").find("input").val();
+	    if(quantity > 1){
+			$(this).parent("div").find("input").val(--quantity);		
+		}
+	    
+	});
+  
+  $(".quantity_modify_btn").on("click", function(){
+	  let zzimNo = $(this).data("zzimNo");
+	  let itemCount = $(this).parent("div").find("input").val();
+	  
+	  $(".update_zzimNo").val(zzimNo);
+	  $(".update_itemCount").val(itemCount);
+	  $(".quantity_update_form").submit();
+	  
+  });
+  
+  $(".delete_btn").on("click", function(e){
+	  e.preventDefault();
+	  const zzimNo = $(this).data("zzimNo");
+	  
+	  $(".delete_zzimNo").val(zzimNo);
+	  $(".delete_form").submit();
+  });
 
+  // 대여하기
+  $(".rental_btn").on("click", function(){
+	
+	  
+	  // 폼 정보를 담을 변수
+	  let form_contents = "";
+	  // 대여 번호 초기화
+	  let rentalNo = 0;
+	  
+	  let itemNosVal = "";
+	  let itemCountsVal = "";
+	  // 체크된 찜 상품들을 받아올 순회 함수
+	  $(".zzim_info_td").each(function(index, element){  
+		  // 체크 박스 체크 되어있는지
+		  if($(element).find(".individual_zzim_checkbox").is(":checked")== true ){
+		 
+			// 보내줄 itemNo 값 변수에 넣기   
+			let itemNo = $(element).find(".individual_itemNo_input").val();
+			// 보내줄 itemCount 값 변수에 넣기 
+			let itemCount = $(element).find(".individual_itemCount_input").val();
+			
+			itemNosVal += itemNo + ",";
+			itemCountsVal += itemCount + ",";
+			
+		  }
+		  
+	});
+	  if (itemNosVal.length > 0) {
+		  itemNosVal = itemNosVal.substring(0, itemNosVal.length - 1);
+		  itemCountsVal =  itemCountsVal.substring(0, itemCountsVal.length - 1);
+		  $(".rental_form input[name=itemNos]").val(itemNosVal);
+		  $(".rental_form input[name=itemCounts]").val(itemCountsVal);
+
+			$(".rental_form").submit();
+	  
+	  } else {
+		 alert('선택하세요');
+	  }
+	  
+	 
+  });
 
   </script>
 </body>

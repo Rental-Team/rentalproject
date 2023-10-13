@@ -22,16 +22,21 @@ import com.rentalproject.mapper.AccountMapper;
 import com.rentalproject.service.AccountServiceImpl;
 import com.rentalproject.service.AdminService;
 import com.rentalproject.service.AdminServiceImpl;
+import com.rentalproject.service.FreeBoardRecommandService;
+import com.rentalproject.service.FreeBoardRecommandServiceImpl;
 import com.rentalproject.service.FreeBoardReportService;
 import com.rentalproject.service.FreeBoardReportServiceImpl;
 import com.rentalproject.service.FreeBoardReviewService;
 import com.rentalproject.service.FreeBoardReviewServiceImpl;
 import com.rentalproject.service.FreeBoardService;
 import com.rentalproject.service.FreeBoardServiceImpl;
+import com.rentalproject.service.ItemReviewService;
+import com.rentalproject.service.ItemReviewServiceImpl;
 import com.rentalproject.service.ItemServiceImpl;
 import com.rentalproject.service.KakaoService;
 import com.rentalproject.service.NoticeService;
 import com.rentalproject.service.NoticeServiceImpl;
+import com.rentalproject.service.OrderServiceImpl;
 import com.rentalproject.service.PrivateQnaAnswerService;
 import com.rentalproject.service.PrivateQnaAnswerServiceImpl;
 import com.rentalproject.service.PrivateQnaService;
@@ -124,6 +129,12 @@ public class RootConfiguration implements ApplicationContextAware{
 	}
 	
 	@Bean
+	public FreeBoardRecommandService freeboardRecommandService () {
+		FreeBoardRecommandService freeboardRecommandService = new FreeBoardRecommandServiceImpl ();
+		return freeboardRecommandService;
+	}
+	
+	@Bean
 	public FreeBoardReviewService freeboardReviewService () {
 		FreeBoardReviewService freeboardReviewService = new FreeBoardReviewServiceImpl ();
 		return freeboardReviewService;
@@ -134,6 +145,19 @@ public class RootConfiguration implements ApplicationContextAware{
 		ItemServiceImpl itemService = new ItemServiceImpl();
 		
 		return itemService;
+	}
+	
+	@Bean 
+	public ItemReviewService itemReviewService () {
+		ItemReviewService itemReviewService = new ItemReviewServiceImpl ();
+		return itemReviewService;
+	}
+ 
+	@Bean
+	public OrderServiceImpl orderService() {
+		OrderServiceImpl orderService = new OrderServiceImpl();
+		
+		return orderService; 
 	}
 	
 	@Bean

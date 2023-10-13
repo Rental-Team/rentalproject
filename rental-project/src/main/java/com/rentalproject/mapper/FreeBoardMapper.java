@@ -28,8 +28,7 @@ public interface FreeBoardMapper {
 	
 	@Select("select freeBoardNo, memberNo, freeBoardTitle, freeBoardViewCount, freeBoardDate, freeBoardDelete "     // 자유게시판 게시글 list에 모든 게시글 자료 가져오기
 			+ " from FreeBoard "
-			+ "order by freeBoardNo desc")
-	
+			+ "order by freeBoardNo desc") 
 	List<FreeBoardDto> selectAllFreeBoard();
 	
 	@Select("select freeBoardNo, memberNo, freeBoardTitle, freeBoardViewCount, freeBoardDate, freeBoardDelete "     // 페이징
@@ -105,7 +104,7 @@ public interface FreeBoardMapper {
 	@Select("select freeBoardNo, memberNo, freeBoardTitle, freeBoardViewCount, freeBoardDate, freeBoardDelete "   // 내용 검색 데이터가져오기
 			+ "from FreeBoard "
 			+ "where freeBoardDelete = 0 "
-			+ "and (" 
+   			+ "and (" 
 			+ "freeBoardContent like concat('%', #{keyword}, '%')) ")
 	List<FreeBoardDto> selectSearchByContent(String keyword);
 	
@@ -115,6 +114,12 @@ public interface FreeBoardMapper {
 			+ "and (" 
 			+ "memberNo in(select memberNo from Member where memberId like concat('%', #{keyword}, '%')))")
 	List<FreeBoardDto> selectSearchByMemeberId(@Param("keyword") String keyword); 
+	
+	@Select("select distinct fb.freeBoardNo, fb.memberNo, fb.freeBoardTitle, fb.freeBoardViewCount, fb.freeBoardDate, fb.freeBoardDelete " +
+	        "from FreeBoard fb " +
+	        "inner join FreeBoardReport fbr ON fb.freeBoardNo = fbr.freeBoardNo " +
+	        "order by fb.freeBoardNo DESC")
+	List<FreeBoardDto> selectReportedFreeBoard();
 	 
 	
 }

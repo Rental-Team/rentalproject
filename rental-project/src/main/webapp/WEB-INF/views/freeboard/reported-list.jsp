@@ -38,7 +38,7 @@
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 style="font-weight:bold" class="mb-0">검색 결과</h3>
+                  <h3 style="font-weight:bold" class="mb-0">신고된 게시글 목록</h3>
                 </div>
               </div>
             </div>
@@ -55,8 +55,8 @@
              </tr>
            </thead>
 	    <tbody>
-	        <c:if test="${not empty searchList}">
-	            <c:forEach var="freeBoard" items="${requestScope.searchList}">
+	        <c:if test="${not empty reportList}">
+	            <c:forEach var="freeBoard" items="${requestScope.reportList}">
 	                <tr style="text-align:center;">
 	                    <td>${freeBoard.freeBoardNo}</td>
 	                    <td>
@@ -79,7 +79,7 @@
 	                </tr>
 	            </c:forEach>
 	        </c:if>
-	        <c:if test="${empty searchList}">
+	        <c:if test="${empty reportList}">
 	            <tr>
 	                <td colspan="5" style="text-align:center">검색결과가 없습니다.</td>
 	            </tr>

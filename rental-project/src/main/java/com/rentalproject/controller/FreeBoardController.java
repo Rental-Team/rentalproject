@@ -22,6 +22,7 @@ import com.rentalproject.common.Util;
 import com.rentalproject.dto.FreeBoardAttachDto;
 import com.rentalproject.dto.FreeBoardDto;
 import com.rentalproject.dto.MemberDto;
+import com.rentalproject.service.FreeBoardRecommandService;
 import com.rentalproject.service.FreeBoardReportService;
 import com.rentalproject.service.FreeBoardService;
 import com.rentalproject.ui.ThePager;
@@ -35,34 +36,62 @@ public class FreeBoardController {
 	private FreeBoardService freeBoardService;
 	@Autowired
 	private FreeBoardReportService freeBoardReportService;
+	@Autowired
+	private FreeBoardRecommandService freeBoardRecommandService;
 	
-	// 자유게시글 리스트 화면 불러오기 ( 전체 게시글 불러오기 )
-	@GetMapping(path= {"/freeboardlist"})
-	public String list(@RequestParam(defaultValue = "1") int pageNo, Model model) { 
-		
-		//List<FreeBoardDto> freeBoardList = freeBoardService.listFreeBoard();  // 전체 게시물 조회
-		
-		int pageSize = 10;
-		int pagerSize = 5;
-		String linkUrl = "freeboardlist";
-		int dataCount = freeBoardService.getFreeBoardCount();
-		
-		int from = (pageNo -1) * pageSize;
-		List<FreeBoardDto> freeBoardList = freeBoardService.listFreeBoardByPage(from, pageSize);
-		
-		for (FreeBoardDto freeboard : freeBoardList ) {  // 작성자 조회
-			String memberId = freeBoardService.getMemberId(freeboard.getFreeBoardNo());
-			freeboard.setMemberId(memberId);
-		}
-		
-		ThePager pager = new ThePager(dataCount, pageNo, pageSize, pagerSize, linkUrl);
-		
-		 
-		model.addAttribute("freeBoardList", freeBoardList);
-		model.addAttribute("pager", pager);
-		model.addAttribute("pageNo", pageNo);
-		
-		return "freeboard/freeboardlist";
+	// 자유게시글 리스트 화면 불러오기 ( 게시글 불러오기 )
+	@GetMapping(path = {"/freeboardlist"})
+	public String list(@RequestParam(defaultValue = "1") int pageNo,
+	                   @RequestParam(defaultValue = "") String type,
+	                   @RequestParam(defaultValue = "") String keyword, Model model,
+	                   HttpSession session, HttpServletRequest request) {
+
+	    int pageSize = 10;
+	    int pagerSize = 5;
+	    String linkUrl = "freeboardlist";
+	    int dataCount = freeBoardService.getFreeBoardCount();
+
+	    int from = (pageNo - 1) * pageSize;
+	    List<FreeBoardDto> freeBoardList;
+
+	    if (type.isEmpty() && keyword.isEmpty()) {
+	        // 전체 목록 조회
+	        freeBoardList = freeBoardService.listFreeBoardByPage(from, pageSize);
+	    } else {
+	        // 검색 결과 조회
+	        if ("freeBoardTitle".equals(type)) {
+	            freeBoardList = freeBoardService.selectSearchByTitle(keyword);
+	        } else if ("freeBoardContent".equals(type)) {
+	            freeBoardList = freeBoardService.selectSearchByContent(keyword);
+	        } else if ("memberId".equals(type)) {
+	            freeBoardList = freeBoardService.selectSearchByMemeberId(keyword);
+	        } else {
+	            freeBoardList = freeBoardService.selectSearchFreeBoard(keyword);
+	        }
+	    }
+
+	    for (FreeBoardDto freeboard : freeBoardList) {
+	        // 작성자 조회
+	        String memberId = freeBoardService.getMemberId(freeboard.getFreeBoardNo());
+	        freeboard.setMemberId(memberId);
+	    }
+
+	    model.addAttribute("pageNo", pageNo);
+	    model.addAttribute("freeBoardList", freeBoardList);
+
+	    ThePager pager = new ThePager(dataCount, pageNo, pageSize, pagerSize, linkUrl);
+	    model.addAttribute("pager", pager);
+
+	    int memberNo = 0;
+	    if (session.getAttribute("loginuser") != null) {
+	        memberNo = ((MemberDto) session.getAttribute("loginuser")).getMemberNo();
+	    }
+	    model.addAttribute("memberNo", memberNo);
+
+	    // 검색 결과를 모델에 추가
+	    model.addAttribute("searchList", freeBoardList);
+
+	    return "freeboard/freeboardlist";
 	}
 	
 	
@@ -144,7 +173,9 @@ public class FreeBoardController {
 		 freeboard.setMemberId(memberId);
 		 
 		int count = freeBoardReportService.reportcount(freeBoardNo);
+		int recommandCount = freeBoardRecommandService.recommandcount(freeBoardNo);
 		
+		model.addAttribute("recommandCount",recommandCount);
 		model.addAttribute("count", count);
 		model.addAttribute("freeBoard", freeboard);
 		model.addAttribute("pageNo", pageNo); 
@@ -223,39 +254,42 @@ public class FreeBoardController {
 		return String.format("redirect:/freeboard/freeboardlist?pageNo=%d", pageNo);
 	}
 		
-	// 자유게시판 검색한 게시글 불러오기   
-		@GetMapping(path = {"/search-list"}) 
-		public String searchFreeBoard(@RequestParam(defaultValue = "-1") int freeBoardNo,
-									  @RequestParam(defaultValue = "1") int pageNo, 
-									  @RequestParam(defaultValue = "") String type,
-									  @RequestParam("keyword") String keyword, 
-									  Model model) { 
+		
+	// 신고된 게시글 조회 ( 관리자만 가능한 기능 )
+	@GetMapping("/reported-List") 
+	public String reportlist(@RequestParam(defaultValue = "1") int pageNo, FreeBoardDto freeboard,
+							 Model model, HttpSession session, HttpServletRequest request) { 
+		
+		
+		int memberNo = ((MemberDto) session.getAttribute("loginuser")).getMemberNo();
+	    request.setAttribute("memberNo", memberNo);
+	    
+		if (memberNo == 17) {
+	        List<FreeBoardDto> reportList = freeBoardService.selectReportedFreeBoard();
+	        
+	        for (FreeBoardDto freeboard1 : reportList ) {  // 작성자 조회
+				String memberId = freeBoardService.getMemberId(freeboard1.getFreeBoardNo());
+				freeboard1.setMemberId(memberId);
+			} 
+	        
+	        model.addAttribute("memberNo",memberNo);
+	        model.addAttribute("reportList", reportList); 
+			model.addAttribute("pageNo", pageNo);
 			
-		List<FreeBoardDto> searchList;
-		
-		if("freeBoardTitle".equals(type)) {
-			searchList = freeBoardService.selectSearchByTitle(keyword);
-		} else if("freeBoardContent".equals(type)) {
-			searchList = freeBoardService.selectSearchByContent(keyword);
-		} else if("memberId".equals(type)) {
-			searchList = freeBoardService.selectSearchByMemeberId(keyword);
-		} else {
-			searchList = freeBoardService.selectSearchFreeBoard(keyword);
-		}
-		
-		for (FreeBoardDto freeboard : searchList ) {  // 작성자 조회
-			String memberId = freeBoardService.getMemberId(freeboard.getFreeBoardNo());
-			freeboard.setMemberId(memberId);
-		} 
-		
-		model.addAttribute("searchList", searchList);
-		model.addAttribute("pageNo", pageNo);
-		
-		return "freeboard/search-list"; 
-	} 
+	        return "freeboard/reported-list";
+	    } else { 
+	        return "redirect:/freeboardlist";
+	    } 
+		 
+	}
+}		
+
+	 
+	 
 		
 	
-}
+
+
 
 	
 	

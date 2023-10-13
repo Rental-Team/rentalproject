@@ -147,4 +147,10 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	
+	@Override
+	public MemberDto getMemberInfo(int memberNo) {
+		
+		return accountMapper.getMemberInfo(memberNo);
+	}
+	
 }

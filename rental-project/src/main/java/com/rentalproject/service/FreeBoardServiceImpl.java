@@ -123,6 +123,10 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		return freeBoardSearch;
 	}   
 	
-	
+	@Override
+	public List<FreeBoardDto> selectReportedFreeBoard() { 
+		List<FreeBoardDto> reportList = freeboardMapper.selectReportedFreeBoard();  
+		return reportList;  // 신고된 게시글 조회 
+	}
 
 }

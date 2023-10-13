@@ -56,9 +56,27 @@ public class ZzimController {
 		model.addAttribute("zzimInfo", zzimService.getZzimList(memberNo));
 		
 		
-		return "/zzim";
+		return "zzim";
 	}
 	
+	
+	@PostMapping("/zzim/update")
+	public String updateZzim(ZzimDto zzim) {
+		
+		zzimService.modifyCount(zzim);
+		
+		return "redirect:/zzim/" + zzim.getMemberNo();
+		
+	}
+	
+	@PostMapping("/zzim/delete")
+	public String deleteZzim(ZzimDto zzim) {
+		
+		zzimService.deleteZzim(zzim.getZzimNo());
+		
+		return "redirect:/zzim/" + zzim.getMemberId();
+		
+	}
 	
 	
 }

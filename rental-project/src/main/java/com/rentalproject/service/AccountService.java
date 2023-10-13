@@ -32,6 +32,8 @@ public interface AccountService {
 
 	
 
+	MemberDto getMemberInfo(int memberNo);
+
 	
 
 	

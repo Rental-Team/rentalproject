@@ -23,7 +23,7 @@ public interface ZzimMapper {
 			+ "where zzimNo = #{zzimNo}")
 	public int deleteZzim(int zzimNo);
 	
-	// 찜 수량
+	// 찜 수량 수정
 	@Update("update Zzim "
 			+ "set itemCount = #{itemCount} "
 			+ "where zzimNo = #{zzimNo} ")

@@ -45,5 +45,19 @@ public class ZzimServiceImpl implements ZzimService{
 		
 		return zzim;
 	}
+
+
+	@Override
+	public int modifyCount(ZzimDto zzim) {
+		
+		return zzimMapper.modifyCount(zzim);
+	}
+
+
+	@Override
+	public int deleteZzim(int zzimNo) {
+		
+		return zzimMapper.deleteZzim(zzimNo);
+	}
 	
 }
