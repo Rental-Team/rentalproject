@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.rentalproject.dto.FreeBoardDto;
 import com.rentalproject.dto.MemberDto;
 import com.rentalproject.dto.OrderDetailDto;
 import com.rentalproject.dto.OrderDto;
@@ -32,12 +33,12 @@ public class OrderController {
 	private OrderServcie orderServcie;
 
 	@GetMapping("/rental")
-	public String rentalForm(@RequestParam("memberNo") int memberNo , int[] itemNos, int[] itemCounts, Model model){
+	public String rentalForm(int[] itemNos, int[] itemCounts, Model model, HttpSession session, MemberDto member){
 		
 //		System.out.println("memberNo : " + itemNos[0]);
 //		System.out.println("rentals : " + itemCounts[0]);
 				
-		RentalOrderDto ro = orderServcie.rentalMemberInfo(memberNo);
+	
 				
 		if (itemNos != null && itemCounts != null) {
 			
@@ -53,7 +54,7 @@ public class OrderController {
 	            
 	            totalOrderPrice += od.getItemPrice() * itemCounts[i];
 	            
-	        }
+	        } 
 	        
 	        model.addAttribute("orders", orders);
 	        model.addAttribute("totalOrderPrice", totalOrderPrice); 
@@ -63,7 +64,13 @@ public class OrderController {
 		
 		//model.addAttribute("memberInfo", accountService.getMemberInfo(memberNo));
 		
-		model.addAttribute("ro", ro);
+		int memberNo = 0;
+	    if (session.getAttribute("loginuser") != null) {
+	        memberNo = ((MemberDto) session.getAttribute("loginuser")).getMemberNo();
+	    }
+	    
+	    model.addAttribute("memberNo", memberNo);  
+
 		
 		return "rental/rentalRegister";
 	}
