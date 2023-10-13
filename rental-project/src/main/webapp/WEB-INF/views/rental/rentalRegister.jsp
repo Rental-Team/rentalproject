@@ -109,7 +109,7 @@
 				                        <div class="col-lg-6">
 					                      <div class="form-group">
 					                        <label class="form-control-label"  for="input-orderDate">아이디</label>
-					                        <input disabled="disabled" type="text" id="input-orderDate" name="orderDate" class="form-control form-control-alternative"  value="${ro.memberId }"/>           
+					                        <input disabled="disabled" type="text" id="input-orderDate" name="orderDate" class="form-control form-control-alternative"  value="${memberId}"/>           
 					                   	  </div>
 				                    	</div>
 					                  </div> 
@@ -117,7 +117,7 @@
 					                    <div class="col-lg-6" >
 					                      <div class="form-group focused">
 					                        <label class="form-control-label"for="input-email">이메일</label>
-					                        <input disabled="disabled" type="text" id="input-email"  name="email" class="form-control form-control-alternative" value="${ro.email}">
+					                        <input disabled="disabled" type="text" id="input-email"  name="email" class="form-control form-control-alternative" value="${ email }">
 					                      </div>
 					                    </div>
 					                    
