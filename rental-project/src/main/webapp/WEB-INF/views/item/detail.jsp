@@ -312,7 +312,7 @@
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="reply-modal-Label">후기 답변 쓰기</h5>
+	        <h5 class="modal-title" id="reply-modal-Label">후기 답변 작성</h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
@@ -326,7 +326,7 @@
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-	        <button type="button" class="btn btn-primary" id="write-reply-btn" >후기답변쓰기</button>
+	        <button type="button" class="btn btn-primary" id="write-reply-btn" >후기답변작성</button>
 	      </div>
 	    </div>
 	  </div>
