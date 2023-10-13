@@ -47,6 +47,7 @@
 									<h3 style="font-weight: bold" class="mb-0">주문 페이지</h3>
 								</div>
 							</div>
+ 
 						</div> 
 						<div class="card-body">
 						<div class="row mt-5">
@@ -96,7 +97,13 @@
               </div>
             </div>
           </div>
-        </div> 
+        </div>  
+							
+							
+						</div>
+						<div class="card-body">
+						${ orders[0] }
+ 
 							<form action="rental" method="post">
 								<div class="card-body">
 					                <div class="pl-lg-12" style="margin : 0 auto;">

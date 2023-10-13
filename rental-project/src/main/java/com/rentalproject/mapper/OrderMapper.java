@@ -3,6 +3,7 @@ package com.rentalproject.mapper;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.rentalproject.dto.OrderDetailDto;
@@ -15,9 +16,9 @@ public interface OrderMapper {
 			+ "values ( #{ orderId }, #{ addressUser}, #{ memberNo }, #{ address }, #{ addressDetail }  ) ")
 	void rentalOrder(OrderDto order);
 	
-	@Select("select itemPrice "
-			+ "from OrderDetail "
+	@Select("select itemPrice ,itemNo "
+			+ "from Item "
 			+ "where itemNo = #{itemNo}")
-	OrderDetailDto rentalItemInfo(int itemNo);
+	OrderDetailDto rentalItemInfo(@Param("itemNo") int itemNo);
 	
 }

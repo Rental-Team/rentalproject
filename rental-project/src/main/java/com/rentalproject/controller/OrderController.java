@@ -1,5 +1,8 @@
 package com.rentalproject.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpSession;
@@ -28,27 +31,30 @@ public class OrderController {
 	private OrderServcie orderServcie;
 
 	@GetMapping("/rental")
-	public String rentalForm(int[] itemNos, int[] itemCounts, Model model, OrderDetailDto od){
+	public String rentalForm(int[] itemNos, int[] itemCounts, Model model){
 		
 //		System.out.println("memberNo : " + itemNos[0]);
 //		System.out.println("rentals : " + itemCounts[0]);
 				
+		
 				
 		if (itemNos != null && itemCounts != null) {
+			
+			List<OrderDetailDto> orders = new ArrayList<>();
+			
 	        for (int i = 0; i < itemNos.length; i++) {
-	            int itemNo = itemNos[i];
-	            int itemCount = itemCounts[i];
 	            
-	            od.setItemNo(itemNo);
-	            od.setItemCount(itemCount);
+
 	            //model.addAttribute("rentalItem", orderServcie.getRentalItemInfo(RO.getOrderDetailList()));
-	            //od = orderServcie.rentalItemInfo(od.getItemNo());
+	            OrderDetailDto od = orderServcie.rentalItemInfo(itemNos[i]);
+	            od.setItemCount(itemCounts[i]);
+	            orders.add(od);
 	            
-	            
-	            model.addAttribute("od", od);
-	            
-	            System.out.println(od);
 	        }
+	        
+	        model.addAttribute("orders", orders);
+            
+            System.out.println(orders);
 	    }
 		
 		//model.addAttribute("memberInfo", accountService.getMemberInfo(memberNo));
