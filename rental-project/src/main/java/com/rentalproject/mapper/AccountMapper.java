@@ -34,9 +34,13 @@ public interface AccountMapper {
 	@Select("select * from Member where memberId = #{memberId}")
 	MemberDto selectKakaoMember(MemberDto member);
 	
+//	// 아이디 찾기
+//	@Select("select * from Member Where userName = #{userName} and phoneNo = #{phoneNo}")
+//	MemberDto findIdByNameAndPhoneNo(MemberDto member);
+	
 	// 아이디 찾기
 	@Select("select * from Member Where userName = #{userName} and phoneNo = #{phoneNo}")
-	MemberDto findIdByNameAndPhoneNo(MemberDto member);
+	MemberDto findIdByNameAndPhoneNo(@Param("userName") String userName, @Param("phoneNo") String phoneNo);
 	
 	// 비밀번호 찾을 때 아이디와 이메일로 조회
 	@Select("select * from Member where memberId = #{memberId} and email = #{email}")

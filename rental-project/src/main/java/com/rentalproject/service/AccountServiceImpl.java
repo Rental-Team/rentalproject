@@ -117,8 +117,8 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override // 아이디 찾기
-	public MemberDto findLoginId(MemberDto member) {
-		MemberDto userId = accountMapper.findIdByNameAndPhoneNo(member);
+	public MemberDto findLoginId(String userName, String phoneNo) {
+		MemberDto userId = accountMapper.findIdByNameAndPhoneNo(userName, phoneNo);
 		return userId;
 	}
 	

@@ -200,19 +200,19 @@ public class AccountController {
 	// 아이디 찾기 구현
 	@PostMapping(path = { "/find-id" })
 	@ResponseBody
-	public Map<String, Object> findUserId(MemberDto member) {
-	    Map<String, Object> response = new HashMap<>();
-	    MemberDto findIdMember = accountService.findLoginId(member);
-
-	    if (findIdMember != null && findIdMember.isDeleteCheck() == false) {
-	        response.put("check", 0);
-	        response.put("memberId", findIdMember.getMemberId());
-	    } else {
-	        response.put("check", 1);
-	    }
-
-	    return response;
-	}
+//	public Map<String, Object> findUserId(MemberDto member) {
+//	    Map<String, Object> response = new HashMap<>();
+//	    MemberDto findIdMember = accountService.findLoginId(member);
+//
+//	    if (findIdMember != null && findIdMember.isDeleteCheck() == false) {
+//	        response.put("check", 0);
+//	        response.put("memberId", findIdMember.getMemberId());
+//	    } else {
+//	        response.put("check", 1);
+//	    }
+//
+//	    return response;
+//	}
 	
 	// 비밀번호 찾기
 	@GetMapping(path= {"/findpw"})

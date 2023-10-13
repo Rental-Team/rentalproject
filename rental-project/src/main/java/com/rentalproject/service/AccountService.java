@@ -16,7 +16,7 @@ public interface AccountService {
 
 	MemberDto findKakaoMember(MemberDto member);
 	
-	MemberDto findLoginId(MemberDto member);
+//	MemberDto findLoginId(MemberDto member);
 
 	boolean findLoginPw(String memberId, String email);
 
@@ -24,15 +24,9 @@ public interface AccountService {
 
 	MemberDto selfUpdatePw(MemberDto member);
 
-	
-
-
-
-
-
-	
-
 	MemberDto getMemberInfo(int memberNo);
+
+	MemberDto findLoginId(String userName, String phoneNo);
 
 	
 
