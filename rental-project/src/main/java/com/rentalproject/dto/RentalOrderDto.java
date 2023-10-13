@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class RentalOrderDto {
 	
-	// 대여 번호
+	// 대여 아이디
 	private String orderId;
 	
 	// 대여 상태(대기, 완료)

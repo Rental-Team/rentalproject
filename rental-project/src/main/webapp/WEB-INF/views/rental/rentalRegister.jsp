@@ -1,13 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -25,10 +22,7 @@
   <link href="/rental-project/resources/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
   	
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-  
-  
 </head>
-
 <body class="">
 <jsp:include page="/WEB-INF/views/modules/navbar-vertical.jsp" />
   <div class="main-content">
@@ -47,9 +41,11 @@
 									<h3 style="font-weight: bold" class="mb-0">주문 페이지</h3>
 								</div>
 							</div>
-						</div> 
+						</div>
 						<div class="card-body">
-						<div class="row mt-5">
+							<form action="rental" method="post">
+							<input type="hidden" name="memberNo" value="${loginuser.memberNo}"/>
+							<div class="row mt-5">
 					        <div class="col">
 					          <div class="card bg-secondary shadow">
 					            <div class="card-header bg-transparent border-0">
@@ -81,9 +77,9 @@
 														<fmt:formatNumber value="${order.itemPrice * order.itemCount}" pattern="#,### 원" />
 													</td>
 												</tr>
-											</c:forEach> 
-					                </tbody>  
-					              </table> 
+											</c:forEach>
+					                </tbody>
+					              </table>
 						              <div class="text-left mt-2 mb-2" style="padding-left: 20px;">
 									    <h5 class="text-black mb-0" style="display: flex; justify-content: space-between;">
 									        <span>총 주문 금액</span>
@@ -92,28 +88,25 @@
 									        </span>
 									    </h5>
 									</div>    	
-					              </div> 
+					              </div>
 					            </div>
 					          </div>
-					        </div> 
-							<form action="rental" method="post">
-							<input type="hidden" name="memberNo" value="${loginuser.memberNo}"/>
+					        </div>
 								<div class="card-body">
 					                <div class="pl-lg-12" style="margin : 0 auto;">
 					                  <div class="row">
-					                    <div class="col-lg-6" > 
+					                    <div class="col-lg-6" >
 					                      <div class="form-group focused">
 					                        <label class="form-control-label"for="input-addressUser">수령인</label>
 					                        <input type="text" id="input-addressUser"  name="addressUser" class="form-control form-control-alternative" value="">
 					                      </div>
-					                    </div> 
+					                    </div>
 				                        <div class="col-lg-6">
 					                      <div class="form-group">
-					                        <label class="form-control-label"  for="input-orderDate">아이디</label>
-					                        <input disabled="disabled" type="text" id="input-memberId" class="form-control form-control-alternative"  value="${loginuser.memberId}"/>           
+					                        <label class="form-control-label"  for="input-orderDate">아이디</label> <input disabled="disabled" type="text" id="input-memberId" class="form-control form-control-alternative"  value="${loginuser.memberId}"/>
 					                   	  </div>
 				                    	</div>
-					                  </div> 
+					                  </div>
 					                  <div class="row">
 					                    <div class="col-lg-6" >
 					                      <div class="form-group focused">
@@ -121,31 +114,29 @@
 					                        <input disabled="disabled" type="text" id="input-email" class="form-control form-control-alternative" value="${ loginuser.email }">
 					                      </div>
 					                    </div>
-					                    
-					                        
 					                  </div>
-					                 			           
-					                  
+					                 			          
+					                 
 					                  <!-- 주소 -->
 						                <div class="form-group">
 						                  <div class="input-group input-group-alternative mb-3">
 						                    <!-- <div class="input-group-prepend">
 						                      <span class="input-group-text"></span>
 						                    </div> -->
-							                    <input type="text" id="address" class="form-control" placeholder="주소" value="${ memberInfo.address }"/>
+							                    <input type="text" id="address" name="address" class="form-control" placeholder="주소" value=""/>
 							                    <input type="button" id="address-search" value="주소 검색"><br>
 						                  </div>
-						                  
-						                  <input type="text" name="addressDetail" class="form-control" placeholder="상세 주소" />
+						                 
+						                  <input type="text" name="addressDetail" class="form-control" placeholder="상세 주소" value="" />
 						                </div>
-						                
-						                
+						               
+						               
 						                <div class="row">
 										   <button type="submit" class="order_btn">주문</button>
-										   <button type="button" class="cancel_btn">취소</button> 
-										 </div> 
+										   <button type="button" class="cancel_btn">취소</button>
+										 </div>
 					                </div>
-					              </div> 
+					              </div>
 							</form>
 						</div>
 					</div>
@@ -199,19 +190,15 @@
   $(function(event) {
 	  $('#address-search').on('click', function(event) {
 		  new daum.Postcode({
-		        oncomplete: function(data) { // 선택시 입력값 세팅		            
+		        oncomplete: function(data) { // 선택시 입력값 세팅		           
 		            $("#address").val(data.address);
 		            $("input[name=addressDetail]").focus();
 		        }
 		    }).open();
 	  });
-	  
-	  
+	 
+	 
   });
   </script>
-  
-  
-
 </body>
-
 </html>

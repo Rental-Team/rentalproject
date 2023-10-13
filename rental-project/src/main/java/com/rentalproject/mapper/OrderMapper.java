@@ -20,6 +20,11 @@ public interface OrderMapper {
 			+ "values ( #{ orderId }, #{ addressUser}, #{ memberNo }, #{ address }, #{ addressDetail }  ) ")
 	void rentalOrder(OrderDto order);
 	
+	// 주문 하기
+	@Insert("insert into OrderDetail (orderItemNo, itemNo, itemCount, itemPrice ) "
+			+ "values (#{orderItemNo}, #{itemNo}, #{itemCount}, #{itemPrice}) ")
+	void orderDetail(OrderDto order);
+	
  
 	// 상품 정보 가져오기
 	@Select("select itemPrice ,itemNo, itemName " 
@@ -31,11 +36,7 @@ public interface OrderMapper {
 	@Select("select ro.orderId,(select od.orderItemNo from OrderDetail od where od.orderId = ro.orderId) orderItemNo, "
 			+ "ro.orderDate, ro.orderState "
 			+ "from rentalOrder ro ")
-	List<RentalOrderDto> orderListInfo();
+	List<OrderDto> orderListInfo();
 	
-	
-	// 
-	@Select("select memberId, email "
-			+ "from Member ")
-	RentalOrderDto rentalMemberInfo(@Param("MemberNo") int memberNo);
+
 }

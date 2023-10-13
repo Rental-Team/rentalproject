@@ -118,7 +118,6 @@
               	<form action="/rental-project/rental" method="get" class="rental_form">
               		<input type="hidden" name='itemNos'>
               		<input type="hidden" name='itemCounts'>
-              		<input type="hidden" name="memberNo" value="${ loginuser.memberNo }">
               	</form>
               	
               </div>

@@ -27,21 +27,22 @@ public class OrderServiceImpl implements OrderServcie {
 	// 주문 등록
 	@Override
 	public void insertOrder(OrderDto order) {
-		orderMapper.rentalOrder(order);		
+		orderMapper.rentalOrder(order);	
+		orderMapper.orderDetail(order);
 	}
 	
 	// 주문 리스트 띄우기(관리자에서 사용)
 	@Override
-	public List<RentalOrderDto> orderList(){
+	public List<OrderDto> orderList(){
 		
 		return orderMapper.orderListInfo();
 		
 	}
 
-	@Override
-	public RentalOrderDto rentalMemberInfo(int memberNo) {
-		
-		return orderMapper.rentalMemberInfo(memberNo);
-	}
+//	@Override
+//	public RentalOrderDto rentalMemberInfo(int memberNo) {
+//		
+//		return orderMapper.rentalMemberInfo(memberNo);
+//	}
 	
 }

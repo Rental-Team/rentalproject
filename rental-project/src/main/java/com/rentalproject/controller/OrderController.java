@@ -59,7 +59,8 @@ public class OrderController {
 	        model.addAttribute("orders", orders);
 	        model.addAttribute("totalOrderPrice", totalOrderPrice); 
 	        
-	        MemberDto loginMember = (MemberDto)session.getAttribute("loginuser");
+	        //MemberDto loginMember = (MemberDto)session.getAttribute("loginuser");
+	        
             
             System.out.println(orders);
 	    }
@@ -81,9 +82,13 @@ public class OrderController {
 	@PostMapping("/rental")
 	public String rental(OrderDto order) {
 		
+		
+		
 		orderServcie.insertOrder(order);
 		
-		return "redirect:/zzim";
+		
+		
+		return "redirect:/home";
 	}
 	
 }

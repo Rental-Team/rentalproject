@@ -15,8 +15,8 @@ public interface OrderServcie {
 	void insertOrder(OrderDto order);
 	
 	// 주문 리스트 (관리자에서 사용)
-	public List<RentalOrderDto> orderList();
+	public List<OrderDto> orderList();
 	
 	// 주문 멤버 정보 불러오기
-	RentalOrderDto rentalMemberInfo(int memberNo);
+	//RentalOrderDto rentalMemberInfo(int memberNo);
 }

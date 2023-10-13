@@ -25,6 +25,8 @@ import com.rentalproject.dto.ItemAttachDto;
 import com.rentalproject.dto.ItemDto;
 import com.rentalproject.dto.MemberDto;
 import com.rentalproject.dto.NoticeDto;
+import com.rentalproject.dto.OrderDto;
+import com.rentalproject.dto.RentalOrderDto;
 import com.rentalproject.service.AdminService;
 import com.rentalproject.service.OrderServcie;
 import com.rentalproject.ui.ThePager;
@@ -330,10 +332,12 @@ public class AdminController {
 	}
 	
 	// 관리자에서 주문 리스트 띄우기
-	@GetMapping
-	public String showRentalList() {
+	@GetMapping("/rental/rentalList")
+	public String showRentalList(Model model) {
 		
-		orderServcie.orderList();
+	    List<OrderDto> orderList = orderServcie.orderList();
+	    
+	    model.addAttribute("orderList", orderList);
 		
 		return "/admin/rental/rentalList";
 	}

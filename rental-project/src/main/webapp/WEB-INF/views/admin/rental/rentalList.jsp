@@ -54,13 +54,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                 <c:forEach var="member" items="${ memberList }">
+                 <c:forEach var="order" items="${ orderList }">
                  	<tr>
-                    	<td><c:out value="${ member.memberId}" /></td>
-   						<td><c:out value="${ member.userName}" /></td>      	 
-                    	 <td><c:out value="${member.phoneNo}" /></td>
+                    	<td><c:out value="${ order.orderDetailList }" /></td>
+   						<td><c:out value="${ order.userName}" /></td>      	 
+                    	 <td><c:out value="${order.phoneNo}" /></td>
                     	 <td><fmt:formatDate pattern="yyyy-MM-dd"
-                    	  value="${ member.regDate }" /></td>
+                    	  value="${ order.regDate }" /></td>
                   </tr>
                  </c:forEach>
          
