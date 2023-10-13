@@ -120,8 +120,6 @@ public class AdminController {
 		return "redirect:/admin/item/list";
 	}
 	
-
-	
 	// 첨부파일 
 	private ArrayList<ItemAttachDto> handleUploadFile(MultipartFile attach, String uploadDir) {
 		ArrayList<ItemAttachDto> attachList = new ArrayList<>();

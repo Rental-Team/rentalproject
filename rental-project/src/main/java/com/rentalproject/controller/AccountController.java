@@ -1,9 +1,11 @@
 package com.rentalproject.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +18,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.rentalproject.common.MailUtil;
+import com.rentalproject.common.Util;
 import com.rentalproject.dto.MemberDto;
 import com.rentalproject.service.AccountService;
 import com.rentalproject.service.KakaoService;
+
+import net.coobird.thumbnailator.Thumbnails;
 
 @Controller
 @RequestMapping(path= {"/account"})
@@ -56,25 +61,59 @@ public class AccountController {
 	}
 	
 	// 이메일 인증
-	@GetMapping("/mailCheck")
+	@GetMapping("/check-email")
 	@ResponseBody
-	public String mailCheck(String email) {
+	public String emailCheck(String email) {
 		
 //		System.out.println("이메일 인증 요청이 들어옴!");
 //		System.out.println("이메일 인증 이메일 : " + email);
 		
-		return accountService.joinEmail(email);
+		return accountService.emailContent(email);
 	}
 	
 	
 	// 회원가입 등록
 	@PostMapping(path= {"register"})
-	public String register(@ModelAttribute("member") MemberDto member, HttpSession session) {
-			
-		accountService.register(member);
-		return "redirect:/account/login";
+	public String register(@RequestParam("email1") String email1, @RequestParam("email2") String email2, 
+						   @ModelAttribute("member") MemberDto member, HttpSession session, HttpServletRequest req, 
+						   @RequestParam("imageName") MultipartFile memberImage) {
+		
+		// register.jsp의 email1 과 email2를 email 완전체로 합친다
+		String combinedEmail = email1 + "@" + email2;
+		member.setEmail(combinedEmail);
+		
+		String uploadDir = req.getServletContext().getRealPath("/resources/upload/");
+		String uploadedImageFileName = handleUploadFile(memberImage, uploadDir);
+		if (uploadedImageFileName != null) {
+	        member.setMemberImage(uploadedImageFileName);
+	    }
+		 
+        // 회원 정보 등록
+        accountService.register(member);
+        return "redirect:/account/login";
+	}
+	private String handleUploadFile(MultipartFile attach, String uploadDir) {
+		if (!attach.isEmpty()) {
+			try {
+				String savedFileName = Util.makeUniqueFileName(attach.getOriginalFilename());
+
+				attach.transferTo(new File(uploadDir, savedFileName)); // 파일을 컴퓨터에 저장
+				
+				// 썸네일 생성
+				File thumbnailFile = new File(uploadDir, "thumbnail_" + savedFileName);
+				Thumbnails.of(new File(uploadDir, savedFileName))
+							.size(100, 100) // 썸네일 크기
+							.toFile(thumbnailFile);
+				
+				return savedFileName;
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		return null;
 	}
 	
+    
 	// 로그인 창
 	@GetMapping(path= {"/login"})
 	public String loginForm(@ModelAttribute("member") MemberDto member,
@@ -88,32 +127,38 @@ public class AccountController {
         	
         	String email = (String) userInfo.get("email");
         	String nickname = (String) userInfo.get("nickname");
-        	System.out.println(email);
+
+        	MemberDto existingMember = accountService.findKakaoMember(member);
         	
-        	member.setMemberId(email);
-        	member.setPassword("a1s2d3");
-        	member.setPasswordConfirm("a1s2d3");
-        	member.setUserName(nickname);
-        	member.setNickname(nickname);
-        	member.setPhoneNo("");
-        	member.setEmail(email);
-        	member.setAddress("");
-        	member.setKakao(1);
-       
-        	accountService.register(member);
-        	
-        	member.setPassword("a1s2d3");
+        	if (existingMember == null) {
+                // 이미 회원이 아닌 경우, 새로운 회원으로 등록
+                member.setMemberId(email);
+                member.setPassword(code);
+                member.setPasswordConfirm(code);
+                member.setUserName(nickname);
+                member.setNickname(nickname);
+                member.setPhoneNo("");
+                member.setEmail(email);
+                member.setAddress("");
+                member.setKakao(1);
+
+                accountService.register(member);
+            }
         	
         	model.addAttribute("code", code);
             model.addAttribute("access_token", access_token);
             model.addAttribute("userInfo", userInfo);
             
-            MemberDto loginMember = accountService.findLoginMember(member);
-            session.setAttribute("loginuser", loginMember);
+            if (existingMember != null) {
+                session.setAttribute("loginuser", existingMember);
+            } else {
+                session.setAttribute("loginuser", member);
+            }
+            
             return String.format("redirect:/home?memberId=%s", member.getMemberId());
         }
 
-	        return "account/login"; // 오류 처리 페이지로 리디렉션하거나, 다른 로직을 수행하도록 수정 가능
+	        return "account/login";
 	}
 	
 	
@@ -153,20 +198,20 @@ public class AccountController {
 	}
 	
 	// 아이디 찾기 구현
-	@PostMapping(path= {"/findid"})
-	public String findUserId(MemberDto member, Model model) {
-		MemberDto findIdMember = accountService.findLoginId(member);
-		
-		if(findIdMember != null && findIdMember.isDeleteCheck()== false) {
-			model.addAttribute("check", 0);
-			model.addAttribute("memberId", findIdMember.getMemberId());
+	@PostMapping(path = { "/find-id" })
+	@ResponseBody
+	public Map<String, Object> findUserId(MemberDto member) {
+	    Map<String, Object> response = new HashMap<>();
+	    MemberDto findIdMember = accountService.findLoginId(member);
 
-		} else {
-			model.addAttribute("check", 1);
-		}
-		
-		return "account/findid";
-		
+	    if (findIdMember != null && findIdMember.isDeleteCheck() == false) {
+	        response.put("check", 0);
+	        response.put("memberId", findIdMember.getMemberId());
+	    } else {
+	        response.put("check", 1);
+	    }
+
+	    return response;
 	}
 	
 	// 비밀번호 찾기
@@ -176,37 +221,44 @@ public class AccountController {
 	}
 	
 	// 비밀번호 찾기 구현
-	@PostMapping(path= {"/findpw"})
-	public String findUserPw(MemberDto member, Model model) throws Exception {
-		
-		MemberDto findPwMember = accountService.findLoginPw(member);
-		String newpw = "";
-		
-		if(findPwMember != null && findPwMember.isDeleteCheck() == false) {
-//			model.addAttribute("check", 0);
-//			model.addAttribute("memberId", findPwMember.getMemberId());
-			
-			UUID uid = UUID.randomUUID();
-			
-			newpw = uid.toString().substring(0,6);
-			findPwMember.setPassword(newpw);
-			
-			MailUtil mail = new MailUtil();
-			mail.sendEmail(findPwMember);
-			
-			accountService.newPw(findPwMember);
-			
-			return "account/login";
-			
-		} else {
-//			model.addAttribute("check", 1);
-			
-			return "account/findpw";
-		}
+	@GetMapping(path= {"/check-id-email"})
+	@ResponseBody
+	public String IdEmailCheck(String memberId, String email) {
+		boolean valid = accountService.findLoginPw(memberId, email);
+		return String.valueOf(valid);
 	}
 	
+	
+//	public String findUserPw(MemberDto member, Model model) throws Exception {
+//		
+//		MemberDto findPwMember = accountService.findLoginPw(member);
+//		String newpw = "";
+//		
+//		if(findPwMember != null && findPwMember.isDeleteCheck() == false) {
+////			model.addAttribute("check", 0);
+////			model.addAttribute("memberId", findPwMember.getMemberId());
+//			
+//			UUID uid = UUID.randomUUID();
+//			
+//			newpw = uid.toString().substring(0,6);
+//			findPwMember.setPassword(newpw);
+//			
+//			MailUtil mail = new MailUtil();
+//			mail.sendEmail(findPwMember);
+//			
+//			accountService.newPw(findPwMember);
+//			
+//			return "account/login";
+//			
+//		} else {
+////			model.addAttribute("check", 1);
+//			
+//			return "account/findpw";
+//		}
+//	}
+	
 	@PostMapping(path= {"editpw"})
-	public String newUserPw(MemberDto meber, RedirectAttributes rttr) {
+	public String newUserPw(MemberDto member, RedirectAttributes rttr) {
 		
 		return "account/editpw";
 	}

@@ -44,7 +44,7 @@
             <input type="hidden" name="memberId" value="${profileuser.memberId }">
             <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
             <input type="submit" value="수정 완료" class="btn btn-info" />
-            <a href="profile?memberId=${ loginuser.memberId }" class="btn btn-info">cancel</a>
+            <a href="profile?memberId=${ loginuser.memberId }" class="btn btn-info">취소</a>
           </div>
         </div>
       </div>
@@ -57,9 +57,18 @@
             <div class="row justify-content-center">
               <div class="col-lg-3 order-lg-2">
                 <div class="card-profile-image">
-                  <a href="#">
-                    <img src="/rental-project/resources/img/theme/team-4-800x800.jpg" class="rounded-circle">
-                  </a>
+                <label for="imageInput" class="rounded-circle">
+                    <c:choose>
+                	<c:when test="${loginuser.memberImage == null}">
+                    <img id="preview" src="/rental-project/resources/img/theme/default.png" class="rounded-circle">
+                    <input type="file" id="imageInput" name="imageName" style="display: none;" accept="image/*" onchange="readURL(this);" />
+                    </c:when>
+                    <c:otherwise>
+                    <img id="preview" src="${pageContext.request.contextPath}/resources/upload/${loginuser.memberImage}" alt="Image" class="rounded-circle">
+                    <input type="file" id="imageInput" name="imageName" style="display: none;" accept="image/*" onchange="readURL(this);" />
+                    </c:otherwise>
+					</c:choose>
+				</label>  
                 </div>
               </div>
             </div>
@@ -151,8 +160,20 @@
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
+                        <label class="form-control-label" for="input-username">우편번호</label>
+                        <input type="text" name="addressCode" class="form-control form-control-alternative" id="addressCode" value="${ profileuser.addressCode }" readonly="readonly"/>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
                         <label class="form-control-label" for="input-username">주소</label>
-                        <input type="text" name="address" class="form-control form-control-alternative" value="${ profileuser.address }" />
+                        <input type="text" name="address" class="form-control form-control-alternative" id="address" value="${ profileuser.address }" readonly="readonly"/>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username">상세 주소</label>
+                        <input type="text" name="addressDetail" class="form-control form-control-alternative" value="${ profileuser.addressDetail }" />
                       </div>
                     </div>
                     <div class="col-lg-6">
@@ -170,8 +191,7 @@
                     </div>
                   </div>
                 </div>
-                <hr class="my-4" />
-                
+                <hr class="my-4" />                
                 
                 <!-- Description -->
                 <h6 class="heading-small text-muted mb-4">About me</h6>
@@ -209,10 +229,10 @@
               </li>
             </ul>
           </div>
-        </div>
-      </footer>
-    </div>
-  </div>
+          </div>
+          </footer>
+       </div>
+     </div>
   <!--   Core   -->
   <script src="/rental-project/resources/js/plugins/jquery/dist/jquery.min.js"></script>
   <script src="/rental-project/resources/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -220,6 +240,35 @@
   <!--   Argon JS   -->
   <script src="/rental-project/resources/js/argon-dashboard.min.js?v=1.1.2"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script>
+  function readURL(input) {
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+              $("#preview").attr("src", e.target.result);
+          };
+
+          reader.readAsDataURL(input.files[0]);
+      }
+  }
+  </script>
+  
+  <script>
+   	// 주소 API
+   	window.onload = function(){
+   		document.getElementById("address").addEventListener("click", function (event){ // 주소 입력창 클릭하면
+        new daum.Postcode({
+            oncomplete: function(data) { //선택시 입력값 세팅
+            	document.getElementById("addressCode").value = data.zonecode;
+            	document.getElementById("address").value = data.address;
+            	document.querySelector("input[name=addressDetail]").focus();
+            }
+        }).open();
+    });
+}
+    </script>
   <script>
     window.TrackJS &&
       TrackJS.install({

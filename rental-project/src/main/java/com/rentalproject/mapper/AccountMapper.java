@@ -13,9 +13,9 @@ public interface AccountMapper {
 	
 	// 회원가입 정보 입력
 	@Insert("insert into Member (memberId, password, passwordConfirm, " +
-			"userName, nickname, phoneNo, email, address, addressDetail, deposite)" +
+			"userName, nickname, phoneNo, email, address, addressCode, addressDetail, deposite, memberImage)" +
 			"values (#{memberId}, #{password}, #{passwordConfirm}, #{userName}, " +
-			"#{nickname}, #{phoneNo}, #{email}, #{address}, #{addressDetail}, #{deposite})")
+			"#{nickname}, #{phoneNo}, #{email}, #{address}, #{addressCode}, #{addressDetail}, #{deposite}, #{memberImage})")
 	void insertMember(MemberDto member);
 	
 //	// 카카오 회원 정보 입력
@@ -30,13 +30,17 @@ public interface AccountMapper {
 	@Select("select * from Member where memberId = #{memberId} and password = #{password}")
 	MemberDto selectMemberByIdAndPw(MemberDto member);
 	
+	// 카카오 로그인 
+	@Select("select * from Member where memberId = #{memberId}")
+	MemberDto selectKakaoMember(MemberDto member);
+	
 	// 아이디 찾기
 	@Select("select * from Member Where userName = #{userName} and phoneNo = #{phoneNo}")
 	MemberDto findIdByNameAndPhoneNo(MemberDto member);
 	
-	// 비밀번호 찾기
+	// 비밀번호 찾을 때 아이디와 이메일로 조회
 	@Select("select * from Member where memberId = #{memberId} and email = #{email}")
-	MemberDto findePwByIdAndNameAndPhoneNo(MemberDto member); 
+	int selectPwByIdAndEmail(@Param("memberId") String memberId, @Param("email") String email ); 
 	
 	// 임시 비밀번호로
 	@Update("update Member set password = #{password}" +
@@ -46,7 +50,7 @@ public interface AccountMapper {
 	// 비밀번호 변경
 	@Update("update Member set password = #{password}, passwordConfirm =#{passwordConfirm} " + 
 			"where memberId = #{memberId} ")
-	MemberDto selfupdatepassword(MemberDto member);
+	MemberDto selfUpdatePassword(MemberDto member);
 	
 	
 	// 대여 주문 주소 정보

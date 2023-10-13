@@ -14,19 +14,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam; 
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.View;
 
 import com.rentalproject.common.Util;
 import com.rentalproject.dto.FreeBoardAttachDto;
-import com.rentalproject.dto.FreeBoardDto; 
+import com.rentalproject.dto.FreeBoardDto;
+import com.rentalproject.dto.MemberDto;
 import com.rentalproject.service.FreeBoardRecommandService;
 import com.rentalproject.service.FreeBoardReportService;
 import com.rentalproject.service.FreeBoardService;
 import com.rentalproject.ui.ThePager;
 import com.rentalproject.view.DownloadView;
-import com.rentalproject.dto.MemberDto;
 
 @Controller
 @RequestMapping(path = {"/freeboard"})
@@ -255,35 +255,43 @@ public class FreeBoardController {
 	}
 		
 		
-		// 신고된 게시글 조회 ( 관리자만 가능한 기능 )
-		@GetMapping("/reported-List") 
-		public String reportlist(@RequestParam(defaultValue = "1") int pageNo, FreeBoardDto freeboard,
-								 Model model, HttpSession session, HttpServletRequest request) { 
-			
-			
+	// 신고된 게시글 조회 ( 관리자만 가능한 기능 )
+	@GetMapping("/reported-List") 
+	public String reportlist(@RequestParam(defaultValue = "1") int pageNo, FreeBoardDto freeboard,
+							 Model model, HttpSession session, HttpServletRequest request) { 
+		
+		
 		int memberNo = ((MemberDto) session.getAttribute("loginuser")).getMemberNo();
 	    request.setAttribute("memberNo", memberNo);
 	    
-		 if (memberNo == 17) {
-		        List<FreeBoardDto> reportList = freeBoardService.selectReportedFreeBoard();
-		        
-		        for (FreeBoardDto freeboard1 : reportList ) {  // 작성자 조회
-					String memberId = freeBoardService.getMemberId(freeboard1.getFreeBoardNo());
-					freeboard1.setMemberId(memberId);
-				} 
-		        
-		        model.addAttribute("memberNo",memberNo);
-		        model.addAttribute("reportList", reportList); 
-				model.addAttribute("pageNo", pageNo);
-				
-		        return "freeboard/reported-list";
-		    } else { 
-		        return "redirect:/freeboardlist";
-		    } 
-			 
-		}
-}
+		if (memberNo == 17) {
+	        List<FreeBoardDto> reportList = freeBoardService.selectReportedFreeBoard();
+	        
+	        for (FreeBoardDto freeboard1 : reportList ) {  // 작성자 조회
+				String memberId = freeBoardService.getMemberId(freeboard1.getFreeBoardNo());
+				freeboard1.setMemberId(memberId);
+			} 
+	        
+	        model.addAttribute("memberNo",memberNo);
+	        model.addAttribute("reportList", reportList); 
+			model.addAttribute("pageNo", pageNo);
+			
+	        return "freeboard/reported-list";
+	    } else { 
+	        return "redirect:/freeboardlist";
+	    } 
+		 
+	}
+}		
 
+	 
+	 
+		
+	
+
+
+
+	
 	
 
 	

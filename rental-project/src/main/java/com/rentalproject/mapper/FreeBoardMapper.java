@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
- 
+
 import com.rentalproject.dto.FreeBoardAttachDto;
 import com.rentalproject.dto.FreeBoardDto;
 
@@ -121,6 +121,7 @@ public interface FreeBoardMapper {
 	        "order by fb.freeBoardNo DESC")
 	List<FreeBoardDto> selectReportedFreeBoard();
 	 
+	
 }
 
 	

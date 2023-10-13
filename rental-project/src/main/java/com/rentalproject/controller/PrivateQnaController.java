@@ -53,7 +53,7 @@ public class PrivateQnaController {
 	
 	
 	
-	
+
 	List<PrivateQnaDto> unAnswer = privateQnaService.unAnswerlist();
 
 	for (PrivateQnaDto privateqna : unAnswer) {
