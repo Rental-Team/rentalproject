@@ -25,8 +25,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.rentalproject.dto.ItemDto;
+import com.rentalproject.dto.ItemReviewDto;
 import com.rentalproject.dto.MemberDto;
 import com.rentalproject.dto.ZzimDto;
+import com.rentalproject.service.ItemReviewService;
 import com.rentalproject.service.ItemService;
 import com.rentalproject.service.ItemServiceImpl;
 import com.rentalproject.ui.ThePager;
@@ -42,6 +44,8 @@ public class ItemController {
 	
 	@Autowired
 	private ItemService itemService;
+	@Autowired
+	private ItemReviewService itemReviewService;
 
 //	@GetMapping("/list")
 //	public void list(Model model) {
@@ -119,6 +123,9 @@ public class ItemController {
 			return "redirect:/item/list";
 		}
 		
+		List<ItemReviewDto> itemReviews = itemReviewService.getReviewListByItemNo(itemNo);
+		
+		model.addAttribute("itemReviews", itemReviews);
 		model.addAttribute("item", item);
 		model.addAttribute("pageNo", pageNo);
 		
@@ -140,9 +147,7 @@ public class ItemController {
 		if (item == null) {
 			return "redirect:list";
 		}
-		
-		
-		
+		 
 		model.addAttribute("item", item);
 		model.addAttribute("itemNo", itemNo);
 		

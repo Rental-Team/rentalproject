@@ -148,29 +148,187 @@
 				</div>
                   </form>
                   <div class="row">
-                    <div class="col-lg-12">
-                      <div class="button_count">
-                      	대여 수량
-                      <input type="text" class="quantity_count" value="1">
-                      <span>
-                      	<button class="plus_btn btn-secondary">+</button>
-                      	<button class="minus_btn btn-secondary">-</button>
-                      </span>	
-                      </div>
-                      
-                      <div class="text-right">
-                      	<button type="button" id="btn_zzim" class='btn btn-outline-primary float-right'>찜하기</button>
-                      	<button type="button" id="btn_rental" class='btn btn-outline-primary float-right'>대여하기</button>                      	
-                      </div>
-                    </div>
-                    
-                  </div>
-                </div>
-                
-            </div>
-            </div>
-          </div>
-        </div>
+				  <div class="col-lg-12">
+				    <div class="button_count">
+				      대여 수량
+				      <input type="text" class="quantity_count" value="1">
+				      <span>
+				        <button class="plus_btn btn-secondary">+</button>
+				        <button class="minus_btn btn-secondary">-</button>
+				      </span>
+				    </div>
+				    <div class="text-right">
+				      <button type="button" id="btn_zzim" class='btn btn-outline-primary float-right'>찜하기</button>
+				      <button type="button" id="btn_rental" class='btn btn-outline-primary float-right'>대여하기</button>
+				    </div>
+				  </div>
+				</div>  
+				<br /><br />
+				<div class="row">
+				  <div class="col-lg-12">
+				    <div class="btn-group btn-group-toggle" data-toggle="buttons" style="width: 100%;">
+				      <label class="btn btn-secondary active" style="width: 50%;">
+				        <input type="radio" name="options" id="option1" checked> 상품 후기
+				      </label>
+				      <label class="btn btn-secondary" style="width: 50%;">
+				        <input type="radio" name="options" id="option2"> 상품 문의
+				      </label>
+				    </div>
+				  </div>
+				</div>
+			<div class="container-fluid mt--5">
+		   <div class="row mt-5">
+		   <div class="col-lg-12 mb-5 mb-xl-0">
+		       <div class="card shadow" style="width: 100%;"> 
+		           <div class="card-body">
+		             <div class="card-header border-0">
+		             <div class="row align-items-center">
+		               <div class="col">
+		               	<h4 class="mb-0">상품 후기</h4>
+		               	<form id="itemReviewForm" action="item-review" method="post">
+		               		<input type="hidden" name="itemNo" value="${ item.itemNo }" />
+		               		<input type="hidden" name="pageNo" value="${ pageNo }" />
+		               		<input type="hidden" name="reviewWriter" value="${ loginuser.memberId }"/>
+		                		<table class="table align-items-center">
+		                			<tr>
+		                				<td style="width: 1700px;">
+		                				<textarea id="review_content" name="reviewContent" style="width:100%; resize:none;  border-radius:80px" rows="2">     </textarea>
+		                				</td>
+										<td style="vertical-align: middle; text-align:right;">
+										<a class ="btn btn-sm btn-primary" id="write-item-review-lnk" href="javascript:void(0)">상품 후기 등록</a> 
+										</td>
+		                			</tr>
+		                		</table>
+		           		</form> 
+		            <table id="review-list" class="table align-items-center table-flush" style="width:100%; padding-left: 0; padding-top:0">
+					<thead class="thead-light">
+                       <tr style="text-align:center">
+                       </tr>
+                   </thead>
+               <tbody> 
+				   <c:forEach var="itemReview" items="${itemReviews}">
+			        <tr style="text-align:center">
+			        </tr>
+			        <tr>
+			            <td>
+			                <table>
+			                    <tr>
+			                        <td style="padding-left:0;">
+                            <c:forEach begin="0" end="${itemReview.depth}"> 
+                            </c:forEach>
+                            <c:if test="${itemReview.depth > 0}">
+                                <img src="/rental-project/resources/image/re.gif" width="10px" height="10px"> 
+                            </c:if>
+                        </td>
+                        <td colspan="5">
+                            <div class="review-edit-area"
+                                id="review-edit-area-${itemReview.itemNo}">
+                                <div id="review-area-${itemReview.itemNo}" class="reply-container">
+								    <div class="info">
+									    ${itemReview.reviewWriter} &nbsp;&nbsp;
+									    <fmt:formatDate value="${itemReview.reviewDate}" pattern="yyyy-MM-dd-HH:mm" />   
+									</div>  
+								    <br />
+								    <br /> 
+								    <c:choose>
+								        <c:when test="${not itemReview.itemReviewDelete}">
+								            <a> ${itemReview.reviewContent}</a>
+								            <br>
+								            <br>
+								        </c:when>
+								        <c:otherwise>
+								            <span class="itemReviewDelete" style="color: gray"><< 삭제된 후기입니다 >></span>
+								        </c:otherwise>
+								    </c:choose>
+								    
+						    <div class="user-actions">
+						        <div style='display:${(not empty loginuser and loginuser.memberId == itemReview.reviewWriter and not itemReview.itemReviewDelete)? "block" : "none"}'>
+						            <a class="btn btn-sm btn-secondary edit-review" data-review-no="${itemReview.reviewNo}"
+						                href="javascript:void(0)" style="color: navy;">수정</a>
+						            &nbsp;
+						            <a class="btn btn-sm btn-secondary delete-review" data-review-no="${itemReview.reviewNo}" data-item-no="${item.itemNo}" href="javascript:void(0)"
+						                href="javascript:void(0)" style="color: navy">삭제</a>
+						            &nbsp;&nbsp; 
+					            </div>
+					            <div style='display:${(not empty loginuser and loginuser.memberNo == 17 and not itemReview.itemReviewDelete)? "block" : "none"}'>
+						            <a class="write-reply btn btn-sm btn-secondary" data-review-no="${itemReview.reviewNo}"
+						                href="javascript:void(0)" style="color: navy">후기답변작성</a>
+					        	</div>
+						    </div> 
+    					<span style="clear:both"></span>
+						</div>
+							<div class="review-edit-area"
+                                    id="review-edit-area-${itemReview.reviewNo}" style="display: none">
+                                    ${sessionScope.loginuser.memberId} &nbsp;&nbsp;
+                                    [${itemReview.reviewDate}] <br />
+                                    <br />
+                                    <form action="edit-review" method="post"
+                                        style="width: 200%; resize: none;">
+                                        <input type="hidden" name="reviewNo"
+                                            value="${itemReview.reviewNo}" />
+                                        <textarea name="reviewContent"
+                                            style="width: 150%; resize: none; border-radius: 80px"
+                                            rows="2" maxlength="200">${itemReview.reviewContent}</textarea>
+                                        <br />
+                                        <br />
+                                        <div class="btn btn-sm btn-secondary">
+                                            <a class="update-review" data-review-no="${itemReview.reviewNo}"
+                                                href="javascript:void(0)" style="color: ligtblue">수정완료</a>
+                                        </div>
+                                        <div class="btn btn-sm btn-secondary">
+                                            <a class="cancel-edit-review" data-review-no="${itemReview.reviewNo}"
+                                                href="javascript:void(0)" style="color: ligtblue">수정취소</a>
+                                        </div>
+                                    </form>
+                                </div>     
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </c:forEach>
+    </tbody>
+					</table>
+		 <!-- 자유게시글 댓글 리스트 보기 기능 구현 끝-->  
+		            </div>
+		        </div>
+		    </div>
+		</div>
+      </div>
+      </div>
+      </div>
+      </div>
+	         </div> 
+	     </div>
+	     </div>
+	   </div>
+	 </div> 
+     <!-- 후기 답변 작성 Modal -->
+	<div class="modal fade" id="reply-modal" tabindex="-1" role="dialog" aria-labelledby="reply-modal-Label" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="reply-modal-Label">후기 답변 쓰기</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	       	<form id="replyform" action="write-reply" method="post"> 
+          		<input type="hidden" name="reviewNo" value="" />
+          		<input type="hidden" name="reviewWriter" value="${ loginuser.memberId }"/>  
+   				<textarea id="review-content" name="reviewContent" style="width:100%; resize:none;  border-radius:80px" rows="2">       </textarea>		 
+   			</form> 
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+	        <button type="button" class="btn btn-primary" id="write-reply-btn" >후기답변쓰기</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>​
+	
         
         <!-- 주문 폼 -->
         <form action="/rental/${loginuser.memberNo}" method="get" class="rental_form">
@@ -298,7 +456,128 @@
 		$(".rental_form").submit();		
 	});
 	
-  	
+	
+	
+	$("#write-item-review-lnk").on("click", function(event) {  // 상품 후기 작성하기  
+		event.preventDefault();   
+		const formData = $('#itemReviewForm').serialize();
+		var reviewContent = $("#review_content").val();
+		if (reviewContent.trim()== ""){
+			alert("상품후기 내용을 입력하세요.");
+            return;
+		} 
+		$.ajax({
+			"url" : "write-item-review",
+			"method" : "post",
+			"data" : formData,
+			"success" : function(data, status, xhr) {
+				if (data == "success") {
+					$('#review-list').load('review-list?itemNo=${item.itemNo}')
+					$('#review_content').val('')
+				} else { 
+					alert("<<상품후기를 작성하려면 먼저 로그인을 해주세요>>"); 
+				} 
+				
+			},
+			"error" : function(xhr, status, err){ 
+				alert("후기 작성이 실패하였습니다.");
+			}
+		});
+	})
+	
+	$("#review-list").on("click",".delete-review", function(event) {       //상품 후기 삭제하기 
+   				const reviewNo = $(this).attr("data-review-no"); 
+   				  
+	   			const yn = confirm(reviewNo  + "번 후기를 삭제할까요?");
+   				if (yn) { 
+					$.ajax({
+						"url" : "delete-review",
+						"method" : "get",
+						"data" :  {
+			                "reviewNo": reviewNo
+			            },
+						"success" : function(data, status, xhr) {
+							$('#review-list').load('review-list?itemNo=${item.itemNo}')
+							currentEditReviewNo = null;
+						},
+						"error" : function(xhr, status, err) {
+							alert("후기 삭제를 실패하였습니다.")
+						},
+					})
+					}
+	   			}) 
+		let currentEditReviewNo = null;
+	
+	$("#review-list").on('click',".edit-review", function(event) {
+		const reviewNo = $(this).attr("data-review-no");
+		
+		$('#review-edit-area-' + reviewNo).css('display', '');
+		$('#review-area-' + reviewNo).css('display', 'none');
+		
+		if (currentEditReviewNo) {
+			$('#review-edit-area-' + currentEditReviewNo).css('display', 'none');
+    		$('#review-area-' + currentEditReviewNo).css('display', '');
+		}
+		currentEditReviewNo = reveiwNo;
+	})
+	
+	// 후기 수정취소
+	$("#review-list").on('click',".cancel-edit-review", function(event) {
+			const reviewNo = $(this).attr("data-review-no");
+			
+		$('#review-edit-area-' + reviewNo).css('display', 'none');
+		$('#review-area-' + reviewNo).css('display', '');
+			
+		currentEditReviewNo = null;
+   		
+		})
+		
+		// 후기 수정완료
+		$("#review-list").on('click',".update-review", function(event) {
+			const reviewNo = $(this).data("review-no"); 
+			const formData = $('#review-edit-area-' + reviewNo + ' form').serialize();
+			$.ajax({
+				"url" : "edit-review",
+				"method" : "post",
+				"data" : formData,
+				"success" : function(data, status, xhr){
+					$('#review-list').load('review-list?itemNo=${item.itemNo}');
+					currentEditReviewNo = null;
+				},
+				"error" : function(xhr, status, err) {
+					alert('댓글 수정을 실패하였습니다')
+				}
+			})
+		})   
+		
+		$(document).ready(function() {             // 후기 답변 작성 
+			  $(".write-reply").click(function() {
+			    const reviewNo = $(this).data("review-no");
+			    
+			    $('#replyform #reply-content').val("");
+			    $('#replyform input[name=reviewNo]').val(reviewNo);
+			    
+			   
+			    $("#reply-modal").modal("show");
+			  })
+			})
+			
+		$("#write-reply-btn").on('click', function(event){
+				const formData = $('#replyform').serialize(); 
+				$.ajax({
+					"url" : "write-reply",
+					"method" : "post",
+					"data" : formData,
+					"success" : function(data, status, xhr){
+						$('#reply-modal').modal("hide");
+						$('#review-list').load('review-list?itemNo=${item.itemNo}');
+						currentEditFreeBoardReplyNo = null;
+					},
+					"error" : function(xhr, status, err){ 
+					}
+				}) 
+			})  	
+	 
   </script>
   
   

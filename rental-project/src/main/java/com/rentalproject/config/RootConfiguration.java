@@ -30,6 +30,8 @@ import com.rentalproject.service.FreeBoardReviewService;
 import com.rentalproject.service.FreeBoardReviewServiceImpl;
 import com.rentalproject.service.FreeBoardService;
 import com.rentalproject.service.FreeBoardServiceImpl;
+import com.rentalproject.service.ItemReviewService;
+import com.rentalproject.service.ItemReviewServiceImpl;
 import com.rentalproject.service.ItemServiceImpl;
 import com.rentalproject.service.KakaoService;
 import com.rentalproject.service.NoticeService;
@@ -142,6 +144,12 @@ public class RootConfiguration implements ApplicationContextAware{
 		ItemServiceImpl itemService = new ItemServiceImpl();
 		
 		return itemService;
+	}
+	
+	@Bean
+	public ItemReviewService itemReviewService () {
+		ItemReviewService itemReviewService = new ItemReviewServiceImpl ();
+		return itemReviewService;
 	}
 	
 	@Bean
