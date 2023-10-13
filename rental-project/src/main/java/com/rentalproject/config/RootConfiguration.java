@@ -153,6 +153,7 @@ public class RootConfiguration implements ApplicationContextAware{
 		return itemReviewService;
 	}
  
+	@Bean
 	public OrderServiceImpl orderService() {
 		OrderServiceImpl orderService = new OrderServiceImpl();
 		
