@@ -15,19 +15,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.View;
 
 import com.rentalproject.common.Util;
 import com.rentalproject.dto.FreeBoardAttachDto;
 import com.rentalproject.dto.FreeBoardDto;
-import com.rentalproject.dto.FreeBoardReportDto;
+import com.rentalproject.dto.MemberDto;
 import com.rentalproject.service.FreeBoardReportService;
 import com.rentalproject.service.FreeBoardService;
 import com.rentalproject.ui.ThePager;
 import com.rentalproject.view.DownloadView;
-import com.rentalproject.dto.MemberDto;
 
 @Controller
 @RequestMapping(path = {"/freeboard"})
@@ -255,8 +253,11 @@ public class FreeBoardController {
 		
 		return "freeboard/search-list"; 
 	} 
+		
+	
 }
 
+	
 	
 
 	

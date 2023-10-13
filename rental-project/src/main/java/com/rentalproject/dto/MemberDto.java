@@ -17,6 +17,8 @@ public class MemberDto {
 	
 	@NotBlank(message = "비밀번호를 입력해주세요") 
 	private String password;
+	
+	@NotBlank(message = "비밀번호를 확인해주세요") 
 	private String passwordConfirm;
 	
 	@NotBlank(message = "이름을 입력해주세요")
@@ -34,14 +36,14 @@ public class MemberDto {
 	
 	@NotBlank(message = "주소를 입력해주세요")
 	private String address;
-	
+	private String addressCode;
 	private String addressDetail;
 	
 	private int deposite;
 	private Date regDate;
 	private boolean deleteCheck;
 	private String introduce;
-	private String imageName;
+	private String memberImage;
 	private int admin;
 	private int kakao;
 }

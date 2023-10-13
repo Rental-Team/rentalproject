@@ -121,16 +121,6 @@
               <i class="ni ni-world text-blue"></i> 공지사항
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/rental-project/zzim/${loginuser.memberNo}">
-              <i class="ni ni-favourite-28"></i> 찜하기
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/rental-project/privateboard/privateqnalist">
-              <i class="ni ni-ui-04 text-red"></i> 1대1문의
-            </a>
-          </li>
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item active active-pro">

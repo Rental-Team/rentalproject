@@ -122,5 +122,7 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		List<FreeBoardDto> freeBoardSearch = freeboardMapper.selectSearchByMemeberId(keyword);
 		return freeBoardSearch;
 	}   
+	
+	
 
 }

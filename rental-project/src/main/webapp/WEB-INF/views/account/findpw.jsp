@@ -117,37 +117,9 @@
                   </div>
                 </div>
                 <p class="text-center">
-                  <input type="submit" class="btn btn-primary my-4" value="비밀번호 찾기" id="btn" />
+                  <input type="submit" class="btn btn-primary my-4" value="비밀번호 찾기" id="find-pw" />
                 </p>
                 
-                <%-- <c:if test="${check == 1}">
-					<label>일치하는 정보가 존재하지 않습니다.</label>
-					<br>
-					<span>아이디가 기억이 안나시나요??</span>
-	                <span style="mergin: 100px"></span>
-	                <a href="/rental-project/account/findid">아이디 찾기</a>
-				</c:if>
-
-				<!-- 정보가 일치할 때 -->
-				<c:if test="${check == 0 }">
-				
-				<div class="form-label-group">
-				<input type="hidden" id="id" name="memberId" value="${memberId}">
-				
-					<input type="password" id="password" name="password" class="form-control"/>
-					<label for="password">password</label>
-				</div>
-				
-				<div class="form-label-group">
-					<input type="password" id="confirmpassword" name="passwordConfirm" class="form-control"/>
-					<label for="confirmpassword">confirm password</label>
-				</div>
-				
-				<div class="form-label-group">
-						<input class="btn btn-lg btn-secondary btn-block text-uppercase"
-							type="button" value="update password" onclick="updatePassword()">
-				</div>
-				</c:if> --%>
 				
                 
               </form>
@@ -191,14 +163,62 @@
   <!--   Argon JS   -->
   <script src="/rental-project/resources/js/argon-dashboard.min.js?v=1.1.2"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
-  <script>
-    window.TrackJS &&
-      TrackJS.install({
-        token: "ee6fab19c5a04ac1a32a645abde4613a",
-        application: "argon-dashboard-free"
-      });
-  </script>
   <script type="text/javascript">
+  $(function(){
+	  
+	  	
+		$('#find-pw').on("click", function(event){
+			event.preventDefault();
+			
+			const memberId = $('#memberId').val();
+			const email = $('#email').val();
+			if (!memberId){ // memberId가 null이거나 ""인 경우
+				alert('아이디를 입력하세요');
+				$('#memberId').focus();
+				return;
+			}
+			if (!email){ //
+				alert('이메일을 입력하세요');
+				$('#email').focus();
+				return;
+			}
+			
+			$.ajax({
+				"url": "check-id-email",
+				"method": "get",
+				"data": {"memberId" : memberId},
+				"async": true,
+				"success": function(data, status, xhr){
+					if (data == "true"){
+						dupChecked = true;
+						alert("사용 가능한 아이디")
+					} else {
+						dupChecked = false;
+						alert("이미 사용 중인 아이디")
+					}
+				},
+				"error": function(xhr, status, err){
+					alert("error");
+				}
+			});
+		});
+		// 아이디 중복 검사안하고 계정 생성할 시
+		$('#register').on('click', function(event){
+			event.preventDefault();
+			
+			if (!dupChecked) {
+				alert("아이디 중복 검사를 실행하세요");
+				return;
+			}
+			$('#registerform').submit();
+		});
+		// 아이디 중복 검사했어도 값이 새로 입력될 때 (입력창에 키up 되었을 시)
+		$('#memberId').on('keyup', function(){
+			dupChecked = false;
+			});	
+		});
+  </script>
+  <!--  <script type="text/javascript">
 	$(function(){
 		$("#btn").click(function(){
 			let memberId=$("input[name='memberId']").val();
@@ -217,6 +237,14 @@
 			});
 		});
 	});
-</script>
+</script> -->
+  <script>
+    window.TrackJS &&
+      TrackJS.install({
+        token: "ee6fab19c5a04ac1a32a645abde4613a",
+        application: "argon-dashboard-free"
+      });
+  </script>
+ 
 
 </html>

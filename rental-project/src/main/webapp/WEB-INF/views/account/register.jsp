@@ -27,6 +27,8 @@
 </head>
 
 <body class="bg-default">
+<!-- action 시작 -->
+<form:form id="registerform" action="register" method="post" modelAttribute="member" enctype="multipart/form-data">
   <div class="main-content">
     <!-- Navbar -->
     <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
@@ -76,6 +78,17 @@
               <br><br><br>
               <div class="text-lead text-light">대여하고 싶으시다구요?!</div>
               <p class="text-lead text-light">그럼 먼저 세숫대여 동료가 되세요!
+              <br><br><br>
+              <div class="row justify-content-center">
+			    <div class="col-lg-3 order-lg-2">
+		        <div class="card-profile-image">
+	            <label for="imageInput" class="rounded-circle">
+	                <img id="preview" src="/rental-project/resources/img/theme/default.png">
+	            </label>
+	            <input type="file" id="imageInput" name="imageName" style="display: none;" accept="image/*" onchange="readURL(this);" />
+		        </div>
+			    </div>
+			</div>
             </div>
           </div>
         </div>
@@ -93,9 +106,9 @@
         <div class="col-lg-6 col-md-8">
           <div class="card bg-secondary shadow border-0">
             
-            <!-- action 시작 -->
+            
             <div class="card-body px-lg-5 py-lg-5">
-              <form:form id="registerform" action="register" method="post" modelAttribute="member">
+              
               <form role="form">
               
               <!-- 아이디 -->
@@ -163,41 +176,45 @@
                 <div class="form-group">
                   <div class="input-group input-group-alternative mb-3">
                     <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                     </div>
-                    <form:input id="email" path="email" class="form-control" placeholder="이메일" type="email" />
-                    <select class="form-control" name="selectEmail" id="selectEmail" >
-					<option>선택하세요</option>
-					<option>@naver.com</option>
-					<option>@daum.net</option>
-					<option>@gmail.com</option>
-					<option>@hanmail.com</option>
-					<option>@yahoo.co.kr</option>
+                    <div style="display: flex; align-items: center;">
+                    <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+					  <input id="email" name="email1" class="form-control" placeholder="이메일" type="email" />
+					  <span>@</span>
+					  <input name="email2" type="text" class="form-control" />
+					  <select class="form-control" name="selectEmail" id="selectEmail" >
+					<option value="" selected>선택하세요</option>
+					<option value="naver.com">@naver.com</option>
+					<option value="daum.net">@daum.net</option>
+					<option value="gmail.com">@gmail.com</option>
+					<option value="hanmail.com">@hanmail.com</option>
+					<option value="yahoo.co.kr">@yahoo.co.kr</option>
+					<option value="direct">직접 입력</option> 
 					</select>
+					</div>
                   </div>
                 </div>
+                
                 <div class="form-group">
                   <div class="input-group input-group-alternative">
-
                     <button type="button" class="btn btn-primary" id="mail-Check-Btn">
 	                본인 인증
 	                </button>
                     <input class="form-control" id="mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
                   </div>
                 </div>
-                <span id="mail-check-warn"></span>
+                <p id="mail-check-warn"></p>
  				
  				<!-- 주소 -->
                 <div class="form-group">
                   <div class="input-group input-group-alternative mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text"></span>
-                    </div>
-                    <!-- <input type="text" id=addressCode class="form-control" placeholder="우편번호" /> -->
-                    <form:input type="text" id="address" path="address" class="form-control" placeholder="주소" readonly="readonly" />
+                  </div>
+                    <form:input type="text" id="addressCode" path="addressCode" class="form-control" placeholder="우편번호" readonly="readonly" />
                     <input type="button" id="address-search" value="주소 검색"><br>
                   </div>
-                  
+                  <form:input type="text" id="address" path="address" class="form-control" placeholder="주소" readonly="readonly" />
                   <form:input type="text" name="addressDetail" path="addressDetail" class="form-control" placeholder="상세 주소" />
                 </div>
                 
@@ -225,14 +242,14 @@
                   <input id="register" type="submit" class="btn btn-primary mt-4" value="계정 생성" />
 				</div>
 			  </form>
-              </form:form>
+              
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  <div></div>
+  </form:form>
   <!-- Footer -->
   <footer class="py-5">
     <div class="container">
@@ -271,7 +288,19 @@
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script src="http://code.jquery.com/jquery-3.7.1.js"></script>
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-  
+  <script>
+  function readURL(input) {
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+              $("#preview").attr("src", e.target.result);
+          };
+
+          reader.readAsDataURL(input.files[0]);
+      }
+  }
+  </script>
   <script>
   // 아이디 중복 검사
   $(function(){
@@ -325,7 +354,6 @@
   
   <script>
   // 패스워드 일치 여부
-  
   var passwordField = document.getElementById('password');
   var passwordConfirmField = document.getElementById('passwordConfirm');
 
@@ -377,61 +405,114 @@
   // input하면서 checkPassword function 실행
   passwordField.addEventListener("input", checkPassword);
   passwordConfirmField.addEventListener("input", checkPassword);
+  
+//비밀번호가 일치하지않은 경우 계정 생성할 시
+  /*  $('#register').addEventListener("click", function() {
+ 	  event.preventDefault();
+ 	  if (password === passwordConfirm) {
+ 	      // 비밀번호가 일치하면 폼 제출
+ 		  $('#registerform').submit();
+ 	  } else {
+ 	      alert("비밀번호가 일치하지 않습니다.");
+ 	  } */
   </script>
   
   <script>
-    // 이메일 인증 번호
-    var code = null;
-    $('#mail-Check-Btn').click(function() {
-   		const eamil = $('#email').val() + $('#selectEmail').val(); // 이메일 주소값 얻어오기!
-   		const checkInput = $('#mail-check-input') // 인증번호 입력하는곳 
-    		
-   		$.ajax({
-   			"type": 'get',
-   			"url": "mailCheck?email=" + eamil, // GET방식이라 Url 뒤에 email을 붙힐수있다.
-   			"success": function (data) {
-   				checkInput.attr('disabled',false);
-   				code = data;
-   				// alert('인증번호가 전송되었습니다.');
-   				alert(code);
-   			}			
-   		}); // end ajax
-   	}); // end send eamil
-    	
-   	// 인증번호 비교 
-   	// blur -> focus가 벗어나는 경우 발생
-   	$('#mail-check-input').blur(function () { // '.~~'은 클래스, '#~~'은 id
-   		const inputCode = $(this).val(); // this = '#mail-check-input'
-   		const $resultMsg = $('#mail-check-warn');
-    		
-   		if(inputCode === code){
-   			$resultMsg.html('인증번호가 일치합니다.');
-   			$resultMsg.css('color','green');
-   			$('#mail-Check-Btn').attr('disabled',true);
-   			$('#userEamil1').attr('readonly',true);
-   			$('#userEamil2').attr('readonly',true);
-   			$('#selectEmail').attr('onFocus', 'this.initialSelect = this.selectedIndex');
-   	        $('#selectEmail').attr('onChange', 'this.selectedIndex = this.initialSelect');
-   		} else {
-   			$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
-   			$resultMsg.css('color','red');
-   		}
-   	});
-   	</script>
+  $(document).ready(function() {
+	    // 초기 상태에서 email2 입력 상자를 비활성화
+	    $('input[name="email2"]').attr('readonly', true);
+
+	    // selectEmail 변경 이벤트 처리
+	    $('#selectEmail').change(function() {
+	        var selectedOption = $(this).val();
+	        var email2 = $('input[name="email2"]');
+	        var checkInput = $('#mail-check-input');
+
+	        if (selectedOption === "direct") {
+	            // "직접 입력" 선택 시 email2 입력 상자 활성화
+	            email2.attr('readonly', false);
+	            email2.val('');
+	        } else {
+	            // 다른 옵션 선택 시 email2 입력 상자 비활성화 및 값을 선택한 옵션으로 설정
+	            email2.attr('readonly', true);
+	            email2.val(selectedOption);
+	        }
+	    });
+	    
+	    var code = null;
+
+	    $('#mail-Check-Btn').click(function() {
+	        // 이메일 주소 값을 얻어온 후 인증번호 요청
+	        const email1 = $('#email').val();
+	        const email2Value = $('input[name="email2"]').val();
+	        const selectedOption = $('#selectEmail').val();
+	        const email = selectedOption === 'direct' ? email1 + '@' + email2Value : email1 + '@' + selectedOption;
+
+	        if (email1 && email2Value && selectedOption !== '') {
+	            // 인증번호 요청
+	            $.ajax({
+	                "type": 'get',
+	                "url": "check-email?email=" + email,
+	                "success": function(data) {
+	                    $('#mail-check-input').attr('disabled', false);
+	                    code = data;
+	                    alert(code);
+	                    $('#mail-Check-Btn').text('재전송');
+	                }
+	            });
+	        } else {
+	            alert('올바른 이메일을 입력해주세요.');
+	        }
+	    });
+
+	    // 인증번호 비교
+	    // blur -> focus가 벗어나는 경우 발생
+	    $('#mail-check-input').blur(function() {
+	        const inputCode = $(this).val();
+	        const $resultMsg = $('#mail-check-warn');
+
+	        if (inputCode === code) {
+	            $resultMsg.html('인증번호가 일치합니다.');
+	            $resultMsg.css('color', 'green');
+	            $('#mail-Check-Btn').attr('disabled', true);
+	            $('#userEmail1').attr('readonly', true);
+	            $('input[name="email2"]').attr('readonly', true);
+	            $('#selectEmail').attr('onFocus', 'this.initialSelect = this.selectedIndex');
+	            $('#selectEmail').attr('onChange', 'this.selectedIndex = this.initialSelect');
+	            $('#register').attr('disabled', false); // 계정 생성 버튼 활성화
+	        } else {
+	            $resultMsg.html('인증번호가 불일치합니다. 다시 확인해주세요!.');
+	            $resultMsg.css('color', 'red');
+	            $('#register').attr('disabled', true); // 계정 생성 버튼 비활성화
+	        }
+	    });
+	});
    	
-   	<script>
-   	// 주소 API
-   	window.onload = function(){
-    $('#address-search').on("click", function(event){
+   /* let emailChecked = false;
+   $('#register').click(function(event) {
+   	event.preventDefault();
+   		
+   	if (!emailChecked) {
+		alert("이메일 인증해주세요");
+		return;
+	}
+	$('#registerform').submit();
+  }); */
+  </script>
+   	
+  <script>
+  // 주소 API
+  window.onload = function() {
+    $('#address-search').on("click", function(event) {
         new daum.Postcode({
-            oncomplete: function(data) { //선택시 입력값 세팅
-            	/* document.getElementByld("addressCode").value = data.zonecode; */
-            	document.getElementById("address").value = data.address;
-            	document.querySelector("input[name=addressDetail]").focus();
+            oncomplete: function(data) {
+                document.getElementById("addressCode").value = data.zonecode; // 우편번호
+                document.getElementById("address").value = data.address; // 주소
+                document.querySelector("input[name=addressDetail]").focus();
             }
         }).open();
     });
-}
+  }
     </script>
   <script>
     window.TrackJS &&

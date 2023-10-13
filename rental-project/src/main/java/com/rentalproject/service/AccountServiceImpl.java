@@ -25,9 +25,9 @@ public class AccountServiceImpl implements AccountService {
 	@Setter
 	private AccountMapper accountMapper;
 	
-	@Override // 회원가입
+	// 회원가입
+	@Override
 	public void register(MemberDto member) {
-		
 		String hashedPasswd = Util.getHashedString(member.getPassword(), "SHA-256");
 		member.setPassword(hashedPasswd);
 		
@@ -35,9 +35,9 @@ public class AccountServiceImpl implements AccountService {
 		member.setPasswordConfirm(hashedPasswd);
 		
 		accountMapper.insertMember(member);
-		
 	}
 	
+
 	// 아이디 중복 검사
 	@Override
 	public boolean checkRegisterId(String memberId) {
@@ -56,8 +56,8 @@ public class AccountServiceImpl implements AccountService {
 		authNumber = checkNum;
 	}
 	
-	// 이메일 보낼 양식
-	public String joinEmail(String email) {
+	// 회원가입시 이메일 인증 내용
+	public String emailContent(String email) {
 		makeRandomNumber();
 		String setFrom = "rlrkxks35@naver.com"; // email
 		String toMail = email;
@@ -68,12 +68,12 @@ public class AccountServiceImpl implements AccountService {
 			    "인증 번호는 " + authNumber + "입니다." + 
 			    "<br>" + 
 			    "해당 인증번호를 인증번호 확인란에 기입하여 주세요."; //이메일 내용 삽입
-		mailSend(setFrom, toMail, title, content);
+		emailSend(setFrom, toMail, title, content);
 		return Integer.toString(authNumber);
 	}
 	
 	// 이메일 전송 메소드
-	public void mailSend(String setFrom, String toMail, String title, String content) {
+	public void emailSend(String setFrom, String toMail, String title, String content) {
 		MimeMessage message  = mailSender.createMimeMessage();
 		// true 매개값을 전달하면 multipart 형식의 메세지 전달이 가능.문자 인코딩 설정도 가능하다.
 		try {
@@ -109,6 +109,13 @@ public class AccountServiceImpl implements AccountService {
 		return loginMember;
 	}
 	
+	@Override
+	public MemberDto findKakaoMember(MemberDto member) {
+		MemberDto kakaoMember = accountMapper.selectKakaoMember(member);
+	
+		return kakaoMember;
+	}
+
 	@Override // 아이디 찾기
 	public MemberDto findLoginId(MemberDto member) {
 		MemberDto userId = accountMapper.findIdByNameAndPhoneNo(member);
@@ -116,27 +123,28 @@ public class AccountServiceImpl implements AccountService {
 	}
 	
 	@Override // 비밀번호 찾기
-	public MemberDto findLoginPw(MemberDto member) {
-		MemberDto userPassword = accountMapper.findePwByIdAndNameAndPhoneNo(member);
-		return userPassword;
+	public boolean findLoginPw(String memberId, String email) {
+		int count = accountMapper.selectPwByIdAndEmail(memberId, email);
+		return count == 0;
 	}
 	
-	@Override // 새 비밀번호 임시 발급 수정
-	public void newPw(MemberDto member) {
-		
-		String hashedPasswd = Util.getHashedString(member.getPassword(), "SHA-256");
-		member.setPassword(hashedPasswd);
-		
-		Util.getHashedString(member.getPasswordConfirm(), "SHA-256");
-		member.setPasswordConfirm(hashedPasswd);
-		
-		accountMapper.newPassword(member);
-	}
+//	@Override // 새 비밀번호 임시 발급 수정
+//	public void newPw(MemberDto member) {
+//		
+//		String hashedPasswd = Util.getHashedString(member.getPassword(), "SHA-256");
+//		member.setPassword(hashedPasswd);
+//		
+//		Util.getHashedString(member.getPasswordConfirm(), "SHA-256");
+//		member.setPasswordConfirm(hashedPasswd);
+//		
+//		accountMapper.newPassword(member);
+//	}
 	
 	@Override // 자체 비밀번호 수정
-	public MemberDto selfupdatePw(MemberDto member) {
-		MemberDto userNewPassword = accountMapper.selfupdatepassword(member);
+	public MemberDto selfUpdatePw(MemberDto member) {
+		MemberDto userNewPassword = accountMapper.selfUpdatePassword(member);
 		return userNewPassword;
 	}
+
 	
 }

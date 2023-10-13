@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
- 
+
 import com.rentalproject.dto.FreeBoardAttachDto;
 import com.rentalproject.dto.FreeBoardDto;
 
@@ -116,6 +116,7 @@ public interface FreeBoardMapper {
 			+ "memberNo in(select memberNo from Member where memberId like concat('%', #{keyword}, '%')))")
 	List<FreeBoardDto> selectSearchByMemeberId(@Param("keyword") String keyword); 
 	 
+	
 }
 
 	
