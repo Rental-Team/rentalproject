@@ -99,7 +99,7 @@
             <div class="card-body px-lg-5 py-lg-5">
             
             <!-- action 시작 -->
-              <form action="findid" method="post">
+              <form action="findid" method="post" id="findIdForm">
                 <div class="form-group">
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
@@ -117,22 +117,10 @@
                   </div>
                 </div>
                 <p class="text-center">
-                  <input type="submit" class="btn btn-primary my-4" value="아이디 찾기" />
-                </p>
-                
-                <c:if test="${check == 1}">
-					<label>일치하는 정보가 존재하지 않습니다.</label>
-				</c:if>
-
-				<!-- 이름과 비밀번호가 일치할 때 -->
-				<c:if test="${check == 0}">
-				<label>찾으시는 아이디는' ${memberId}' 입니다.</label>
-				<div class="form-label-group">
-	                <a href="/rental-project/account/login" class="btn btn-lg btn-secondary btn-block text-uppercase">로그인으로 돌아가기</a>
-	            </div>
-				</c:if>
-		
-			</form>
+                  <input type="submit" id="find-id" class="btn btn-primary my-4" value="아이디 찾기" />
+                </p>     
+             </form>
+                <div id="findIdResult"></div>
                 
                 <span>비밀번호가 기억이 안나시나요??</span>
                 <span style="mergin: 100px"></span>
@@ -177,6 +165,37 @@
   <!--   Argon JS   -->
   <script src="/rental-project/resources/js/argon-dashboard.min.js?v=1.1.2"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+$(document).ready(function() {
+ $("#findIdForm").submit(function (event) {
+        event.preventDefault();
+
+        var userName = $("input[name='userName']").val();
+        var phoneNo = $("input[name='phoneNo']").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/account/find-id",
+            data: {
+                userName: userName,
+                phoneNo: phoneNo,
+            },
+            success: function (response) {
+                if (response.check === 0) {
+                    $("#findIdResult").html("찾으시는 아이디는 '" + response.memberId + "' 입니다.");
+                    $("#findIdResult").append('<div class="form-label-group"><a href="/rental-project/account/login" class="btn btn-lg btn-secondary btn-block text-uppercase">로그인으로 돌아가기</a></div>');
+                } else {
+                    $("#findIdResult").html("아이디를 찾을 수 없습니다.");
+                }
+            },
+            error: function () {
+                console.error("요청 처리 중 오류가 발생했습니다.");
+            },
+        });
+    });
+});
+</script>
   
   
   <script>
