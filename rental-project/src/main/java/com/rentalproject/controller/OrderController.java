@@ -58,6 +58,8 @@ public class OrderController {
 	        
 	        model.addAttribute("orders", orders);
 	        model.addAttribute("totalOrderPrice", totalOrderPrice); 
+	        
+	        MemberDto loginMember = (MemberDto)session.getAttribute("loginuser");
             
             System.out.println(orders);
 	    }

@@ -97,6 +97,7 @@
 					          </div>
 					        </div> 
 							<form action="rental" method="post">
+							<input type="hidden" name="memberNo" value="${loginuser.memberNo}"/>
 								<div class="card-body">
 					                <div class="pl-lg-12" style="margin : 0 auto;">
 					                  <div class="row">
@@ -109,7 +110,7 @@
 				                        <div class="col-lg-6">
 					                      <div class="form-group">
 					                        <label class="form-control-label"  for="input-orderDate">아이디</label>
-					                        <input disabled="disabled" type="text" id="input-orderDate" name="orderDate" class="form-control form-control-alternative"  value="${memberId}"/>           
+					                        <input disabled="disabled" type="text" id="input-memberId" class="form-control form-control-alternative"  value="${loginuser.memberId}"/>           
 					                   	  </div>
 				                    	</div>
 					                  </div> 
@@ -117,7 +118,7 @@
 					                    <div class="col-lg-6" >
 					                      <div class="form-group focused">
 					                        <label class="form-control-label"for="input-email">이메일</label>
-					                        <input disabled="disabled" type="text" id="input-email"  name="email" class="form-control form-control-alternative" value="${ email }">
+					                        <input disabled="disabled" type="text" id="input-email" class="form-control form-control-alternative" value="${ loginuser.email }">
 					                      </div>
 					                    </div>
 					                    
