@@ -41,6 +41,7 @@ public class OrderController {
 		if (itemNos != null && itemCounts != null) {
 			
 			List<OrderDetailDto> orders = new ArrayList<>();
+			double totalOrderPrice = 0;   // 총 대여금액
 			
 	        for (int i = 0; i < itemNos.length; i++) {
 	            
@@ -50,9 +51,12 @@ public class OrderController {
 	            od.setItemCount(itemCounts[i]);
 	            orders.add(od);
 	            
+	            totalOrderPrice += od.getItemPrice() * itemCounts[i];
+	            
 	        }
 	        
 	        model.addAttribute("orders", orders);
+	        model.addAttribute("totalOrderPrice", totalOrderPrice); 
             
             System.out.println(orders);
 	    }

@@ -16,7 +16,7 @@ public interface OrderMapper {
 			+ "values ( #{ orderId }, #{ addressUser}, #{ memberNo }, #{ address }, #{ addressDetail }  ) ")
 	void rentalOrder(OrderDto order);
 	
-	@Select("select itemPrice ,itemNo "
+	@Select("select itemPrice ,itemNo, itemName "
 			+ "from Item "
 			+ "where itemNo = #{itemNo}")
 	OrderDetailDto rentalItemInfo(@Param("itemNo") int itemNo);
