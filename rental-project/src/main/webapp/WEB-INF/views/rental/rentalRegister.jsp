@@ -47,13 +47,61 @@
 									<h3 style="font-weight: bold" class="mb-0">주문 페이지</h3>
 								</div>
 							</div>
-						</div>
+						</div> 
 						<div class="card-body">
+						<div class="row mt-5">
+        <div class="col">
+          <div class="card bg-secondary shadow">
+            <div class="card-header bg-transparent border-0">
+              <h5 class="text-black mb-0">구매 목록</h5>
+            </div>
+            <div class="table-responsive">
+              <table class="table align-items-center table-white table-flush">
+                <thead class="thead-white">
+                  <tr>
+					<th class="td_width_2">이미지</th>
+                    <th class="td_width_3">상품명</th>
+                    <th class="td_width_4">가격</th>
+                    <th class="td_width_4">수량</th>
+                    <th class="td_width_4">합계</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <c:forEach items="${orders}" var="order">
+							<tr>								
+								<td class="td_width_2">
+									<img src="${pageContext.request.contextPath}/resources/upload/thumbnail_${zzim.thumbnail}" alt="Image">							
+								</td>
+								<td class="td_width_3">${order.itemName}</td>
+								<td class="td_width_4 price_td">
+									<span class="red_color"><fmt:formatNumber value="${order.itemPrice}" pattern="#,### 원" /></span><br>
+								</td>
+								<td class="td_width_4 table_text_align_center">
+									<div class="table_text_align_center count_div">
+										<input type="text" value="${order.itemCount}" class="count_input">	 
+									</div> 
+								</td>
+								<td class="td_width_4 table_text_align_center">
+									<fmt:formatNumber value="${order.itemPrice * order.itemCount}" pattern="#,### 원" />
+								</td>
+							</tr>
+						</c:forEach> 
+                </tbody> 
+              </table>     	
+              </div>
+              <div>
+              <tr>
+              <td class="td_width_2" colspan="5" >총 대여금액 </td>
+              </tr>
+              </div>
+            </div>
+          </div>
+        </div> 
 							<form action="rental" method="post">
 								<div class="card-body">
 					                <div class="pl-lg-12" style="margin : 0 auto;">
 					                  <div class="row">
-					                    <div class="col-lg-6" >
+					                    <div class="col-lg-6" > 
 					                      <div class="form-group focused">
 					                        <label class="form-control-label"for="input-addressUser">수령인</label>
 					                        <input type="text" id="input-addressUser"  name="addressUser" class="form-control form-control-alternative" value="${ od.itemNo }">
@@ -97,13 +145,9 @@
 						                <div class="row">
 										   <button type="submit" class="order_btn">주문</button>
 										   <button type="button" class="cancel_btn">취소</button> 
-										 </div>
-						                
+										 </div> 
 					                </div>
-					              </div>
-								
-								
-								
+					              </div> 
 							</form>
 						</div>
 					</div>
