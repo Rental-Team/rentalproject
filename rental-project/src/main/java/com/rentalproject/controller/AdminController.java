@@ -26,6 +26,7 @@ import com.rentalproject.dto.ItemDto;
 import com.rentalproject.dto.MemberDto;
 import com.rentalproject.dto.NoticeDto;
 import com.rentalproject.service.AdminService;
+import com.rentalproject.service.OrderServcie;
 import com.rentalproject.ui.ThePager;
 import com.rentalproject.view.DownloadView;
 
@@ -38,6 +39,9 @@ public class AdminController {
 		
 	@Autowired
 	private AdminService adminService;
+	
+	@Autowired
+	private OrderServcie orderServcie;
 	
 	@GetMapping("/home")
 	public void adminHome(Model model) throws Exception {
@@ -326,6 +330,15 @@ public class AdminController {
 		adminService.editNotice(notice);
 		
 		return "redirect:/admin/notice/list";
+	}
+	
+	// 관리자에서 주문 리스트 띄우기
+	@GetMapping
+	public String showRentalList() {
+		
+		orderServcie.orderList();
+		
+		return "/admin/rental/rentalList";
 	}
 	
 	
