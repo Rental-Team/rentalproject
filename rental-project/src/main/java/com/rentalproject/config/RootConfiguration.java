@@ -34,6 +34,7 @@ import com.rentalproject.service.ItemServiceImpl;
 import com.rentalproject.service.KakaoService;
 import com.rentalproject.service.NoticeService;
 import com.rentalproject.service.NoticeServiceImpl;
+import com.rentalproject.service.OrderServiceImpl;
 import com.rentalproject.service.PrivateQnaAnswerService;
 import com.rentalproject.service.PrivateQnaAnswerServiceImpl;
 import com.rentalproject.service.PrivateQnaService;
@@ -142,6 +143,13 @@ public class RootConfiguration implements ApplicationContextAware{
 		ItemServiceImpl itemService = new ItemServiceImpl();
 		
 		return itemService;
+	}
+	
+	@Bean
+	public OrderServiceImpl orderService() {
+		OrderServiceImpl orderService = new OrderServiceImpl();
+		
+		return orderService;
 	}
 	
 	@Bean

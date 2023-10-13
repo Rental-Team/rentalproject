@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -20,6 +23,10 @@
   <link href="/rental-project/resources/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="/rental-project/resources/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
+  	
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  
+  
 </head>
 
 <body class="">
@@ -37,13 +44,66 @@
 						<div class="card-header border-0">
 							<div class="row align-items-center">
 								<div class="col-8">
-									<h3 style="font-weight: bold" class="mb-0">대여 폼</h3>
+									<h3 style="font-weight: bold" class="mb-0">주문 페이지</h3>
 								</div>
 							</div>
 						</div>
 						<div class="card-body">
-							<form>
-							
+							<form action="rental" method="post">
+								<div class="card-body">
+					                <div class="pl-lg-12" style="margin : 0 auto;">
+					                  <div class="row">
+					                    <div class="col-lg-6" >
+					                      <div class="form-group focused">
+					                        <label class="form-control-label"for="input-addressUser">수령인</label>
+					                        <input type="text" id="input-addressUser"  name="addressUser" class="form-control form-control-alternative" value="${ od.itemNo }">
+					                      </div>
+					                    </div>
+					                    
+					                        <div class="col-lg-6">
+					                      <div class="form-group">
+					                        <label class="form-control-label"  for="input-orderDate">아이디</label>
+					                        <input type="datetime" id="input-orderDate" name="orderDate" class="form-control form-control-alternative"  value=""/>           
+					                   	  </div>
+					                    	</div>
+					                  </div>
+					                  
+					                  <div class="row">
+					                    <div class="col-lg-6" >
+					                      <div class="form-group focused">
+					                        <label class="form-control-label"for="input-email">이메일</label>
+					                        <input type="text" id="input-email"  name="email" class="form-control form-control-alternative" value="">
+					                      </div>
+					                    </div>
+					                    
+					                        
+					                  </div>
+					                 			           
+					                  
+					                  <!-- 주소 -->
+						                <div class="form-group">
+						                  <div class="input-group input-group-alternative mb-3">
+						                    <!-- <div class="input-group-prepend">
+						                      <span class="input-group-text"></span>
+						                    </div> -->
+							                    <input type="text" id="address" class="form-control" placeholder="주소" value="${ memberInfo.address }"/>
+							                    <input type="button" id="address-search" value="주소 검색"><br>
+						                  </div>
+						                  
+						                  <input type="text" name="addressDetail" class="form-control" placeholder="상세 주소" />
+						                </div>
+						                
+						                
+						                <div class="row">
+										   <button type="submit" class="order_btn">주문</button>
+										   <button type="button" class="cancel_btn">취소</button> 
+										 </div>
+						                
+					                </div>
+					              </div>
+								
+								
+								
 							</form>
 						</div>
 					</div>
@@ -93,6 +153,22 @@
         application: "argon-dashboard-free"
       });
   </script>
+  <script>
+  $(function(event) {
+	  $('#address-search').on('click', function(event) {
+		  new daum.Postcode({
+		        oncomplete: function(data) { // 선택시 입력값 세팅		            
+		            $("#address").val(data.address);
+		            $("input[name=addressDetail]").focus();
+		        }
+		    }).open();
+	  });
+	  
+	  
+  });
+  </script>
+  
+  
 
 </body>
 
