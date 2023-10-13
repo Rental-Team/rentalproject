@@ -19,5 +19,8 @@ public class OrderDetailDto {
 	private int itemPrice;
 	private String itemName; 
 	
+	private String memberId;
+	private String email;
+	
 	
 }

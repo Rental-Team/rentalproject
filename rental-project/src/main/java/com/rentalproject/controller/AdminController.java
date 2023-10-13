@@ -48,8 +48,7 @@ public class AdminController {
 		List<MemberDto> memberList = adminService.MemberList();
 		
 		model.addAttribute("memberList", memberList);
-		
-		
+				
 	}
 	
 	@GetMapping("/member/list")
