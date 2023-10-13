@@ -99,6 +99,7 @@ public interface AdminMapper {
 	ItemAttachDto selectItemAttachByAttachNo(@Param("attachNo") int attachNo);
 	
 	
+	
 	////////////////////////////////////////////
 	// notice
 	@Insert("insert into Notice (noticeTitle, noticeContent) "         
