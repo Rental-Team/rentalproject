@@ -114,6 +114,8 @@
                         		<br>
 	                        	<div>
 			                		<c:forEach var="itemAttach" items="${item.itemAttachList}">
+								    	<a href="download?attachNo=${itemAttach.attachNo}">${itemAttach.userFileName}</a>
+								    	<img src="/resources/upload/${savedFileName}">
 										<img src="${pageContext.request.contextPath}/resources/upload/${itemAttach.savedFileName}" alt="Image" height="100px" width="100px">
 									</c:forEach>
 			                	</div>
@@ -148,6 +150,7 @@
 				</div>
                   </form>
                   <div class="row">
+
 				  <div class="col-lg-12">
 				    <div class="button_count">
 				      대여 수량
@@ -290,7 +293,7 @@
     </c:forEach>
     </tbody>
 					</table>
-		 <!-- 자유게시글 댓글 리스트 보기 기능 구현 끝-->  
+		 <!-- 상품 후기 리스트 보기 기능 구현 끝-->  
 		            </div>
 		        </div>
 		    </div>
@@ -329,11 +332,36 @@
 	  </div>
 	</div>​
 	
+
+                    <div class="col-lg-12">
+                      <div class="button_quantity">
+                      	대여 수량
+                      <input type="text" class="quantity_input" value="1">
+                      <span>
+                      	<button class="plus_btn btn-secondary">+</button>
+                      	<button class="minus_btn btn-secondary">-</button>
+                      </span>	
+                      </div>
+                      
+                      <div class="text-right">
+                      	<button type="button" id="btn_zzim" class='btn btn-outline-primary float-right'>찜하기</button>
+                      	<button type="button" id="btn_rental" class='btn btn-outline-primary float-right'>대여하기</button>                      	
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+                
+            </div>
+            </div>
+          </div>
+        </div>
+ 
         
         <!-- 주문 폼 -->
-        <form action="/rental/${loginuser.memberNo}" method="get" class="rental_form">
-				<input type="hidden" name="orderDetailList[0].itemNo" value="${item.itemNo}">
-				<input type="hidden" name="orderDetailList[0].itemCount" value="">
+        <form action="/order/${loginuser.memberNo}" method="get" class="order_form">
+				<input type="hidden" name="orders[0].itemNo" value="${item.itemNo}">
+				<input type="hidden" name="orders[0].itemCount" value="">
 		</form>
 
       
@@ -363,7 +391,8 @@
           </div>
         </div>
       </footer>
-            
+            </div>
+      </div>
   <!--   Core   -->
   <script src="/rental-project/resources/js/plugins/jquery/dist/jquery.min.js"></script>
   <script src="/rental-project/resources/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -383,26 +412,47 @@
   
   <script>
   $(document).ready(function(){
+	  
+  
+  	$('#zzim_btn').click(function(e){
+  		e.preventDefault();
+  		
+  		const itemNo = $('#itemNo').val();
+  		
+  		
+  		$.ajax({
+  			"url" : "ajax-zzim",
+  			"method" : "get",
+  			"data" : { "itemNo" : itemNo },
+  			"success" : function(result){
+  				if (result == 1){
+  					alert("찜!");
+  				} else {
+  					alert("회원만 사용가능한 기능입니다.");
+  					location.href = "/rental-project/account/login";
+  				}
+  			},
+  			"error" : function() {
+  				alert("이미 찜한 상품입니다!!");
+  			}
+  		});
+  	});
   	
   	
   	let itemPrice = "${item.itemPrice}"
   	let point = itemPrice*0.05;
   	point = Math.floor(point);
   	$(".point_span").text(point);
-  	
-  	
-	});  	
-  	
-  	// 대여 수량 조절
-  	let quantity = $(".count_input").val();
+});  	
+  	// 주문 수량 조절
+  	let quantity = $(".quantity_input").val();
   	
 	$(".plus_btn").on("click", function(){
-		$(".count_input").val(++quantity);
+		$(".quantity_input").val(++quantity);
 	});
-	
 	$(".minus_btn").on("click", function(){
 		if(quantity > 1) {
-		$(".count_input").val(--quantity);
+		$(".quantity_input").val(--quantity);
 		}
 	});
 	
@@ -414,19 +464,10 @@
 	}
 	
 	
-	// 찜 추가 버튼
+	// 장바구니 추가 버튼
 	$("#btn_zzim").on("click", function(e){
-		
-	form.itemCount = $(".count_input").val();
 	
-	if (!form.memberNo) {
-		const yn = confirm('로그인이 필요합니다.');
-		if (yn) {
-			location.href = "/rental-project/account/login";
-		} 
-		return;
-	}
-		
+	form.itemCount = $(".quantity_input").val();
 	$.ajax({
 		url: 'zzim-add', // 호출 url
 		type: 'post',  // 메서드
@@ -450,6 +491,7 @@
 		}
 	}
 	
+ 
 	$(".btn_rental").on("click", function(){
 		var itemCount = $(".count_input").val();
 		$(".rental_form").find("input[name='orderDetailList[0].itemCount']").val(itemCount);
@@ -578,6 +620,7 @@
 				}) 
 			})  	
 	 
+ 
   </script>
   
   

@@ -12,4 +12,9 @@ public interface ZzimService {
 	
 	// 찜 리스트
 	List<ZzimDto> getZzimList(int memberNo);
+	
+	// 찜 수정
+	int modifyCount(ZzimDto zzim);
+	
+	int deleteZzim(int zzimNo);
 }

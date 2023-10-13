@@ -139,4 +139,10 @@ public class AccountServiceImpl implements AccountService {
 		return userNewPassword;
 	}
 	
+	@Override
+	public MemberDto getMemberInfo(int memberNo) {
+		
+		return accountMapper.getMemberInfo(memberNo);
+	}
+	
 }
