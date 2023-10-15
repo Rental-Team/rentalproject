@@ -81,7 +81,8 @@
             <div class="card-body">
               <!-- Chart -->
               <div class="chart">
-                <canvas id="chart-orders" class="chart-canvas"></canvas>
+                <p>Number of visits today: ${visitCount}</p>
+    			<canvas id="weeklyVisitChart" width="400" height="200"></canvas>
               </div>
             </div>
           </div>
@@ -116,22 +117,10 @@
                 </div>
                 <div class="col text-right">
                   <a href="./notice/list" class="btn btn-sm btn-primary">더보기</a>
-
                 </div>
               </div>
             </div>
-            
             <div class="table-responsive" id="notice-list">
-            
-           
-              <!-- Projects table -->
-              <table class="table align-items-center table-flush">
-
-                   <tbody>
-                 
-
-                </tbody>
-              </table>
             </div>
           </div>
         </div>
@@ -170,9 +159,14 @@
   <!--   Optional JS   -->
   <script src="/rental-project/resources/js/plugins/chart.js/dist/Chart.min.js"></script>
   <script src="/rental-project/resources/js/plugins/chart.js/dist/Chart.extension.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!--   Argon JS   -->
   <script src="/rental-project/resources/js/argon-dashboard.min.js?v=1.1.2"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <canvas id="weeklyVisitChart" width="400" height="200"></canvas>
   <script>
     window.TrackJS &&
       TrackJS.install({
@@ -180,52 +174,7 @@
         application: "argon-dashboard-free"
       });
   </script>
-  
-<!--   <script>
-  function loadNotices() {
-	  $.ajax({
-		  url: '/rental-project/notice/list',
-		  method: 'GET',
-		  dataType: 'json',
-		  success:function(data) {
-			  displayNotices(data);
-		  },
-		  error: function(err) {
-			  console.error("공지사항 목록을 가져오는 도중 오류 발생:", err);
-		  }
-	  })
-  }
-  
-  $(document).ready(function() {
-	  loadNotices();
-	  
-  
-  
-  setInterval(function() {
-	  loadNotices();
-  }, 5000);
-  });
- 
-  
-  function displayNotices(notices) {
-	  var tbody = $('#notice-container table tbody');
-	  tbody.empty();
-	  
-	  for(var i = 0; i< notices.length; i++) {
-		  var notice = notices[i];
-		  var row = '<tr>';
-		  row += '<td>' + notice.noticeTitle + '</td>';
-		  row += '<td>' + notice.noticeDate + '</td>';
-	  
-		  row += '<td><a href="/rental-project/notice/detail?noticeNo=' + notice.noticeNo + '">상세보기</a></td>';
-		  row += '</tr>';
-		  tbody.append(row);
-	  }
-  }
-  
-  
-  
-  </script> -->
+
   <script>
 function loadNoticeList() {
   $.ajax({
@@ -249,6 +198,53 @@ $(document).ready(function () {
   //   loadNoticeList();
   // }, 5000); // 5초마다 업데이트
 });
+</script>
+ <script>
+    // Function to make an AJAX request to fetch weekly visit data
+    function fetchWeeklyVisitData() {
+        $.ajax({
+            url: 'weekly', // URL for your weekly data endpoint
+            method: 'GET',
+            success: function (data) {
+                // Extract date labels and visit counts from the data
+                var dates = data.map(function (item) {
+                    return item.visitDate;
+                });
+                var visitCounts = data.map(function (item) {
+                    return item.visitNumber;
+                });
+
+                // Create a chart using Chart.js
+                var ctx = document.getElementById('weeklyVisitChart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: dates,
+                        datasets: [{
+                            label: 'Weekly Visits',
+                            data: visitCounts,
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            },
+            error: function (error) {
+                console.error('Error fetching data: ' + error);
+            }
+        });
+    }
+
+    // Call the function to fetch weekly visit data
+    fetchWeeklyVisitData();
 </script>
 </body>
 

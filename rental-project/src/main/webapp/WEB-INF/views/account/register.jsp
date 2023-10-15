@@ -86,6 +86,7 @@
 	                <img id="preview" src="/rental-project/resources/img/theme/default.png">
 	            </label>
 	            <input type="file" id="imageInput" name="imageName" style="display: none;" accept="image/*" onchange="readURL(this);" />
+		        
 		        </div>
 			    </div>
 			</div>

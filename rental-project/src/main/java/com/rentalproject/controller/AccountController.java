@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -82,6 +83,7 @@ public class AccountController {
 		String combinedEmail = email1 + "@" + email2;
 		member.setEmail(combinedEmail);
 		
+		// 이미지 첨부파일(프로필 사진)
 		String uploadDir = req.getServletContext().getRealPath("/resources/upload/");
 		String uploadedImageFileName = handleUploadFile(memberImage, uploadDir);
 		if (uploadedImageFileName != null) {
@@ -114,7 +116,7 @@ public class AccountController {
 	}
 	
     
-	// 로그인 창
+	// 카카오 로그인 실행
 	@GetMapping(path= {"/login"})
 	public String loginForm(@ModelAttribute("member") MemberDto member,
 							@RequestParam(name = "code", required = false) String code,
@@ -198,21 +200,21 @@ public class AccountController {
 	}
 	
 	// 아이디 찾기 구현
-	@PostMapping(path = { "/find-id" })
+	@PostMapping(path= "/find-id", produces="application/json; charset=utf-8")
 	@ResponseBody
-//	public Map<String, Object> findUserId(MemberDto member) {
-//	    Map<String, Object> response = new HashMap<>();
-//	    MemberDto findIdMember = accountService.findLoginId(member);
-//
-//	    if (findIdMember != null && findIdMember.isDeleteCheck() == false) {
-//	        response.put("check", 0);
-//	        response.put("memberId", findIdMember.getMemberId());
-//	    } else {
-//	        response.put("check", 1);
-//	    }
-//
-//	    return response;
-//	}
+	public Map<String, Object> findUserId(@RequestParam("userName") String userName, @RequestParam("phoneNo") String phoneNo) {
+	    Map<String, Object> response = new HashMap<>();
+	    MemberDto findIdMember = accountService.findLoginId(userName, phoneNo);
+
+	    if (findIdMember != null && !findIdMember.isDeleteCheck()) {
+	        response.put("check", 0);
+	        response.put("memberId", findIdMember.getMemberId());
+	    } else {
+	        response.put("check", 1);
+	    }
+
+	    return response;
+	}
 	
 	// 비밀번호 찾기
 	@GetMapping(path= {"/findpw"})
@@ -221,41 +223,37 @@ public class AccountController {
 	}
 	
 	// 비밀번호 찾기 구현
-	@GetMapping(path= {"/check-id-email"})
+	@PostMapping(path= "/find-pw", produces="application/json; charset=utf-8")
 	@ResponseBody
-	public String IdEmailCheck(String memberId, String email) {
-		boolean valid = accountService.findLoginPw(memberId, email);
-		return String.valueOf(valid);
+	public Map<String, Object> findUserPw(@RequestParam("memberId") String memberId, @RequestParam("email") String email) {
+		Map<String, Object> response = new HashMap<>();
+		
+		MemberDto findPwMember = accountService.findLoginPw(memberId, email);
+		
+		if (findPwMember != null && !findPwMember.isDeleteCheck()) {
+	        response.put("check", 0);
+	        accountService.emailContentForTemporaryPw(email); // 이메일로 임시 비밀번호 전송
+	        String newPassword = accountService.emailContentForTemporaryPw(email); // 임시 비밀번호 newPassword에 저장
+	        String hashedPasswd = Util.getHashedString(newPassword,"SHA-256"); // 해쉬코드로 변경
+	        accountService.updateLoginPw(memberId, hashedPasswd); // 해당 아이디에 패스워드를 변경
+	    } else {
+	        response.put("check", 1);
+	    }
+	    return response;
 	}
 	
-	
-//	public String findUserPw(MemberDto member, Model model) throws Exception {
-//		
-//		MemberDto findPwMember = accountService.findLoginPw(member);
-//		String newpw = "";
-//		
-//		if(findPwMember != null && findPwMember.isDeleteCheck() == false) {
-////			model.addAttribute("check", 0);
-////			model.addAttribute("memberId", findPwMember.getMemberId());
-//			
-//			UUID uid = UUID.randomUUID();
-//			
-//			newpw = uid.toString().substring(0,6);
-//			findPwMember.setPassword(newpw);
-//			
-//			MailUtil mail = new MailUtil();
-//			mail.sendEmail(findPwMember);
-//			
-//			accountService.newPw(findPwMember);
-//			
-//			return "account/login";
-//			
-//		} else {
-////			model.addAttribute("check", 1);
-//			
-//			return "account/findpw";
-//		}
-//	}
+	// 임시 비밀번호 난수
+	public String generateTemporaryPassword() {
+	    String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	    StringBuilder randomString = new StringBuilder();
+
+	    Random random = new Random();
+	    for (int i = 0; i < 8; i++) {
+	        int index = random.nextInt(characters.length());
+	        randomString.append(characters.charAt(index));
+	    }
+	    return randomString.toString();
+	}
 	
 	@PostMapping(path= {"editpw"})
 	public String newUserPw(MemberDto member, RedirectAttributes rttr) {

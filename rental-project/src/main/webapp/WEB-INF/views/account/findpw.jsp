@@ -99,7 +99,7 @@
             <div class="card-body px-lg-5 py-lg-5">
             
             <!-- action 시작 -->
-              <form action="findpw" method="post">
+              <form action="findpw" method="post" id="findPwForm">
                 <div class="form-group mb-3">
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
@@ -119,10 +119,8 @@
                 <p class="text-center">
                   <input type="submit" class="btn btn-primary my-4" value="비밀번호 찾기" id="find-pw" />
                 </p>
-                
-				
-                
               </form>
+              <div id="findPwResult"></div>
             </div>
           </div>
         </div>
@@ -164,80 +162,34 @@
   <script src="/rental-project/resources/js/argon-dashboard.min.js?v=1.1.2"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script type="text/javascript">
-  $(function(){
-	  
-	  	
-		$('#find-pw').on("click", function(event){
-			event.preventDefault();
-			
-			const memberId = $('#memberId').val();
-			const email = $('#email').val();
-			if (!memberId){ // memberId가 null이거나 ""인 경우
-				alert('아이디를 입력하세요');
-				$('#memberId').focus();
-				return;
-			}
-			if (!email){ //
-				alert('이메일을 입력하세요');
-				$('#email').focus();
-				return;
-			}
-			
-			$.ajax({
-				"url": "check-id-email",
-				"method": "get",
-				"data": {"memberId" : memberId},
-				"async": true,
-				"success": function(data, status, xhr){
-					if (data == "true"){
-						dupChecked = true;
-						alert("사용 가능한 아이디")
-					} else {
-						dupChecked = false;
-						alert("이미 사용 중인 아이디")
-					}
-				},
-				"error": function(xhr, status, err){
-					alert("error");
+  $(document).ready(function(){
+	$("#findPwForm").submit(function (event) {
+		event.preventDefault
+		
+		let memberId=$("input[name='memberId']").val();
+		let email=$("input[name='email']").val();
+		
+		$.ajax({
+			method:"post",
+			url:"find-pw",
+			// dataType:'json',
+			data:{memberId: memberId, email: email},
+			success:function(response){
+				if(response.check == 0){
+					alert("임시 비밀번호가 발급되었습니다.메일함을 확인해 주세요");
+					$("#findPwResult").append('<div class="form-label-group"><a href="/rental-project/account/login" class="btn btn-lg btn-secondary btn-block text-uppercase">로그인으로 돌아가기</a></div>');
+				} else {
+					$("#findPwResult").html("");
+					alert("아이디 또는 이메일을 정확하게 입력해 주세요");
 				}
-			});
-		});
-		// 아이디 중복 검사안하고 계정 생성할 시
-		$('#register').on('click', function(event){
-			event.preventDefault();
-			
-			if (!dupChecked) {
-				alert("아이디 중복 검사를 실행하세요");
-				return;
-			}
-			$('#registerform').submit();
-		});
-		// 아이디 중복 검사했어도 값이 새로 입력될 때 (입력창에 키up 되었을 시)
-		$('#memberId').on('keyup', function(){
-			dupChecked = false;
-			});	
-		});
-  </script>
-  <!--  <script type="text/javascript">
-	$(function(){
-		$("#btn").click(function(){
-			let memberId=$("input[name='memberId']").val();
-			let email=$("input[name='email']").val();
-			$.ajax({
-				url:"/account/findpw",
-				dataType:'json',
-				data:{"memberId": memberId, "email": email},
-				success:function(data){
-					if(data == true){
-						alert("임시 비밀번호가 발급되었습니다.메일함을 확인해 주세요");
-					} else {
-						alert("아이디 또는 이메일을 정확하게 입력해 주세요");
-					}
-		   		}	
-			});
+	   		},
+	   		error: function () {
+				console.error("요청 처리 중 오류가 발생했습니다.");
+			},
 		});
 	});
-</script> -->
+  });
+</script>
   <script>
     window.TrackJS &&
       TrackJS.install({

@@ -167,8 +167,8 @@
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
-$(document).ready(function() {
- $("#findIdForm").submit(function (event) {
+  $(document).ready(function() {
+  	$("#findIdForm").submit(function (event) {
         event.preventDefault();
 
         var userName = $("input[name='userName']").val();
@@ -176,7 +176,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: "POST",
-            url: "/account/find-id",
+            url: "find-id",
             data: {
                 userName: userName,
                 phoneNo: phoneNo,

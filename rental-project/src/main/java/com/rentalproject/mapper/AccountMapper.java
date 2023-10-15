@@ -34,24 +34,19 @@ public interface AccountMapper {
 	@Select("select * from Member where memberId = #{memberId}")
 	MemberDto selectKakaoMember(MemberDto member);
 	
-//	// 아이디 찾기
-//	@Select("select * from Member Where userName = #{userName} and phoneNo = #{phoneNo}")
-//	MemberDto findIdByNameAndPhoneNo(MemberDto member);
-	
 	// 아이디 찾기
 	@Select("select * from Member Where userName = #{userName} and phoneNo = #{phoneNo}")
 	MemberDto findIdByNameAndPhoneNo(@Param("userName") String userName, @Param("phoneNo") String phoneNo);
 	
-	// 비밀번호 찾을 때 아이디와 이메일로 조회
+	// 비밀번호 찾기
 	@Select("select * from Member where memberId = #{memberId} and email = #{email}")
-	int selectPwByIdAndEmail(@Param("memberId") String memberId, @Param("email") String email ); 
+	MemberDto findPwByIdAndEmail(@Param("memberId") String memberId, @Param("email") String email ); 
 	
-	// 임시 비밀번호로
-	@Update("update Member set password = #{password}" +
-			"where memberId = #{memberId} and email = #{email}")
-	void newPassword(MemberDto member);
+	// 임시 비밀번호 발급 및 변경
+	@Update("update Member set password = #{password} where memberId = #{memberId}")
+	void updatePassword(@Param("memberId") String memberId, @Param("password") String password);
 	
-	// 비밀번호 변경
+	// 자체 비밀번호 변경
 	@Update("update Member set password = #{password}, passwordConfirm =#{passwordConfirm} " + 
 			"where memberId = #{memberId} ")
 	MemberDto selfUpdatePassword(MemberDto member);

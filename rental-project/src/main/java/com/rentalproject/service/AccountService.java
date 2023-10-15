@@ -16,17 +16,26 @@ public interface AccountService {
 
 	MemberDto findKakaoMember(MemberDto member);
 	
-//	MemberDto findLoginId(MemberDto member);
+	MemberDto findLoginId(String userName, String phoneNo);
 
-	boolean findLoginPw(String memberId, String email);
+	MemberDto findLoginPw(String memberId, String email);
 
-//	void newPw(MemberDto member);
-
+	void updateLoginPw(String memberId, String password);
+	
+	String emailContentForTemporaryPw(String email);
+	
 	MemberDto selfUpdatePw(MemberDto member);
 
 	MemberDto getMemberInfo(int memberNo);
 
-	MemberDto findLoginId(String userName, String phoneNo);
+	
+
+	
+
+
+	
+
+	
 
 	
 

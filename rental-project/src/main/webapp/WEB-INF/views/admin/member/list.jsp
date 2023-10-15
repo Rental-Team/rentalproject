@@ -9,6 +9,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <style>
+	a { text-decoration: none } /* 링크에 밑줄 같은 데코 없앰 */
+	.deleted {color: gray;}
+	</style>
   <title>
     Argon Dashboard - Free Dashboard for Bootstrap 4 by Creative Tim
   </title>
@@ -47,26 +51,45 @@
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
+                  	<th scope="col" style="width:100px">번호</th>
                     <th scope="col" style="width:100px">아이디</th>
                     <th scope="col" style="width:100px">이름</th>
                     <th scope="col" style="width:100px">휴대폰 번호</th>
+                    <th scope="col" style="width:100px">이메일</th>
                     <th scope="col" style="width:100px">등록일자</th>
                   </tr>
                 </thead>
                 <tbody>
-                 <c:forEach var="member" items="${ memberList }">
-                 	<tr>
-                    	<td><c:out value="${ member.memberId}" /></td>
-   						<td><c:out value="${ member.userName}" /></td>      	 
-                    	 <td><c:out value="${member.phoneNo}" /></td>
-                    	 <td><fmt:formatDate pattern="yyyy-MM-dd"
-                    	  value="${ member.regDate }" /></td>
-                  </tr>
-                 </c:forEach>
-         
-                </tbody>
-              </table>
-
+                 <c:forEach var="member" items="${memberList}">
+				  <tr>
+			       <td><c:out value="${member.memberNo}" /></td>
+				    <td>
+			         <c:choose>
+				      <c:when test="${not member.deleteCheck}">
+				       <c:set var="linkText" value="${member.memberId}" />
+				      </c:when>
+				      <c:otherwise>
+				       <span class="deleted">
+						<c:set var="linkText" value="${member.memberId}[탈퇴한 회원입니다]" />
+				       </span>
+					  </c:otherwise>
+					 </c:choose>
+				
+					 <a href="detail?memberNo=${member.memberNo}&pageNo=${pageNo}&delete=${member.deleteCheck}">
+					  <c:out value="${linkText}"/>
+					 </a>
+			        </td>
+			        <td><c:out value="${member.userName}" /></td>     
+			        <td><c:out value="${member.phoneNo}" /></td>
+			        <td><c:out value="${member.email}" /></td>
+			        <td><fmt:formatDate pattern="yyyy-MM-dd" value="${member.regDate}" /></td>
+			       </tr>
+				  </c:forEach>
+				 </tbody>
+				</table>
+				<br><br>
+                 ${ pager }
+                <br/><br/>
             </div>
           </div>
         </div>

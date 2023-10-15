@@ -172,6 +172,9 @@ public class FreeBoardController {
 		 String memberId = freeBoardService.getMemberId(freeboard.getFreeBoardNo());
 		 freeboard.setMemberId(memberId);
 		 
+		 String memberImage = freeBoardService.getMemberImage(freeboard.getFreeBoardNo());
+		 freeboard.setMemberImage(memberImage);
+		 
 		int count = freeBoardReportService.reportcount(freeBoardNo);
 		int recommandCount = freeBoardRecommandService.recommandcount(freeBoardNo);
 		

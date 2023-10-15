@@ -49,18 +49,51 @@ public class AdminController {
 		
 		model.addAttribute("memberList", memberList);
 		
-		
 	}
 	
+	// 회원 리스트
 	@GetMapping("/member/list")
-	public String getMemberList(Model model) throws Exception {
+	public String getMemberList(@RequestParam(defaultValue = "1") int pageNo, Model model) throws Exception {
 		
-		List<MemberDto> memberList = adminService.MemberList();
+		// List<MemberDto> memberList = adminService.MemberList();
 		
-		model.addAttribute("memberList", memberList);
+		int pageSize = 30;
+		int pagerSize = 5;
+		String linkUrl = "list";
+		int dataCount = adminService.getMemberCount();
+		
+		int from = (pageNo -1)*pageSize;
+		List<MemberDto> memberList = adminService.listMemberByPage(from, pageSize);
+		
+		ThePager pager = new ThePager(dataCount, pageNo, pageSize, pagerSize, linkUrl);
+		
+		model.addAttribute("memberList", memberList); 
+		model.addAttribute("pager", pager);
+		model.addAttribute("pageNo", pageNo); // 페이지 번호를 jsp에 전송
 		
 		return "admin/member/list";
 	}
+	
+	// 회원 상세 조회
+	@GetMapping("/member/detail")
+	public String getMemberDetail(@RequestParam(defaultValue = "-1") int memberNo, Model model,
+								  @RequestParam(defaultValue = "-1") int pageNo) {
+		if (memberNo == -1 || pageNo == -1) { // 글번호와 페이지 번호가 -1 이면 (무단침입) 그냥 리스트 창으로 돌아가세요(글 번호가 요청에 포함되지 않은 경우) , 
+			return "redirect:/admin/member/list"; //경로는 뛰어쓰기 금지 redirect : list (x)
+		}
+		
+		MemberDto member = adminService.selectMemberDetail(memberNo);
+		
+		if (member == null) {
+			return "redirect:/admin/member/list";
+		}
+		
+		model.addAttribute("member", member);
+		model.addAttribute("pageNo", pageNo);
+		
+		return "admin/member/detail";
+	}
+
 	
 	@GetMapping("/item/list")
 	public String list(@RequestParam(defaultValue = "1")int pageNo, Model model) {
