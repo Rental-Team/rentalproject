@@ -90,7 +90,7 @@
 								<fmt:formatNumber value="${zzim.itemPrice * zzim.itemCount}" pattern="#,### 원" />
 							</td>
 							<td class="td_width_4 table_text_align_center">
-								<button class="delete_btn btn-primary" data-zzimNo="${zzim.zzimNo}">삭제</button>
+								<button class="delete_btn btn btn-sm btn-success" data-zzimNo="${zzim.zzimNo}">삭제</button>
 							</td>
 						</tr>
 					</c:forEach>
@@ -101,23 +101,24 @@
               
               	
               	<div class="content_btn">
-              		<button class="rental_btn btn-primary">대여하기</button>
+              		<button class="rental_btn btn btn-success">대여하기</button>
               	</div>
               	
               	<form action="/rental-project/zzim/update" method="post" class="quantity_update_form">
 					<input type="hidden" name="zzimNo" class="update_zzimNo">
 					<input type="hidden" name="itemCount" class="update_itemCount">
-					<input type="hidden" name="memberNo" value="${loginuser.memberNo}">
+					
 				</form>
 				
 				<form action="/rental-project/zzim/delete" method="post" class="delete_form">
 					<input type="hidden" name="zzimNo" class="delete_zzimNo">
-					<input type="hidden" name="memberId" value="${loginuser.memberId}">
+					
 				</form>
               	
               	<form action="/rental-project/rental" method="get" class="rental_form">
               		<input type="hidden" name='itemNos'>
               		<input type="hidden" name='itemCounts'>
+              		<input type="hidden" name="memberNo" value="${ loginuser.memberNo }">
               	</form>
               	
               </div>

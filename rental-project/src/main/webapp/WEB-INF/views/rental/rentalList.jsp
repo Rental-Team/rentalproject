@@ -45,12 +45,9 @@
 									<fmt:formatNumber value="${zzim.itemPrice * zzim.itemCount}" pattern="#,### ¿ø" />
 								</td>
 							</tr>
-						</c:forEach>
-                  
+						</c:forEach> 
                 </tbody>
-              </table>
-              
-                            	
+              </table>          	
               </div>
             </div>
           </div>

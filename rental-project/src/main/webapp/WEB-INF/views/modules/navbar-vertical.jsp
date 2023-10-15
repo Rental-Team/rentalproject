@@ -3,38 +3,78 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
-<nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-text-info" id="sidenav-main">
-    <div class="container-fluid">
-      <!-- Toggler -->
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <!-- Brand -->
-      <a class="navbar-brand pt-0" href="/rental-project/home">
-        <img src="/rental-project/resources/img/brand/225.png" class="navbar-brand-img" alt="..." style="width:91%;">
+<nav class="navbar navbar-expand-lg navbar-light bg-content" style="border: 1px solid white;">  <!-- bg-success -->
+  <div class="container-fluid">
+    <!-- 좌측 정렬을 위한 그리드 시스템을 사용합니다 -->
+    <div class="d-flex align-items-center">
+      <a class="navbar-brand" href="/rental-project/home" style="font-size: 24px; font-weight: bold; ">
+        <img src="/rental-project/resources/img/brand/225.png" class="navbar-brand-img" alt="..." style="width: 160px; height: auto;">
       </a>
-      <!-- User -->
-      <ul class="nav align-items-center d-md-none">
-        <li class="nav-item dropdown">
-          <a class="nav-link nav-link-icon" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="ni ni-bell-55"></i>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+     <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link dashboard-menu" href="/rental-project/home">
+            <i style="font-size: 24px; color: blue;"></i> 대시보드
           </a>
-          <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right" aria-labelledby="navbar-default_dropdown_1">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <div class="media align-items-center">
-              <span class="avatar avatar-sm rounded-circle">
-                <img alt="Image placeholder" src="/rental-project/resources/img/theme/team-1-800x800.jpg
-">
-              </span>
-            </div>
+        <li class="nav-item active">
+          <a class="nav-link dashboard-menu" href="/rental-project/item/list">
+            <i style="font-size: 24px; color: green;"></i> 상품 게시판
           </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link dashboard-menu" href="/rental-project/freeboard/freeboardlist">
+            <i style="font-size: 24px; color: yellow;"></i> 자유 게시판
+          </a>
+        </li>
+        <li class ="nav-item active">
+          <a class="nav-link dashboard-menu" href="/rental-project/notice/list">
+            <i style="font-size: 24px; color: red;"></i> 공지사항
+          </a>
+        </li>
+      </ul>
+    </div>
+      <!-- 사용자 관련 요소 -->
+      <ul class="navbar-nav align-items-center d-none d-md-flex ml-auto">
+        <li class="nav-item dropdown"> 
+            <div class="media align-items-center">
+              <!-- User 아이콘 또는 이미지 -->
+              <c:choose>
+                <c:when test="${loginuser eq null}">
+                  <!-- 로그인 전 화면 -->
+                  <a href="/rental-project/account/login" style="color: inherit;">
+                    <span class="mb-0 text font-weight-bold">로그인</span>
+                  </a>
+                </c:when>
+                <c:otherwise>
+                  <!-- 로그인 후 화면 -->
+                  <c:if test="${sessionScope.loginuser.admin == 2}">
+                    <div class="media-body ml-2 d-none d-lg-block">
+                      <a href="/rental-project/admin/home" style="color: inherit;">
+                        <span class="mb-0 text font-weight-bold">관리자 화면</span>
+                      </a>
+                    </div>
+                  </c:if>
+                   <div class="media-body ml-2 d-none d-lg-block">
+                            <div class="d-flex align-items-center">
+                                <a class="nav-link" href="/rental-project/profile/profile?memberId=${loginuser.memberId}">
+                                    <i class="ni ni-circle-08 text-yellow mr-2"></i>
+                                    ${sessionScope.loginuser.memberId}님
+                                </a>
+                                <a href="/rental-project/account/logout" style="color: inherit;">
+                                    <div class="d-flex align-items-center">
+                                        <span class="mb-0 text font-weight-bold mr-2">로그아웃</span>
+                                        <i class="ni ni-user-run"></i>
+                                    </div>
+                                </a>
+                  </div>
+                </c:otherwise>
+              </c:choose>
+            </div> 
           <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
             <div class=" dropdown-header noti-title">
               <h6 class="text-overflow m-0">Welcome!</h6>
@@ -60,76 +100,8 @@
               <i class="ni ni-user-run"></i>
               <span>Logout</span>
             </a>
-          </div>
-        </li>
-      </ul>
-      <!-- Collapse -->
-      <div class="collapse navbar-collapse" id="sidenav-collapse-main">
-        <!-- Collapse header -->
-        <div class="navbar-collapse-header d-md-none">
-          <div class="row">
-            <div class="col-6 collapse-brand">
-              <a href="./index.html">
-                <img src="/rental-project/resources/img/brand/blue.png">
-              </a>
-            </div>
-            <div class="col-6 collapse-close">
-              <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
-                <span></span>
-                <span></span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <!-- Form -->
-        <form class="mt-4 mb-3 d-md-none">
-          <div class="input-group input-group-rounded input-group-merge">
-            <input type="search" class="form-control form-control-rounded form-control-prepended" placeholder="Search" aria-label="Search">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <span class="fa fa-search"></span>
-              </div>
-            </div>
-          </div>
-        </form>
-        <!-- Navigation -->
-        <ul class="navbar-nav">
-          <li class="nav-item  active ">
-            <a class="nav-link  active " href="/rental-project/home">
-              <i class="ni ni-tv-2 text-primary"></i> 대시보드
-            </a>
-          </li>
-		  <li class="nav-item">
-            <a class="nav-link " href="/rental-project/item/list">
-              <i class="ni ni-bullet-list-67 text-red"></i> 상품 게시판
-            </a>
-          </li>
-           <li class="nav-item">
-            <a class="nav-link " href="/rental-project/freeboard/freeboardlist">
-              <i class="ni ni-satisfied text-yellow"></i> 자유 게시판
-            </a>
-          </li>
-        </ul>
-        <!-- Divider -->
-        <hr class="my-3">
-        <!-- Heading -->
-        <h6 class="navbar-heading text-muted">Documentation</h6>
-        <!-- Navigation -->
-        <ul class="navbar-nav mb-md-3">
-          <li class="nav-item">
-            <a class="nav-link" href="/rental-project/notice/list">
-              <i class="ni ni-world text-blue"></i> 공지사항
-            </a>
-          </li>
-        </ul>
-        <ul class="navbar-nav">
-          <li class="nav-item active active-pro">
-            <a class="nav-link" href="./examples/upgrade.html">
-              <i class="ni ni-send text-dark"></i> Upgrade to PRO
-            </a>
           </li>
         </ul>
       </div>
-    </div>
+    </div> 
   </nav>
-  

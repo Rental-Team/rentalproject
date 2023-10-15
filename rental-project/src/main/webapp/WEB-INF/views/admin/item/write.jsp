@@ -116,7 +116,7 @@
                     <div class="col-lg-12">
                       <div class="form-group">
                         <label class="form-control-label" for="input-itemAttach">첨부 파일</label>
-                        <input type="file" id="attach" name="attach" class="form-control form-control-alternative">
+                       <input type="file" id="attach" name="attachments" class="form-control form-control-alternative" multiple>
                         <div id="uploadResult">
                       		<div id="result_card">
                       			<div class="imgDeleteBtn">x</div>
@@ -206,24 +206,24 @@
   </script>
   
   <script>
-    $(function() {
-    function readURL(input) {
-      if (input.files && input.files[0]) {
-      var reader = new FileReader();
-  
-          reader.onload = function (e) {
-              $('#imageTest').attr('src', e.target.result);
-          }
-  
-          reader.readAsDataURL(input.files[0]);
-      }
-    }
-  
-    $("#attach").change(function(){
-        readURL(this);
-    });
-    
-    });
+  $(function() {
+	    function readURL(input) {
+	      if (input.files && input.files[0]) {
+	      var reader = new FileReader();
+	  
+	          reader.onload = function (e) {
+	              $('#imageTest').attr('src', e.target.result);
+	          }
+	  
+	          reader.readAsDataURL(input.files[0]);
+	      }
+	    }
+	  
+	    $("#attach").change(function(){
+	        readURL(this);
+	    });
+	    
+	    });
     
     let cateList = JSON.parse('${cateList}');
     

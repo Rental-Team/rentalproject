@@ -57,6 +57,8 @@ public class OrderController {
 	        
 	        model.addAttribute("orders", orders);
 	        model.addAttribute("totalOrderPrice", totalOrderPrice); 
+	        
+	        MemberDto loginMember = (MemberDto)session.getAttribute("loginuser");
             
             System.out.println(orders);
 	    }
@@ -74,5 +76,20 @@ public class OrderController {
 		
 		return "redirect:/zzim";
 	}
+	
+	@GetMapping("/rental/rentalok")
+    public String showRentalOkPage() {
+		 return "rental/rentalok"; 
+    }
+	
+	@GetMapping("/rental-project/home")
+    public String ReturnHome() {
+		 return "rental/home"; 
+    }
+	
+	@GetMapping("/rental/rentalDetail")
+    public String OrderDetail() {
+		 return "rental/rentalDetail"; 
+    }
 	
 }
