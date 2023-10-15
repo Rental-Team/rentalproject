@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.rentalproject.dto.OrderDetailDto;
 import com.rentalproject.dto.OrderDto;
-import com.rentalproject.dto.RentalOrderDto;
+import com.rentalproject.dto.RentalOrderPageDto;
 import com.rentalproject.mapper.OrderMapper;
 
 public class OrderServiceImpl implements OrderServcie {
@@ -26,9 +26,20 @@ public class OrderServiceImpl implements OrderServcie {
 
 	// 주문 등록
 	@Override
-	public void insertOrder(OrderDto order) {
+	public void insertRentalOrder(RentalOrderPageDto order) {
 		orderMapper.rentalOrder(order);	
-		orderMapper.orderDetail(order);
+		
+	}
+	
+	@Override
+	public void insertOrderDetail(OrderDetailDto orderDetail) {
+		orderMapper.orderDetail(orderDetail);
+	}
+	
+	// 주문 후 삭제
+	@Override
+	public void deleteZzimAfterOrder (int Zzim) {
+		orderMapper.deleteZzim(Zzim);
 	}
 	
 	// 주문 리스트 띄우기(관리자에서 사용)

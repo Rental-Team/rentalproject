@@ -116,7 +116,7 @@
                     <div class="col-lg-12">
                       <div class="form-group">
                         <label class="form-control-label" for="input-itemAttach">첨부 파일</label>
-                        <input type="file" id="attach" name="attach" class="form-control form-control-alternative">
+                        <input type="file" id="attach" name="attach" class="form-control form-control-alternative" multiple>
                         <div id="uploadResult">
                       		<div id="result_card">
                       			<div class="imgDeleteBtn">x</div>

@@ -43,7 +43,7 @@
 							</div>
 						</div>
 						<div class="card-body">
-							<form action="rental" method="post">							
+							<form action="directRental" method="post">
 							<input type="hidden" name="memberNo" value="${loginuser.memberNo}"/>
 							<div class="row mt-5">
 					        <div class="col">
@@ -63,28 +63,27 @@
 					                  </tr>
 					                </thead>
 					                <tbody>
-					                  <c:forEach items="${orders}" var="order">
 												<tr style="text-align:center;">								
 													<td class="td_width_2">
 														<img src="${pageContext.request.contextPath}/resources/upload/thumbnail_${zzim.thumbnail}" alt="Image">							
 													</td>
-													<td class="td_width_3">${order.itemName}</td>
+													<td class="td_width_3">${directOrder.itemName}</td>
 													<td class="td_width_4 price_td">
-														<span class="red_color"><fmt:formatNumber value="${order.itemPrice}" pattern="#,### 원" /></span><br>
+														<span class="red_color"><fmt:formatNumber value="${directOrder.itemPrice}" pattern="#,### 원" /></span><br>
 													</td>
-													<td class="td_width_4 table_text_align_center"> ${order.itemCount} </td>
+													<td class="td_width_4 table_text_align_center"> ${directOrder.itemCount} </td>
 													<td class="td_width_4 table_text_align_center">
-														<fmt:formatNumber value="${order.itemPrice * order.itemCount}" pattern="#,### 원" />
+														<fmt:formatNumber value="${directOrder.itemPrice * directOrder.itemCount}" pattern="#,### 원" />
 													</td>
 												</tr>
-											</c:forEach>
+										
 					                </tbody>
 					              </table>
 						              <div class="text-left mt-2 mb-2" style="padding-left: 20px;">
 									    <h5 class="text-black mb-0" style="display: flex; justify-content: space-between;">
 									        <span>총 주문 금액</span>
 									        <span class="red_color"  style="margin-right: 80px;">
-									            <fmt:formatNumber value="${totalOrderPrice}" pattern="#,### 원" />
+									            <fmt:formatNumber value="${directOrder.itemPrice * directOrder.itemCount}" pattern="#,### 원" />
 									        </span>
 									    </h5>
 									</div>    	
@@ -201,4 +200,4 @@
   });
   </script>
 </body>
-</html>
+</html>>

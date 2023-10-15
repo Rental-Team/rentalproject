@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.rentalproject.dto.OrderDetailDto;
 import com.rentalproject.dto.OrderDto;
-import com.rentalproject.dto.RentalOrderDto;
+import com.rentalproject.dto.RentalOrderPageDto;
 
 public interface OrderServcie {
 
@@ -12,7 +12,13 @@ public interface OrderServcie {
 	OrderDetailDto rentalItemInfo(int itemNo);
 
 	// 주문 등록
-	void insertOrder(OrderDto order);
+	void insertRentalOrder(RentalOrderPageDto order);
+	
+	// 주문 상세
+	void insertOrderDetail(OrderDetailDto orderDetail);
+	
+	// 주문 후 찜 목록에서 삭제
+	void deleteZzimAfterOrder (int Zzim);
 	
 	// 주문 리스트 (관리자에서 사용)
 	public List<OrderDto> orderList();

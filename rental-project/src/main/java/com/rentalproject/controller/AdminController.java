@@ -26,7 +26,7 @@ import com.rentalproject.dto.ItemDto;
 import com.rentalproject.dto.MemberDto;
 import com.rentalproject.dto.NoticeDto;
 import com.rentalproject.dto.OrderDto;
-import com.rentalproject.dto.RentalOrderDto;
+import com.rentalproject.dto.RentalOrderPageDto;
 import com.rentalproject.service.AdminService;
 import com.rentalproject.service.OrderServcie;
 import com.rentalproject.ui.ThePager;
@@ -106,12 +106,12 @@ public class AdminController {
 	
 	// 상품 등록
 	@PostMapping("/item/write")
-	public String write(ItemDto item, MultipartFile attach, HttpServletRequest req) {
+	public String write(ItemDto item,@RequestParam("attach") MultipartFile[] attachs, HttpServletRequest req) {
 
 		// 아이템 업로드
 		//log.info("register: " + item);
 		String uploadDir = req.getServletContext().getRealPath("/resources/upload/");
-		ArrayList<ItemAttachDto> attachList = handleUploadFile(attach, uploadDir);
+		ArrayList<ItemAttachDto> attachList = handleUploadFile(attachs, uploadDir);
 		item.setItemAttachList(attachList);
 
 		// 상품 등록
@@ -122,8 +122,9 @@ public class AdminController {
 	}
 	
 	// 첨부파일 
-	private ArrayList<ItemAttachDto> handleUploadFile(MultipartFile attach, String uploadDir) {
+	private ArrayList<ItemAttachDto> handleUploadFile(MultipartFile[] attachs, String uploadDir) {
 		ArrayList<ItemAttachDto> attachList = new ArrayList<>();
+		for (MultipartFile attach : attachs) {
 		if (!attach.isEmpty()) {
 			try {
 				String savedFileName = Util.makeUniqueFileName(attach.getOriginalFilename());
@@ -153,6 +154,7 @@ public class AdminController {
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
+		}
 		}
 		return attachList;
 	}
@@ -224,7 +226,7 @@ public class AdminController {
 	
 	// 상품 수정
 	@PostMapping("/item/edit")
-	public String edit(ItemDto item, MultipartFile attach, HttpServletRequest req, 
+	public String edit(ItemDto item, @RequestParam("attach") MultipartFile[] attachs, HttpServletRequest req, 
 			  @RequestParam(defaultValue = "-1") int pageNo ) {
 		
 		if( pageNo < 1) {
@@ -233,7 +235,7 @@ public class AdminController {
 		
 		// 파일 업로드 처리
 		String uploadDir = req.getServletContext().getRealPath("/resources/upload/");
-		ArrayList<ItemAttachDto> attachList = handleUploadFile(attach, uploadDir);
+		ArrayList<ItemAttachDto> attachList = handleUploadFile(attachs, uploadDir);
 		item.setItemAttachList(attachList);
 		
 		// 상품 수정 처리
