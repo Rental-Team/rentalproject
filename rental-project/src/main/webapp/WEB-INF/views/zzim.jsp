@@ -107,12 +107,12 @@
               	<form action="/rental-project/zzim/update" method="post" class="quantity_update_form">
 					<input type="hidden" name="zzimNo" class="update_zzimNo">
 					<input type="hidden" name="itemCount" class="update_itemCount">
-					<input type="hidden" name="memberNo" value="${loginuser.memberNo}">
+					
 				</form>
 				
 				<form action="/rental-project/zzim/delete" method="post" class="delete_form">
 					<input type="hidden" name="zzimNo" class="delete_zzimNo">
-					<input type="hidden" name="memberId" value="${loginuser.memberId}">
+					
 				</form>
               	
               	<form action="/rental-project/rental" method="get" class="rental_form">

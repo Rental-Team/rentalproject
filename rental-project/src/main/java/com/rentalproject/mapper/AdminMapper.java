@@ -59,7 +59,7 @@ public interface AdminMapper {
 	List<ItemDto> allItemList();
 	
 	// 페이징이 적용된 상품 게시판
-	@Select("select i.itemNo, i.itemPrice , i.itemName, i.viewCount, i.itemDate, i.deleted, i.itemStock, (select iA.savedFileName from itemAttach iA where iA.itemNo = i.itemNo) thumbnail "
+	@Select("select i.itemNo, i.itemPrice , i.itemName, i.viewCount, i.itemDate, i.deleted, i.itemStock, (select MAX(iA.savedFileName) from itemAttach iA where iA.itemNo = i.itemNo) thumbnail "
 			+ "from Item i "
 			+ "order by i.itemNo desc " + 
 			"limit #{from}, #{count}")
