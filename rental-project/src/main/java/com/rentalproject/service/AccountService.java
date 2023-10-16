@@ -26,7 +26,7 @@ public interface AccountService {
 	
 	MemberDto selfUpdatePw(MemberDto member);
 
-	MemberDto getMemberInfo(int memberNo);
+	MemberDto getMemberInfo(String memberId);
 
 	
 

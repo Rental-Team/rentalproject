@@ -1,6 +1,7 @@
 package com.rentalproject.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -31,4 +32,6 @@ public class OrderDto {
 		private int itemCount;
 		private int itemPrice;
 		private int orderItemNo;
+		
+		List<OrderDetailDto> orderDetailList;
 }

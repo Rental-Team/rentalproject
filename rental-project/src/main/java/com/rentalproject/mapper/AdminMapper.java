@@ -84,7 +84,7 @@ public interface AdminMapper {
 	
 	// 상품 수정
 	@Update("update Item "
-			+ "set itemName = #{ itemName } , itemDetail = #{ itemDetail }, itemPrice = #{ itemPrice }, itemStock = #{ itemStock } "
+			+ "set itemName = #{ itemName } , itemDetail = #{ itemDetail }, itemPrice = #{ itemPrice } "
 			+ "where itemNo = #{ itemNo } ")
 	void updateItem(ItemDto item);
 	

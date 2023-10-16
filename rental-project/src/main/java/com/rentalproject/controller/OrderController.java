@@ -3,7 +3,6 @@ package com.rentalproject.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,14 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.rentalproject.dto.FreeBoardDto;
 import com.rentalproject.dto.MemberDto;
 import com.rentalproject.dto.OrderDetailDto;
-import com.rentalproject.dto.OrderDto;
 import com.rentalproject.dto.RentalOrderPageDto;
 import com.rentalproject.service.AccountService;
 import com.rentalproject.service.OrderServcie;
@@ -71,23 +66,22 @@ public class OrderController {
 	            
 	        } 
 	        
+	        //model.addAttribute("membeInfo", accountService.getMemberInfo(memberId));
 	        model.addAttribute("orders", orders);
 	        model.addAttribute("totalOrderPrice", totalOrderPrice); 
 	        
 	        //MemberDto loginMember = (MemberDto)session.getAttribute("loginuser");
 	        
-            
-            System.out.println(orders);
 	    }
 		
 		//model.addAttribute("memberInfo", accountService.getMemberInfo(memberNo));
 		
-		int memberNo = 0;
-	    if (session.getAttribute("loginuser") != null) {
-	        memberNo = ((MemberDto) session.getAttribute("loginuser")).getMemberNo();
-	    }
-	    
-	    model.addAttribute("memberNo", memberNo);  
+//		int memberNo = 0;
+//	    if (session.getAttribute("loginuser") != null) {
+//	        memberNo = ((MemberDto) session.getAttribute("loginuser")).getMemberNo();
+//	    }
+//	    
+//	    model.addAttribute("memberNo", memberNo);  
 
 		
 		return "rental/rentalRegister";
@@ -95,16 +89,23 @@ public class OrderController {
 	
 	
 	@PostMapping("/rental")
-	public String rental(RentalOrderPageDto order, OrderDetailDto orderDetail) {
+	public String rental(RentalOrderPageDto order) {
 		
+		ArrayList<OrderDetailDto> detailList = new ArrayList<>();
+		order.setOrderDetailList(detailList);
 		
 		
 		orderServcie.insertRentalOrder(order);
-		orderServcie.insertOrderDetail(orderDetail);
+		//orderServcie.insertOrderDetail(orderDetail);
 		
-		orderServcie.deleteZzimAfterOrder(0);
+		// 주문 후 삭제
+		// orderServcie.deleteZzimAfterOrder(0);
+		System.out.println();
 		
 		return "redirect:/home";
 	}
+	
+	
+
 	
 }

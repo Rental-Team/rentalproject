@@ -56,6 +56,6 @@ public interface AccountMapper {
 	@Select("select memberId, memberNo, userName ,email, address, addressDetail "
 			+ "from Member "
 			+ "where memberId = #{memberId} ")
-	MemberDto getMemberInfo(int memberNo );
+	MemberDto getMemberInfo(@Param("memberId") String memberId );
 	
 }

@@ -1,5 +1,6 @@
 package com.rentalproject.dto;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import lombok.Data;
 public class RentalOrderPageDto {
 	
 	// 대여 아이디
-	private String orderId;
+	private int orderId;
 	
 	// 대여 상태(대기, 완료)
 	private String orderState;
@@ -33,4 +34,11 @@ public class RentalOrderPageDto {
 	// 대여 상품
 	List<OrderDetailDto> orderDetailList;
 	
+	
+	public List<OrderDetailDto> getOrderDetailList() {
+	    if (orderDetailList == null) {
+	        return Collections.emptyList(); 
+	    }
+	    return orderDetailList;
+	}
 }

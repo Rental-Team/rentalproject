@@ -20,21 +20,21 @@ public interface OrderMapper {
 	// 주문 정보
 	@Insert("insert into rentalOrder (orderId, addressUser, memberNo, address, addressDetail ) "
 			+ "values ( #{ orderId }, #{ addressUser}, #{ memberNo }, #{ address }, #{ addressDetail }  ) ")
+	@Options(useGeneratedKeys = true, keyProperty = "orderId")
 	void rentalOrder(RentalOrderPageDto order);
 	
 	// 주문 상세 정보
-	@Insert("insert into OrderDetail (orderItemNo, orderId, itemNo, itemCount, itemPrice ) "
-			+ "select #{orderId}, item , itemCount, itemPrice "
-			+ "from Zzim")
+	@Insert("insert into OrderDetail ( orderId, itemNo, itemCount, itemPrice ) "
+			+ "values (  #{orderId}, #{itemNo}, #{itemCount}, #{itemPrice} ) ")
 	@Options(useGeneratedKeys = true, keyProperty = "orderItemNo")
 	void orderDetail(OrderDetailDto orderDetail);
 	
 	// 주문 후 찜 목록에서 삭제하기
 	@Delete("delete from Zzim "
 			+ "where zzimNo = #{zzimNo}")
-	public int deleteZzim(int zzimNo);
+	public int deleteZzim(@Param("zzimNo") int zzimNo);
 	
- 
+
 	// 상품 정보 가져오기
 	@Select("select itemPrice ,itemNo, itemName " 
 			+ "from Item "
@@ -45,7 +45,7 @@ public interface OrderMapper {
 	@Select("select ro.orderId,(select od.orderItemNo from OrderDetail od where od.orderId = ro.orderId) orderItemNo, "
 			+ "ro.orderDate, ro.orderState "
 			+ "from rentalOrder ro ")
-	List<OrderDto> orderListInfo();
+	List<RentalOrderPageDto> orderListInfo();
 	
 
 }

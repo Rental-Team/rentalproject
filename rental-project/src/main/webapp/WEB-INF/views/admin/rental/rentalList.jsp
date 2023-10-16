@@ -56,11 +56,11 @@
                 <tbody>
                  <c:forEach var="order" items="${ orderList }">
                  	<tr>
-                    	<td><c:out value="${ order.orderDetailList }" /></td>
-   						<td><c:out value="${ order.userName}" /></td>      	 
-                    	 <td><c:out value="${order.phoneNo}" /></td>
+                    	<td><c:out value="${ order.orderDetailList.OrderItemNo }" /></td>
+   						<td><c:out value="${ order.memberId}" /></td>      	 
+                    	 <td><c:out value="${order.orderState}" /></td>
                     	 <td><fmt:formatDate pattern="yyyy-MM-dd"
-                    	  value="${ order.regDate }" /></td>
+                    	  value="${ order.orderDate }" /></td>
                   </tr>
                  </c:forEach>
          
