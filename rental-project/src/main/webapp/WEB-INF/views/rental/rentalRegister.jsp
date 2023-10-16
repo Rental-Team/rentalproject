@@ -43,7 +43,6 @@
 							</div> 
 						</div> 
 						<div class="card-body" style="margin-top: -30px;"> 
-							<form action="rental" method="post"> 
 							<input type="hidden" name="memberNo" value="${loginuser.memberNo}"/>
 							<div class="row mt-5">
 					        <div class="col">
@@ -64,14 +63,19 @@
 					                </thead>
 					                <tbody>
 					                  <c:forEach items="${orders}" var="order">
-												<tr style="text-align:center;">								
+												<tr style="text-align:center;">	
+													<td class="items_table_price_td">
+														<input type="hidden" class="individual_itemPrice_input" value="${order.itemPrice}">
+														<input type="hidden" class="individual_itemCount_input" value="${order.itemCount}">
+														<input type="hidden" class="individual_totalPrice_input" value="${order.itemPrice * zzim.itemCount}">
+														<input type="hidden" class="individual_itemNo_input" value="${order.itemNo}">								
+													</td>							
 													<td class="td_width_2">
 														<img src="${pageContext.request.contextPath}/resources/upload/thumbnail_${zzim.thumbnail}" alt="Image">							
 													</td>
 													<td class="td_width_3">${order.itemName}
 													<td class="td_width_4 price_td">
 														<span class="red_color"><fmt:formatNumber value="${order.itemPrice}" pattern="#,### 원" />
-														<input type="hidden" name="memberNo" value="${order.itemPrice}"/></span><br>
 													</td>
 													<td class="td_width_4 table_text_align_center"> ${order.itemCount} 
 													<td class="td_width_4 table_text_align_center">
@@ -96,7 +100,8 @@
 					        </div> 
  
 								<div class="card-body">
-								<form action="rental" method="post">							
+								<form action="rental" method="post" class="orderForm">	
+								<input type="hidden" >						
 								<input type="hidden" name="memberNo" value="${loginuser.memberNo}"/>
 					                <div class="pl-lg-12" style="margin : 0 auto;">
 					                  <div class="row">
@@ -127,7 +132,7 @@
 						                    <!-- <div class="input-group-prepend">
 						                      <span class="input-group-text"></span>
 						                    </div> -->
-							                    <input type="text" id="address" class="form-control" placeholder="주소" value="${ memberInfo.address }"/>
+							                    <input type="text" id="address" name="address" class="form-control" placeholder="주소" value="${ memberInfo.address }"/>
 							                    <input type="button" id="address-search" class="btn btn-success" value="주소 검색"><br>
 
 						                  </div>
@@ -137,13 +142,14 @@
 						               
 						               
 						                <div class="row">
-										   <button type="button" class="btn btn-sm btn-success" id="btnorder">주문</button> 
+										   <button type="submit" class="btn btn-sm btn-success" id="btnorder">주문</button> 
 										   <button type="button" class="btn btn-sm btn-success" id="btnback">취소</button> 
 										 </div> 
 
 					                </div>
+					                </form>
 					              </div>
-							</form>
+				
 						</div>
 					</div>
 				</div>
@@ -209,9 +215,24 @@
 	  })
 	  
 	  $('#btnorder').on('click', function(event){
-		  alert('주문이 완료되었습니다.');
-		  location.href="rental/rentalok"; 
-	  })
+		  
+		  let form_contents = ""; 
+		  
+		  $(".items_table_price_td").each(function(index, element){
+			  
+			let itemNo = $(element).find(".individual_itemNo_input").val();
+			let itemCount = $(element).find(".individual_itemCount_input").val();
+			let itemNo_input = "<input name='orders[" + index + "].itemNo' type='hidden' value='" + itemNo + "'>";
+			form_contents += itemNo_input;
+			let itemCount_input = "<input name='orders[" + index + "].itemCount' type='hidden' value='" + itemCount + "'>";
+			form_contents += itemCount_input;
+			
+			});
+		  $(".orderForm").append(form_contents);
+		  $(".orderForm").submit();
+	  });
+	  
+	  
 	  });
 	 
 	 

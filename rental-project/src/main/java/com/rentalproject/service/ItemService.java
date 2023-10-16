@@ -27,4 +27,6 @@ public interface ItemService {
 
 	public List<ItemDto> searchItems(String keyword, int from, int count);
 
+	public ItemDto getItemsInfo(int itemNo);
+	
 }

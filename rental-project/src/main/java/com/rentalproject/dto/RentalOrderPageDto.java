@@ -11,7 +11,7 @@ import lombok.Data;
 public class RentalOrderPageDto {
 	
 	// 대여 아이디
-	private int orderId;
+	private String orderId;
 	
 	// 대여 상태(대기, 완료)
 	private String orderState;

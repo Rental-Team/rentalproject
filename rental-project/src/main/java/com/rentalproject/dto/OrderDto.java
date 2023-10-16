@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 public class OrderDto {
-	// 대여 번호
+		// 대여 주문 번호
 		private String orderId;
 		
 		// 대여 상태(대기, 완료)
@@ -19,19 +19,11 @@ public class OrderDto {
 		// 배송 받는 유저
 		private String addressUser; 
 		
-
 		private String memberId; 
 		private int memberNo;  
 		private String address;
 		private String addressDetail;
 		private String email;
 
-		private int OrderDetailNo;
-
-		private int itemNo;  
-		private int itemCount;
-		private int itemPrice;
-		private int orderItemNo;
-		
-		List<OrderDetailDto> orderDetailList;
+		List<OrderItemDto> orders;
 }

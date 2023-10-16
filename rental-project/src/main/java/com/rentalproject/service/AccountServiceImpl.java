@@ -171,9 +171,9 @@ public class AccountServiceImpl implements AccountService {
 
 	
 	@Override
-	public MemberDto getMemberInfo(String memberId) {
+	public MemberDto getMemberInfo(int memberNo) {
 		
-		return accountMapper.getMemberInfo(memberId);
+		return accountMapper.getMemberInfo(memberNo);
 	}
 
 	

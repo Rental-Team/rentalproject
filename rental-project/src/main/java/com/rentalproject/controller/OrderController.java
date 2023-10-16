@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.rentalproject.dto.MemberDto;
 import com.rentalproject.dto.OrderDetailDto;
+import com.rentalproject.dto.OrderDto;
 import com.rentalproject.dto.RentalOrderPageDto;
 import com.rentalproject.service.AccountService;
 import com.rentalproject.service.OrderServcie;
@@ -28,18 +29,6 @@ public class OrderController {
 	@Autowired
 	private OrderServcie orderServcie;
 	
-//	@GetMapping("/directRental")
-//	public String directRentalForm(@ModelAttribute("RentalDto") RentalOrderPageDto rentalOrder, HttpSession session) {
-//		
-//		List<RentalOrderPageDto> directOrder = new ArrayList<>();
-//		directOrder.add(rentalOrder);
-//		MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");
-//		session.setAttribute("directOrder", directOrder);
-//		session.setAttribute("orderer", memberInfo);
-//		System.out.println(memberInfo);
-//		
-//		return "/rental/directRental";
-//	}
 	
 
 	@GetMapping("/rental")
@@ -69,7 +58,7 @@ public class OrderController {
 	        //model.addAttribute("membeInfo", accountService.getMemberInfo(memberId));
 	        model.addAttribute("orders", orders);
 	        model.addAttribute("totalOrderPrice", totalOrderPrice); 
-	        
+	        model.addAttribute("orderList", orderServcie);
 	        //MemberDto loginMember = (MemberDto)session.getAttribute("loginuser");
 	        
 	    }
@@ -81,19 +70,18 @@ public class OrderController {
 	
 	
 	@PostMapping("/rental")
-	public String rental(RentalOrderPageDto order) {
+	public String rental(OrderDto ord) {
 		
-		ArrayList<OrderDetailDto> detailList = new ArrayList<>();
-		order.setOrderDetailList(detailList);
+		System.out.println(ord);
 		
-		
-		orderServcie.insertRentalOrder(order);
+		orderServcie.order(ord);
+		//orderServcie.insertRentalOrder(order);
 		//orderServcie.insertOrderDetail(orderDetail);
 		
 		// 주문 후 삭제
 		// orderServcie.deleteZzimAfterOrder(0);
-		System.out.println();
 		
+		System.out.println(ord);
 		return "redirect:/home";
 	}
 	
