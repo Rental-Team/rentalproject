@@ -42,7 +42,10 @@ public class OrderServiceImpl implements OrderServcie {
 		
 	}
 	
-	
+	@Override
+	public void insertOrderDetail(OrderDetailDto orderDetail) {
+		orderMapper.orderDetail(orderDetail);
+	}
 	
 	// 주문 후 삭제
 	@Override

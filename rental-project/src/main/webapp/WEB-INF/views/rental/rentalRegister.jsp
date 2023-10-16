@@ -95,6 +95,8 @@
 					          </div>
 					        </div>
 								<div class="card-body">
+								<form action="rental" method="post">							
+								<input type="hidden" name="memberNo" value="${loginuser.memberNo}"/>
 					                <div class="pl-lg-12" style="margin : 0 auto;">
 					                  <div class="row">
 					                    <div class="col-lg-6" >
