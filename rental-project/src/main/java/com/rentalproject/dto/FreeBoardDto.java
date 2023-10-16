@@ -12,6 +12,7 @@ public class FreeBoardDto {
 	private int adminId;  
 	private int memberNo;
 	private String memberId;
+	private String memberImage;
 	private String freeBoardTitle;
 	private String freeBoardContent;
 	private Date freeBoardDate;

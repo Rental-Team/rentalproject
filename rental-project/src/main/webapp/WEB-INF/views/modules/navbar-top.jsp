@@ -46,7 +46,12 @@
                 		
                 		<div class="media-body ml-2 d-none d-lg-block">
                 		<a class="nav-link " href="/rental-project/profile/profile?memberId=${loginuser.memberId}">
-                		<i class="ni ni-circle-08 text-yellow"></i>
+	                	<c:if test="${loginuser.memberImage == null}">
+						    <img src="/rental-project/resources/img/theme/default.png" draggable="false" class="style-scope yt-img-shadow" height="32" width="32">
+						</c:if>
+						<c:if test="${not empty loginuser.memberImage}">
+						    <img src="${pageContext.request.contextPath}/resources/upload/${loginuser.memberImage}" alt="Image" draggable="false" class="style-scope yt-img-shadow" height="32" width="32">
+						</c:if>
                 		${ sessionScope.loginuser.memberId }님
                 		</a>
                 		

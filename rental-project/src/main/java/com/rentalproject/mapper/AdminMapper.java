@@ -18,7 +18,22 @@ import com.rentalproject.dto.NoticeDto;
 
 @Mapper
 public interface AdminMapper {
+	
+	// 회원 리스트 한번에 조회
+	@Select("select * from Member order by regDate desc")
+	List<MemberDto> allMemberList();
+	
+	// 회원 리스트 부분 조회
+	@Select("select * from Member order by regDate desc limit #{from}, #{count}")
+	List<MemberDto> selectMemberByPage(@Param("from") int from, @Param("count") int count);
+	
+	// 페이저 (데이터 갯수 조회)
+	@Select("select count(*) from Member ") 
+	int selectMemberCount();
 
+	// 회원 상세 조회
+	@Select("select * from Member where memberNo = #{memberNo}")
+	MemberDto selectMemberDetail(@Param("memberNo") int memberNo);
 	
 	// 상품 등록을 위한 메서드
 	@Insert( "insert into Item ( itemDetail , itemName, itemPrice, cateCode, itemStock ) "
@@ -30,11 +45,6 @@ public interface AdminMapper {
 	@Insert( "insert into itemAttach (attachNo, itemNo, userFileName, savedFileName) "
 			+ "values (#{attachNo}, #{itemNo} ,#{userFileName}, #{savedFileName}) ") 
 	void insertItemAttach(ItemAttachDto attach);
-	
-	// 멤버 리스트
-	@Select("select memberId, userName, phoneNo, regDate "
-			+ "from Member ")
-	List<MemberDto> allMemberList();
 	
 	// 카테고리 리스트
 	@Select("select * "
@@ -55,7 +65,6 @@ public interface AdminMapper {
 			"limit #{from}, #{count}")
 	List<ItemDto> selectItemByPage(@Param("from") int from, @Param("count") int count); 
 	
-	
 	// 상품 갯수
 	@Select("select count(*) "
 			+ "from Item")
@@ -66,7 +75,6 @@ public interface AdminMapper {
 //	from Item 
 //	where itemNo = #{itemNo}
 
-	
 	// 상세 보기
 	@Select("select itemNo, itemName, (select cateName from itemCate where cateCode = Item.cateCode) cateName, "
 			+ " cateCode, itemPrice, itemStock, itemDetail, itemDate , deleted " +

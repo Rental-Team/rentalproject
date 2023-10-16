@@ -65,21 +65,24 @@ public class ProfileController {
 	public String prifileEdit (String memberId, MemberDto member, HttpSession session, HttpServletRequest req, 
 			                   @RequestParam("imageName") MultipartFile memberImage) throws Exception {
 		
+		// 이미지 첨부파일(프로필 사진)
 		String uploadDir = req.getServletContext().getRealPath("/resources/upload/");
 		String uploadedImageFileName = handleUploadFile(memberImage, uploadDir);
 		if (uploadedImageFileName != null) {
 	        member.setMemberImage(uploadedImageFileName);
 	    }
 		
+		// 프로필 사진+일반 정보 
 		profileService.updateProfile(member); 
+		
+		// 회원가입 등록일 유지
 		MemberDto selectRegDate = profileService.selectRegDate(memberId);
 		session.setAttribute("loginuser", selectRegDate); 
 	
 		return String.format("redirect:profile?memberId=%s", member.getMemberId());
-		
-		
 	}
 	
+	// 파일 처리
 	private String handleUploadFile(MultipartFile attach, String uploadDir) {
 		if (!attach.isEmpty()) {
 			try {
@@ -102,52 +105,50 @@ public class ProfileController {
 	}
 	
 	// 내가 쓴 자유게시판 글 조회
-		@GetMapping(path= {"/freeboard/myfreeboardlist"})
-		public String listMyFreeBoard(@RequestParam(defaultValue = "1")int pageNo, Model model, HttpSession session) {
-			
-			MemberDto loginuser = (MemberDto) session.getAttribute("loginuser");
-			
-			int memberNo = -1;
-			
-			if (loginuser != null) {
-				memberNo = loginuser.getMemberNo();
-			}
-			
-			int pageSize = 10;
-		    if (pageSize < 1) {
-		        pageSize = 10; // 기본 페이지 크기를 설정하세요.
-		    }
-		    
-		    // 페이지 번호 체크
-		    if (pageNo < 1) {
-		        pageNo = 1;
-		    }
-		    
-		    int pagerSize = 5;
-		    String linkUrl = "myfreeboardlist";
-		    
-		    int dataCount;
-		    
-		    List<FreeBoardDto> myFreeBoardList;
-		    
-		    dataCount = profileService.getMyFreeBoardCountByMemberNo(memberNo);
-		    int from = (pageNo -1) * pageSize;
-		    myFreeBoardList = profileService.listMyFreeBoardByMemberNo(memberNo, from, dataCount);
-		    	
-		    for (FreeBoardDto freeboard : myFreeBoardList) {
-		    	String memberId = profileService.getMemberIdByMyFreeBoardNo(freeboard.getFreeBoardNo());
-		    	freeboard.setMemberId(memberId);
-		    }
-		    	
-		    ThePager pager = new ThePager(dataCount, pageNo, pageSize, pagerSize, linkUrl);
-		    
-		    model.addAttribute("myFreeBoardList", myFreeBoardList);
-		    model.addAttribute("pager", pager);
-		    model.addAttribute("pageNo", pageNo);
-		    
-		    return "profile/myfreeboardlist";
-		    
+	@GetMapping(path= {"/freeboard/myfreeboardlist"})
+	public String listMyFreeBoard(@RequestParam(defaultValue = "1")int pageNo, Model model, HttpSession session) {	
+		MemberDto loginuser = (MemberDto) session.getAttribute("loginuser");
+		
+		int memberNo = -1;
+		
+		if (loginuser != null) {
+			memberNo = loginuser.getMemberNo();
 		}
+		
+		int pageSize = 10;
+	    if (pageSize < 1) {
+	        pageSize = 10; // 기본 페이지 크기를 설정하세요.
+	    }
+	    
+	    // 페이지 번호 체크
+	    if (pageNo < 1) {
+	        pageNo = 1;
+	    }
+	    
+	    int pagerSize = 5;
+	    String linkUrl = "myfreeboardlist";
+	    
+	    int dataCount;
+	    
+	    List<FreeBoardDto> myFreeBoardList;
+	    
+	    dataCount = profileService.getMyFreeBoardCountByMemberNo(memberNo);
+	    int from = (pageNo -1) * pageSize;
+	    myFreeBoardList = profileService.listMyFreeBoardByMemberNo(memberNo, from, dataCount);
+	    	
+	    for (FreeBoardDto freeboard : myFreeBoardList) {
+	    	String memberId = profileService.getMemberIdByMyFreeBoardNo(freeboard.getFreeBoardNo());
+	    	freeboard.setMemberId(memberId);
+	    }
+	    	
+	    ThePager pager = new ThePager(dataCount, pageNo, pageSize, pagerSize, linkUrl);
+	    
+	    model.addAttribute("myFreeBoardList", myFreeBoardList);
+	    model.addAttribute("pager", pager);
+	    model.addAttribute("pageNo", pageNo);
+	    
+	    return "profile/myfreeboardlist";
+	}
 	
 	// 회원 탈퇴
 	@GetMapping(path= {"/profile/delete/{memberId}"})
@@ -157,6 +158,4 @@ public class ProfileController {
 		session.removeAttribute("loginuser");
 		return "redirect:/home";
 	}
-		
-
 }

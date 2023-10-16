@@ -98,6 +98,12 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		String memberId = freeboardMapper.getMemberId(freeBoardNo);
 		return memberId;
 	}
+	
+	@Override  // 멤버번호로 멤버프사 받아오기 
+	public String getMemberImage(int freeBoardNo) {
+		String memberImage = freeboardMapper.getMemberImage(freeBoardNo);
+		return memberImage;
+	}
 
 	@Override // 자유게시판 게시글 검색 
 	public List<FreeBoardDto> selectSearchFreeBoard(String keyword){

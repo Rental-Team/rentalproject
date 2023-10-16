@@ -3,7 +3,7 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
-<nav class="navbar navbar-expand-lg navbar-light bg-content" style="border: 1px solid white;">  <!-- bg-success -->
+<nav class="navbar navbar-expand-lg navbar-light bg-content mb-2" style="border: 1px solid white;">  <!-- bg-success -->
   <div class="container-fluid">
     <!-- 좌측 정렬을 위한 그리드 시스템을 사용합니다 -->
     <div class="d-flex align-items-center">
@@ -62,8 +62,13 @@
                    <div class="media-body ml-2 d-none d-lg-block">
                             <div class="d-flex align-items-center">
                                 <a class="nav-link" href="/rental-project/profile/profile?memberId=${loginuser.memberId}">
-                                    <i class="ni ni-circle-08 text-yellow mr-2"></i>
-                                    ${sessionScope.loginuser.memberId}님
+                                  	<c:if test="${loginuser.memberImage == null}">
+									    <img src="/rental-project/resources/img/theme/default.png" draggable="false" class="style-scope yt-img-shadow" height="32" width="32">
+									</c:if>
+									<c:if test="${not empty loginuser.memberImage}">
+									    <img src="${pageContext.request.contextPath}/resources/upload/${loginuser.memberImage}" alt="Image" draggable="false" class="style-scope yt-img-shadow" height="32" width="32">
+									</c:if>
+										${sessionScope.loginuser.memberId}님
                                 </a>
                                 <a href="/rental-project/account/logout" style="color: inherit;">
                                     <div class="d-flex align-items-center">
@@ -105,3 +110,4 @@
       </div>
     </div> 
   </nav>
+    

@@ -83,7 +83,13 @@ public interface FreeBoardMapper {
 			+ "where freeBoardNo = #{ freeBoardNo })")
 	String getMemberId(@Param("freeBoardNo") int freeBoardNo);  // memberNo로 memberId 찾아오기 
 	
-	
+	@Select("select memberImage "
+			+ "from Member "
+			+ "where memberNo = "
+			+ "(select memberNo "
+			+ "from FreeBoard "
+			+ "where freeBoardNo = #{ freeBoardNo })")
+	String getMemberImage(@Param("freeBoardNo") int freeBoardNo);  // memberNo로 memberImage 찾아오기 
 	
 	@Select("select freeBoardNo, memberNo, freeBoardTitle, freeBoardViewCount, freeBoardDate, freeBoardDelete "   // 전체 검색 데이터가져오기
 			+ "from FreeBoard "

@@ -30,8 +30,7 @@
           <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="media align-items-center">
               <span class="avatar avatar-sm rounded-circle">
-                <img alt="Image placeholder" src="/rental-project/resources/img/theme/team-1-800x800.jpg
-">
+                <img alt="Image placeholder" src="/rental-project/resources/img/theme/team-1-800x800.jpg">
               </span>
             </div>
           </a>
@@ -111,32 +110,14 @@
             </a>
           </li>
            
-          
           <c:choose>
-			<c:when test="${ loginuser eq null }">
-          <li class="nav-item">
-            <a class="nav-link" href="/rental-project/account/login">
-              <i class="ni ni-key-25 text-info"></i> 로그인
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/rental-project/account/register">
-              <i class="ni ni-circle-08 text-pink"></i> 회원가입
-            </a>
-          </li>
-          </c:when>
-          <c:otherwise>
-          <li class="nav-item">
-            <a class="nav-link" href="/rental-project/account/logout">
-              <i class="ni ni-circle-08 text-pink"></i> 로그아웃
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link " href="/rental-project/freeboard/freeboardlist">
-              <i class="ni ni-satisfied text-yellow"></i> 자유 게시판
-            </a>
-          </li>
-          </c:otherwise>
+			<c:when test="${ loginuser ne null }">
+			  <li class="nav-item">
+            	<a class="nav-link " href="/rental-project/freeboard/freeboardlist">
+            	  <i class="ni ni-satisfied text-yellow"></i> 자유 게시판
+                </a>
+          	  </li>
+          	</c:when>
           </c:choose>
         </ul>
         <!-- Divider -->

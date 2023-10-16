@@ -28,11 +28,9 @@
   <jsp:include page="/WEB-INF/views/modules/navbar-vertical.jsp" />
   <div class="main-content">
     <!-- Navbar -->
-	<jsp:include page="/WEB-INF/views/modules/navbar-top.jsp" />
+   	<jsp:include page="/WEB-INF/views/modules/navbar-top.jsp" />
     <!-- End Navbar -->
     <!-- Header -->
-    <form action="profileedit" method="post" enctype="multipart/form-data">
-
     <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(../assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
       <!-- Mask -->
       <span class="mask bg-gradient-default opacity-8"></span>
@@ -40,11 +38,7 @@
       <div class="container-fluid d-flex align-items-center">
         <div class="row">
           <div class="col-lg-7 col-md-10">
-            <h1 class="display-2 text-white">${ profileuser.memberId }</h1>
-            <input type="hidden" name="memberId" value="${profileuser.memberId }">
-            <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
-            <input type="submit" value="수정 완료" class="btn btn-info" />
-            <a href="profile?memberId=${ loginuser.memberId }" class="btn btn-info">취소</a>
+            <h1 class="display-2 text-white">${ member.memberId }</h1>
           </div>
         </div>
       </div>
@@ -57,26 +51,19 @@
             <div class="row justify-content-center">
               <div class="col-lg-3 order-lg-2">
                 <div class="card-profile-image">
-                <label for="imageInput" class="rounded-circle">
-                    <c:choose>
-                	<c:when test="${loginuser.memberImage == null}">
-                    <img id="preview" src="/rental-project/resources/img/theme/default.png" class="rounded-circle">
-                    <input type="file" id="imageInput" name="imageName" style="display: none;" accept="image/*" onchange="readURL(this);" />
+                <c:choose>
+                	<c:when test="${member.memberImage == null}">
+                    <img src="/rental-project/resources/img/theme/default.png" class="rounded-circle">
                     </c:when>
                     <c:otherwise>
-                    <img id="preview" src="${pageContext.request.contextPath}/resources/upload/${loginuser.memberImage}" alt="Image" class="rounded-circle">
-                    <input type="file" id="imageInput" name="imageName" style="display: none;" accept="image/*" onchange="readURL(this);" />
-                    
+                    <img src="${pageContext.request.contextPath}/resources/upload/${member.memberImage}" alt="Image" class="rounded-circle">
                     </c:otherwise>
-					</c:choose>
-				</label>  
+				</c:choose>
                 </div>
               </div>
             </div>
             <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
               <div class="d-flex justify-content-between">
-                <a href="#" class="btn btn-sm btn-info mr-4">Connect</a>
-                <a href="#" class="btn btn-sm btn-default float-right">Message</a>
               </div>
             </div>
             <div class="card-body pt-0 pt-md-4">
@@ -114,6 +101,9 @@
                 <hr class="my-4" />
                 <p>Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music.</p>
                 <a href="#">Show more</a>
+                <br><br>
+                <a href="#" id="delete-profile" class="btn btn-info">회원 삭제</a>
+                <a href="/rental-project/zzim/${member.memberNo}" class="btn btn-info">회원 찜 목록</a>
               </div>
             </div>
           </div>
@@ -125,87 +115,101 @@
                 <div class="col-8">
                   <h3 class="mb-0">My account</h3>
                 </div>
-<!--                 <div class="col-4 text-right">
+					<!--<div class="col-4 text-right">
                   <a href="#!" class="btn btn-sm btn-primary">패스워드 변경</a>
                 </div> -->
               </div>
             </div>
             <div class="card-body">
-                <h6 class="heading-small text-muted mb-4">내 정보</h6>
-                
+              <form>
+                <h6 class="heading-small text-muted mb-4">User information</h6>
                 <div class="pl-lg-4">
                   <div class="row">
                   <div class="col-lg-6">
                       <div class="form-group">
+                        <label class="form-control-label" for="input-username">회원 번호</label>
+                        <div>${ member.memberNo }</div>
+                      </div>
+                   </div>
+                  <div class="col-lg-6">
+                      <div class="form-group">
                         <label class="form-control-label" for="input-username">이름</label>
-                        <input type="text" name="userName" class="form-control form-control-alternative" value="${ profileuser.userName }" />
+                        <div>${ member.userName }</div>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-username">별명</label>
-                        <input type="text" name="nickname" class="form-control form-control-alternative" value="${ profileuser.nickname }" />
+                        <div>${ member.nickname }</div>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-username">이메일</label>
-						<input type="email" name="email" class="form-control form-control-alternative" value="${ profileuser.email }" />
+                        <div>${ member.email }</div>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-username">전화번호</label>
-                        <input type="text" name="phoneNo" class="form-control form-control-alternative" value="${ profileuser.phoneNo }" />
+                        <div>${ member.phoneNo }</div>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-username">우편번호</label>
-                        <input type="text" name="addressCode" class="form-control form-control-alternative" id="addressCode" value="${ profileuser.addressCode }" readonly="readonly"/>
+                        <div>${ member.addressCode }</div>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-username">주소</label>
-                        <input type="text" name="address" class="form-control form-control-alternative" id="address" value="${ profileuser.address }" readonly="readonly"/>
+                        <div>${ member.address }</div>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-username">상세 주소</label>
-                        <input type="text" name="addressDetail" class="form-control form-control-alternative" value="${ profileuser.addressDetail }" />
+                        <div>${ member.addressDetail }</div>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-username">보증금</label>
-                        <input type="text" name="deposite" class="form-control form-control-alternative" value="${ profileuser.deposite }" />
+                        <div>${ member.deposite }</div>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-username">등록일</label>
-                        <br>
-                        <div><fmt:formatDate value="${ loginuser.regDate }" pattern="yyyy-MM-dd" /></div>
+                        <div><fmt:formatDate value="${ member.regDate }" pattern="yyyy-MM-dd" /></div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <hr class="my-4" />                
-                
+                <hr class="my-4" />
                 <!-- Description -->
                 <h6 class="heading-small text-muted mb-4">About me</h6>
                 <div class="pl-lg-4">
                   <div class="form-group">
-                    <textarea rows="4" name="introduce" class="form-control form-control-alternative">${ profileuser.introduce }</textarea>
+<tr>
+<c:set var="enter" value="
+" />
+<%-- enter(줄 바꿈) 설정 방법: 모양 안예쁘다고 수정하지 말 것--%>
+		                
+		                <td>${ fn:replace(profileuser.introduce, enter, "<br>") }</td>
+		                <%-- fn:replace(a, x, y)-> a에 x기능을 y기능으로 바꿔라 --%>
+		                
+		            </tr>                    
+
                   </div>
                 </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
-      </form>
+     
       <!-- Footer -->
       <footer class="footer">
         <div class="row align-items-center justify-content-xl-between">
@@ -230,10 +234,10 @@
               </li>
             </ul>
           </div>
-          </div>
-          </footer>
-       </div>
-     </div>
+        </div>
+      </footer>
+    </div>
+  </div>
   <!--   Core   -->
   <script src="/rental-project/resources/js/plugins/jquery/dist/jquery.min.js"></script>
   <script src="/rental-project/resources/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -241,35 +245,18 @@
   <!--   Argon JS   -->
   <script src="/rental-project/resources/js/argon-dashboard.min.js?v=1.1.2"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
-  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-  <script>
-  function readURL(input) {
-      if (input.files && input.files[0]) {
-          var reader = new FileReader();
-
-          reader.onload = function (e) {
-              $("#preview").attr("src", e.target.result);
-          };
-
-          reader.readAsDataURL(input.files[0]);
-      }
-  }
-  </script>
   
-  <script>
-   	// 주소 API
-   	window.onload = function(){
-   		document.getElementById("address").addEventListener("click", function (event){ // 주소 입력창 클릭하면
-        new daum.Postcode({
-            oncomplete: function(data) { //선택시 입력값 세팅
-            	document.getElementById("addressCode").value = data.zonecode;
-            	document.getElementById("address").value = data.address;
-            	document.querySelector("input[name=addressDetail]").focus();
-            }
-        }).open();
-    });
-}
-    </script>
+   <script>
+      $(function(event){
+    	  $('#delete-profile').on('click', function(event) {
+    		  event.preventDefault();
+    		  const yn = confirm("${loginuser.memberId}님 회원 탈퇴하시겠습니까??");
+    		  if (yn) {
+    			  location.href = 'delete/${loginuser.memberId}';
+    		  }
+    	  }); 
+      })
+      </script>
   <script>
     window.TrackJS &&
       TrackJS.install({
