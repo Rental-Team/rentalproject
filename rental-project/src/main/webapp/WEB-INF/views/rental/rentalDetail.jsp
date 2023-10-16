@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,7 +25,10 @@
   <link href="/rental-project/resources/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
   	
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  
+  
 </head>
+
 <body class="">
 <jsp:include page="/WEB-INF/views/modules/navbar-vertical.jsp" />
   <div class="main-content">
@@ -38,28 +44,29 @@
 						<div class="card-header border-0">
 							<div class="row align-items-center">
 								<div class="col-8">
-									<h3 style="font-weight: bold; margin-bottom: 20px;" class="mb-0">주문 페이지</h3>
+									<h3 style="font-weight: bold; margin-bottom: 20px;" class="mb-0">주문 상세 정보</h3>
 								</div>
-							</div> 
+							</div>
 						</div> 
 						<div class="card-body" style="margin-top: -30px;"> 
-							<form action="rental" method="post"> 
+							<form action="rental" method="post">
 							<input type="hidden" name="memberNo" value="${loginuser.memberNo}"/>
 							<div class="row mt-5">
 					        <div class="col">
 					          <div class="card bg-secondary shadow">
 					            <div class="card-header bg-transparent border-0">
-					              <h5 class="text-black mb-0">구매 목록</h5>
+					              <h5 class="text-black mb-0">결제된 상품 목록</h5>
 					            </div>
 					            <div class="table-responsive">
 					              <table class="table align-items-center table-white table-flush">
 					                <thead class="thead-white">
 					                  <tr style="text-align:center;">
+					                  	<th class="td_width_2">주문번호</th>
 										<th class="td_width_2">이미지</th>
 					                    <th class="td_width_3">상품명</th>
 					                    <th class="td_width_4">가격</th>
 					                    <th class="td_width_4">수량</th>
-					                    <th class="td_width_4">합계</th>
+					                    <th class="td_width_4">주문상태</th>
 					                  </tr>
 					                </thead>
 					                <tbody>
@@ -68,81 +75,71 @@
 													<td class="td_width_2">
 														<img src="${pageContext.request.contextPath}/resources/upload/thumbnail_${zzim.thumbnail}" alt="Image">							
 													</td>
-													<td class="td_width_3">${order.itemName}
+													<td class="td_width_3">${order.itemName}</td>
 													<td class="td_width_4 price_td">
-														<span class="red_color"><fmt:formatNumber value="${order.itemPrice}" pattern="#,### 원" />
-														<input type="hidden" name="memberNo" value="${order.itemPrice}"/></span><br>
+														<span class="red_color"><fmt:formatNumber value="${order.itemPrice}" pattern="#,### 원" /></span><br>
 													</td>
-													<td class="td_width_4 table_text_align_center"> ${order.itemCount} 
+													<td class="td_width_4 table_text_align_center"> ${order.itemCount} </td>
 													<td class="td_width_4 table_text_align_center">
 														<fmt:formatNumber value="${order.itemPrice * order.itemCount}" pattern="#,### 원" />
 													</td>
 												</tr>
-											</c:forEach>
-					                </tbody>
-					              </table>
+											</c:forEach> 
+					                </tbody>  
+					              </table> 
 						              <div class="text-left mt-2 mb-2" style="padding-left: 20px;">
 									    <h5 class="text-black mb-0" style="display: flex; justify-content: space-between;">
-									        <span>총 주문 금액</span>
+									        <span>총 결제 금액</span>
 									        <span class="red_color"  style="margin-right: 80px;">
 									            <fmt:formatNumber value="${totalOrderPrice}" pattern="#,### 원" />
-									        
 									        </span>
 									    </h5>
 									</div>    	
-					              </div>
+					              </div> 
 					            </div>
-					          </div> 
+					          </div>
 					        </div> 
- 
 								<div class="card-body">
-								<form action="rental" method="post">							
-								<input type="hidden" name="memberNo" value="${loginuser.memberNo}"/>
 					                <div class="pl-lg-12" style="margin : 0 auto;">
 					                  <div class="row">
-					                    <div class="col-lg-6" >
+					                    <div class="col-lg-6" > 
 					                      <div class="form-group focused">
 					                        <label class="form-control-label"for="input-addressUser">수령인</label>
-					                        <input type="text" id="input-addressUser"  name="addressUser" class="form-control form-control-alternative" value="">
+					                        <input disabled="disabled" type="text" id="input-addressUser"  name="addressUser" class="form-control form-control-alternative" value="">
 					                      </div>
-					                    </div>
+					                    </div> 
+					                  </div>  
+					                  <div class="row">
 				                        <div class="col-lg-6">
-					                      <div class="form-group"> 
+					                      <div class="form-group">
 					                        <label class="form-control-label"  for="input-orderDate">아이디</label> <input disabled="disabled" type="text" id="input-memberId" class="form-control form-control-alternative"  value="${loginuser.memberId}"/>   
- 
 					                   	  </div>
 				                    	</div>
-					                  </div>
+			                    		</div>
 					                  <div class="row">
 					                    <div class="col-lg-6" >
 					                      <div class="form-group focused">
 					                        <label class="form-control-label"for="input-email">이메일</label>
 					                        <input disabled="disabled" type="text" id="input-email" class="form-control form-control-alternative" value="${ loginuser.email }">
-					                      </div> 
+					                      </div>
 					                    </div> 
-					                  </div>  
-					                  <!-- 주소 -->
-						                <div class="form-group">
-						                  <div class="input-group input-group-alternative mb-3">
-						                    <!-- <div class="input-group-prepend">
-						                      <span class="input-group-text"></span>
-						                    </div> -->
-							                    <input type="text" id="address" class="form-control" placeholder="주소" value="${ memberInfo.address }"/>
-							                    <input type="button" id="address-search" class="btn btn-success" value="주소 검색"><br>
-
-						                  </div>
-						                 
-						                  <input type="text" name="addressDetail" class="form-control" placeholder="상세 주소" value="" />
-						                </div>
-						               
-						               
+					                  </div> 
+					                  <div class="row">
+					                    <div class="col-lg-10" >
+					                      <div class="form-group focused">
+					                        <label class="form-control-label"for="input-email">주소</label>
+					                        <input disabled="disabled" type="text" id="input-address" class="form-control form-control-alternative" value="">
+					                      </div>
+					                    </div> 
+					                  </div> 
+						                <br>
+						                <br>
 						                <div class="row">
-										   <button type="button" class="btn btn-sm btn-success" id="btnorder">주문</button> 
-										   <button type="button" class="btn btn-sm btn-success" id="btnback">취소</button> 
+										   <button type="button" class="btn btn-success" id="btnitem">다른상품보러가기</button> 
+										   <button type="button" class="btn btn-success" id="btnhome">메인으로이동</button> 
 										 </div> 
-
 					                </div>
-					              </div>
+					              </div> 
 							</form>
 						</div>
 					</div>
@@ -192,29 +189,20 @@
         application: "argon-dashboard-free"
       });
   </script>
-  <script>
-  $(function(event) {
-	  $('#address-search').on('click', function(event) {
-		  new daum.Postcode({
-		        oncomplete: function(data) { // 선택시 입력값 세팅		           
-		            $("#address").val(data.address);
-		            $("input[name=addressDetail]").focus();
-		        }
-		    }).open();
-	  }); 
+  <script> 
+	  $(function(event) {
+		  $('#btnhome').on('click', function(event){ 
+				  location.href="/rental-project/home"; 
+		  	}) 
 	  
-	  $('#btnback').on('click', function(event){
-		  alert('주문이 취소되었습니다.');
-		  location.href="zzim/${loginuser.memberNo}"; 
+	  $('#btnitem').on('click', function(event){ 
+		  location.href="/rental-project/item/list"; 
 	  })
-	  
-	  $('#btnorder').on('click', function(event){
-		  alert('주문이 완료되었습니다.');
-		  location.href="rental/rentalok"; 
-	  })
-	  });
-	 
-	 
+  });
   </script>
+  
+  
+
 </body>
+
 </html>

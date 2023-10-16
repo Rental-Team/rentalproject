@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -22,59 +23,51 @@
   <link href="/rental-project/resources/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="/rental-project/resources/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
+  	
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  
+  
 </head>
 
 <body class="">
 <jsp:include page="/WEB-INF/views/modules/navbar-vertical.jsp" />
   <div class="main-content">
-    <!-- Navbar --> 
+    <!-- Navbar -->
+	<jsp:include page="/WEB-INF/views/modules/navbar-top.jsp" />
     <!-- End Navbar -->
     <!-- Header -->
     <jsp:include page="/WEB-INF/views/modules/navbar-content.jsp" />
     <div class="container-fluid mt--7">
-      <div class="row">
-        <div class="col-xl-12 mb-5 mb-xl-0">
-          <div class="card shadow">
-            <div class="card-header border-0">
-              <div class="row align-items-center">
-                <div class="col">
-                  <h3 style="font-weight:bold" class="mb-0">공지사항</h3>
-                </div>
-                <div class="col text-right">
-                 <!--  <a href="write" class="btn btn btn-primary">게시글 작성</a> -->
-                </div>
-              </div>
-            </div>
-            <div class="table-responsive">  
-         <!-- Projects table -->
-         <table class="table align-items-center table-flush">
-           <thead class="thead-light">
-             <tr style="text-align:center;">
-               <th scope="col" style="width:100px; font-size:10pt">게시글 번호</th>
-               <th scope="col" style="width:500px; font-size:10pt">게시글 제목</th> 
-               <!-- <th scope="col" style="width:200px; font-size:10pt">작성자</th> -->
-               <th scope="col" style="width:100px; font-size:10pt">조회수</th>
-               <th scope="col" style="width:150px; font-size:10pt">게시글 작성 일자</th>
-             </tr>
-           </thead>
-           <tbody>
-            <c:forEach var="notice" items="${ requestScope.noticeList }">
-             <tr style="text-align:center">
-                <td scope="col" style="width:100px">${ notice.noticeNo } </td>
-                <td scope="col" style="width:500px"><a href="/rental-project/notice/detail?noticeNo=${ notice.noticeNo }"> ${ notice.noticeTitle }</a> </td>
-                <%-- <td scope="col" style="width:100px">${ notice.viewCount } </td> --%>
-                <td scope="col" style="width:100px">${ notice.viewCount } </td>
-                <td scope="col" style="width:150px"><fmt:formatDate value="${ notice.noticeDate }" pattern="yyyy-MM-dd HH:mm"/></td>
-             </tr>
-            </c:forEach>
-                </tbody>
-              </table>
-              ${ pager }
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Footer -->
+			<div class="row">
+				<div class="col-xl-12 mb-5 mb-xl-0">
+					<div class="card bg-secondary shadow">
+						<div class="card-header border-0">
+							<div class="row align-items-center">
+								<div class="col-8">
+									<h3 style="font-weight: bold; margin-bottom: 20px;" class="mb-0"></h3>
+								</div>
+							</div>
+						</div>  
+						<br><br><br> 
+						<div class="card-body" style="margin-top: 30px; text-align: center; font-size: 40px; font-weight: bold; color: green;">
+						 <img src="/rental-project/resources/img/icons/checked.png" width="200" height="200"/>
+						    주문이 완료되었습니다 !! 
+						</div> 
+						<br><br><br> 
+					      <div class="row text-center justify-content-center" style="margin-top: 20px;">
+						    <div class="col-4">
+						        <input type="button" class="btn btn-lg btn-success" id="btnhome" value="메인으로 이동" style="margin-right: -220px">
+						    </div>
+						    <div class="col-4">
+						        <input type="button" class="btn btn-lg btn-success" id="btndetail" value="주문 상세보기" style="margin-left: -220px">
+						    </div>
+							</div>
+						<br><br><br><br> 
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Footer -->
       <footer class="footer">
         <div class="row align-items-center justify-content-xl-between">
           <div class="col-xl-6">
@@ -100,8 +93,8 @@
           </div>
         </div>
       </footer>
-    </div>
-    </div>
+            </div>
+      </div>
   <!--   Core   -->
   <script src="/rental-project/resources/js/plugins/jquery/dist/jquery.min.js"></script>
   <script src="/rental-project/resources/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -118,6 +111,21 @@
         application: "argon-dashboard-free"
       });
   </script>
+  <script> 
+	$(function(event) {
+	  $('#btnhome').on('click', function(event){ 
+			  location.href="/rental-project/home"; 
+	  	}) 
+	  	
+	  $('#btndetail').on('click', function(event){ 
+		  location.href="/rental-project/rental/rentalDetail"; 
+	  	})
+	  })
+		  
+  </script>
+  
+  
+
 </body>
 
 </html>

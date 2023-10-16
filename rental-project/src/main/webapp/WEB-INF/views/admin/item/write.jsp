@@ -206,24 +206,24 @@
   </script>
   
   <script>
-    $(function() {
-    function readURL(input) {
-      if (input.files && input.files[0]) {
-      var reader = new FileReader();
-  
-          reader.onload = function (e) {
-              $('#imageTest').attr('src', e.target.result);
-          }
-  
-          reader.readAsDataURL(input.files[0]);
-      }
-    }
-  
-    $("#attach").change(function(){
-        readURL(this);
-    });
-    
-    });
+  $(function() {
+	    function readURL(input) {
+	      if (input.files && input.files[0]) {
+	      var reader = new FileReader();
+	  
+	          reader.onload = function (e) {
+	              $('#imageTest').attr('src', e.target.result);
+	          }
+	  
+	          reader.readAsDataURL(input.files[0]);
+	      }
+	    }
+	  
+	    $("#attach").change(function(){
+	        readURL(this);
+	    });
+	    
+	    });
     
     let cateList = JSON.parse('${cateList}');
     

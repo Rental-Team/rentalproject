@@ -43,7 +43,7 @@ public class OrderController {
 	
 
 	@GetMapping("/rental")
-	public String rentalForm(int[] itemNos, int[] itemCounts, Model model, HttpSession session, MemberDto member){
+	public String rentalForm(int[] itemNos, int[] itemCounts, Model model, HttpSession session){
 		
 //		System.out.println("memberNo : " + itemNos[0]);
 //		System.out.println("rentals : " + itemCounts[0]);
@@ -64,7 +64,7 @@ public class OrderController {
 	            
 	            totalOrderPrice += od.getItemPrice() * itemCounts[i];
 	            
-	        } 
+	        }
 	        
 	        //model.addAttribute("membeInfo", accountService.getMemberInfo(memberId));
 	        model.addAttribute("orders", orders);
@@ -73,15 +73,7 @@ public class OrderController {
 	        //MemberDto loginMember = (MemberDto)session.getAttribute("loginuser");
 	        
 	    }
-		
-		//model.addAttribute("memberInfo", accountService.getMemberInfo(memberNo));
-		
-//		int memberNo = 0;
-//	    if (session.getAttribute("loginuser") != null) {
-//	        memberNo = ((MemberDto) session.getAttribute("loginuser")).getMemberNo();
-//	    }
-//	    
-//	    model.addAttribute("memberNo", memberNo);  
+
 
 		
 		return "rental/rentalRegister";
@@ -105,7 +97,20 @@ public class OrderController {
 		return "redirect:/home";
 	}
 	
-	
 
+	@GetMapping("/rental/rentalok")
+    public String showRentalOkPage() {
+		 return "rental/rentalok"; 
+    }
+	
+	@GetMapping("/rental-project/home")
+    public String ReturnHome() {
+		 return "rental/home"; 
+    }
+	
+	@GetMapping("/rental/rentalDetail")
+    public String OrderDetail() {
+		 return "rental/rentalDetail"; 
+    }
 	
 }
