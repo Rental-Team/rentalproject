@@ -48,12 +48,12 @@ public interface AdminMapper {
 			+ "order by i.itemNo desc")
 	List<ItemDto> allItemList();
 	
-	// 페이징이 적용된 상품 게시판
-	 @Select("select i.itemNo, i.itemPrice , i.itemName, i.viewCount, i.itemDate, i.deleted, i.itemStock, (select MAX(iA.savedFileName) from itemAttach iA where iA.itemNo = i.itemNo) thumbnail "
-	         + "from Item i "
-	         + "order by i.itemNo desc " + 
-	         "limit #{from}, #{count}")
-	   List<ItemDto> selectItemByPage(@Param("from") int from, @Param("count") int count);
+	// 페이징이 적용된 상품 게시판 
+	@Select("select i.itemNo, i.itemPrice , i.itemName, i.viewCount, i.itemDate, i.deleted, i.itemStock, (select MAX(iA.savedFileName) from itemAttach iA where iA.itemNo = i.itemNo) thumbnail "
+			+ "from Item i "
+			+ "order by i.itemNo desc " + 
+			"limit #{from}, #{count}")
+	List<ItemDto> selectItemByPage(@Param("from") int from, @Param("count") int count); 
 	
 	
 	// 상품 갯수

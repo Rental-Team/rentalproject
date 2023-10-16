@@ -49,6 +49,6 @@ public class MemberDto {
 	private int kakao;
 	
 	// 한 회원은 여러개의 주문이 가능하다.
-	List<RentalOrderDto> rentalOrderList;
+	List<RentalOrderPageDto> rentalOrderList;
 	
 }

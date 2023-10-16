@@ -11,13 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.rentalproject.dto.MemberDto;
 import com.rentalproject.dto.OrderDetailDto;
 import com.rentalproject.dto.OrderDto;
-import com.rentalproject.dto.RentalOrderDto;
+import com.rentalproject.dto.RentalOrderPageDto;
 import com.rentalproject.service.AccountService;
 import com.rentalproject.service.OrderServcie;
 
@@ -30,6 +31,20 @@ public class OrderController {
 	
 	@Autowired
 	private OrderServcie orderServcie;
+	
+//	@GetMapping("/directRental")
+//	public String directRentalForm(@ModelAttribute("RentalDto") RentalOrderPageDto rentalOrder, HttpSession session) {
+//		
+//		List<RentalOrderPageDto> directOrder = new ArrayList<>();
+//		directOrder.add(rentalOrder);
+//		MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");
+//		session.setAttribute("directOrder", directOrder);
+//		session.setAttribute("orderer", memberInfo);
+//		System.out.println(memberInfo);
+//		
+//		return "/rental/directRental";
+//	}
+	
 
 	@GetMapping("/rental")
 	public String rentalForm(int[] itemNos, int[] itemCounts, Model model, HttpSession session){
@@ -58,7 +73,8 @@ public class OrderController {
 	        model.addAttribute("orders", orders);
 	        model.addAttribute("totalOrderPrice", totalOrderPrice); 
 	        
-	        MemberDto loginMember = (MemberDto)session.getAttribute("loginuser");
+	        //MemberDto loginMember = (MemberDto)session.getAttribute("loginuser");
+	        
             
             System.out.println(orders);
 	    }
@@ -70,11 +86,16 @@ public class OrderController {
 	
 	
 	@PostMapping("/rental")
-	public String rental(OrderDto order) {
+	public String rental(RentalOrderPageDto order, OrderDetailDto orderDetail) {
 		
-		orderServcie.insertOrder(order);
 		
-		return "redirect:/zzim";
+		
+		orderServcie.insertRentalOrder(order);
+		orderServcie.insertOrderDetail(orderDetail);
+		
+		orderServcie.deleteZzimAfterOrder(0);
+		
+		return "redirect:/home";
 	}
 	
 	@GetMapping("/rental/rentalok")

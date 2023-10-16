@@ -105,6 +105,11 @@
               <i class="ni ni-bullet-list-67 text-red"></i> 상품 게시판
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/rental-project/admin/rental/rentalList">
+              <i class="ni ni-bullet-list-67 text-red"></i> 주문 리스트
+            </a>
+          </li>
            
           
           <c:choose>

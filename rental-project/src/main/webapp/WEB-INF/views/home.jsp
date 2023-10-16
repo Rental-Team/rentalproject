@@ -23,7 +23,8 @@
   <link href="/rental-project/resources/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
 </head>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-content" style="border: 1px solid white;">  <!-- bg-success -->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-content mb-2" style="border: 1px solid white;">  <!-- bg-success -->
   <div class="container-fluid">
     <!-- 좌측 정렬을 위한 그리드 시스템을 사용합니다 -->
     <div class="d-flex align-items-center">
@@ -131,111 +132,69 @@
     <!-- Header -->
     <jsp:include page="/WEB-INF/views/modules/navbar-content.jsp" />
     <div class="container-fluid mt--7">
-      <div class="row">
-        <div class="col-xl-8 mb-5 mb-xl-0">
-          <div class="card bg-gradient-default shadow">
-            <div class="card-header bg-transparent">
-              <div class="row align-items-center">
-                <div class="col">
-                  <h6 class="text-uppercase text-light ls-1 mb-1">Overview</h6>
-                  <h2 class="text-white mb-0">Sales value</h2>
-                </div>
-                <div class="col">
-                  <ul class="nav nav-pills justify-content-end">
-                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales" data-update='{"data":{"datasets":[{"data":[0, 20, 10, 30, 15, 40, 20, 60, 60]}]}}' data-prefix="$" data-suffix="k">
-                      <a href="#" class="nav-link py-2 px-3 active" data-toggle="tab">
-                        <span class="d-none d-md-block">Month</span>
-                        <span class="d-md-none">M</span>
-                      </a>
-                    </li>
-                    <li class="nav-item" data-toggle="chart" data-target="#chart-sales" data-update='{"data":{"datasets":[{"data":[0, 20, 5, 25, 10, 30, 15, 40, 40]}]}}' data-prefix="$" data-suffix="k">
-                      <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
-                        <span class="d-none d-md-block">Week</span>
-                        <span class="d-md-none">W</span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <!-- Chart -->
-              <div class="chart">
-                <!-- Chart wrapper -->
-                <canvas id="chart-sales" class="chart-canvas"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-4">
-          <div class="card shadow">
-            <div class="card-header bg-transparent">
-              <div class="row align-items-center">
-                <div class="col">
-                  <h6 class="text-uppercase text-muted ls-1 mb-1">Performance</h6>
-                  <h2 class="mb-0">Total orders</h2>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <!-- Chart -->
-              <div class="chart">
-                <canvas id="chart-orders" class="chart-canvas"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="row mt-5">
-     		<div class="card" style="width: 8cm; height:15cm">
-			  <img class="card-img-top" src="/rental-project/resources/img/brand/fridge.png" alt="Card image cap" width=20% height=60%>
-			  <div class="card-body">
-			    <h1 class="card-title">냉장고</h1>
-			    <p class="card-text">SAMSUNG
-			    세프컬렉션 냉장고 930L, 세라블랙</p>
-			    <a href="#" class="btn btn-success">상품보러가기</a>
-			  </div>
-			  <br>
-			</div>
-			<div class="card" style="width: 18rem; height:15cm">
-			  <img class="card-img-top" src="/rental-project/resources/img/brand/range.png" alt="Card image cap" width=20% height=60%>
-			  <div class="card-body">
-			    <h1 class="card-title">전자레인지</h1>
-			    <p class="card-text">SK매직
-			    MWO-M8A01, 용량20L, 출력 700W, 화이트</p>
-			    <a href="#" class="btn btn-success">상품보러가기</a>
-			  </div>
-			</div>
+  <div class="col-md-2 mb-4">
+    <div class="card" style="width: 5cm; height: 10cm; margin-left: 20px;">
+      <a href="#" style="width: 5cm; height: 8cm">
+      <img class="card-img-top" src="/rental-project/resources/img/brand/fridge.png" alt="Card image cap">
+   	 </a>
+      <div class="card-body">
+        <h3 class="card-title">냉장고</h3>
+        <p class="card-text" style="font-size: 12px;">SAMSUNG 세프컬렉션 냉장고 930L, 세라블랙</p> 
+      </div>
+      <br>
+    </div>
+  </div>
+  <div class="col-md-2 mb-4">
+    <div class="card" style="width: 5cm; height: 10cm">
+      <img class="card-img-top" src="/rental-project/resources/img/brand/range.png" alt="Card image cap" width="20%" height="60%">
+      <div class="card-body">
+        <h3 class="card-title">전자레인지</h3>
+        <p class="card-text" style="font-size: 12px;">SK매직 MWO-M8A01, 용량20L, 출력 700W, 화이트</p> 
+      </div>
+    </div>
+  </div>
+   <div class="col-md-2 mb-4">
+    <div class="card" style="width: 5cm; height: 11cm">
+      <img class="card-img-top" src="/rental-project/resources/img/brand/range.png" alt="Card image cap" width="20%" height="60%">
+      <div class="card-body">
+        <h3 class="card-title">전자레인지</h3>
+        <p class="card-text" style="font-size: 12px;">SK매직 MWO-M8A01, 용량20L, 출력 700W, 화이트</p> 
+      </div>
+    </div>
+  </div>
+   <div class="col-md-2 mb-4">
+    <div class="card" style="width: 5cm; height: 11cm">
+      <img class="card-img-top" src="/rental-project/resources/img/brand/range.png" alt="Card image cap" width="20%" height="60%">
+      <div class="card-body">
+        <h3 class="card-title">전자레인지</h3>
+        <p class="card-text" style="font-size: 12px;">SK매직 MWO-M8A01, 용량20L, 출력 700W, 화이트</p>
+        <a href="#" class="btn btn-sm btn-success">상품보러가기</a>
+      </div>
+    </div>
+  </div>
+</div>
         <div class="col-xl-7"  >
           <div class="card shadow">
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">공지사항</h3>
-                 
+                  <h3 class="mb-0">공지사항</h3> 
                 </div>
                 <div class="col text-right">
-                  <a href="./notice/list" class="btn btn-sm btn-primary">더보기</a>
-
+                  <a href="./notice/list" class="btn btn-sm btn-primary">더보기</a> 
                 </div>
               </div>
-            </div>
-            
-            <div class="table-responsive" id="notice-list">
-            
-           
+            </div> 
+            <div class="table-responsive" id="notice-list"> 
               <!-- Projects table -->
-              <table class="table align-items-center table-flush">
-
-                   <tbody>
-                 
-
+              <table class="table align-items-center table-flush"> 
+                   <tbody> 
                 </tbody>
               </table>
             </div>
           </div>
         </div>
-      </div>
       <!-- Footer -->
       <footer class="footer">
         <div class="row align-items-center justify-content-xl-between">

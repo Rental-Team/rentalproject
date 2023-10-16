@@ -61,7 +61,7 @@
                   <h3 class="mb-1">상품 설명</h3>
                 </div>
                 <div class="col text-right">
-                  <a href="list" class="btn btn btn-primary">목록</a>
+                  <a href="list" class="btn btn btn-success">목록</a>
                 </div>
               </div>
             </div>
@@ -73,146 +73,136 @@
 			 	<input disabled="disabled" type="hidden" id="itemNo"  name="itemNo" class="form-control form-control-alternative" value="${ item.itemNo }">
                 <!-- <h6 class="heading-small text-muted mb-4">User information</h6> -->
                 <div class="container"> 
-        <div class="pl-lg-12" style="margin: 0 auto;">
-			  <div class="row">
-			  <div class="col-lg-8"> <!-- 오른쪽 영역 -->
-			    <div class="row">
-			        <div class="col-lg-11">
-			            <div id="imageCarousel" class="carousel slide" data-ride="carousel" >
-			                <!-- 이미지 슬라이드 인디케이터 (점) -->
-			                <ol class="carousel-indicators">
-			                    <li data-target="#imageCarousel" data-slide-to="0" class="active"></li>
-			                    <li data-target="#imageCarousel" data-slide-to="1"></li>
-			                    <li data-target="#imageCarousel" data-slide-to="2"></li>
-			                    <li data-target="#imageCarousel" data-slide-to="3"></li>
-			                    <li data-target="#imageCarousel" data-slide-to="4"></li>
-			                    <!-- 필요에 따라 슬라이드 수를 조절하세요. -->
-			                </ol>
-							
-			                <!-- 이미지 슬라이드 내용 -->
-			                <div class="carousel-inner text-center" style="width:600; height:600; border-radius: 10px;"> 
-			                    <div class="carousel-item active">
-			                        <c:forEach var="itemAttach" items="${item.itemAttachList}"> 
-										<img src="${pageContext.request.contextPath}/resources/upload/${itemAttach.savedFileName}" alt="Image" style="border-radius: 10px;" height="600px" width="600px">
-									</c:forEach>
-			                    </div>
-			                    <div class="carousel-item">
-			                         <c:forEach var="itemAttach" items="${item.itemAttachList}">
-								    	<img src="${pageContext.request.contextPath}/resources/upload/${itemAttach.savedFileName}" alt="Image" style="border-radius: 10px;" height="600px" width="600px">
-									</c:forEach>
-			                    </div>
-			                    <div class="carousel-item">
-			                        <c:forEach var="itemAttach" items="${item.itemAttachList}">
-								    <img src="${pageContext.request.contextPath}/resources/upload/${itemAttach.savedFileName}" alt="Image" style="border-radius: 10px;" height="600px" width="600px">
-									</c:forEach>
-			                    </div>
-			                    <div class="carousel-item">
-			                         <c:forEach var="itemAttach" items="${item.itemAttachList}">
-								    	<img src="${pageContext.request.contextPath}/resources/upload/${itemAttach.savedFileName}" alt="Image" style="border-radius: 10px;" height="600px" width="600px">
-									</c:forEach>
-			                    </div>
-			                    <div class="carousel-item">
-			                        <c:forEach var="itemAttach" items="${item.itemAttachList}">
-								    	<img src="${pageContext.request.contextPath}/resources/upload/${itemAttach.savedFileName}" alt="Image" style="border-radius: 10px;" height="600px" width="600px">
-									</c:forEach>
-			                    </div> 
-			                </div>
-			
-			                <!-- 슬라이드 컨트롤 (이전/다음) -->
-			                <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
-			                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-			                    <span class="sr-only">Previous</span>
-			                </a>
-			                <a class="carousel-control-next" href="#imageCarousel" role="button" data-slide="next">
-			                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-			                    <span class="sr-only">Next</span>
-			                </a>
-			            </div>
-			        </div>
-			    </div>
-			</div>
-			    <div class="col-lg-4"> <!-- 오른쪽 영역 (빈 영역) -->
-			      <div class="pl-lg-12" style="margin: 0 auto;">
-			        <div class="row">
-					    <div class="col-lg-10">
-					      <div class="form-group focused">
-					        <label class="form-control-label" for="input-itemName">상품명</label>
-					        <input disabled="disabled" type="text" id="input-itemName" name="itemName" class="form-control form-control-alternative" value="${item.itemName}">
-					      </div>
-					    </div>
-					  </div>  
+                <br>
+		        <div class="pl-lg-10" style="margin: 0 auto;">
 					  <div class="row">
-					    <div class="col-lg-10">
-					      <div class="form-group">
-					        <label class="form-control-label" for "input-itemStock">상품 수량</label>
-					        <input disabled="disabled" type="text" id="input-itemStock" name="itemStock" class="form-control form-control-alternative" value="${item.itemStock}">
-					      </div>
-					    </div>
-					  </div>
-					  <div class="row">
-					    <div class="col-lg-10">
-					      <div class="form-group">
-					        <label class="form-control-label" for="input-cateName">카테고리</label>
-					        <input disabled="disabled" type="text" id="input-cateName" name="cateName" class="form-control form-control-alternative" value="${item.cateName}">
-					      </div>
-					    </div>
-					  </div>
-					  <div class="row">
-					    <div class="col-lg-10">
-					      <div class="form-group">
-					        <label class="form-control-label" for="input-itemDetail">상세 설명</label>
-					        <textarea disabled="disabled" id="input-itemDetail" name="itemDetail" class="form-control form-control-alternative" rows="5" style="resize: none">${item.itemDetail}</textarea>
-					      </div>
-					    </div>
-					  </div>
-					  <div class="row">
-					    <div class="col-lg-10">
-					      <div class="form-group">
-					        <label class="form-control-label" for="input-itemPrice">상품 가격</label>
-					        <input disabled="disabled" type="number" id="input-itemPrice" name="itemPrice" class="form-control form-control-alternative" value="${item.itemPrice}">
-					        <div>
-					          적립 포인트: <span class="point_span"></span>원
+					  <div class="col-lg-7"> <!-- 오른쪽 영역 -->
+					  <br>
+					  <br>
+					  <br>
+					  <br>
+					    <div class="row">
+					        <div class="col-lg-11">
+					            <div id="imageCarousel" class="carousel slide" data-ride="carousel" >
+					                <!-- 이미지 슬라이드 인디케이터 (점) -->
+					                <ol class="carousel-indicators">
+					                    <li data-target="#imageCarousel" data-slide-to="0" class="active"></li>
+					                    <li data-target="#imageCarousel" data-slide-to="1"></li>
+					                    <li data-target="#imageCarousel" data-slide-to="2"></li>
+					                    <li data-target="#imageCarousel" data-slide-to="3"></li>
+					                    <li data-target="#imageCarousel" data-slide-to="4"></li>
+					                    <!-- 필요에 따라 슬라이드 수를 조절하세요. -->
+					                </ol>
+									
+					                <!-- 이미지 슬라이드 내용 -->
+					               <div class="carousel-inner text-center" style="width:600; height:600; border-radius: 10px;"> 
+									    <c:forEach var="itemAttach" varStatus="status" items="${item.itemAttachList}">
+										    <div class="carousel-item${status.index == 0 ? ' active' : ''}">
+										        <img src="${pageContext.request.contextPath}/resources/upload/${itemAttach.savedFileName}" alt="Image${status.index + 1}" style="border-radius: 10px;" height="600px" width="600px">
+										    </div>
+										</c:forEach>
+									</div> 
+					                <!-- 슬라이드 컨트롤 (이전/다음) -->
+					                <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
+					                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					                    <span class="sr-only">Previous</span>
+					                </a>
+					                <a class="carousel-control-next" href="#imageCarousel" role="button" data-slide="next">
+					                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+					                    <span class="sr-only">Next</span>
+					                </a>
+					            </div>
 					        </div>
-					      </div>
 					    </div>
-					    <div class="col-lg-8">
-					    </div>
-					  </div>
-					   <div class="row"> 
-				  <div class="col-lg-12">
-				    <div class="button_count">
-				      대여 수량
-				      <input type="text" class="quantity_count" value="1">
-				      <span>
-				        <button class="plus_btn btn-outline-primary">+</button>
-				        <button class="minus_btn btn-outline-primary">-</button>
-				      </span>
-				    </div>
-				    <br>
-				    <br>
-				    <div class="text-right">
-				      <button type="button" id="btn_zzim" class='btn btn-outline-primary float-right'>찜하기</button>
-				      <button type="button" id="btn_rental" class='btn btn-outline-primary float-right'>대여하기</button>
+					</div>
+					    <div class="col-lg-5"> <!-- 오른쪽 영역 (빈 영역) -->
+					      <div class="pl-lg-13" style="margin: 0 auto;">
+					        <div class="row">
+							    <div class="col-lg-12">
+							      <div class="form-group focused">
+							        <label class="form-control-label" for="input-itemName">상품명</label>
+							        <input disabled="disabled" type="text" id="input-itemName" name="itemName" class="form-control form-control-alternative" value="${item.itemName}">
+							      </div>
+							    </div>
+							  </div>  
+							  <div class="row">
+							    <div class="col-lg-12">
+							      <div class="form-group">
+							        <label class="form-control-label" for "input-itemStock">상품 수량</label>
+							        <input disabled="disabled" type="text" id="input-itemStock" name="itemStock" class="form-control form-control-alternative" value="${item.itemStock}">
+							      </div>
+							    </div>
+							  </div>
+							  <div class="row">
+							    <div class="col-lg-12">
+							      <div class="form-group">
+							        <label class="form-control-label" for="input-cateName">카테고리</label>
+							        <input disabled="disabled" type="text" id="input-cateName" name="cateName" class="form-control form-control-alternative" value="${item.cateName}">
+							      </div>
+							    </div>
+							  </div>
+							  <div class="row">
+							    <div class="col-lg-12">
+							      <div class="form-group">
+							        <label class="form-control-label" for="input-itemDetail">상세 설명</label>
+							        <textarea disabled="disabled" id="input-itemDetail" name="itemDetail" class="form-control form-control-alternative" rows="13" style="resize: none">${item.itemDetail}</textarea>
+							      </div>
+							    </div>
+							  </div>
+							  <div class="row">
+							    <div class="col-lg-12">
+							      <div class="form-group">
+							        <label class="form-control-label" for="input-itemPrice">상품 가격</label>
+							        <input disabled="disabled" type="number" id="input-itemPrice" name="itemPrice" class="form-control form-control-alternative" value="${item.itemPrice}">
+							        <div>
+							          적립 포인트: <span class="point_span"></span>원
+							        </div>
+							      </div>
+							    </div>
+							    <div class="col-lg-8">
+							    </div>
+							  </div>
+							   <div class="row"> 
+						  <div class="col-lg-12">
+						    <div class="button_count">
+							    <div class="row align-items-center">
+							        <div class="col">
+							           <label class="form-control-label" for="input-cateName">대여수량</label>
+							        </div>
+							        <div class="col">
+							            <input type="text" class="quantity_input form-control custom-small-input" style="width: 3cm; height: 1cm" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-xs" value="1">
+							        </div>
+							        <div class="col">
+							            <button class="plus_btn btn-outline-success">+</button> 
+							            <button class="minus_btn btn-outline-success">-</button>
+							        </div>
+							    </div>
+							</div>
+						    <br>
+						    <br>
+						    <div class="text-right">
+						      <button type="button" id="btn_zzim" class='btn btn-outline-success float-right'>찜하기</button>
+						      <button type="button" id="btn_rental" class='btn btn-outline-success float-right'>대여하기</button>
+						    </div>
+						  </div>
+						</div>  
+						</div>
+				      </div>
 				    </div>
 				  </div>
-				</div>  
 				</div>
-		      </div>
-		    </div>
-		  </div>
-		</div>
-		</div>
- 
+				</div>
+		 
                 </form>
                  
 				<br /><br />
 				<div class="row">
 				  <div class="col-lg-12">
 				    <div class="btn-group btn-group-toggle" data-toggle="buttons" style="width: 100%;">
-				      <label class="btn btn-secondary active" style="width: 100%;">
+				      <label class="btn btn-success active" style="width: 100%;">
 				        <input type="radio" name="options" id="option1" checked> 상품 후기
 				      </label>
-				      <label class="btn btn-secondary" style="width: 50%;">
+				      <label class="btn btn-success" style="width: 100%;">
 				        <input type="radio" name="options" id="option2"> 상품 문의
 				      </label>
 				    </div>
@@ -237,7 +227,7 @@
 		                				<textarea id="review_content" name="reviewContent" style="width:100%; resize:none;  border-radius:80px" rows="2">     </textarea>
 		                				</td>
 										<td style="vertical-align: middle; text-align:right;">
-										<a class ="btn btn-sm btn-primary" id="write-item-review-lnk" href="javascript:void(0)">상품 후기 등록</a> 
+										<a class ="btn btn-sm btn-success" id="write-item-review-lnk" href="javascript:void(0)">상품 후기 등록</a> 
 										</td>
 		                		</table>
 		           		</form> 
@@ -633,7 +623,7 @@
 				}) 
 			})  	
 	 
- 
+			
   </script>
   
   

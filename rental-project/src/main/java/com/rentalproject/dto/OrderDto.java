@@ -30,4 +30,5 @@ public class OrderDto {
 		private int itemNo;  
 		private int itemCount;
 		private int itemPrice;
+		private int orderItemNo;
 }
