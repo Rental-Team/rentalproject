@@ -43,7 +43,7 @@
 							</div> 
 						</div> 
 						<div class="card-body" style="margin-top: -30px;"> 
-							<form action="rental" method="post"> 
+							<form action="rental/submitOrder" method="post" id="orderForm"> 
 							<input type="hidden" name="memberNo" value="${loginuser.memberNo}"/>
 							<div class="row mt-5">
 					        <div class="col">
@@ -123,17 +123,13 @@
 						                    <!-- <div class="input-group-prepend">
 						                      <span class="input-group-text"></span>
 						                    </div> -->
-							                    <input type="text" id="address" class="form-control" placeholder="주소" value="${ memberInfo.address }"/>
-							                    <input type="button" id="address-search" class="btn btn-success" value="주소 검색"><br>
-
-						                  </div>
-						                 
+							                    <input type="text" id="address" name="address" class="form-control" placeholder="주소" value="${ memberInfo.address }"/>
+							                    <input type="button" id="address-search" class="btn btn-success" value="주소 검색"><br> 
+						                  </div> 
 						                  <input type="text" name="addressDetail" class="form-control" placeholder="상세 주소" value="" />
-						                </div>
-						               
-						               
+						                </div> 
 						                <div class="row">
-										   <button type="button" class="btn btn-sm btn-success" id="btnorder">주문</button> 
+										   <button type="submit" class="btn btn-sm btn-success" id="btnorder">주문</button> 
 										   <button type="button" class="btn btn-sm btn-success" id="btnback">취소</button> 
 										 </div> 
 
@@ -204,11 +200,23 @@
 		  location.href="zzim/${loginuser.memberNo}"; 
 	  })
 	  
-	  $('#btnorder').on('click', function(event){
-		  alert('주문이 완료되었습니다.');
-		  location.href="rental/rentalok"; 
-	  })
-	  });
+	   $('#btnorder').on('click', function(event) { 
+        $.ajax({
+            type: "POST",
+            url: "rental/submitOrder",
+            		
+            data: $('#orderForm').serialize(),  
+            success: function(data) { 
+                alert('주문이 완료되었습니다.'); 
+                location.href = "rental/rentalok";
+            },
+            error: function() {
+                alert('주문 처리 중 오류가 발생했습니다.');  
+                location.href = "rental/rentalDetail";
+            }
+        });
+    });
+  });
 	 
 	 
   </script>

@@ -22,5 +22,8 @@ public class OrderDetailDto {
 	private String memberId;
 	private String email;
 	
+
+	private String addressUser; 
+	
 	
 }

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.rentalproject.dto.MemberDto;
 import com.rentalproject.dto.OrderDetailDto;
 import com.rentalproject.dto.OrderDto;
+import com.rentalproject.dto.OrderForm;
 import com.rentalproject.dto.RentalOrderPageDto;
 import com.rentalproject.service.AccountService;
 import com.rentalproject.service.OrderServcie;
@@ -30,7 +32,7 @@ public class OrderController {
 	private AccountService accountService;
 	
 	@Autowired
-	private OrderServcie orderServcie;
+	private OrderServcie orderServcie; 
 	
 //	@GetMapping("/directRental")
 //	public String directRentalForm(@ModelAttribute("RentalDto") RentalOrderPageDto rentalOrder, HttpSession session) {
@@ -86,22 +88,23 @@ public class OrderController {
 	
 	
 	@PostMapping("/rental")
-	public String rental(RentalOrderPageDto order, OrderDetailDto orderDetail) {
+	public String rental(RentalOrderPageDto orderDetailList, OrderDetailDto orderDetail) {
 		
 		
 		
-		orderServcie.insertRentalOrder(order);
-		orderServcie.insertOrderDetail(orderDetail);
+		orderServcie.insertRentalOrder(orderDetailList);
+		orderServcie.insertOrderDetail(orderDetail); 
+		 
 		
 		orderServcie.deleteZzimAfterOrder(0);
 		
 		return "redirect:/home";
 	}
 	
-	@GetMapping("/rental/rentalok")
-    public String showRentalOkPage() {
-		 return "rental/rentalok"; 
-    }
+	//@GetMapping("/rental/rentalok")
+    //public String showRentalOkPage() {
+	//	 return "rental/rentalok"; 
+   // }
 	
 	@GetMapping("/rental-project/home")
     public String ReturnHome() {
@@ -113,4 +116,33 @@ public class OrderController {
 		 return "rental/rentalDetail"; 
     }
 	
-}
+	@GetMapping("/rental/rentalok")
+	public String submitOrderForm(Model model) {
+	    OrderForm orderForm = new OrderForm();
+	    model.addAttribute("orderForm", orderForm);
+	    return "/rental/rentalDetail";
+	}
+
+	@PostMapping("/rental/submitOrder")
+	
+	public String submitOrder(@ModelAttribute("orderForm") OrderForm orderForm) {
+	    // OrderForm에서 RentalOrderPageDto로 변환
+	    RentalOrderPageDto rentalOrderPageDto = orderForm.toRentalOrderPageDto();
+
+	    // 데이터베이스에 주문 정보 저장 (기본 정보)
+	    orderServcie.insertRentalOrder(rentalOrderPageDto);
+
+	    // 주문 상세 정보를 orderDetailList에 추가
+	    List<OrderDetailDto> orderDetailList = new ArrayList<>(); // 이 리스트는 어디에서 생성되는지에 따라 수정이 필요할 수 있음
+	    for (OrderDetailDto orderDetail : rentalOrderPageDto.getOrderDetailList()) {
+	        orderDetailList.add(orderDetail);
+	    } 
+	    
+	    orderServcie.saveOrderDetails(orderDetailList);
+	    
+	    return "redirect:/rental/rentalok"; // 주문 확인 페이지로 이동
+	} 
+	}
+	
+	
+

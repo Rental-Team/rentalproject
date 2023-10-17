@@ -26,8 +26,8 @@ public class OrderServiceImpl implements OrderServcie {
 
 	// 주문 등록
 	@Override
-	public void insertRentalOrder(RentalOrderPageDto order) {
-		orderMapper.rentalOrder(order);	
+	public void insertRentalOrder(RentalOrderPageDto orderDetailList) {
+		orderMapper.rentalOrder(orderDetailList);	
 		
 	}
 	
@@ -50,10 +50,17 @@ public class OrderServiceImpl implements OrderServcie {
 		
 	}
 
+	@Override
+	public void saveOrderDetails(List<OrderDetailDto> orderDetailList) {
+		for (OrderDetailDto orderDetail : orderDetailList) {
+            insertOrderDetail(orderDetail); // 주문 상세 정보를 저장
+        }
+	}
+
 //	@Override
 //	public RentalOrderDto rentalMemberInfo(int memberNo) {
 //		
 //		return orderMapper.rentalMemberInfo(memberNo);
 //	}
-	
-}
+
+	}

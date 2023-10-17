@@ -12,7 +12,7 @@ public interface OrderServcie {
 	OrderDetailDto rentalItemInfo(int itemNo);
 
 	// 주문 등록
-	void insertRentalOrder(RentalOrderPageDto order);
+	void insertRentalOrder(RentalOrderPageDto orderDetailList);
 	
 	// 주문 상세
 	void insertOrderDetail(OrderDetailDto orderDetail);
@@ -25,4 +25,6 @@ public interface OrderServcie {
 	
 	// 주문 멤버 정보 불러오기
 	//RentalOrderDto rentalMemberInfo(int memberNo);
+	
+	void saveOrderDetails(List<OrderDetailDto> orderDetailList);
 }

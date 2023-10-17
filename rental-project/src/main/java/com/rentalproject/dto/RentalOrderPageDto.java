@@ -33,4 +33,6 @@ public class RentalOrderPageDto {
 	// 대여 상품
 	List<OrderDetailDto> orderDetailList;
 	
+	
+	
 }

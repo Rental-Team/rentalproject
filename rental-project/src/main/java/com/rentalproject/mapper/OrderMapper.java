@@ -19,14 +19,14 @@ public interface OrderMapper {
 	
 	// 주문 정보
 	@Insert("insert into rentalOrder (orderId, addressUser, memberNo, address, addressDetail ) "
-			+ "values ( #{ orderId }, #{ addressUser}, #{ memberNo }, #{ address }, #{ addressDetail }  ) ")
-	void rentalOrder(RentalOrderPageDto order);
+			+ "values ( #{ orderForm.orderId }, #{ orderForm.addressUser }, #{ orderForm.memberNo }, #{ orderForm.address }, #{ orderForm.addressDetail }  ) ")
+	void rentalOrder(RentalOrderPageDto orderDetailList);
 	
 	// 주문 상세 정보
 	@Insert("insert into OrderDetail (orderItemNo, orderId, itemNo, itemCount, itemPrice ) "
-			+ "select #{orderId}, item , itemCount, itemPrice "
-			+ "from Zzim")
-	@Options(useGeneratedKeys = true, keyProperty = "orderItemNo")
+			+ "select #{orderId}, item.itemNo , zzim.itemCount, item.itemPrice "
+			+ "from Zzim zzim join Item item on zzim.itemNo = Item.itemNo "
+			+ "where Zzim.memberNo = #{ memberNo }") 
 	void orderDetail(OrderDetailDto orderDetail);
 	
 	// 주문 후 찜 목록에서 삭제하기
