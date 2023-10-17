@@ -86,6 +86,13 @@ public class OrderServiceImpl implements OrderServcie {
 		}
 
 		
+		@Override
+		public RentalOrderPageDto getOrderDetail(int orderId) {
+			
+			RentalOrderPageDto rop = orderMapper.getOrderDetail(orderId);
+			
+			return rop;
+		}
 
 
 		

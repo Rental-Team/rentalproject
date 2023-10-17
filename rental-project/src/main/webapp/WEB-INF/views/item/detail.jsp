@@ -509,6 +509,7 @@
 		data: form,  // 서버로 보낼 데이터
 		success: function(result){
 			zzimAlert(result);
+			location.href="list";
 		}
 	})
 	

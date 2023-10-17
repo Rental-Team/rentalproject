@@ -49,7 +49,6 @@
 							</div>
 						</div> 
 						<div class="card-body" style="margin-top: -30px;"> 
-							<form action="rental" method="post">
 							<input type="hidden" name="memberNo" value="${loginuser.memberNo}"/>
 							<div class="row mt-5">
 					        <div class="col">
@@ -70,7 +69,7 @@
 					                  </tr>
 					                </thead>
 					                <tbody>
-					                  <c:forEach items="${odList}" var="od">
+					                  <c:forEach items="${ropdList}" var="od">
 												<tr style="text-align:center;">								
 													<td class="td_width_2">
 														<img src="${pageContext.request.contextPath}/resources/upload/thumbnail_${zzim.thumbnail}" alt="Image">							
@@ -140,7 +139,6 @@
 										 </div> 
 					                </div>
 					              </div> 
-							</form>
 						</div>
 					</div>
 				</div>
