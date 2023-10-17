@@ -73,7 +73,7 @@ public class OrderController {
 		System.out.println(order);
 		
 		orderServcie.order(order);
-		//
+		
 		// orderServcie.order(ord);
 		// orderServcie.insertRentalOrder(order);
 		// orderServcie.insertOrderDetail(orderDetail);
@@ -82,7 +82,7 @@ public class OrderController {
 		// orderServcie.deleteZzimAfterOrder(0);
 		
 		//System.out.println(ord);
-		return "redirect:/home";
+		return "redirect:rental/rentalok";
 	}
 	
 
@@ -98,7 +98,10 @@ public class OrderController {
 	
 	@GetMapping("/rental/rentalDetail")
     public String OrderDetail() {
-		 return "rental/rentalDetail"; 
+		
+		
+		
+		return "rental/rentalDetail"; 
     }
 	
 }

@@ -42,19 +42,22 @@ public interface OrderMapper {
 			+ "where itemNo = #{itemNo}")
 	OrderDetailDto rentalItemInfo(@Param("itemNo") int itemNo); 
 	
+	//////////////////////////////////////////
+	
 	// 주문 처리
 	@Select("select itemNo, itemPrice "
 			+ "from Item where itemNo = #{itemNo} ")
 	OrderDetailDto getOrderInfo(int itemNo);
 	
 	// 주문 등록
-	@Insert("insert into rentalOrder ( orderId, addressUser, memberNo, address, addressDetail, orderState ) "
-			+ "values ( #{orderId}, #{ addressUser}, #{ memberNo }, #{ address }, #{ addressDetail }, '대기중'  ) ")
+	@Insert("insert into rentalOrder ( addressUser, memberNo, address, addressDetail, orderState ) "
+			+ "values ( #{ addressUser}, #{ memberNo }, #{ address }, #{ addressDetail }, '대기중'  ) ")
+	@Options(useGeneratedKeys = true, keyProperty = "orderId", keyColumn = "orderId")
 	int registerOrder(RentalOrderPageDto ord);
 	
 	// 주문 상품 등록
-	@Insert("insert into OrderDetail ( orderId, itemNo, itemCount, itemPrice ) "
-			+ "values (  #{orderId}, #{itemNo}, #{itemCount}, #{itemPrice} ) ")
+	@Insert("insert into OrderDetail ( orderId ,itemNo, itemCount, itemPrice ) "
+			+ "values ( #{orderId} ,#{itemNo}, #{itemCount}, #{itemPrice} ) ")
 	@Options(useGeneratedKeys = true, keyProperty = "orderItemNo")
 	int registerOrderItem(OrderDetailDto orid);
 	
@@ -74,6 +77,13 @@ public interface OrderMapper {
 			+ "ro.orderDate, ro.orderState "
 			+ "from rentalOrder ro ")
 	List<RentalOrderPageDto> orderListInfo();
+	
+	
+//	// 주문 상세 정보 가져오기
+//	@Select("select ro.orderId, od.itemName, od.itemPrice, od.itemCount, ro.orderState "
+//			+ "from rentalOrder ro left inner join OrderDetail od "
+//			+ "where orderId = #{orderId} ")
+//	OrderDetailDto getOrderDetail(int orderId);
 	
 	
 

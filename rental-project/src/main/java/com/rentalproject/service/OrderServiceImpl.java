@@ -64,51 +64,29 @@ public class OrderServiceImpl implements OrderServcie {
 		@Override
 		@Transactional // acid
 		public void order(RentalOrderPageDto od) {
-			MemberDto member = accountMapper.getMemberInfo(od.getMemberNo());
-			List<OrderDetailDto> ords = new ArrayList<>();
-			for(OrderDetailDto orid : od.getOrderDetailList()) {
-				OrderDetailDto orderItem = orderMapper.getOrderInfo(orid.getItemNo());           // 여러개의 주문 항목 저장하고 DB에서 주문 항목 정보 불러오기
-				
-				// 수량
-				orderItem.setItemCount(orid.getItemCount());
-				
-				ords.add(orderItem);                                 // 주문 항목을 리스트에 담고
-			}
-			od.setOrderDetailList(ords);
-			
-//			// orderId 만들기
-//			Date date = new Date();
-//			SimpleDateFormat format = new SimpleDateFormat("_yyyyMMddmm");
-//			String orderId = member.getMemberNo() + format.format(date);
-//			od.setOrderDetailList(orderId);
-//			
 			
 			orderMapper.registerOrder(od);                                    // 주문 정보 DB에 저장
 			for(OrderDetailDto orid : od.getOrderDetailList()) {
+				orid.setOrderId(od.getOrderId());
 				orderMapper.registerOrderItem(orid);
-			}
-			
-			for(OrderDetailDto orid : od.getOrderDetailList()) {                          // 주문 항목에 대한 상품정보 가져와서
+				
 				ItemDto item = itemMapper.getItemsInfo(orid.getItemNo());       // 재고 감소 시키고 
 				item.setItemStock(item.getItemStock() - orid.getItemCount());      
 				 
-				orderMapper.minusStock(item);                                       // 감소한 재고 만큼을 DB에 업데이트 
-			}
-			
-			// 찜 제거
-			for(OrderDetailDto orid : od.getOrderDetailList()) {
+				orderMapper.minusStock(item);
+				
 				ZzimDto zzim = new ZzimDto();
-				zzim.setMemberId(od.getMemberId());
+				zzim.setMemberNo(od.getMemberNo());
 				zzim.setItemNo(orid.getItemNo());
 				
 				zzimMapper.deleteOrderZzim(zzim);
 			}
-		} 
+			
 
-//		@Override
-//		public RentalOrderDto rentalMemberInfo(int memberNo) {
-//			
-//			return orderMapper.rentalMemberInfo(memberNo);
-//		}
+		}
+
+		
+
+
 		
 	}

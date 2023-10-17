@@ -70,18 +70,18 @@
 					                  </tr>
 					                </thead>
 					                <tbody>
-					                  <c:forEach items="${orders}" var="order">
+					                  <c:forEach items="${odList}" var="od">
 												<tr style="text-align:center;">								
 													<td class="td_width_2">
 														<img src="${pageContext.request.contextPath}/resources/upload/thumbnail_${zzim.thumbnail}" alt="Image">							
 													</td>
-													<td class="td_width_3">${order.itemName}</td>
+													<td class="td_width_3">${od.itemName}</td>
 													<td class="td_width_4 price_td">
-														<span class="red_color"><fmt:formatNumber value="${order.itemPrice}" pattern="#,### 원" /></span><br>
+														<span class="red_color"><fmt:formatNumber value="${od.itemPrice}" pattern="#,### 원" /></span><br>
 													</td>
-													<td class="td_width_4 table_text_align_center"> ${order.itemCount} </td>
+													<td class="td_width_4 table_text_align_center"> ${od.itemCount} </td>
 													<td class="td_width_4 table_text_align_center">
-														<fmt:formatNumber value="${order.itemPrice * order.itemCount}" pattern="#,### 원" />
+														<fmt:formatNumber value="${od.itemPrice * od.itemCount}" pattern="#,### 원" />
 													</td>
 												</tr>
 											</c:forEach> 

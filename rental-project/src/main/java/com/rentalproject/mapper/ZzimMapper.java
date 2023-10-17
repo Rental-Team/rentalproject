@@ -46,6 +46,6 @@ public interface ZzimMapper {
 	
 	// 찜 제거 (주문 후)
 	@Delete("delete from Zzim "
-			+ "where memberId = #{memberId} and itemNo = #{itemNO} ")
+			+ "where memberNo = #{memberNo} and itemNo = #{itemNo} ")
 	int deleteOrderZzim(ZzimDto zzim);
 }

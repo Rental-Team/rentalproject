@@ -12,7 +12,7 @@ public class OrderDetailDto {
 	private int OrderItemNo;
 	
 	// 주문에서 받을 값
-	private int orderId;  // 주문 번호
+	private int orderId;  // 대여 아이디(주문 번호)
 	
 	// 상품에서 받을 값
 	private int itemNo;  

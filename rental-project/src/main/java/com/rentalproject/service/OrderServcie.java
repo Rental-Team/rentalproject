@@ -22,4 +22,6 @@ public interface OrderServcie {
 	
 	// 주문 멤버 정보 불러오기
 	//RentalOrderDto rentalMemberInfo(int memberNo); 
+
+	
 }
