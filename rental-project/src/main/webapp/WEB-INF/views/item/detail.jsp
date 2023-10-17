@@ -187,6 +187,38 @@
 						  </div>
 						</div>  
 						</div>
+                      </div>
+                    </div>
+                    
+                  
+                  </div>  
+                   	
+                  
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-itemDetail">상세 설명</label>
+                        <textarea disabled="disabled" id="input-itemDetail" name="itemDetail" class="form-control form-control-alternative" rows="15" style="resize: none" >${ item.itemDetail }</textarea>
+                      </div>
+                    </div>
+                  </div>
+				</div>
+				</div>
+                  </form>
+                  <div class="row">
+
+				  <div class="col-lg-12">
+				    <div class="button_count">
+				      대여 수량
+				      <input type="text" class="quantity_input" value="1">
+				      <span>
+				        <button class="plus_btn btn-secondary">+</button>
+				        <button class="minus_btn btn-secondary">-</button>
+				      </span>
+				    </div>
+				    <div class="text-right">
+				      <button type="button" id="btn_zzim" class='btn btn-outline-primary float-right'>찜하기</button>
+				      <button type="button" id="btn_rental" class='btn btn-outline-primary float-right'>대여하기</button>
 				      </div>
 				    </div>
 				  </div>

@@ -55,7 +55,7 @@ public interface AccountMapper {
 	// 대여 주문 주소 정보
 	@Select("select memberId, memberNo, userName ,email, address, addressDetail "
 			+ "from Member "
-			+ "where memberId = #{memberId} ")
-	MemberDto getMemberInfo(int memberNo );
+			+ "where memberNo = #{memberNo} ")
+	MemberDto getMemberInfo(int memberNo);
 	
 }
