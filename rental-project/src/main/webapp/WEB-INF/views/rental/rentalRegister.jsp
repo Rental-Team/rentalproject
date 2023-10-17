@@ -69,7 +69,7 @@
 													<tr style="text-align:center;"> 
 														<input type="hidden" name="orderDetailList[${status.index}].itemNo" class="individual_itemPrice_input" value="${orderDetail.itemNo}">
 														<input type="hidden" name="orderDetailList[${status.index}].itemPrice" class="individual_itemPrice_input" value="${orderDetail.itemPrice}">
-														<input type="hidden" name="orderDetailList[${status.index}].itemCount" class="individual_itemCount_input" value="${orderDetail.itemCount}">	
+														<input type="hidden" name="orderDetailList[${status.index}].itemCount" class="individual_itemCount_input" value="${orderDetail.itemCount}">	 
 														<td class="td_width_2">
 															<img src="${pageContext.request.contextPath}/resources/upload/thumbnail_${zzim.thumbnail}" alt="Image">							
 														</td>

@@ -24,8 +24,8 @@ import com.rentalproject.dto.ZzimDto;
 public interface OrderMapper {
 	
 	// 주문 정보
-	@Insert("insert into rentalOrder ( orderId, addressUser, memberNo, address, addressDetail ) " 
-			+ "values ( #{ orderId }, #{ addressUser }, #{ memberNo }, #{ address }, #{ addressDetail }  ) ")
+	@Insert("insert into rentalOrder (addressUser, memberNo, address, addressDetail ) " 
+			+ "values (#{ addressUser }, #{ memberNo }, #{ address }, #{ addressDetail }) ")
 	@Options(useGeneratedKeys = true, keyProperty = "orderId")
 	void rentalOrder(RentalOrderPageDto order);
 	
@@ -33,9 +33,9 @@ public interface OrderMapper {
 	@Insert("insert into OrderDetail ( orderId, itemNo, itemCount, itemPrice ) "
 			+ "values (  #{ orderId }, #{ itemNo }, #{ itemCount }, #{ itemPrice } ) ")
 	@Options(useGeneratedKeys = true, keyProperty = "orderItemNo") 
-	void orderDetail(OrderDetailDto orderDetail);
+	void orderDetail(OrderDetailDto orderDetail);  
 	
-
+	
 	// 상품 정보 가져오기
 	@Select("select itemPrice ,itemNo, itemName " 
 			+ "from Item "
@@ -48,8 +48,9 @@ public interface OrderMapper {
 	OrderDetailDto getOrderInfo(int itemNo);
 	
 	// 주문 등록
-	@Insert("insert into rentalOrder ( orderId, addressUser, memberNo, address, addressDetail, orderState ) "
-			+ "values ( #{orderId}, #{ addressUser}, #{ memberNo }, #{ address }, #{ addressDetail }, '대기중'  ) ")
+	@Insert("insert into rentalOrder (addressUser, memberNo, address, addressDetail, orderState ) "
+			+ "values ( #{ addressUser}, #{ memberNo }, #{ address }, #{ addressDetail }, '대기중'  ) ")
+	@Options(useGeneratedKeys = true, keyProperty = "orderId")
 	int registerOrder(RentalOrderPageDto ord);
 	
 	// 주문 상품 등록

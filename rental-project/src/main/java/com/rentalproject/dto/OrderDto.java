@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class OrderDto {
 		// 대여 주문 번호
-		private String orderId;
+		private int orderId;
 		
 		// 대여 상태(대기, 완료)
 		private String orderState;

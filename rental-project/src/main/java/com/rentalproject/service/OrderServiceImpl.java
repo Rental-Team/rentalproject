@@ -85,6 +85,7 @@ public class OrderServiceImpl implements OrderServcie {
 			
 			orderMapper.registerOrder(od);                                    // 주문 정보 DB에 저장
 			for(OrderDetailDto orid : od.getOrderDetailList()) {
+				orid.setOrderId(od.getOrderId());
 				orderMapper.registerOrderItem(orid);
 			}
 			
