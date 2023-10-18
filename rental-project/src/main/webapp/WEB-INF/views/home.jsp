@@ -230,7 +230,7 @@
       <div class="card-body">
         <h3 class="card-title">전자레인지</h3>
         <p class="card-text" style="font-size: 12px;">SK매직 MWO-M8A01, 용량20L, 출력 700W, 화이트</p>
-        <a href="#" class="btn btn-sm btn-success">상품보러가기</a>
+        <a href="item/list" class="btn btn-sm btn-success">상품보러가기</a>
       </div>
     </div>
   </div>

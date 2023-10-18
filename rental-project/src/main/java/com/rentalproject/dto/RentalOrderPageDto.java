@@ -31,6 +31,10 @@ public class RentalOrderPageDto {
 	private String email;
 	
 	private int orderItemNo;
+	
+	private int itemNo;  
+	private int itemCount;
+	private int itemPrice;
 	private String itemName;
 			
 	// 대여 주문은 여러개의 상품을 대여할 수 있다. 상품 정보는 주문 상세 테이블로 받아온다.

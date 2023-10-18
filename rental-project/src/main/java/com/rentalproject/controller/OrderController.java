@@ -83,7 +83,7 @@ public class OrderController {
 		// orderServcie.deleteZzimAfterOrder(0);
 		
 		//System.out.println(ord);
-		return "redirect:rental/rentalok";
+		return "redirect:rental/rentalok?orderId="+ order.getOrderId();
 	}
 	
 
@@ -98,19 +98,16 @@ public class OrderController {
     }
 	
 	@GetMapping("/rental/rentalDetail")
-    public String OrderDetail(int orderId, Model model) {
+    public String OrderDetail(@RequestParam(defaultValue = "-1") int orderId , Model model) {	
 		
+		List<RentalOrderPageDto> detailList = orderServcie.orderDetail(orderId);
+		RentalOrderPageDto address = orderServcie.getAddress(orderId);
 		
+		model.addAttribute("detailLists", detailList);
+		model.addAttribute("address",address);
+		System.out.println(detailList);
 		
-		RentalOrderPageDto ropd = orderServcie.getOrderDetail(orderId);
-		
-		if ( ropd == null ) {
-			return "redirect:rental";
-		}
-		
-		model.addAttribute("ropdList", ropd);
-		
-		return "rental/rentalDetail"; 
+		return "rental/rentalDetail";
     }
 	
 }
