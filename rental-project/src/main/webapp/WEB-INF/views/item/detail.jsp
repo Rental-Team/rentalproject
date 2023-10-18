@@ -150,7 +150,7 @@
 												<div class="row">
 													<div class="col-lg-12">
 														<div class="form-group">
-															<label class="form-control-label"for "input-itemStock">상품
+															<label class="form-control-label" for="input-itemStock">상품
 																수량</label> <input disabled="disabled" type="text"
 																id="input-itemStock" name="itemStock"
 																class="form-control form-control-alternative"
@@ -201,7 +201,7 @@
 														<div class="button_count">
 															<div class="row align-items-center">
 																<div class="col">
-																	<label class="form-control-label" for="input-cateName">대여수량</label>
+																	<label class="form-control-label" for="input-itemCount">대여수량</label>
 																</div>
 																<div class="col">
 																	<input type="text"
@@ -658,10 +658,12 @@
 			// 주문 수량 조절
 			let quantity = $(".quantity_input").val();
 	
-			$(".plus_btn").on("click", function() {
+			$(".plus_btn").on("click", function(event) {
+				event.preventDefault();
 				$(".quantity_input").val(++quantity);
 			});
-			$(".minus_btn").on("click", function() {
+			$(".minus_btn").on("click", function(event) {
+				event.preventDefault();
 				if (quantity > 1) {
 					$(".quantity_input").val(--quantity);
 				}

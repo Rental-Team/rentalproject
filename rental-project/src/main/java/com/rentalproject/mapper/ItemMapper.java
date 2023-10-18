@@ -16,12 +16,10 @@ import com.rentalproject.dto.ZzimDto;
 @Mapper
 public interface ItemMapper {
 
-	@Insert( "insert into Item ( itemDetail , itemCode, itemName, itemPrice, categoryName) "
-			+ "values ( #{ itemDetail }, #{ itemCode }, #{ itemName }, #{ itemPrice }, #{categoryName }) ")
+	@Insert( "insert into Item ( itemDetail , cateCode, itemName, itemPrice, itemStock ) "
+			+ "values ( #{ itemDetail }, #{ cateCode }, #{ itemName }, #{ itemPrice }, #{itemStock} ) ")
 	@Options(useGeneratedKeys = true, keyProperty = "itemNo")
 	public void insertItem(ItemDto item);
-
-
 
 	@Select("select itemNo, itemName, viewCount, itemDate, deleted " +
 			"from Item " +
@@ -47,7 +45,7 @@ public interface ItemMapper {
 		
 	
 	@Update("update Item "
-			+ "set itemName = #{ itemName }, itemDetail = #{ itemDetail } "
+			+ "set itemName = #{ itemName } or itemDetail = #{ itemDetail } or itemPrice = #{itemPrice} or itemStock = #{itemStock} "
 			+ "where itemNo = #{ itemNo } ")
 	void updateItem(ItemDto item);
 	
