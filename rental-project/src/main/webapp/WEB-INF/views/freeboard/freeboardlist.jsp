@@ -173,6 +173,23 @@
 		  } else {
 			  reportshowbtn.style.display = "none";
 		  }
+		  
+		  $(document).ready(function() {
+			    // 페이지 로딩 시 AJAX 요청
+			    $.ajax({
+			        url: "freeboarddetail", // 실제 엔드포인트로 대체
+			        method: "POST",
+			        success: function(data) {
+			            // 조회수 증가 후 조회수를 화면에 업데이트
+			            $("#input-freeBoardViewCount").val(data.updatedViewCount);
+
+			            // <td> 엘리먼트에도 조회수 업데이트
+			            $("#viewCountCell").text(data.updatedViewCount);
+			        },
+			        error: function() {
+			        }
+			    });
+			});
 </script>
   
   

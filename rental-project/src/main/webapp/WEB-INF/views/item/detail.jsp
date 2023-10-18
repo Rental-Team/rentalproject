@@ -565,32 +565,7 @@
 		      </div>
 		    </div>
 		  </div>
-		</div>
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-
+		</div> 
 	<!-- 주문 폼 -->
 	<form action="/order/${loginuser.memberNo}" method="get"
 		class="order_form">
@@ -658,14 +633,29 @@
 			// 주문 수량 조절
 			let quantity = $(".quantity_input").val();
 	
-			$(".plus_btn").on("click", function() {
+			/* $(".plus_btn").on("click", function() {
 				$(".quantity_input").val(++quantity);
 			});
 			$(".minus_btn").on("click", function() {
-				if (quantity > 1) {
+				if ( quantity > 1) {
 					$(".quantity_input").val(--quantity);
 				}
-			});
+			}); */ 
+			
+			$(".plus_btn").on("click", function() {
+				  let quantityInput = $(".quantity_input");
+				  let quantity = parseInt(quantityInput.val());  
+				  quantityInput.val(quantity + 1);  
+				});
+
+				$(".minus_btn").on("click", function() {
+				  let quantityInput = $(".quantity_input");
+				  let quantity = parseInt(quantityInput.val());  
+				  if (quantity > 1) {
+				    quantityInput.val(quantity - 1);  
+				  }
+				});
+
 
 			// 서버로 보낼 데이터
 			const form = {

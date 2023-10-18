@@ -16,8 +16,8 @@ import com.rentalproject.dto.ZzimDto;
 @Mapper
 public interface ItemMapper {
 
-	@Insert( "insert into Item ( itemDetail , itemCode, itemName, itemPrice, categoryName) "
-			+ "values ( #{ itemDetail }, #{ itemCode }, #{ itemName }, #{ itemPrice }, #{categoryName }) ")
+	@Insert( "insert into Item ( itemDetail , cateCode, itemName, itemPrice, itemStock) "
+			+ "values ( #{ itemDetail }, #{ cateCode }, #{ itemName }, #{ itemPrice },#{ itemStock }) ")
 	@Options(useGeneratedKeys = true, keyProperty = "itemNo")
 	public void insertItem(ItemDto item);
 
