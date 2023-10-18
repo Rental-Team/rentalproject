@@ -86,7 +86,7 @@
 														<fmt:formatNumber value="${rop.itemPrice * rop.itemCount}" pattern="#,### 원" />
 													</td> --%>
 												</tr>
-									</c:forEach> 
+											</c:forEach> 
 					                </tbody>  
 					              </table> 
 						              <div class="text-left mt-2 mb-2" style="padding-left: 20px;">
@@ -101,13 +101,13 @@
 					            </div>
 					          </div>
 					        </div> 
-								<div class="card-body" items="${detailLists}" var="rop">
+								<div class="card-body">
 					                <div class="pl-lg-12" style="margin : 0 auto;">
 					                  <div class="row">
 					                    <div class="col-lg-6" > 
 					                      <div class="form-group focused">
 					                        <label class="form-control-label"for="input-addressUser">수령인</label>
-					                        <input type="text" id="input-addressUser"  name="addressUser" class="form-control form-control-alternative" value="${ rop.addressUser }" readonly>
+					                       		<input type="text" id="input-addressUser"  name="addressUser" class="form-control form-control-alternative" value="${ address.addressUser }" readonly> 					              
 					                      </div>
 					                    </div> 
 					                  </div>  
@@ -131,7 +131,7 @@
 					                    <div class="col-lg-10" >
 					                      <div class="form-group focused">
 					                        <label class="form-control-label"for="input-email">주소</label>
-					                        <input type="text" name="address" id="input-address" class="form-control form-control-alternative" value="${ rop.address }" readonly>
+					                        <input type="text" name="address" id="input-address" class="form-control form-control-alternative" value="${ address.address }" readonly>
 					                      </div>
 					                    </div> 
 					                  </div> 

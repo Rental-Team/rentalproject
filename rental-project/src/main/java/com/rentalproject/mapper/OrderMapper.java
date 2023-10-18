@@ -73,32 +73,30 @@ public interface OrderMapper {
 	public int deleteZzim(ZzimDto zzim);
 	
 	// 주문 정보 가져오기(리스트) - 관리자에서 가져감.
-	@Select("select ro.orderId,(select od.orderItemNo from OrderDetail od where od.orderId = ro.orderId) orderItemNo, "
-			+ "ro.orderDate, ro.orderState "
+	@Select("select ro.orderId,(select MAX(od.orderItemNo) from OrderDetail od where od.orderId = ro.orderId) orderItemNo, "
+			+ "ro.orderDate, ro.orderState, ro.addressUser "
 			+ "from rentalOrder ro ")
 	List<RentalOrderPageDto> orderListInfo();
 	
-	// 주문 상세정보 가져오기
+//	// 주문 상세 정보 가져오기
+//	@Select("select ro.orderId,(select MAX(od.orderItemNo) from OrderDetail od where od.orderId = ro.orderId) orderItemNo, "
+//			+ "ro.orderDate, ro.orderState, ro.addressUser "
+//			+ "from rentalOrder ro "
+//			+ "where ro.orderId = #{orderId}")
+//	RentalOrderPageDto getOrderDetail(int orderId);
+	
+	
 	@Select("select distinct ro.orderId, (select i.itemName from Item i where i.itemNo = od.itemNo) itemName, "
-			+ "od.itemPrice, od.itemCount, ro.orderState "
+			+ "od.itemPrice, od.itemCount, ro.orderState, ro.addressUser, ro.address "
 			+ "from rentalOrder ro inner join OrderDetail od "
 			+ "where od.orderId = ro.orderId and ro.orderId = #{orderId} "
 			+ "order by orderId asc") 
 	List<RentalOrderPageDto> getOrderDetail(@Param("orderId") int orderId);
 	
-	
-	  @Select("select ro.orderId, (select i.itemName from Item i where i.itemNo = od.itemNo) itemName, "
-	  + "od.itemPrice, od.itemCount, ro.orderState " +
-	  "from rentalOrder ro inner join OrderDetail od ")  
-	  RentalOrderPageDto selectOrderDetailByOrderId(int orderId);
-	  
-	 
-	// 주문 상세 정보 가져오기
-//	@Select("select ro.orderId, od.itemName, od.itemPrice, od.itemCount, ro.orderState "
-//			+ "from rentalOrder ro left inner join OrderDetail od "
-//			+ "where orderId = #{orderId} ")
-//	OrderDetailDto getOrderDetail(int orderId);
-	
-	
+	@Select("select addressUser, address "
+			+ "from rentalOrder "
+			+ "where orderId = #{orderId} ")
+	RentalOrderPageDto getAddress(@Param("orderId") int orderId);
+
 
 }

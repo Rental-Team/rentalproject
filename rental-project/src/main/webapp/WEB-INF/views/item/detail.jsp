@@ -649,32 +649,7 @@
 
 	<script>
 		$(document).ready(function() {
-
-			$('#zzim_btn').click(function(e) {
-				e.preventDefault();
-
-				const itemNo = $('#itemNo').val();
-
-				$.ajax({
-					"url" : "ajax-zzim",
-					"method" : "get",
-					"data" : {
-						"itemNo" : itemNo
-					},
-					"success" : function(result) {
-						if (result == 1) {
-							alert("찜!");
-						} else {
-							alert("회원만 사용가능한 기능입니다.");
-							location.href = "/rental-project/account/login";
-						}
-					},
-					"error" : function() {
-						alert("이미 찜한 상품입니다!!");
-					}
-				});
-			});
-
+ 
 			let itemPrice = "${item.itemPrice}"
 			let point = itemPrice * 0.05;
 			point = Math.floor(point);

@@ -1,5 +1,7 @@
 package com.rentalproject.interceptor;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -10,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.rentalproject.dto.MemberDto;
 
 // interceptor 클래스는 HandlerInterceptor 인터페이스를 구현해야 합니다.
-public class AuthInterceptor implements HandlerInterceptor {
+public class FreeBoardInterceptor implements HandlerInterceptor {
 	
 	// controller 실행 전 호출
 	@Override
@@ -22,7 +24,15 @@ public class AuthInterceptor implements HandlerInterceptor {
 		MemberDto member = (MemberDto)session.getAttribute("loginuser");
 		// controller 호출 여부 결정 가능 ( 반환 값이 true : 호출, false : 호출 생략 )
 		if (member == null) { // 로그인 하지 않은 경우 
-			response.sendRedirect("/rental-project/account/login");
+			String currentUrl = request.getRequestURI();
+			if (currentUrl.contains("write-freeboard-review")) {
+				response.setContentType("text/plain;charset=utf-8");
+				PrintWriter out = response.getWriter();
+				out.print("unauthorized"); // unauthorized 창이 나오면
+			} else {
+				currentUrl = currentUrl.replace("/rental-project", "");
+				response.sendRedirect("/rental-project/account/login?returnUrl=" + currentUrl);
+			}
 			return false;
 		} else {
 		return true;

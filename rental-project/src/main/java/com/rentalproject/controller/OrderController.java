@@ -100,17 +100,15 @@ public class OrderController {
     }
 	
 	@GetMapping("/rental/rentalDetail")
-    public String OrderDetail(Model model,@RequestParam(defaultValue = "-1") int orderId) {
+    public String OrderDetail(@RequestParam(defaultValue = "-1") int orderId , Model model) {	
 		
 		List<RentalOrderPageDto> detailList = orderServcie.orderDetail(orderId);
-		RentalOrderPageDto rop = orderServcie.findOrderDetailByOrderId(orderId);
+		RentalOrderPageDto address = orderServcie.getAddress(orderId);
 		
-		model.addAttribute("detailLists", detailList); 
-		model.addAttribute("rop",rop);
-		
+		model.addAttribute("detailLists", detailList);
+		model.addAttribute("address",address);
 		System.out.println(detailList);
 		
-		return "rental/rentalDetail"; 
+		return "rental/rentalDetail";
     }
-	
 }

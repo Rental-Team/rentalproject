@@ -29,6 +29,14 @@ public interface ProfileMapper {
 	String getMemberIdByMyFreeBoardNo(@Param("freeBoardNo") int freeBoardNo);
 	////////////////////내가 쓴 자유 게시판 조회//////////////////////////////
 	
+//	@Select("select zz.thumbnail, zz.itemName, zz.itemPrice, zz.itemCount, zz.totalPrice 'zzim' boardType " +
+//			"from zzim zz inner join Member m on zz.memberNo = m.memberNo " +
+//			"where m.memberNo #{memberNo} " +
+//			"order by freeBoardNo desc limit 6")
+//	List<FreeBoardDto> selectMyFreeBoardByMemberNo(int memberNo);
+
+	
+	
 	// 프로필 수정
 	@Update("update Member " + 
 			"set userName = #{userName}, nickname = #{nickname}, phoneNo = #{phoneNo}, email = #{email}, " + 

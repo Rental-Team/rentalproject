@@ -22,11 +22,13 @@ public interface OrderServcie {
 	// 주문
 	void order(RentalOrderPageDto od);
 	
-	
 	// 주문 멤버 정보 불러오기
-	//RentalOrderDto rentalMemberInfo(int memberNo); 
+		//RentalOrderDto rentalMemberInfo(int memberNo); 
 
-	List<RentalOrderPageDto> orderDetail(int orderId);
-	
-	RentalOrderPageDto findOrderDetailByOrderId(int orderId);
+		List<RentalOrderPageDto> orderDetail(int orderId);
+		
+//		RentalOrderPageDto findOrderDetailByOrderId(int orderId);
+		
+		RentalOrderPageDto getAddress(int orderId);
+ 
 }

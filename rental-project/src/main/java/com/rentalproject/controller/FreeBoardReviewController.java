@@ -8,13 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.rentalproject.dto.FreeBoardDto;
 import com.rentalproject.dto.FreeBoardReviewDto;
 import com.rentalproject.service.FreeBoardReviewService;
 
@@ -31,6 +29,7 @@ public class FreeBoardReviewController {
 	public String ShowReviewList(int freeBoardNo, Model model) {
 		List<FreeBoardReviewDto> freeBoardReviews = freeBoardReviewService.getReviewListByFreeBoardNo(freeBoardNo);
 		model.addAttribute("freeBoardReviews", freeBoardReviews);
+		
 		
 		return "freeboard/review-list";
 	}
@@ -68,7 +67,7 @@ public class FreeBoardReviewController {
 		return "success";
 	} 
 	
-	@PostMapping(path = {"/write-rereply"})
+	@PostMapping(path = {"/write-rereply"}) // 자유게시글 대댓글
 	@ResponseBody
 	public String writeRereply(FreeBoardReviewDto freeBoardReview) {
 	    String replyContent = freeBoardReview.getReplyContent();

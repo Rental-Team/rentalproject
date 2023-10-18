@@ -169,10 +169,10 @@ public class FreeBoardController {
 			return "redirect:freeboardlist";
 		} 
 		
-		 String memberId = freeBoardService.getMemberId(freeboard.getFreeBoardNo());
+		 String memberId = freeBoardService.getMemberId(freeBoardNo);
 		 freeboard.setMemberId(memberId);
 		 
-		 String memberImage = freeBoardService.getMemberImage(freeboard.getFreeBoardNo());
+		 String memberImage = freeBoardService.getMemberImage(freeBoardNo);
 		 freeboard.setMemberImage(memberImage);
 		 
 		int count = freeBoardReportService.reportcount(freeBoardNo);

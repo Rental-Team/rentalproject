@@ -84,21 +84,22 @@ public class OrderServiceImpl implements OrderServcie {
 			}
 			
 
-		}
+		} 
+		  
 		
 		@Override
 		public List<RentalOrderPageDto> orderDetail(int orderId) {
 			
 			List<RentalOrderPageDto> orderList = orderMapper.getOrderDetail(orderId);
+			
 			return orderList;
-		} 
-		
-		
-		  @Override public RentalOrderPageDto findOrderDetailByOrderId(int orderId) {
-		  RentalOrderPageDto detail = orderMapper.selectOrderDetailByOrderId(orderId);
-		  return detail; }
-		 
+		}
 
+		@Override
+		public RentalOrderPageDto getAddress(int orderId) {
+			RentalOrderPageDto address = orderMapper.getAddress(orderId);
+			return address;
+		} 
 		
 
 
