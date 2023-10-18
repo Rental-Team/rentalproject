@@ -205,11 +205,11 @@ $("#loginForm").submit(function (event) {
 				location.href = '/rental-project' + response.redirectUrl;
 			} else if (response.check === 2) {
 				alert('로그인 실패: 아이디 또는 패스워드가 일치하는 정보가 없습니다')
-			}
+			} 
 			},
 			error: function () {
-				// 오류 처리
-				alert("서버 오류 발생");
+				// 그 외 오류(예외)
+				alert("아이디와 패스워드를 입력해주세요");
 				}
 			});
 		return false;

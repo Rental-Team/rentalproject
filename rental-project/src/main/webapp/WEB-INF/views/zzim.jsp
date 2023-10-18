@@ -188,7 +188,6 @@
   // 대여하기
   $(".rental_btn").on("click", function(){
 	
-	  
 	  // 폼 정보를 담을 변수
 	  let form_contents = "";
 	  // 대여 번호 초기화
