@@ -27,8 +27,7 @@
 <body class="">
 <jsp:include page="/WEB-INF/views/modules/navbar-vertical.jsp" />
   <div class="main-content">
-    <!-- Navbar -->
-	<jsp:include page="/WEB-INF/views/modules/navbar-top.jsp" />
+    <!-- Navbar --> 
     <!-- End Navbar -->
     <!-- Header -->
     <jsp:include page="/WEB-INF/views/modules/navbar-content.jsp" />

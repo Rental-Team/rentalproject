@@ -26,6 +26,7 @@ import com.rentalproject.dto.ItemDto;
 import com.rentalproject.dto.MemberDto;
 import com.rentalproject.dto.NoticeDto;
 import com.rentalproject.dto.OrderDto;
+import com.rentalproject.dto.RentalOrderPageDto;
 import com.rentalproject.service.AdminService;
 import com.rentalproject.service.OrderServcie;
 import com.rentalproject.ui.ThePager;
@@ -369,7 +370,7 @@ public class AdminController {
 	@GetMapping("/rental/rentalList")
 	public String showRentalList(Model model) {
 		
-	    List<OrderDto> orderList = orderServcie.orderList();
+	    List<RentalOrderPageDto> orderList = orderServcie.orderList();
 	    
 	    model.addAttribute("orderList", orderList);
 		

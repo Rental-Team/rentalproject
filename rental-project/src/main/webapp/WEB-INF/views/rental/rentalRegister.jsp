@@ -38,61 +38,69 @@
 						<div class="card-header border-0">
 							<div class="row align-items-center">
 								<div class="col-8">
-									<h3 style="font-weight: bold" class="mb-0">주문 페이지</h3>
+									<h3 style="font-weight: bold; margin-bottom: 20px;" class="mb-0">주문 페이지</h3>
 								</div>
-							</div>
+							</div> 
 						</div>
-						<div class="card-body">
-							<form action="rental" method="post">							
+						<form action="rental" method="post" class="orderForm">
 							<input type="hidden" name="memberNo" value="${loginuser.memberNo}"/>
+						<div class="card-body" style="margin-top: -30px;">   
+							
 							<div class="row mt-5">
-					        <div class="col">
-					          <div class="card bg-secondary shadow">
-					            <div class="card-header bg-transparent border-0">
-					              <h5 class="text-black mb-0">구매 목록</h5>
-					            </div>
-					            <div class="table-responsive">
-					              <table class="table align-items-center table-white table-flush">
-					                <thead class="thead-white">
-					                  <tr style="text-align:center;">
-										<th class="td_width_2">이미지</th>
-					                    <th class="td_width_3">상품명</th>
-					                    <th class="td_width_4">가격</th>
-					                    <th class="td_width_4">수량</th>
-					                    <th class="td_width_4">합계</th>
-					                  </tr>
-					                </thead>
-					                <tbody>
-					                  <c:forEach items="${orders}" var="order">
-												<tr style="text-align:center;">								
-													<td class="td_width_2">
-														<img src="${pageContext.request.contextPath}/resources/upload/thumbnail_${zzim.thumbnail}" alt="Image">							
-													</td>
-													<td class="td_width_3">${order.itemName}</td>
-													<td class="td_width_4 price_td">
-														<span class="red_color"><fmt:formatNumber value="${order.itemPrice}" pattern="#,### 원" /></span><br>
-													</td>
-													<td class="td_width_4 table_text_align_center"> ${order.itemCount} </td>
-													<td class="td_width_4 table_text_align_center">
-														<fmt:formatNumber value="${order.itemPrice * order.itemCount}" pattern="#,### 원" />
-													</td>
-												</tr>
-											</c:forEach>
-					                </tbody>
-					              </table>
-						              <div class="text-left mt-2 mb-2" style="padding-left: 20px;">
-									    <h5 class="text-black mb-0" style="display: flex; justify-content: space-between;">
-									        <span>총 주문 금액</span>
-									        <span class="red_color"  style="margin-right: 80px;">
-									            <fmt:formatNumber value="${totalOrderPrice}" pattern="#,### 원" />
-									        </span>
-									    </h5>
-									</div>    	
-					              </div>
-					            </div>
-					          </div>
-					        </div>
-								<div class="card-body">
+						        <div class="col">
+						          <div class="card bg-secondary shadow">
+						            <div class="card-header bg-transparent border-0">
+						              <h5 class="text-black mb-0">구매 목록</h5>
+						            </div>
+						            <div class="table-responsive">
+						        
+						              <table class="table align-items-center table-white table-flush">
+						                <thead class="thead-white">
+						                  <tr style="text-align:center;">
+											<th class="td_width_2" style="text-align: center;">이미지</th>
+											<th class="td_width_3" style="text-align: center;">상품명</th>
+											<th class="td_width_4" style="text-align: center;">가격</th>
+											<th class="td_width_4" style="text-align: center;">수량</th>
+											<th class="td_width_4" style="text-align: center;">합계</th>
+						                  </tr>
+						                </thead>
+						                <tbody>
+						                  <c:forEach items="${orderDetails}" var="orderDetail" varStatus="status">
+													<tr style="text-align:center;"> 
+														<input type="hidden" name="orderDetailList[${status.index}].itemNo" class="individual_itemPrice_input" value="${orderDetail.itemNo}">
+														<input type="hidden" name="orderDetailList[${status.index}].itemPrice" class="individual_itemPrice_input" value="${orderDetail.itemPrice}">
+														<input type="hidden" name="orderDetailList[${status.index}].itemCount" class="individual_itemCount_input" value="${orderDetail.itemCount}">	
+														<td class="td_width_2">
+															<img src="${pageContext.request.contextPath}/resources/upload/thumbnail_${zzim.thumbnail}" alt="Image">							
+														</td>
+														<td class="td_width_3">${orderDetail.itemName}
+														<td class="td_width_4 price_td">
+															<span class="red_color"><fmt:formatNumber value="${orderDetail.itemPrice}" pattern="#,### 원" /></span>
+														</td>
+														<td class="td_width_4 table_text_align_center"> ${orderDetail.itemCount} 
+														<td class="td_width_4 table_text_align_center">
+															<fmt:formatNumber value="${orderDetail.itemPrice * orderDetail.itemCount}" pattern="#,### 원" />
+														</td>
+													</tr>
+												</c:forEach>
+						                </tbody>
+						              </table>
+							              <div class="text-left mt-2 mb-2" style="padding-left: 20px;">
+										    <h5 class="text-black mb-0" style="display: flex; justify-content: space-between;">
+										        <span>총 주문 금액</span>
+										        <span class="red_color"  style="margin-right: 80px;">
+										            <fmt:formatNumber value="${totalOrderPrice}" pattern=" #,### 원" />
+										        
+										        </span>
+										    </h5>
+										</div>    	
+						              </div>
+						            </div>
+						        </div> <!-- end of col --> 
+					        </div>  <!-- end of row -->
+ 
+							<div class="row mt-5">
+								<div class="col">				
 					                <div class="pl-lg-12" style="margin : 0 auto;">
 					                  <div class="row">
 					                    <div class="col-lg-6" >
@@ -102,8 +110,10 @@
 					                      </div>
 					                    </div>
 				                        <div class="col-lg-6">
-					                      <div class="form-group">
-					                        <label class="form-control-label"  for="input-orderDate">아이디</label> <input disabled="disabled" type="text" id="input-memberId" class="form-control form-control-alternative"  value="${loginuser.memberId}"/>
+					                      <div class="form-group"> 
+					                        <label class="form-control-label"  for="input-orderDate">아이디</label> 
+					                        <input type="text" name="memberId" id="input-memberId" class="form-control form-control-alternative"  value="${loginuser.memberId}" readonly>   
+ 
 					                   	  </div>
 				                    	</div>
 					                  </div>
@@ -111,35 +121,40 @@
 					                    <div class="col-lg-6" >
 					                      <div class="form-group focused">
 					                        <label class="form-control-label"for="input-email">이메일</label>
-					                        <input disabled="disabled" type="text" id="input-email" class="form-control form-control-alternative" value="${ loginuser.email }">
-					                      </div>
-					                    </div>
-					                  </div>
-					                 			          
-					                 
-					                  <!-- 주소 -->
-						                <div class="form-group">
-						                  <div class="input-group input-group-alternative mb-3">
-						                    <!-- <div class="input-group-prepend">
-						                      <span class="input-group-text"></span>
-						                    </div> -->
-							                    <input type="text" id="address" name="address" class="form-control" placeholder="주소" value=""/>
-							                    <input type="button" id="address-search" value="주소 검색"><br>
-						                  </div>
-						                 
-						                  <input type="text" name="addressDetail" class="form-control" placeholder="상세 주소" value="" />
-						                </div>
-						               
-						               
+					                        <input type="text" name="email" id="input-email" class="form-control form-control-alternative" value="${ loginuser.email }" readonly>
+					                      </div> 
+					                    </div> 
+					                  </div>  
+					                  <div class="row">
+						                  <div class="col">
+						                  <!-- 주소 -->
+							                <div class="form-group">
+							                  <div class="input-group input-group-alternative mb-3">
+							                    <!-- <div class="input-group-prepend">
+							                      <span class="input-group-text"></span>
+							                    </div> -->
+								                    <input type="text" id="address" name="address" class="form-control" placeholder="주소" value="${ memberInfo.address }">
+	 
+								                    <input type="button" id="address-search" class="btn btn-success" value="주소 검색"><br> 
+							                  </div> 
+							                  <input type="text" name="addressDetail" class="form-control" placeholder="상세 주소" value="" >
+							                </div> 
+							              </div> <!--  end of inner col -->
+							            </div> 
 						                <div class="row">
-										   <button type="submit" class="order_btn">주문</button>
-										   <button type="button" class="cancel_btn">취소</button>
-										 </div>
+						                <div class="col">
+										   <button type="submit" class="btn btn-success" id="btnorder">주문</button> 
+										   <button type="button" class="btn btn-success" id="btnback">취소</button> 
+										</div>
+										 </div> 
+										</div> 
+					                </div> 
 					                </div>
-					              </div>
-							</form>
-						</div>
-					</div>
+					        </div> <!-- end of row -->
+				
+						</div> <!--  end of card-body -->
+						</form>
+					</div> <!--  end of card -->
 				</div>
 			</div>
 			<!-- Footer -->
@@ -195,10 +210,22 @@
 		            $("input[name=addressDetail]").focus();
 		        }
 		    }).open();
+	  }); 
+	  
+	  $('#btnback').on('click', function(event){
+		  alert('주문이 취소되었습니다.');
+		  location.href="zzim/${loginuser.memberNo}"; 
+	  }) 
+	  
+	  $('#btnorder').on('click', function(event){ 
+		 alert('주문이 완료되었습니다.');
+		 
 	  });
+	  
+	  
+	  }); 
 	 
 	 
-  });
   </script>
 </body>
 </html>
