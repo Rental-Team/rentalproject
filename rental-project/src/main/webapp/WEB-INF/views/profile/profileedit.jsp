@@ -66,7 +66,6 @@
                     <c:otherwise>
                     <img id="preview" src="${pageContext.request.contextPath}/resources/upload/${loginuser.memberImage}" alt="Image" class="rounded-circle">
                     <input type="file" id="imageInput" name="imageName" style="display: none;" accept="image/*" onchange="readURL(this);" />
-                    
                     </c:otherwise>
 					</c:choose>
 				</label>  

@@ -42,7 +42,7 @@
 		        </div>   
 		        	<a href="reported-List" class="btn btn-success" id="reportshowbtn" style="width: 8cm">신고된 글 조회 및 관리하기</a>
 		        <div class="col text-right">
-		            <a href="freeboardwrite" class="btn btn-success" style="margin: 0">게시글 작성</a>
+		            <a href="freeboardwrite" class="btn btn-success" style="margin: 0" id="freeboard-write">게시글 작성</a>
 		        </div>
 	    	</div>
 			</div>
@@ -156,6 +156,18 @@
   <!--   Argon JS   -->
   <script src="/rental-project/resources/js/argon-dashboard.min.js?v=1.1.2"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+  $(function(event) {
+		
+		$('#freeboard-write').on('click', function(event) { // 게시물 작성 클릭하면
+			const yn = confirm("로그인해야 작성할 수 있습니다. 로그인 하시겠습니까?"); // confirm: yes or no
+			if (yn) {
+				returnUrl = '/freeboard/freeboardwrite'
+				location.href = '/spring-demoweb/account/login?returnUrl=' + returnUrl; 
+			}
+		});
+  });
+  </script>
   <script>
     window.TrackJS &&
       TrackJS.install({

@@ -180,44 +180,43 @@
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script src="http://code.jquery.com/jquery-3.7.1.js"></script>
   <script>
-	 $("#loginForm").submit(function (event) {
-		 event.preventDefault();
-	    var memberId = document.getElementById("memberId").value;
-	    var password = document.getElementById("password").value;
+$("#loginForm").submit(function (event) {
+	event.preventDefault();
+	var memberId = document.getElementById("memberId").value;
+	var password = document.getElementById("password").value;
 
-	    var data = {
-	      memberId: memberId,
-	      password: password,
-	      returnUrl: '${returnUrl}'
-	    };
-
-	    $.ajax({
-	      type: "POST",
-	      url: "login",
-	      data: data,
-	      success: function (response) {
-	    	  console.log(response); // 응답을 콘솔에 출력
-	    	// 로그인 성공
-	    	if (response.check === 0) {
-	        	const yn = confirm('로그인 실패: 이미 탈퇴된 계정입니다. 새로 계정 생성하시겠습니까?')
+		var data = {
+			memberId: memberId,
+			password: password,
+			returnUrl: '${returnUrl}'
+		};
+		
+		$.ajax({
+			type: "POST",
+			url: "login",
+			data: data,
+			success: function (response) {
+			console.log(response); // 응답을 콘솔에 출력
+			
+			// 로그인 성공
+			if (response.check === 0) {
+				const yn = confirm('로그인 실패: 이미 탈퇴된 계정입니다. 새로 계정 생성하시겠습니까?')
 				if (yn){
 					location.href = '/rental-project/account/register';
 				}
-	        	
-	        } else if (response.check === 1) {
-	        	location.href = '/rental-project' + response.redirectUrl;
-	        } else if (response.check === 2) {
-	        	alert('로그인 실패: 아이디 또는 패스워드가 일치하는 정보가 없습니다')
-	        }
-	    	
-	      },
-	      error: function () {
-	        // 오류 처리
-	        alert("서버 오류 발생");
-	      }
-	    });
-	    return false;
-	  });
+			} else if (response.check === 1) {
+				location.href = '/rental-project' + response.redirectUrl;
+			} else if (response.check === 2) {
+				alert('로그인 실패: 아이디 또는 패스워드가 일치하는 정보가 없습니다')
+			}
+			},
+			error: function () {
+				// 오류 처리
+				alert("서버 오류 발생");
+				}
+			});
+		return false;
+		});
 
   </script>
   <script>

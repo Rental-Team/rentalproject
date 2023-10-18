@@ -46,8 +46,11 @@ public class ProfileServiceImpl implements ProfileService {
 	@Override // 프로필 수정
 	public void updateProfile(MemberDto member) {
 		
-	 	profileMapper.updateProfile(member);
-
+		if(member.getMemberImage() != null) {
+			profileMapper.updateProfileWithMemberImage(member);
+		} else {
+			profileMapper.updateProfileWithoutMemberImage(member);
+		}
 	}
 	
 	@Override // 회원 탈퇴
