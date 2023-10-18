@@ -2,6 +2,7 @@ package com.rentalproject.service;
 
 import java.util.List;
 
+import com.rentalproject.dto.PrivateQnaAttachDto;
 import com.rentalproject.dto.PrivateQnaDto;
 
 public interface PrivateQnaService {
@@ -34,13 +35,20 @@ public interface PrivateQnaService {
 
 	List<PrivateQnaDto> listBoardByMemberNo(int memberNo, int from, int count);
 
-	List<PrivateQnaDto> unAnswerlist();
+	List<PrivateQnaDto> unAnswerlist(int from , int Count);
+	int getUnanswerListCount();
+	
+	
 
 	List<PrivateQnaDto> searchByMemberId(String memberId); //memberId 검색조회 
 
 	/* PrivateQnaDto searchByQnaNo(int qnaNo); */
 	
 	List<PrivateQnaDto> searchByQnaNo(int qnaNo);
+
+	PrivateQnaAttachDto selectPrivateQnaAttachByAttachNo(int attachNo);
+
+	
 
 	
 

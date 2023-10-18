@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -59,7 +60,7 @@ public class AccountController {
 	public String checkIdDuplication(String memberId) {
 		
 		boolean valid = accountService.checkRegisterId(memberId);
-		return String.valueOf(valid);
+		return String.valueOf(valid); // true, false를 문자열로 반환
 	}
 	
 	// 회원가입 닉네임 중복검사
@@ -179,30 +180,31 @@ public class AccountController {
 	
 	
 	// 로그인 실행
-	@PostMapping(path= {"/login"})
-	public String login(MemberDto member, String returnUrl, HttpSession session, Model model) { //model: view(jsp)로 데이터를 보내주는 통로
-		
-		MemberDto loginMember = accountService.findLoginMember(member);
-		
-		 if (loginMember != null) { // 회원 가입된 유저라면
-	        if (loginMember.isDeleteCheck() != false) { // 삭제된 계정인지 확인
-	            model.addAttribute("deletedlogin", "x");
-	            return "account/login";
-	        }
-	        
-	        session.setAttribute("loginuser", loginMember);
-	        if(returnUrl.contains("/home")) {
-	        	return String.format("redirect:/home?memberId=%s", member.getMemberId());
-	        } else {
-	        	return "redirect:" + returnUrl;
-	        }
-	          
-	    } else {
-	        model.addAttribute("loginfail", "x");
-	        model.addAttribute("returnUrl", returnUrl);   /////// 10.16
-	        return "account/login";
-	    }
-	}
+	@PostMapping(path= "/login", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> login( MemberDto member, HttpSession session, String returnUrl) {
+        Map<String, Object> response = new HashMap<>();
+
+        MemberDto loginMember = accountService.findLoginMember(member);
+
+        if (loginMember != null) { // 회원 가입된 유저라면
+            if (loginMember.isDeleteCheck()) { // 삭제된 계정인지 확인
+            	response.put("check", 0);
+            } else {
+            	response.put("check", 1);
+            	session.setAttribute("loginuser", loginMember);
+                if(returnUrl.contains("/home")) {
+                	response.put("redirectUrl", "/home?memberId=" + loginMember.getMemberId());
+    	        } else {
+    	        	response.put("redirectUrl", returnUrl);
+    	        }
+            }
+        } else {
+            response.put("check", 2);
+        }
+        return response;
+    }
+
 	
 	// 로그아웃 실행
 	@GetMapping(path= {"/logout"})

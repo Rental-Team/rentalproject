@@ -106,7 +106,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
                     </div>
-                    <input name="memberId" class="form-control" placeholder="아이디" type="text">
+                    <input name="memberId" class="form-control" id="memberId" placeholder="아이디" type="text">
                   </div>
                 </div>
                 <div class="form-group">
@@ -114,7 +114,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                     </div>
-                    <input name="password" class="form-control" placeholder="비밀번호" type="password">
+                    <input name="password" class="form-control" id="password" placeholder="비밀번호" type="password">
                   </div>
                 </div>
                 <!-- <div class="custom-control custom-control-alternative custom-checkbox">
@@ -180,14 +180,45 @@
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script src="http://code.jquery.com/jquery-3.7.1.js"></script>
   <script>
-  <% if (request.getAttribute("loginfail") != null) {%>
-	alert("로그인 실패: 아이디 또는 패스워드가 일치하지 않습니다.");
-  <%} else if (request.getAttribute("deletedlogin") != null){%>
-		const yn = confirm('이미 탈퇴된 계정입니다. 새로 계정 생성하시겠습니까?')
-		if (yn){
-			location.href = '/rental-project/account/register';
-		}
-  <%}%>
+	 $("#loginForm").submit(function (event) {
+		 event.preventDefault();
+	    var memberId = document.getElementById("memberId").value;
+	    var password = document.getElementById("password").value;
+
+	    var data = {
+	      memberId: memberId,
+	      password: password,
+	      returnUrl: '${returnUrl}'
+	    };
+
+	    $.ajax({
+	      type: "POST",
+	      url: "login",
+	      data: data,
+	      success: function (response) {
+	    	  console.log(response); // 응답을 콘솔에 출력
+	    	// 로그인 성공
+	    	if (response.check === 0) {
+	        	const yn = confirm('로그인 실패: 이미 탈퇴된 계정입니다. 새로 계정 생성하시겠습니까?')
+				if (yn){
+					location.href = '/rental-project/account/register';
+				}
+	        	
+	        } else if (response.check === 1) {
+	        	location.href = '/rental-project' + response.redirectUrl;
+	        } else if (response.check === 2) {
+	        	alert('로그인 실패: 아이디 또는 패스워드가 일치하는 정보가 없습니다')
+	        }
+	    	
+	      },
+	      error: function () {
+	        // 오류 처리
+	        alert("서버 오류 발생");
+	      }
+	    });
+	    return false;
+	  });
+
   </script>
   <script>
   window.Kakao.init('1e893c5a78182f018f6b362c8fbbb59d');

@@ -43,8 +43,8 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public boolean checkRegisterId(String memberId) {
 		int count = accountMapper.checkId(memberId);
-		
-		return count == 0;
+		boolean isZero = (count == 0);
+		return isZero; // 0을 반환한다는게 아니라 count가 0인지 아닌지 true, false 를 반환하는 것
 	}
 	
 	// 닉네임 중복 검사
