@@ -76,7 +76,7 @@ public interface OrderMapper {
 	@Select("select ro.orderId,(select MAX(od.orderItemNo) from OrderDetail od where od.orderId = ro.orderId) orderItemNo, "
 			+ "ro.orderDate, ro.orderState, ro.addressUser "
 			+ "from rentalOrder ro ")
-	List<RentalOrderPageDto> orderListInfo();
+	List<RentalOrderPageDto> orderListInfo(); 
 	
 //	// 주문 상세 정보 가져오기
 //	@Select("select ro.orderId,(select MAX(od.orderItemNo) from OrderDetail od where od.orderId = ro.orderId) orderItemNo, "
@@ -96,7 +96,5 @@ public interface OrderMapper {
 	@Select("select addressUser, address "
 			+ "from rentalOrder "
 			+ "where orderId = #{orderId} ")
-	RentalOrderPageDto getAddress(@Param("orderId") int orderId);
-
-
+	RentalOrderPageDto getAddress(@Param("orderId") int orderId); 
 }

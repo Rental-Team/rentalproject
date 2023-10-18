@@ -84,8 +84,8 @@ public class OrderController {
 		// 주문 후 삭제
 		// orderServcie.deleteZzimAfterOrder(0);
 		
-		//System.out.println(ord);
-		return "redirect:rental/rentalok?orderId="+order.getOrderId();
+		//System.out.println(ord); 
+		return "redirect:rental/rentalok?orderId="+ order.getOrderId();
 	}
 	
 

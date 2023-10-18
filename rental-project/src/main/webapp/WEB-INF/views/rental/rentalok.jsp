@@ -118,7 +118,7 @@
 	  	}) 
 	  	
 	  $('#btndetail').on('click', function(event){ 
-		  location.href="/rental-project/rental/rentalDetail?orderId=${param.orderId}"; 
+		  location.href="/rental-project/rental/rentalDetail?orderId=${param.orderId}";  
 	  	})
 	  })
 		  

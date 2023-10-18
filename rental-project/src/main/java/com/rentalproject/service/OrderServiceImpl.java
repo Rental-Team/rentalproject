@@ -99,9 +99,7 @@ public class OrderServiceImpl implements OrderServcie {
 		public RentalOrderPageDto getAddress(int orderId) {
 			RentalOrderPageDto address = orderMapper.getAddress(orderId);
 			return address;
-		} 
-		
-
+		}  
 
 		
 	}
