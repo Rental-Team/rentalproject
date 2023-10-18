@@ -34,7 +34,7 @@
     <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
       <div class="container px-4">
         <a class="navbar-brand" href="/rental-project/home">
-          <img src="/rental-project/resources/img/brand/225.png" />
+          <img src="/rental-project/resources/img/brand/18.png" />
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse-main" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -67,8 +67,8 @@
        <div class="header-body text-center mb-7">
          <div class="row justify-content-center">
            <div class="col-lg-5 col-md-6">
-             <h1 class="text-white">Welcome!</h1>
-             <p class="text-lead text-light">Use these awesome forms to login or create new account in your project for free.</p>
+             <h1 class="text-white">환영합니다!</h1>
+             <p class="text-lead text-light">세숫대여의 방문해 주셔서 감사합니다.</p>
            </div>
          </div>
        </div>
@@ -106,7 +106,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
                     </div>
-                    <input name="memberId" class="form-control" placeholder="아이디" type="text">
+                    <input name="memberId" class="form-control" id="memberId" placeholder="아이디" type="text">
                   </div>
                 </div>
                 <div class="form-group">
@@ -114,7 +114,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                     </div>
-                    <input name="password" class="form-control" placeholder="비밀번호" type="password">
+                    <input name="password" class="form-control" id="password" placeholder="비밀번호" type="password">
                   </div>
                 </div>
                 <!-- <div class="custom-control custom-control-alternative custom-checkbox">
@@ -142,21 +142,18 @@
     <footer class="py-5">
       <div class="container">
         <div class="row align-items-center justify-content-xl-between">
-          <div class="col-xl-6">
+		<div class="col-xl-6">
             <div class="copyright text-center text-xl-left text-muted">
-              ⓒ 2018 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Rental Team</a>
+              &copy; 2023 <a href="https://addinedu.com/" class="font-weight-bold ml-1" target="_blank">애드인 에듀</a>
             </div>
           </div>
           <div class="col-xl-6">
             <ul class="nav nav-footer justify-content-center justify-content-xl-end">
               <li class="nav-item">
-                <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Rental Team</a>
+                <a href="https://github.com/Rental-Team/rentalproject" class="nav-link" target="_blank">프로젝트 1팀</a>
               </li>
               <li class="nav-item">
-                <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
-              </li>
-              <li class="nav-item">
-                <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
+                <a href="https://github.com/Rental-Team/rentalproject/blob/master/README.md" class="nav-link" target="_blank">ReadMe</a>
               </li>
               <li class="nav-item">
                 <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
@@ -180,14 +177,45 @@
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script src="http://code.jquery.com/jquery-3.7.1.js"></script>
   <script>
-  <% if (request.getAttribute("loginfail") != null) {%>
-	alert("로그인 실패: 아이디 또는 패스워드가 일치하지 않습니다.");
-  <%} else if (request.getAttribute("deletedlogin") != null){%>
-		const yn = confirm('이미 탈퇴된 계정입니다. 새로 계정 생성하시겠습니까?')
-		if (yn){
-			location.href = '/rental-project/account/register';
-		}
-  <%}%>
+	 $("#loginForm").submit(function (event) {
+		 event.preventDefault();
+	    var memberId = document.getElementById("memberId").value;
+	    var password = document.getElementById("password").value;
+
+	    var data = {
+	      memberId: memberId,
+	      password: password,
+	      returnUrl: '${returnUrl}'
+	    };
+
+	    $.ajax({
+	      type: "POST",
+	      url: "login",
+	      data: data,
+	      success: function (response) {
+	    	  console.log(response); // 응답을 콘솔에 출력
+	    	// 로그인 성공
+	    	if (response.check === 0) {
+	        	const yn = confirm('로그인 실패: 이미 탈퇴된 계정입니다. 새로 계정 생성하시겠습니까?')
+				if (yn){
+					location.href = '/rental-project/account/register';
+				}
+	        	
+	        } else if (response.check === 1) {
+	        	location.href = '/rental-project' + response.redirectUrl;
+	        } else if (response.check === 2) {
+	        	alert('로그인 실패: 아이디 또는 패스워드가 일치하는 정보가 없습니다')
+	        }
+	    	
+	      },
+	      error: function () {
+	        // 오류 처리
+	        alert("서버 오류 발생");
+	      }
+	    });
+	    return false;
+	  });
+
   </script>
   <script>
   window.Kakao.init('1e893c5a78182f018f6b362c8fbbb59d');

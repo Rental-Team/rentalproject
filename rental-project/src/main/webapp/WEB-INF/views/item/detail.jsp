@@ -22,42 +22,39 @@
 <html lang="en">
 
 <head>
-<meta charset="utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Argon Dashboard - Free Dashboard for Bootstrap 4 by
-	Creative Tim</title>
-<!-- Favicon -->
-<link href="/rental-project/resources/img/brand/favicon.png" rel="icon"
-	type="image/png">
-<!-- Fonts -->
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
-	rel="stylesheet">
-<!-- Icons -->
-<link href="/rental-project/resources/js/plugins/nucleo/css/nucleo.css"
-	rel="stylesheet" />
-<link
-	href="/rental-project/resources/js/plugins/@fortawesome/fontawesome-free/css/all.min.css"
-	rel="stylesheet" />
-<!-- CSS Files -->
-<link href="/rental-project/resources/css/argon-dashboard.css?v=1.1.2"
-	rel="stylesheet" />
-<style>
-.float-right {
-	float: right;
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>
+    Argon Dashboard - Free Dashboard for Bootstrap 4 by Creative Tim
+  </title>
+  <!-- Favicon -->
+  <link href="/rental-project/resources/img/brand/favicon.png" rel="icon" type="image/png">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <!-- Icons -->
+  <link href="/rental-project/resources/js/plugins/nucleo/css/nucleo.css" rel="stylesheet" />
+  <link href="/rental-project/resources/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link href="/rental-project/resources/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
+  <link href="/rental-project/resources/css/navbar-top.css" rel="stylesheet" />
+  <style>
+  .float-right {
+    float: right;
 }
 </style>
 </head>
 
 <body class="">
-	<jsp:include page="/WEB-INF/views/modules/navbar-vertical.jsp" />
+  
 	<div class="main-content">
 		<!-- Navbar -->
 		<jsp:include page="/WEB-INF/views/modules/navbar-top.jsp" />
+		<jsp:include page="/WEB-INF/views/modules/navbar-top2.jsp" />
+		<jsp:include page="/WEB-INF/views/modules/navbar-top3.jsp" />	
+		<jsp:include page="/WEB-INF/views/modules/navbar-top4.jsp" />
 		<!-- End Navbar -->
 		<!-- Header -->
-		<jsp:include page="/WEB-INF/views/modules/navbar-content.jsp" />
+		<jsp:include page="/WEB-INF/views/modules/navbar-content5.jsp" />
 	<div class="container-fluid mt--7">
 		<div class="row">
 			<div class="col-xl-12 mb-5 mb-xl-0">
@@ -69,6 +66,7 @@
 							</div>
 							<div class="col text-right">
 								<a href="list" class="btn btn btn-success">목록</a>
+
 							</div>
 						</div>
 					</div>
@@ -150,7 +148,7 @@
 												<div class="row">
 													<div class="col-lg-12">
 														<div class="form-group">
-															<label class="form-control-label"for "input-itemStock">상품
+															<label class="form-control-label" for="input-itemStock">상품
 																수량</label> <input disabled="disabled" type="text"
 																id="input-itemStock" name="itemStock"
 																class="form-control form-control-alternative"
@@ -201,7 +199,7 @@
 														<div class="button_count">
 															<div class="row align-items-center">
 																<div class="col">
-																	<label class="form-control-label" for="input-cateName">대여수량</label>
+																	<label class="form-control-label" for="input-itemCount">대여수량</label>
 																</div>
 																<div class="col">
 																	<input type="text"
@@ -564,8 +562,8 @@
 		        <button type="button" class="btn btn-primary" id="write-replyqna-btn" >문의답변쓰기</button>
 		      </div>
 		    </div>
-		  </div>
-		</div> 
+		  </div> 
+		</div>   
 	<!-- 주문 폼 -->
 	<form action="/order/${loginuser.memberNo}" method="get"
 		class="order_form">
@@ -575,31 +573,8 @@
 
 
 	<!-- Footer -->
-	<footer class="footer">
-		<div class="row align-items-center justify-content-xl-between">
-			<div class="col-xl-6">
-				<div class="copyright text-center text-xl-left text-muted">
-					&copy; 2018 <a href="https://www.creative-tim.com"
-						class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
-				</div>
-			</div>
-			<div class="col-xl-6">
-				<ul
-					class="nav nav-footer justify-content-center justify-content-xl-end">
-					<li class="nav-item"><a href="https://www.creative-tim.com"
-						class="nav-link" target="_blank">Creative Tim</a></li>
-					<li class="nav-item"><a
-						href="https://www.creative-tim.com/presentation" class="nav-link"
-						target="_blank">About Us</a></li>
-					<li class="nav-item"><a href="http://blog.creative-tim.com"
-						class="nav-link" target="_blank">Blog</a></li>
-					<li class="nav-item"><a
-						href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md"
-						class="nav-link" target="_blank">MIT License</a></li>
-				</ul>
-			</div>
-		</div>
-	</footer>
+    <jsp:include page="/WEB-INF/views/modules/footer.jsp" /> 
+
 
 	<!--   Core   -->
 	<script
@@ -623,7 +598,7 @@
 	</script>
 
 	<script>
-		$(document).ready(function() {
+		$(document).ready(function() { 
  
 			let itemPrice = "${item.itemPrice}"
 			let point = itemPrice * 0.05;
@@ -631,13 +606,19 @@
 			$(".point_span").text(point);
 	
 			// 주문 수량 조절
-			let quantity = $(".quantity_input").val();
-	
+			let quantity = $(".quantity_input").val(); 
 			/* $(".plus_btn").on("click", function() {
 				$(".quantity_input").val(++quantity);
 			});
 			$(".minus_btn").on("click", function() {
-				if ( quantity > 1) {
+				if ( quantity > 1) { 
+			$(".plus_btn").on("click", function(event) {
+				event.preventDefault();
+				$(".quantity_input").val(++quantity);
+			});
+			$(".minus_btn").on("click", function(event) {
+				event.preventDefault();
+				if (quantity > 1) { 
 					$(".quantity_input").val(--quantity);
 				}
 			}); */ 
@@ -674,6 +655,7 @@
 					data : form, // 서버로 보낼 데이터
 					success : function(result) {
 						zzimAlert(result);
+						location.href = 'list';
 					}
 				})
 	

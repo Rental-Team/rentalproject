@@ -1,0 +1,31 @@
+@charset "EUC-KR";
+
+.navbar-top .navbar-login {
+    margin-top: 18px;
+    margin-right: 30px;
+    float: right; font-size:20px;
+    }
+    
+ 
+
+  /* 링크들을 가운데 정렬 */
+  .navbar-top3 ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  /* 링크들 사이에 공간 추가 */
+  .navbar-top3 li {
+    margin: 0 30px; /* 원하는 간격으로 조절하세요 */
+  }
+
+  /* 링크 텍스트를 보이게 설정 */
+  .navbar-top3 a {
+    color: #000080; /* 원하는 색상으로 조절하세요 */  
+    text-decoration: none;
+  }
+  

@@ -16,12 +16,14 @@
     <link href="/rental-project/resources/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
     <!-- CSS Files -->
     <link href="/rental-project/resources/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
+      <link href="/rental-project/resources/css/navbar-top.css" rel="stylesheet" />
 </head>
 <body class="">
-<jsp:include page="/WEB-INF/views/modules/navbar-vertical.jsp" />
 <div class="main-content">
     <!-- Navbar -->
-    <jsp:include page="/WEB-INF/views/modules/navbar-top.jsp" />
+    <jsp:include page="/WEB-INF/views/admin/modules/navbar-top.jsp" />
+	<jsp:include page="/WEB-INF/views/admin/modules/navbar-top2.jsp" />
+	<jsp:include page="/WEB-INF/views/admin/modules/navbar-top3.jsp" />
     <!-- End Navbar -->
     <!-- Header -->
     <jsp:include page="/WEB-INF/views/modules/navbar-content.jsp" />
@@ -65,7 +67,7 @@
 			       
 <!--검색   -->
   <div id="qnaSearchSection" class="col-md-6">
-  <form action="searchByQnaNo" method="get" onsubmit="return validateSearch();">
+  <form action="/rental-project/privateboard/privateqnalist" method="get" onsubmit="return validateSearch();">
     <select id="searchType" name="searchType">
       <option value="qnaNo">문의번호</option>
     </select>

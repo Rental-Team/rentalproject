@@ -21,6 +21,7 @@
   <link href="/rental-project/resources/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="/rental-project/resources/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
+  <link href="/rental-project/resources/css/navbar-top.css" rel="stylesheet" />
   <style>
 	  .red_color {
 	    color: red; 
@@ -29,10 +30,11 @@
 </head>
 
 <body class="">
-<jsp:include page="/WEB-INF/views/modules/navbar-vertical.jsp" />
   <div class="main-content">
     <!-- Navbar -->
 	<jsp:include page="/WEB-INF/views/modules/navbar-top.jsp" />
+	<jsp:include page="/WEB-INF/views/modules/navbar-top2.jsp" />
+	<jsp:include page="/WEB-INF/views/modules/navbar-top3.jsp" />
     <!-- End Navbar -->
     <!-- Header -->
     <jsp:include page="/WEB-INF/views/modules/navbar-content.jsp" />
@@ -124,11 +126,13 @@
               </div>
             </div>
           </div>
+                    
+          
         </div>
+          <jsp:include page="/WEB-INF/views/modules/footer.jsp" /> 
       </div>
     
     
-  </div>
   <!--   Core   -->
   <script src="/rental-project/resources/js/plugins/jquery/dist/jquery.min.js"></script>
   <script src="/rental-project/resources/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

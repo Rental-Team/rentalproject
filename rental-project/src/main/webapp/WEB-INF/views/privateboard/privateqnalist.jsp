@@ -21,16 +21,18 @@
   <link href="/rental-project/resources/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="/rental-project/resources/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
+    <link href="/rental-project/resources/css/navbar-top.css" rel="stylesheet" />
 </head>
 
 <body class="">
-<jsp:include page="/WEB-INF/views/modules/navbar-vertical.jsp" />
   <div class="main-content">
     <!-- Navbar -->
 	<jsp:include page="/WEB-INF/views/modules/navbar-top.jsp" />
+	<jsp:include page="/WEB-INF/views/modules/navbar-top2.jsp" />
+	<jsp:include page="/WEB-INF/views/modules/navbar-top3.jsp" />
     <!-- End Navbar -->
     <!-- Header -->
-    <jsp:include page="/WEB-INF/views/modules/navbar-content.jsp" />
+    <jsp:include page="/WEB-INF/views/modules/navbar-content4.jsp" />
     <div class="container-fluid mt--7">
       <div class="row">
         <div class="col-xl-12 mb-5 mb-xl-0">
@@ -43,17 +45,17 @@
 				
 						
 <!--미답변 목록 조회 	 -->			
-		<div class="container mt-2">
-  <div class="row">
-    <div class="col-md-6 d-flex align-items-start">
-      <select id="viewOption" class="form-control form-control-sm" style="width: 150px;">
-        <option value="unanswered">미답변 목록 조회</option>
-        <option value="all">전체 목록 조회</option>
-      </select>
-      <button id="viewButton" class="btn btn-primary btn-sm ml-2" onclick="viewList()">목록 조회</button>
-    </div>
-  </div>
-</div>
+	<div class="container mt-2">
+	  <div class="row">
+	    <div class="col-md-6 d-flex align-items-start">
+	      <select id="viewOption" class="form-control form-control-sm" style="width: 150px;">
+	        <option value="unanswered">미답변 목록 조회</option>
+	        <option value="all">전체 목록 조회</option>
+	      </select>
+	      <button id="viewButton" class="btn btn-primary btn-sm ml-2" onclick="viewList()">목록 조회</button>
+	    </div>
+	  </div>
+		</div>
 <!--미답변 목록 조회   --> 
 			
 
@@ -70,7 +72,7 @@
 
 <!--검색   -->
   <div id="qnaSearchSection" class="col-md-6">
-  <form action="searchByQnaNo" method="get" onsubmit="return validateSearch();">
+ <form action="/rental-project/privateboard/privateqnalist" method="get" onsubmit="return validateSearch();">
     <select id="searchType" name="searchType">
       <option value="qnaNo">문의번호</option>
     </select>
@@ -146,31 +148,8 @@
  </div>
 
       <!-- Footer -->
-      <footer class="footer">
-        <div class="row align-items-center justify-content-xl-between">
-          <div class="col-xl-4">
-            <div class="copyright text-center text-xl-left text-muted">
-              &copy; 2018 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
-            </div>
-          </div>
-          <div class="col-xl-6">
-            <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-              <li class="nav-item">
-                <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
-              </li>
-              <li class="nav-item">
-                <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
-              </li>
-              <li class="nav-item">
-                <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
-              </li>
-              <li class="nav-item">
-                <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </footer>
+                 <jsp:include page="/WEB-INF/views/modules/footer.jsp" /> 
+
     </div>
     </div>
   <!--   Core   -->

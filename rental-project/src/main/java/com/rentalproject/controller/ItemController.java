@@ -11,6 +11,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.rentalproject.dto.ItemDto;
+import com.rentalproject.dto.ItemQnaDto;
+import com.rentalproject.dto.MemberDto;
+import com.rentalproject.dto.ZzimDto;
+import com.rentalproject.service.ItemQnaService;
+import com.rentalproject.service.ItemService;
+import com.rentalproject.service.ItemServiceImpl;
+import com.rentalproject.ui.ThePager;
+
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -31,8 +44,10 @@ public class ItemController {
 	
 	@Autowired
 	private ItemService itemService;
+
 	@Autowired
 	private ItemReviewService itemReviewService;
+
 	
 	@Autowired
 	private ItemQnaService itemQnaService;
@@ -98,6 +113,25 @@ public class ItemController {
 		return "redirect:list";
 	}
 
+	/*
+	 * @GetMapping("/detail") public String detail(@RequestParam(defaultValue =
+	 * "-1") int itemNo,
+	 * 
+	 * @RequestParam(defaultValue="-1") int pageNo, Model model) {
+	 * 
+	 * if (itemNo == -1 || pageNo == -1) { // 글 번호가 요청에 포함되지 않은 경우 return
+	 * "redirect:/admin/item/list"; }
+	 * 
+	 * ItemDto item = itemService.detail(itemNo);
+	 * 
+	 * if (item == null) { // 조회된 상품이 없는 경우 return "redirect:/item/list"; }
+	 * 
+	 * model.addAttribute("item", item); model.addAttribute("pageNo", pageNo);
+	 * 
+	 * return "item/detail"; }
+	 */
+	
+	
 	@GetMapping("/detail")
 	public String detail(@RequestParam(defaultValue = "-1") int itemNo, 
 			 			@RequestParam(defaultValue="-1") int pageNo, 
@@ -113,6 +147,7 @@ public class ItemController {
 			return "redirect:/item/list";
 		}
 		
+
 		List<ItemReviewDto> itemReviews = itemReviewService.getReviewListByItemNo(itemNo);
 		
 		List<ItemQnaDto> itemQna = itemQnaService.listItemQna(itemNo);
@@ -121,6 +156,7 @@ public class ItemController {
 		
 		model.addAttribute("itemQnas",itemQna);
 		model.addAttribute("itemReviews", itemReviews);
+
 		model.addAttribute("item", item);
 		model.addAttribute("pageNo", pageNo);
 		
@@ -128,6 +164,9 @@ public class ItemController {
 		
 		return "item/detail";
 	}
+	
+	
+	
 
 	
 	@GetMapping("/edit")
