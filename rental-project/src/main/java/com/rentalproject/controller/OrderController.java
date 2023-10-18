@@ -33,6 +33,13 @@ public class OrderController {
 	@Autowired
 	private OrderServcie orderServcie; 
 	
+	@GetMapping("/directRental")
+	public String directRentalForm() {
+		
+		//OrderDetailDto od = orderServcie.rentalItemInfo(0);
+		
+		return "rental/rentalRegister";
+	}
 	
 
 	@GetMapping("/rental")
