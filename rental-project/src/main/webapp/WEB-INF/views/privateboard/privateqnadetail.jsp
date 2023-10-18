@@ -88,6 +88,15 @@
 		                        <input disabled="disabled" type="text" id="input-qnaId" name="qnaId" class="form-control form-control-alternative"  value="${ privateqna.memberId }"/>     		
                    </div>
                     </div>
+                  <tr>
+				<th>첨부파일</th>
+	          	<td>
+	           <c:forEach var="attach" items="${ privateqna.privateQnaAttachList }">
+		        <a href="download?attachNo=${attach.attachNo }">${attach.attachFileName }</a>
+		        <img src="${pageContext.request.contextPath}/resources/upload/${attach.savedFileName}" alt="Image" height="100px" width="100px">
+				</c:forEach>
+	          	</td>
+	          </tr>
                     </div>
                         
               
@@ -102,6 +111,7 @@
                  </div>
                 </form>
                 	<div class="col text-center" >
+
 		   <input type="button" id="getBack" class="btn btn-sm btn-primary" value="목록으로 돌아가기" onclick="goToPage(${pageNo})">
 		   <input type="button" id="getBack-unanswer" class="btn btn-primary btn-sm" value="미답변 목록으로 돌아가기" onclick="gotoPageUnanswer()">
                 </div>
@@ -137,25 +147,34 @@
 					<table id = "answer-list" style="text-align:center" class="table align-items-center table-flush">
            				<thead class="thead-light">
 			             <tr style="text-align:center">
-			               <th scope="col" style="width:800px; border-right: 1px solid #C0C0C0; border-left: 1px solid #C0C0C0;">답변내용</th>
-			               <th scope="col" style="width:100px; border-right: 1px solid #C0C0C0; border-left: 1px solid #C0C0C0;">답변작성일자</th>
+			               <th scope="col" style="width:1000px;">답변내용</th>
+			               <th scope="col" ></th>
 			             </tr>
 			           </thead>
 			           <tbody>
-			            <c:forEach var="privateQnaAnswer" items="${ privateqna.privateQnaAnswerList }">
-			             <tr style="text-align:center">
-			                <td scope="col" style="width:100px"> ${ privateQnaAnswer.answerContent } </td>
-			                <td scope="col" style="width:200px"> ${ sessionScope.loginuser.memberId }
-					                							 <input type="hidden" name="memberNo" value="${ loginuser.memberId }"> 
-					                							 <!-- 오류 : 다시확인 로그인한 유저로 걍 다 바뀜 -->
-			               <%--  <td scope="col" style="width:100px">${ freeBoardReview.replyContent} </td>
-			                <td scope="col" style="width:150px"><fmt:formatDate value="${ freeBoardReview.replyCreateDate }" pattern="yyyy-MM-dd hh:mm"/></td> --%>
-			             	<!-- <td> -->
-			             <!-- 	<input type="button" class ="btn btn-sm btn-primary" id="btnedit" value="댓글수정" >
-				        	<input type="button" class ="btn btn-sm btn-primary" id="btndelete" value="댓글삭제" > -->
-			             	<!-- </td> -->
-			             </tr>
-			            </c:forEach>
+			           <c:forEach var="privateAnswer"
+					items="${ privateqna.privateQnaAnswerList }">
+					<tr style="text-align: center"
+						id="answer-view-area-${ privateAnswer.qnaNo }">
+						<td scope="col" style="width: 100px">${ privateAnswer.answerContent }</td>
+						<%-- <td scope="col" style="width:200px">${ sessionScope.loginuser.memberId }</td> --%>
+						<td><c:if test="${requestScope.memberNo == 17}">
+								<a class="btn btn-sm btn-primary edit-answer-link"
+									data-reply-no="${privateAnswer.qnaNo}"
+									href="javascript:void(0)" style="color: white">답변수정</a>
+							</c:if></td>
+					</tr>
+					<div id="answer-edit-area-${privateAnswer.qnaNo}"
+						style="display: none">
+						<!--답변 수정 -->
+						<form action="edit-answer" method="post"
+							style="width: 105%; resize: none;">
+							<input type="hidden" name="qnaNo" value="${privateAnswer.qnaNo}">
+							<textarea name="answerContent" style="width: 100%; resize: none;">${privateAnswer.answerContent}</textarea>
+							 <input type="submit" value="저장" onclick="goToPage(${pageNo})">
+						</form>
+					</div>
+				</c:forEach>
 			           </tbody>
 			         </table>	
 			         </div>	
