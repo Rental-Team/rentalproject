@@ -8,11 +8,11 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.rentalproject.interceptor.AdminInterceptor;
-import com.rentalproject.interceptor.AuthInterceptor;
+import com.rentalproject.interceptor.FreeBoardInterceptor;
+import com.rentalproject.interceptor.ItemInterceptor;
 import com.rentalproject.interceptor.ZzimInterceptor;
 
 @Configuration
@@ -31,6 +31,16 @@ public class WebConfiguration implements WebMvcConfigurer {
         registry.addInterceptor(new ZzimInterceptor())
         		.addPathPatterns("/zzim/**") // 적용할 URL 패턴을 설정합니다.
         		.excludePathPatterns("/zzim/add");
+        
+        // 자유 게시판 인터셉터
+        registry.addInterceptor(new FreeBoardInterceptor())
+        		.addPathPatterns("/freeboard/**")
+        		.excludePathPatterns("/freeboard/freeboardlist", "/freeboard/freeboarddetail", "/freeboard/download");
+        
+        // 아이템 인터셉터
+        registry.addInterceptor(new ItemInterceptor())
+				.addPathPatterns("/item/**")
+				.excludePathPatterns("/item/list", "/item/search", "/item/detail");
     }
 	
 	

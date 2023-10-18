@@ -4,18 +4,20 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -58,6 +60,15 @@ public class AccountController {
 	public String checkIdDuplication(String memberId) {
 		
 		boolean valid = accountService.checkRegisterId(memberId);
+		return String.valueOf(valid); // true, false를 문자열로 반환
+	}
+	
+	// 회원가입 닉네임 중복검사
+	@GetMapping("/check-nickname")
+	@ResponseBody
+	public String checkNicknameDuplication(String nickname) {
+		
+		boolean valid = accountService.checkRegisterNickname(nickname);
 		return String.valueOf(valid);
 	}
 	
@@ -72,12 +83,11 @@ public class AccountController {
 		return accountService.emailContent(email);
 	}
 	
-	
 	// 회원가입 등록
 	@PostMapping(path= {"register"})
 	public String register(@RequestParam("email1") String email1, @RequestParam("email2") String email2, 
-						   @ModelAttribute("member") MemberDto member, HttpSession session, HttpServletRequest req, 
-						   @RequestParam("imageName") MultipartFile memberImage) {
+						   @ModelAttribute("member") @Valid MemberDto member, HttpSession session, HttpServletRequest req, 
+						   @RequestParam("imageName") MultipartFile memberImage, BindingResult result) {
 		
 		// register.jsp의 email1 과 email2를 email 완전체로 합친다
 		String combinedEmail = email1 + "@" + email2;
@@ -116,12 +126,15 @@ public class AccountController {
 	}
 	
     
-	// 카카오 로그인 실행
+	// 로그인 창
 	@GetMapping(path= {"/login"})
-	public String loginForm(@ModelAttribute("member") MemberDto member,
+	public String loginForm(@RequestParam(defaultValue = "/home")String returnUrl, 
+							@ModelAttribute("member") MemberDto member,
 							@RequestParam(name = "code", required = false) String code,
 							Model model, HttpSession session) throws IOException {
-	
+		
+		
+		// 카카오 로그인
         if (code != null) { // 코드가 있다면
         	System.out.println("성공: " + code);
         	String access_token = ks.getToken(code); 
@@ -141,6 +154,7 @@ public class AccountController {
                 member.setNickname(nickname);
                 member.setPhoneNo("");
                 member.setEmail(email);
+                member.setAddressCode("");
                 member.setAddress("");
                 member.setKakao(1);
 
@@ -160,30 +174,37 @@ public class AccountController {
             return String.format("redirect:/home?memberId=%s", member.getMemberId());
         }
 
-	        return "account/login";
+        model.addAttribute("returnUrl", returnUrl.replace("!", "&")); // 로그인 시 !가 있다면 &으로 바꿔준다
+	    return "account/login";
 	}
 	
 	
 	// 로그인 실행
-	@PostMapping(path= {"/login"})
-	public String login(MemberDto member, HttpSession session, Model model) { //model: view(jsp)로 데이터를 보내주는 통로
-		
-		MemberDto loginMember = accountService.findLoginMember(member);
-		
-		 if (loginMember != null) { // 회원 가입된 유저라면
-	        if (loginMember.isDeleteCheck() != false) { // 삭제된 계정인지 확인
-	            model.addAttribute("message", "이미 탈퇴한 계정입니다.");
-	            return "account/login";
-	        }
-	        
-	        session.setAttribute("loginuser", loginMember);
-	        return String.format("redirect:/home?memberId=%s", member.getMemberId());
-	        
-	    } else {
-	        model.addAttribute("loginfail", "x");
-	        return "account/login";
-	    }
-	}
+	@PostMapping(path= "/login", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> login( MemberDto member, HttpSession session, String returnUrl) {
+        Map<String, Object> response = new HashMap<>();
+
+        MemberDto loginMember = accountService.findLoginMember(member);
+
+        if (loginMember != null) { // 회원 가입된 유저라면
+            if (loginMember.isDeleteCheck()) { // 삭제된 계정인지 확인
+            	response.put("check", 0);
+            } else {
+            	response.put("check", 1);
+            	session.setAttribute("loginuser", loginMember);
+                if(returnUrl.contains("/home")) {
+                	response.put("redirectUrl", "/home?memberId=" + loginMember.getMemberId());
+    	        } else {
+    	        	response.put("redirectUrl", returnUrl);
+    	        }
+            }
+        } else {
+            response.put("check", 2);
+        }
+        return response;
+    }
+
 	
 	// 로그아웃 실행
 	@GetMapping(path= {"/logout"})
@@ -234,25 +255,12 @@ public class AccountController {
 	        response.put("check", 0);
 	        accountService.emailContentForTemporaryPw(email); // 이메일로 임시 비밀번호 전송
 	        String newPassword = accountService.emailContentForTemporaryPw(email); // 임시 비밀번호 newPassword에 저장
-	        String hashedPasswd = Util.getHashedString(newPassword,"SHA-256"); // 해쉬코드로 변경
-	        accountService.updateLoginPw(memberId, hashedPasswd); // 해당 아이디에 패스워드를 변경
+//	        String hashedPasswd = Util.getHashedString(newPassword,"SHA-256"); // 해쉬코드로 변경
+	        accountService.updateLoginPw(memberId, newPassword); // 해당 아이디에 패스워드를 변경
 	    } else {
 	        response.put("check", 1);
 	    }
 	    return response;
-	}
-	
-	// 임시 비밀번호 난수
-	public String generateTemporaryPassword() {
-	    String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-	    StringBuilder randomString = new StringBuilder();
-
-	    Random random = new Random();
-	    for (int i = 0; i < 8; i++) {
-	        int index = random.nextInt(characters.length());
-	        randomString.append(characters.charAt(index));
-	    }
-	    return randomString.toString();
 	}
 	
 	@PostMapping(path= {"editpw"})

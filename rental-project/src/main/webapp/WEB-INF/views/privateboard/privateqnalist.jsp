@@ -45,17 +45,17 @@
 				
 						
 <!--미답변 목록 조회 	 -->			
-		<div class="container mt-2">
-  <div class="row">
-    <div class="col-md-6 d-flex align-items-start">
-      <select id="viewOption" class="form-control form-control-sm" style="width: 150px;">
-        <option value="unanswered">미답변 목록 조회</option>
-        <option value="all">전체 목록 조회</option>
-      </select>
-      <button id="viewButton" class="btn btn-primary btn-sm ml-2" onclick="viewList()">목록 조회</button>
-    </div>
-  </div>
-</div>
+	<div class="container mt-2">
+	  <div class="row">
+	    <div class="col-md-6 d-flex align-items-start">
+	      <select id="viewOption" class="form-control form-control-sm" style="width: 150px;">
+	        <option value="unanswered">미답변 목록 조회</option>
+	        <option value="all">전체 목록 조회</option>
+	      </select>
+	      <button id="viewButton" class="btn btn-primary btn-sm ml-2" onclick="viewList()">목록 조회</button>
+	    </div>
+	  </div>
+		</div>
 <!--미답변 목록 조회   --> 
 			
 
@@ -72,7 +72,7 @@
 
 <!--검색   -->
   <div id="qnaSearchSection" class="col-md-6">
-  <form action="searchByQnaNo" method="get" onsubmit="return validateSearch();">
+ <form action="/rental-project/privateboard/privateqnalist" method="get" onsubmit="return validateSearch();">
     <select id="searchType" name="searchType">
       <option value="qnaNo">문의번호</option>
     </select>

@@ -14,15 +14,15 @@ import com.rentalproject.dto.FreeBoardReviewDto;
 @Mapper
 public interface FreeBoardReviewMapper {
 	
-	@Insert("insert into FreeBoardReview (freeBoardNo, replyWriter, replyContent, replyParents, replySequence, replyDepth) "
-			+ "values (#{freeBoardNo}, #{ replyWriter }, #{replyContent}, 0, 1, 0)")
+	@Insert("insert into FreeBoardReview (freeBoardNo, replyWriter, replyWriterImage, replyContent, replyParents, replySequence, replyDepth) "
+			+ "values (#{freeBoardNo}, #{ replyWriter }, #{ replyWriterImage }, #{replyContent}, 0, 1, 0)")
 	// 먼저 insert 하고, select 하게 하는 구문 : 자동증가된 컬럼(freeBoardReplyNo)의 값을 DTO 에 넣기
 	@Options(useGeneratedKeys = true, keyProperty = "freeBoardReplyNo", keyColumn = "freeBoardReplyNo")
 	
 	void insertFreeBoardReview(FreeBoardReviewDto freeBoardReview);
 	
 	// 댓글리스트 조회
-	@Select("select freeBoardReplyNo, freeBoardNo, replyWriter, replyContent, replyCreateDate, replyDelete, replyParents, replySequence, replyDepth "
+	@Select("select freeBoardReplyNo, freeBoardNo, replyWriter, replyWriterImage, replyContent, replyCreateDate, replyDelete, replyParents, replySequence, replyDepth "
 			+ "from FreeBoardReview "
 			+ "where freeBoardNo = #{freeBoardNo} "
 			+ "order by replyParents desc, replySequence asc")
@@ -46,7 +46,7 @@ public interface FreeBoardReviewMapper {
 			+ "where freeBoardReplyNo = #{ freeBoardReplyNo }")
 	void editFreeBoardReview(FreeBoardReviewDto freeBoardReview);
 	
-	@Select("select freeBoardReplyNo, freeBoardNo, replyWriter, replyContent, replyCreateDate, replyDelete, replyParents, replySequence, replyDepth "
+	@Select("select freeBoardReplyNo, freeBoardNo, replyWriter, replyWriterImage, replyContent, replyCreateDate, replyDelete, replyParents, replySequence, replyDepth "
 	        + "from FreeBoardReview "
 	        + "where freeBoardReplyNo = #{freeBoardReplyNo} and replyDelete = false")
 	FreeBoardReviewDto selectFreeBoardReviewByFreeBoardNo(@Param("freeBoardReplyNo") int freeBoardReplyNo);
@@ -56,8 +56,8 @@ public interface FreeBoardReviewMapper {
 	        + "where replyParents = #{ replyParents } and replySequence >= #{ replyParents} ")
 	void updateReplySequence(FreeBoardReviewDto freeBoardReview);
 
-	@Insert("insert into FreeBoardReview (freeBoardNo, replyWriter, replyContent, replyParents, replySequence, replyDepth) "
-	        + "values (#{freeBoardNo}, #{replyWriter}, #{replyContent}, #{replyParents}, #{replySequence}, #{replyDepth})")
+	@Insert("insert into FreeBoardReview (freeBoardNo, replyWriter, replyWriterImage, replyContent, replyParents, replySequence, replyDepth) "
+	        + "values (#{freeBoardNo}, #{replyWriter}, #{replyWriterImage}, #{replyContent}, #{replyParents}, #{replySequence}, #{replyDepth})")
 	void insertRereply(FreeBoardReviewDto freeBoardReview);
 
 }

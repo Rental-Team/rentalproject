@@ -42,11 +42,19 @@ public class AccountServiceImpl implements AccountService {
 	// 아이디 중복 검사
 	@Override
 	public boolean checkRegisterId(String memberId) {
-		
 		int count = accountMapper.checkId(memberId);
+		boolean isZero = (count == 0);
+		return isZero; // 0을 반환한다는게 아니라 count가 0인지 아닌지 true, false 를 반환하는 것
+	}
+	
+	// 닉네임 중복 검사
+	@Override
+	public boolean checkRegisterNickname(String nickname) {
+		int count = accountMapper.checkNickname(nickname);
 		
 		return count == 0;
 	}
+	
 	
 	// 인증번호 난수 발생
 	public void makeRandomNumber() {
@@ -146,6 +154,7 @@ public class AccountServiceImpl implements AccountService {
     }
     tempPassword = randomString.toString();
     System.out.println("임시 비밀번호: " + tempPassword);
+    
 }
 
 	// 비밀번호 찾을 시 이메일 임시 비밀번호 
@@ -160,7 +169,9 @@ public class AccountServiceImpl implements AccountService {
 			    "<br>" + 
 			    "해당 비밀번호로 다시 로그인해주세요.";
 		emailSend(setFrom, toMail, title, content);
-		return tempPassword;
+		String hashedPassword = Util.getHashedString(tempPassword, "SHA-256");
+		return hashedPassword;
+		
 	}
 	
 	@Override // 자체 비밀번호 수정

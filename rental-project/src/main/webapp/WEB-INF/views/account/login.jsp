@@ -99,13 +99,14 @@
               </div>
             </div>
             <div class="card-body px-lg-5 py-lg-5">            
-              <form action="login" method="post">
+              <form action="login" method="post" id="loginForm">
+              <input type="hidden" name="returnUrl" value="${ returnUrl }">  <!--  10.16 -->
                 <div class="form-group mb-3">
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
                     </div>
-                    <input name="memberId" class="form-control" placeholder="아이디" type="text">
+                    <input name="memberId" class="form-control" id="memberId" placeholder="아이디" type="text">
                   </div>
                 </div>
                 <div class="form-group">
@@ -113,7 +114,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                     </div>
-                    <input name="password" class="form-control" placeholder="비밀번호" type="password">
+                    <input name="password" class="form-control" id="password" placeholder="비밀번호" type="password">
                   </div>
                 </div>
                 <!-- <div class="custom-control custom-control-alternative custom-checkbox">
@@ -123,7 +124,7 @@
                   </label>
                 </div> -->
                 <p class="text-center">
-                  <input type="submit" class="btn btn-primary my-4" value="로그인" />
+                  <input id="login" type="submit" class="btn btn-primary my-4" value="로그인" />
                 </p>
                 <a href="/rental-project/account/findid">아이디 찾기</a><span> / </span>
                 <a href="/rental-project/account/findpw">비밀번호 찾기</a>
@@ -165,6 +166,7 @@
   </div>
   <!--   Core   -->
   <script src="/rental-project/resources/js/plugins/jquery/dist/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="/rental-project/resources/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <!--   Optional JS   -->
   <!--   Argon JS   -->
@@ -175,34 +177,49 @@
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script src="http://code.jquery.com/jquery-3.7.1.js"></script>
   <script>
+	 $("#loginForm").submit(function (event) {
+		 event.preventDefault();
+	    var memberId = document.getElementById("memberId").value;
+	    var password = document.getElementById("password").value;
+
+	    var data = {
+	      memberId: memberId,
+	      password: password,
+	      returnUrl: '${returnUrl}'
+	    };
+
+	    $.ajax({
+	      type: "POST",
+	      url: "login",
+	      data: data,
+	      success: function (response) {
+	    	  console.log(response); // 응답을 콘솔에 출력
+	    	// 로그인 성공
+	    	if (response.check === 0) {
+	        	const yn = confirm('로그인 실패: 이미 탈퇴된 계정입니다. 새로 계정 생성하시겠습니까?')
+				if (yn){
+					location.href = '/rental-project/account/register';
+				}
+	        	
+	        } else if (response.check === 1) {
+	        	location.href = '/rental-project' + response.redirectUrl;
+	        } else if (response.check === 2) {
+	        	alert('로그인 실패: 아이디 또는 패스워드가 일치하는 정보가 없습니다')
+	        }
+	    	
+	      },
+	      error: function () {
+	        // 오류 처리
+	        alert("서버 오류 발생");
+	      }
+	    });
+	    return false;
+	  });
+
+  </script>
+  <script>
   window.Kakao.init('1e893c5a78182f018f6b362c8fbbb59d');
 
-  /* $("#kakao-login-btn").on("click", function(){
-	    //1. 로그인 시도
-	    Kakao.Auth.login({
-	        success: function(authObj) {
-	         
-	          //2. 로그인 성공시, API 호출
-	          Kakao.API.request({
-	            url: '/v2/user/me',
-	            success: function(res) {
-	              console.log(res);
-	              var id = res.id;
-				  scope : 'account_email', 'account_nickname';
-				alert('로그인성공');
-	              location.href= "http://localhost:8080/rental-project/home";
-	              
-	        }
-	          })
-	          console.log(authObj);
-	          var token = authObj.access_token;
-	        },
-	        fail: function(err) {
-	          alert(JSON.stringify(err));
-	        }
-	      });
-	        
-	}) */
   function loginWithKakao() {
     window.Kakao.Auth.authorize({
       redirectUri: 'http://localhost:8080/rental-project/account/login',

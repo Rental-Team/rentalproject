@@ -24,11 +24,12 @@ public interface PrivateQnaAnswerMapper {
 										)
 	List<PrivateQnaAnswerDto> selectPrivateQnaAnserbyQnaNo(@Param("qnaNo") int qnaNo);
 	
+	//답변 수정//
 	@Update( "update PrivateA "
 			+ "set answerContent = #{ answerContent } "
 			+ "where QnaNo= #{ qnaNo } "
 										)
-		void updateAnswer(PrivateQnaAnswerDto privateQnaAnswer);
+	void updateAnswer(PrivateQnaAnswerDto privateQnaAnswer);
 
 	
 

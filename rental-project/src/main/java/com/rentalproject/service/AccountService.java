@@ -8,6 +8,8 @@ public interface AccountService {
 	
 	boolean checkRegisterId(String memberId);
 	
+	boolean checkRegisterNickname(String nickname);
+	
 	String emailContent(String email);
 	
 //	void insertKakao(MemberDto member);
@@ -28,6 +30,7 @@ public interface AccountService {
 
 	MemberDto getMemberInfo(int memberNo);
 
+	
 	
 
 	

@@ -161,7 +161,7 @@
   <script type="text/javascript">
   $(document).ready(function(){
 	$("#findPwForm").submit(function (event) {
-		event.preventDefault
+		event.preventDefault();
 		
 		let memberId=$("input[name='memberId']").val();
 		let email=$("input[name='email']").val();

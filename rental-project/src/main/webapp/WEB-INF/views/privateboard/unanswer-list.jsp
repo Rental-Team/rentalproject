@@ -67,7 +67,7 @@
 			       
 <!--검색   -->
   <div id="qnaSearchSection" class="col-md-6">
-  <form action="searchByQnaNo" method="get" onsubmit="return validateSearch();">
+  <form action="/rental-project/privateboard/privateqnalist" method="get" onsubmit="return validateSearch();">
     <select id="searchType" name="searchType">
       <option value="qnaNo">문의번호</option>
     </select>

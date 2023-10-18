@@ -26,6 +26,10 @@ public interface AccountMapper {
 	@Select("select count(*) from Member where memberId = #{memberId}")
 	int checkId(@Param("memberId") String memberId);
 	
+	// 닉네임 중복 검사
+	@Select("select count(*) from Member where nickname = #{nickname}")
+	int checkNickname(@Param("nickname") String nickname);
+	
 	// 로그인 = 프로필에 조회할 내용과 일치해서 따로 ProfileMapper에 만들지 않음
 	@Select("select * from Member where memberId = #{memberId} and password = #{password}")
 	MemberDto selectMemberByIdAndPw(MemberDto member);

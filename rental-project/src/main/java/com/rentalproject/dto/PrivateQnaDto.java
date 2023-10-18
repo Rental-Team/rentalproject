@@ -18,4 +18,6 @@ public class PrivateQnaDto {
 	private boolean answered; //답변 여부 
 	private List<PrivateQnaAnswerDto> privateQnaAnswerList;
 	private List<MemberDto> privateQnaWriteList;
+	
+	private List<PrivateQnaAttachDto> privateQnaAttachList;
 }

@@ -31,8 +31,12 @@ import com.rentalproject.service.FreeBoardReviewService;
 import com.rentalproject.service.FreeBoardReviewServiceImpl;
 import com.rentalproject.service.FreeBoardService;
 import com.rentalproject.service.FreeBoardServiceImpl;
+import com.rentalproject.service.ItemQnaService;
+import com.rentalproject.service.ItemQnaServiceImpl;
+
 import com.rentalproject.service.ItemReviewService;
 import com.rentalproject.service.ItemReviewServiceImpl;
+
 import com.rentalproject.service.ItemServiceImpl;
 import com.rentalproject.service.KakaoService;
 import com.rentalproject.service.NoticeService;
@@ -230,9 +234,21 @@ public class RootConfiguration implements ApplicationContextAware{
 	}
 	
 	@Bean
+
 	public VisitServiceImpl visitService() {
 		VisitServiceImpl visitService = new VisitServiceImpl();
 		return visitService;
 	}
-	 
+	
+	@Bean
+
+	public ItemQnaService itemQnaService() {
+		
+		ItemQnaService itemQnaService = new ItemQnaServiceImpl();
+		
+		return itemQnaService;
+		
+		
+	}
+	
 }

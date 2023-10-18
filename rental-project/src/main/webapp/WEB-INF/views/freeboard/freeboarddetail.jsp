@@ -82,10 +82,11 @@
                       <div class="form-group">
                         <label style="font-size:12pt" class="form-control-label"  for="input-freeBoardNo">작성자</label>
                         <c:choose>
-						    <c:when test="${freeboard.memberImage == null}">
+						    <c:when test="${empty freeBoard.memberImage}">
 						        <img src="/rental-project/resources/img/theme/default.png" draggable="false" class="style-scope yt-img-shadow" height="32" width="32">
 						    </c:when>
 						    <c:otherwise>
+						        <img src="${pageContext.request.contextPath}/resources/upload/${freeBoard.memberImage}" alt="Image" draggable="false" class="style-scope yt-img-shadow" height="32" width="32">
 						        <img src="/rental-project/resources/upload/${freeboard.memberImage}" alt="Image" draggable="false" class="style-scope yt-img-shadow" height="32" width="32">
 						    </c:otherwise>
 						</c:choose>
@@ -162,6 +163,7 @@
                	<form id="freeBoardReviewForm" action="freeboard-review" method="post">
                		<input type="hidden" name="freeBoardNo" value="${ freeBoard.freeBoardNo }" />
                		<input type="hidden" name="pageNo" value="${ pageNo }" />
+               		<input type="hidden" name="replyWriterImage" value="${ loginuser.memberImage }" />
                		<input type="hidden" name="replyWriter" value="${ loginuser.memberId }"/>
                 		<table class="table align-items-center">
                 			<tr>
@@ -241,6 +243,7 @@
                                 <div class="reply-edit-area"
                                     id="reply-edit-area-${freeBoardReview.freeBoardReplyNo}" style="display: none">
                                     ${sessionScope.loginuser.memberId} &nbsp;&nbsp;
+                                    ${sessionScope.loginuser.memberImage} &nbsp;&nbsp;
                                     [${freeBoardReview.replyCreateDate}] <br />
                                     <br />
                                     <form action="edit-reply" method="post"
@@ -295,7 +298,8 @@
 	      <div class="modal-body">
 	       	<form id="rereplyform" action="write-rereply" method="post"> 
           		<input type="hidden" name="freeBoardReplyNo" value="" />
-          		<input type="hidden" name="replyWriter" value="${ loginuser.memberId }"/>  
+          		<input type="hidden" name="replyWriter" value="${ loginuser.memberId }"/>
+          		<input type="hidden" name="replyWriterImage" value="${ loginuser.memberImage }"/>  
    				<textarea id="reply-content" name="replyContent" style="width:100%; resize:none;  border-radius:80px" rows="2">     </textarea>		 
    			</form> 
 	      </div>
@@ -358,13 +362,16 @@
 	    			"method" : "post",
 	    			"data" : formData,
 	    			"success" : function(data, status, xhr) {
-	    				if (data == "success") {
+	    				if (data != "unauthorized") {
 	    					$('#review-list').load('review-list?freeBoardNo=${freeBoard.freeBoardNo}')
 	    					$('#comment_content').val('')
 	    				} else { 
-	    					alert("<<댓글을 작성하려면 먼저 로그인을 해주세요>>"); 
-    					} 
-	    				
+	    					const yn = confirm('로그인한 사용자만 댓글을 작성할 수 있습니다. 로그인 할까요?');
+							if (yn){
+								returnUrl= '/freeboard/freeboarddetail?freeBoardNo=${freeBoard.freeBoardNo}!pageNo=${pageNo}'
+								location.href = '/rental-project/account/login?returnUrl=' + returnUrl;
+    						}	
+	    				}
 	    			},
 	    			"error" : function(xhr, status, err){ 
 	    			}
@@ -475,7 +482,8 @@
 				if (!form.memberNo) {
 					const yn = confirm('로그인이 필요합니다.로그인 화면으로 이동할까요?');
 					if (yn) {
-						location.href = "/rental-project/account/login";
+						returnUrl= '/freeboard/freeboarddetail?freeBoardNo=${freeBoard.freeBoardNo}!pageNo=${pageNo}'
+						location.href = '/rental-project/account/login?returnUrl=' + returnUrl;
 					}
 					return;
 				}
@@ -508,7 +516,8 @@
 				if (!form.memberNo) {
 					const yn = confirm('로그인이 필요합니다.로그인 화면으로 이동할까요?');
 					if (yn) {
-						location.href = "/rental-project/account/login";
+						returnUrl= '/freeboard/freeboarddetail?freeBoardNo=${freeBoard.freeBoardNo}!pageNo=${pageNo}'
+						location.href = '/rental-project/account/login?returnUrl=' + returnUrl;
 					}
 					return;
 				}

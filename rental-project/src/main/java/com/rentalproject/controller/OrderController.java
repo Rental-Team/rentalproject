@@ -6,15 +6,19 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.rentalproject.dto.MemberDto;
 import com.rentalproject.dto.OrderDetailDto;
-import com.rentalproject.dto.OrderDto;
+import com.rentalproject.dto.OrderDto; 
 import com.rentalproject.dto.RentalOrderPageDto;
 import com.rentalproject.service.AccountService;
 import com.rentalproject.service.OrderServcie;
@@ -27,8 +31,15 @@ public class OrderController {
 	private AccountService accountService;
 	
 	@Autowired
-	private OrderServcie orderServcie;
+	private OrderServcie orderServcie; 
 	
+	@GetMapping("/directRental")
+	public String directRentalForm() {
+		
+		//OrderDetailDto od = orderServcie.rentalItemInfo(0);
+		
+		return "rental/rentalRegister";
+	}
 	
 
 	@GetMapping("/rental")
@@ -41,7 +52,7 @@ public class OrderController {
 				
 		if (itemNos != null && itemCounts != null) {
 			
-			List<OrderDetailDto> orders = new ArrayList<>();
+			List<OrderDetailDto> orderDetails = new ArrayList<>();
 			double totalOrderPrice = 0;   // 총 대여금액
 			
 	        for (int i = 0; i < itemNos.length; i++) {
@@ -49,40 +60,39 @@ public class OrderController {
 	            //model.addAttribute("rentalItem", orderServcie.getRentalItemInfo(RO.getOrderDetailList()));
 	            OrderDetailDto od = orderServcie.rentalItemInfo(itemNos[i]);
 	            od.setItemCount(itemCounts[i]);
-	            orders.add(od);
+	            orderDetails.add(od);
 	            
 	            totalOrderPrice += od.getItemPrice() * itemCounts[i];
 	            
 	        }
 	        
 	        //model.addAttribute("membeInfo", accountService.getMemberInfo(memberId));
-	        model.addAttribute("orders", orders);
+	        model.addAttribute("orderDetails", orderDetails);
 	        model.addAttribute("totalOrderPrice", totalOrderPrice); 
-	        model.addAttribute("orderList", orderServcie);
+	        // model.addAttribute("orderList", orderServcie);
 	        //MemberDto loginMember = (MemberDto)session.getAttribute("loginuser");
 	        
-	    }
-
-
-		
+	    } 
 		return "rental/rentalRegister";
 	}
 	
 	
 	@PostMapping("/rental")
-	public String rental(OrderDto ord) {
+	public String rental(RentalOrderPageDto order) {          // 주문 정보 저장 
 		
-		System.out.println(ord);
+		//System.out.println(order);
 		
-		orderServcie.order(ord);
-		//orderServcie.insertRentalOrder(order);
-		//orderServcie.insertOrderDetail(orderDetail);
+		orderServcie.order(order);
+		
+		// orderServcie.order(ord);
+		// orderServcie.insertRentalOrder(order);
+		// orderServcie.insertOrderDetail(orderDetail);
 		
 		// 주문 후 삭제
 		// orderServcie.deleteZzimAfterOrder(0);
 		
-		System.out.println(ord);
-		return "redirect:/home";
+		//System.out.println(ord); 
+		return "redirect:rental/rentalok?orderId="+ order.getOrderId();
 	}
 	
 
@@ -97,8 +107,15 @@ public class OrderController {
     }
 	
 	@GetMapping("/rental/rentalDetail")
-    public String OrderDetail() {
-		 return "rental/rentalDetail"; 
+    public String OrderDetail(@RequestParam(defaultValue = "-1") int orderId , Model model) {	
+		
+		List<RentalOrderPageDto> detailList = orderServcie.orderDetail(orderId);
+		RentalOrderPageDto address = orderServcie.getAddress(orderId);
+		
+		model.addAttribute("detailLists", detailList);
+		model.addAttribute("address",address);
+		System.out.println(detailList);
+		
+		return "rental/rentalDetail";
     }
-	
 }
