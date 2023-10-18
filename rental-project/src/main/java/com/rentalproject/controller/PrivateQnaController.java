@@ -1,11 +1,13 @@
 package com.rentalproject.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,9 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.View;
 
+import com.rentalproject.view.DownloadView;
+import com.rentalproject.view.DownloadView_PrivateQna;
 import com.mysql.cj.Session;
+import com.rentalproject.common.Util;
 import com.rentalproject.dto.MemberDto;
+import com.rentalproject.dto.PrivateQnaAttachDto;
 import com.rentalproject.dto.PrivateQnaDto;
 import com.rentalproject.service.PrivateQnaService;
 import com.rentalproject.ui.ThePager;
@@ -185,7 +192,7 @@ public class PrivateQnaController {
 	}
 
 
-	@GetMapping(path = {"/privateqnawrite"}) //롸이트
+	@GetMapping(path = {"/privateqnawrite"}) //롸이트 1대1 작성 글 불러오기 
 	public String showWriteForm(HttpSession session) {
 
 		/* MemberDto member =(MemberDto)session.getAttribute("loginuser"); */ 
@@ -200,21 +207,28 @@ public class PrivateQnaController {
 	}
 
 	@PostMapping(path= {"/privateqnawrite"}) //롸이트,업로드
-	public String write(PrivateQnaDto privateqna, MultipartFile attach, HttpServletRequest req) {
+	public String write(PrivateQnaDto privateqna, MultipartFile attach,
+										HttpServletRequest req){
 
 
-		if(!attach.isEmpty()) {
-			try {
-				String uploadDir = req.getServletContext().getRealPath("/resources/upload");	
-				attach.transferTo(new File(uploadDir, attach.getOriginalFilename()));
-
-			}catch (Exception ex) {
-				ex.printStackTrace();
-			}		
-
-		}
-
-
+		/*
+		 * if(!attach.isEmpty()) { try { String uploadDir =
+		 * req.getServletContext().getRealPath("/resources/upload");
+		 * attach.transferTo(new File(uploadDir, attach.getOriginalFilename()));
+		 * 
+		 * }catch (Exception ex) { ex.printStackTrace(); }
+		 * 
+		 * }
+		 */
+		
+		
+		
+		String uploadAttachFile= req.getServletContext().getRealPath("/resources/upload");
+		ArrayList<PrivateQnaAttachDto> privateQnaAttachList = handleUploadFile(attach, uploadAttachFile);
+		privateqna.setPrivateQnaAttachList(privateQnaAttachList);
+		
+	
+		
 		/////////////////////로그인 사용자 정보로 글 작성자 설정 
 		HttpSession session = req.getSession();
 		int memberNo = ((MemberDto) session.getAttribute("loginuser")).getMemberNo();
@@ -229,6 +243,74 @@ public class PrivateQnaController {
 		return String.format("redirect:privateqnalist?memberNo=%d", privateqna.getMemberNo());
 
 	}
+	
+	private ArrayList<PrivateQnaAttachDto> handleUploadFile(MultipartFile attach, String uploadAttachFile){
+		ArrayList<PrivateQnaAttachDto> privateQnaAttachList = new ArrayList<>();
+		if (attach != null && !attach.isEmpty()) {
+			try {
+				String uploadFileName = Util.makeUniqueFileName(attach.getOriginalFilename());
+				
+				attach.transferTo(new File(uploadAttachFile, uploadFileName));   // 첨부파일 저장 코드 
+				
+		PrivateQnaAttachDto privateQnaAttach = new PrivateQnaAttachDto();
+		privateQnaAttach.setAttachFileName(attach.getOriginalFilename());
+		privateQnaAttach.setSavedFileName(uploadFileName);
+		
+		privateQnaAttachList.add(privateQnaAttach);
+		
+		
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		
+		return privateQnaAttachList;
+		
+		
+	}
+	
+	
+	//첨부파일 조회 및 다운로드하기 
+	@GetMapping(path = {"/download"})
+	public View download(int attachNo, Model model) {
+		
+		
+		
+		// 첨부파일 조회 //
+		PrivateQnaAttachDto privateQnaAttach = privateQnaService.selectPrivateQnaAttachByAttachNo(attachNo);
+		
+		
+		
+		
+		model.addAttribute("attach", privateQnaAttach);
+		DownloadView_PrivateQna downloadView = new DownloadView_PrivateQna();
+		
+		return downloadView;
+		
+	}
+		
+		
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@GetMapping(path= {"/privateqnadetail"}) //디테일
 	public String detail(@RequestParam(defaultValue ="-1") int qnaNo,
 						 @RequestParam(defaultValue = "-1") int pageNo,

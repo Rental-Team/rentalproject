@@ -269,8 +269,19 @@
                 <form action="write" method="post">
                  <table>
 	             
-	             
-	          <tr>
+	            
+	           <tr>
+				<th>첨부파일</th>
+	          	<td>
+	           <c:forEach var="attach" items="${ privateqna.privateQnaAttachList }">
+		        <a href="download?attachNo=${attach.attachNo }">${attach.attachFileName }</a>
+		        <img src="${pageContext.request.contextPath}/resources/upload/${attach.savedFileName}" alt="Image" height="100px" width="100px">
+				</c:forEach>
+	          	</td>
+	          </tr>
+	            
+
+	          	<tr>
 			   		<th>1대1문의 작성자</th>
 			    	<td>
 			    		${privateqna.memberId}
@@ -309,6 +320,18 @@
 	                	${ privateqna.qnaDate }
 	                </td>
 	            </tr>
+	          
+	        <%--   <tr>
+				<th>첨부파일</th>
+	          	<td>
+	           <c:forEach var="attach" items="${ privateqna.privateQnaAttachList }">
+		        <a href="download?attachNo=${attach.attachNo }">${attach.attachFileName }</a>
+		        <img src="${pageContext.request.contextPath}/resources/upload/${attach.savedFileName}" alt="Image" height="100px" width="100px">
+				</c:forEach>
+	          	</td>
+	          
+	          </tr>
+	           --%>
 	          
 
 		

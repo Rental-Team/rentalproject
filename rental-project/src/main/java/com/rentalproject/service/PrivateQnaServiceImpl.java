@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.rentalproject.dto.PrivateQnaAnswerDto;
+import com.rentalproject.dto.PrivateQnaAttachDto;
 import com.rentalproject.dto.PrivateQnaDto;
 import com.rentalproject.mapper.PrivateQnaAnswerMapper;
 import com.rentalproject.mapper.PrivateQnaMapper;
@@ -18,10 +19,20 @@ public class PrivateQnaServiceImpl implements PrivateQnaService {
 	private PrivateQnaAnswerMapper privateQnaAnswerMapper;
 	
 	@Override
-	public void writeBoard(PrivateQnaDto privateqna) {
+	public void writeBoard(PrivateQnaDto privateqna)  {
 	
 			privateQnaMapper.insertBoard(privateqna);
+	
+			for(PrivateQnaAttachDto privateQnaAttach : privateqna.getPrivateQnaAttachList()) {
+				privateQnaAttach.setQnaNo(privateqna.getQnaNo());
+				privateQnaMapper.insertPrivateQnaAttach(privateQnaAttach);
+				
+				
+			}
+	
+	
 	}
+	
 
 	/* 리스트조회 */ 
 	
@@ -66,13 +77,38 @@ public class PrivateQnaServiceImpl implements PrivateQnaService {
 	/* 여기 디테일 */
 	 @Override
 	 public PrivateQnaDto findQnaBoardByQnaNo(int qnaNo) {
+		 	
 		 	PrivateQnaDto  qnaBoardList = privateQnaMapper.selectQnaBoardByQnaNo(qnaNo);
 		
-	   List<PrivateQnaAnswerDto> answerList = privateQnaAnswerMapper.selectPrivateQnaAnserbyQnaNo(qnaNo);
+	  
+		 	
+		 	
+		 	
+		 	List<PrivateQnaAttachDto> privateQnaAttachList = privateQnaMapper.selectPrivateQnaAttachByQnaNo(qnaNo);
+		 	qnaBoardList.setPrivateQnaAttachList(privateQnaAttachList);
+		 	
+		 	
+		 	List<PrivateQnaAnswerDto> answerList = privateQnaAnswerMapper.selectPrivateQnaAnserbyQnaNo(qnaNo);
+		 	qnaBoardList.setPrivateQnaAnswerList(answerList);
 	   		   
-	   qnaBoardList.setPrivateQnaAnswerList(answerList);
+	   
 	   return  qnaBoardList;
 	}
+	 
+	 
+	 
+	 @Override
+		public PrivateQnaAttachDto selectPrivateQnaAttachByAttachNo(int attachNo) {
+		 	PrivateQnaAttachDto privateQnaAttach = privateQnaMapper.selectPrivateQnaAttachByAttachNo(attachNo);
+			
+			
+			
+			return  privateQnaAttach;
+		}
+ 
+	 
+	 
+	 
 
 	 @Override //답변 완료 업데이트
 	 public void updateAnswerStatus(int qnaNo, boolean answered) {
@@ -166,6 +202,8 @@ public class PrivateQnaServiceImpl implements PrivateQnaService {
 	    return result;
 	}
 
+
+	
 	
 
 	 

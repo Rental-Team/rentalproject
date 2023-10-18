@@ -1,18 +1,17 @@
 package com.rentalproject.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.rentalproject.dto.ItemAttachDto;
 import com.rentalproject.dto.ItemDto;
 import com.rentalproject.dto.ZzimDto;
-
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
-
-import java.util.List;
 
 @Mapper
 public interface ItemMapper {
@@ -63,7 +62,7 @@ public interface ItemMapper {
 	int selectItemCount();
 	
 	// 페이징이 적용된 상품 게시판
-	@Select("select i.itemNo, i.itemPrice , i.itemName, i.viewCount, i.itemDate, i.deleted, i.itemStock, (select iA.savedFileName from itemAttach iA where iA.itemNo = i.itemNo) thumbnail "
+	@Select("select i.itemNo, i.itemPrice , i.itemName, i.viewCount, i.itemDate, i.deleted, i.itemStock, (select Max(iA.savedFileName) from itemAttach iA where iA.itemNo = i.itemNo) thumbnail "
 			+ "from Item i "
 			+ "order by i.itemNo desc " + 
 			"limit #{from}, #{count}")

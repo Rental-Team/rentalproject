@@ -30,6 +30,8 @@ import com.rentalproject.service.FreeBoardReviewService;
 import com.rentalproject.service.FreeBoardReviewServiceImpl;
 import com.rentalproject.service.FreeBoardService;
 import com.rentalproject.service.FreeBoardServiceImpl;
+import com.rentalproject.service.ItemQnaService;
+import com.rentalproject.service.ItemQnaServiceImpl;
 import com.rentalproject.service.ItemServiceImpl;
 import com.rentalproject.service.KakaoService;
 import com.rentalproject.service.NoticeService;
@@ -208,4 +210,18 @@ public class RootConfiguration implements ApplicationContextAware{
 		ZzimServiceImpl zzimService = new ZzimServiceImpl();
 		return zzimService;
 	}
+	
+	@Bean
+	public ItemQnaService itemQnaService() {
+		
+		ItemQnaService itemQnaService = new ItemQnaServiceImpl();
+		
+		return itemQnaService;
+		
+		
+	}
+	
+	
+	
+	
 }

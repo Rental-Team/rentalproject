@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.rentalproject.dto.PrivateQnaAttachDto;
 import com.rentalproject.dto.PrivateQnaDto;
 
 @Mapper
@@ -24,6 +25,29 @@ public interface PrivateQnaMapper {
 	            "VALUES (#{qnaType}, #{qnaTitle}, #{qnaContent}, NOW(), #{memberNo})")
 	@Options(useGeneratedKeys = true, keyProperty = "qnaNo")
 	void insertBoard(PrivateQnaDto privateqna);
+    
+    
+    @Insert("insert into PrivateQnaAttach (attachNo, QnaNo, attachFileName, savedFileName) "
+    		+ "values (#{attachNo}, #{qnaNo}, #{attachFileName}, #{savedFileName}) ")
+    void insertPrivateQnaAttach(PrivateQnaAttachDto privateQnaAttach);
+    
+    
+    
+    @Select("select attachNo, QnaNo, attachFileName, savedFileName "    // 다운로드 ?
+    		+ "from PrivateQnaAttach "
+    		+ "where QnaNo = #{qnaNo} ")
+    List<PrivateQnaAttachDto> selectPrivateQnaAttachByQnaNo(@Param("qnaNo") int qnaNo);
+    
+  
+    @Select("select attachNo, QnaNo, attachFileName, savedFileName " //첨부파일 조회 
+    	       + "from PrivateQnaAttach "
+    	       + "where attachNo = #{attachNo}")
+    PrivateQnaAttachDto selectPrivateQnaAttachByAttachNo(@Param("attachNo") int attachNo);
+    
+    
+    
+    
+    
 	
 	////////미답변 조회 
 	@Select("SELECT QnaNo, QnaType, QnaTitle, QnaContent, QnaDate, memberNo "
