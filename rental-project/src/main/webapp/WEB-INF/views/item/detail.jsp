@@ -410,40 +410,7 @@
       });
   </script>
   
-  <script>
-  $(document).ready(function(){
-	  
-  
-  	$('#zzim_btn').click(function(e){
-  		e.preventDefault();
-  		
-  		const itemNo = $('#itemNo').val();
-  		
-  		
-  		$.ajax({
-  			"url" : "ajax-zzim",
-  			"method" : "get",
-  			"data" : { "itemNo" : itemNo },
-  			"success" : function(result){
-  				if (result == 1){
-  					alert("찜!");
-  				} else {
-  					alert("회원만 사용가능한 기능입니다.");
-  					location.href = "/rental-project/account/login";
-  				}
-  			},
-  			"error" : function() {
-  				alert("이미 찜한 상품입니다!!");
-  			}
-  		});
-  	});
-  	
-  	
-  	let itemPrice = "${item.itemPrice}"
-  	let point = itemPrice*0.05;
-  	point = Math.floor(point);
-  	$(".point_span").text(point);
-});  	
+  <script>  	
   	// 주문 수량 조절
   	let quantity = $(".quantity_input").val();
   	
@@ -467,6 +434,15 @@
 	// 장바구니 추가 버튼
 	$("#btn_zzim").on("click", function(e){
 	
+		if (!form.memberNo) {
+	         const yn = confirm('로그인이 필요합니다.로그인 화면으로 이동할까요?');
+	         if (yn) {
+	            returnUrl= '/item/detail?itemNo=${item.itemNo}!pageNo=${pageNo}'
+				location.href = '/rental-project/account/login?returnUrl=' + returnUrl;
+	         }
+	         return;
+	      }   
+		
 	form.itemCount = $(".quantity_input").val();
 	$.ajax({
 		url: 'zzim-add', // 호출 url
@@ -517,7 +493,12 @@
 					$('#review-list').load('review-list?itemNo=${item.itemNo}')
 					$('#review_content').val('')
 				} else { 
-					alert("<<상품후기를 작성하려면 먼저 로그인을 해주세요>>"); 
+					const yn = confirm('로그인한 사용자만 후기를 작성할 수 있습니다. 로그인 할까요?');
+					if (yn){
+						returnUrl= '/item/detail?itemNo=${item.itemNo}!pageNo=${pageNo}'
+						location.href = '/rental-project/account/login?returnUrl=' + returnUrl;
+					}
+
 				} 
 				
 			},
