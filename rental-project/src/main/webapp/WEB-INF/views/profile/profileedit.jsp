@@ -22,30 +22,30 @@
   <link href="/rental-project/resources/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="/rental-project/resources/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
+   <link href="/rental-project/resources/css/navbar-top.css" rel="stylesheet" />
 </head>
 
 <body class="">
-  <jsp:include page="/WEB-INF/views/modules/navbar-vertical.jsp" />
   <div class="main-content">
     <!-- Navbar -->
 	<jsp:include page="/WEB-INF/views/modules/navbar-top.jsp" />
+   	<jsp:include page="/WEB-INF/views/modules/navbar-top2.jsp" />
+   	<jsp:include page="/WEB-INF/views/modules/navbar-top3.jsp" />
+   	<jsp:include page="/WEB-INF/views/modules/navbar-top4.jsp" />
     <!-- End Navbar -->
     <!-- Header -->
     <form action="profileedit" method="post" enctype="multipart/form-data">
 
-    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(../assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
+    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 200px; background-image: url(../assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
       <!-- Mask -->
-      <span class="mask bg-gradient-default opacity-8"></span>
+      <span class="mask bg-purple opacity-4"></span>
       <!-- Header container -->
       <div class="container-fluid d-flex align-items-center">
         <div class="row">
-          <div class="col-lg-7 col-md-10">
-            <h1 class="display-2 text-white">${ profileuser.memberId }</h1>
+          <div class="col-lg-12 col-md-10">
+            <h1 class="display-1 text-white">${ profileuser.memberId }</h1>
             <input type="hidden" name="memberId" value="${profileuser.memberId }">
-            <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
-            <input type="submit" value="수정 완료" class="btn btn-info" />
-            <a href="profile?memberId=${ loginuser.memberId }" class="btn btn-info">취소</a>
-          </div>
+            </div>
         </div>
       </div>
     </div>
@@ -121,8 +121,12 @@
           <div class="card bg-secondary shadow">
             <div class="card-header bg-white border-0">
               <div class="row align-items-center">
-                <div class="col-8">
-                  <h3 class="mb-0">My account</h3>
+                <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                  <h3 class="mb-0">마이 페이지</h3>
+                  <input type="submit" value="수정 완료" class="btn btn-info ml-auto" />
+            <a href="profile?memberId=${ loginuser.memberId }" class="btn btn-info">취소</a>
+                </div>
                 </div>
 <!--                 <div class="col-4 text-right">
                   <a href="#!" class="btn btn-sm btn-primary">패스워드 변경</a>
@@ -206,31 +210,8 @@
       </div>
       </form>
       <!-- Footer -->
-      <footer class="footer">
-        <div class="row align-items-center justify-content-xl-between">
-          <div class="col-xl-6">
-            <div class="copyright text-center text-xl-left text-muted">
-              &copy; 2018 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
-            </div>
-          </div>
-          <div class="col-xl-6">
-            <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-              <li class="nav-item">
-                <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
-              </li>
-              <li class="nav-item">
-                <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
-              </li>
-              <li class="nav-item">
-                <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
-              </li>
-              <li class="nav-item">
-                <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
-              </li>
-            </ul>
-          </div>
-          </div>
-          </footer>
+            <jsp:include page="/WEB-INF/views/modules/footer.jsp" /> 
+
        </div>
      </div>
   <!--   Core   -->
