@@ -70,21 +70,23 @@
 					                  </tr>
 					                </thead>
 					                <tbody>
-					                  <c:forEach items="${orders}" var="order">
-												<tr style="text-align:center;">								
+					                  <c:forEach items="${detailLists}" var="rop">
+												<tr style="text-align:center;">			
+													<td class="td_width_2">${rop.orderId}</td>	 			
 													<td class="td_width_2">
 														<img src="${pageContext.request.contextPath}/resources/upload/thumbnail_${zzim.thumbnail}" alt="Image">							
 													</td>
-													<td class="td_width_3">${order.itemName}</td>
+													<td class="td_width_3">${rop.itemName}</td>
 													<td class="td_width_4 price_td">
-														<span class="red_color"><fmt:formatNumber value="${order.itemPrice}" pattern="#,### 원" /></span><br>
+														<span class="red_color"><fmt:formatNumber value="${rop.itemPrice}" pattern="#,### 원" /></span><br>
 													</td>
-													<td class="td_width_4 table_text_align_center"> ${order.itemCount} </td>
-													<td class="td_width_4 table_text_align_center">
-														<fmt:formatNumber value="${order.itemPrice * order.itemCount}" pattern="#,### 원" />
-													</td>
+													<td class="td_width_4 table_text_align_center"> ${rop.itemCount} </td>
+													<td class="td_width_4 table_text_align_center"> ${rop.orderState} </td>
+													<%-- <td class="td_width_4 table_text_align_center">
+														<fmt:formatNumber value="${rop.itemPrice * rop.itemCount}" pattern="#,### 원" />
+													</td> --%>
 												</tr>
-											</c:forEach> 
+									</c:forEach> 
 					                </tbody>  
 					              </table> 
 						              <div class="text-left mt-2 mb-2" style="padding-left: 20px;">
@@ -99,20 +101,21 @@
 					            </div>
 					          </div>
 					        </div> 
-								<div class="card-body">
+								<div class="card-body" items="${detailLists}" var="rop">
 					                <div class="pl-lg-12" style="margin : 0 auto;">
 					                  <div class="row">
 					                    <div class="col-lg-6" > 
 					                      <div class="form-group focused">
 					                        <label class="form-control-label"for="input-addressUser">수령인</label>
-					                        <input disabled="disabled" type="text" id="input-addressUser"  name="addressUser" class="form-control form-control-alternative" value="">
+					                        <input type="text" id="input-addressUser"  name="addressUser" class="form-control form-control-alternative" value="${ rop.addressUser }" readonly>
 					                      </div>
 					                    </div> 
 					                  </div>  
 					                  <div class="row">
 				                        <div class="col-lg-6">
 					                      <div class="form-group">
-					                        <label class="form-control-label"  for="input-orderDate">아이디</label> <input disabled="disabled" type="text" id="input-memberId" class="form-control form-control-alternative"  value="${loginuser.memberId}"/>   
+					                        <label class="form-control-label"  for="input-orderDate">아이디</label> 
+					                        <input type="text" id="input-memberId" class="form-control form-control-alternative"  value="${loginuser.memberId}" readonly>   
 					                   	  </div>
 				                    	</div>
 			                    		</div>
@@ -120,7 +123,7 @@
 					                    <div class="col-lg-6" >
 					                      <div class="form-group focused">
 					                        <label class="form-control-label"for="input-email">이메일</label>
-					                        <input disabled="disabled" type="text" id="input-email" class="form-control form-control-alternative" value="${ loginuser.email }">
+					                        <input type="text" id="input-email" name="email" class="form-control form-control-alternative" value="${ loginuser.email }" readonly>
 					                      </div>
 					                    </div> 
 					                  </div> 
@@ -128,7 +131,7 @@
 					                    <div class="col-lg-10" >
 					                      <div class="form-group focused">
 					                        <label class="form-control-label"for="input-email">주소</label>
-					                        <input disabled="disabled" type="text" id="input-address" class="form-control form-control-alternative" value="">
+					                        <input type="text" name="address" id="input-address" class="form-control form-control-alternative" value="${ rop.address }" readonly>
 					                      </div>
 					                    </div> 
 					                  </div> 

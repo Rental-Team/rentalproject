@@ -6,12 +6,15 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.rentalproject.dto.MemberDto;
 import com.rentalproject.dto.OrderDetailDto;
@@ -70,10 +73,10 @@ public class OrderController {
 	@PostMapping("/rental")
 	public String rental(RentalOrderPageDto order) {          // 주문 정보 저장 
 		
-		System.out.println(order);
+		//System.out.println(order);
 		
 		orderServcie.order(order);
-		//
+		
 		// orderServcie.order(ord);
 		// orderServcie.insertRentalOrder(order);
 		// orderServcie.insertOrderDetail(orderDetail);
@@ -82,7 +85,7 @@ public class OrderController {
 		// orderServcie.deleteZzimAfterOrder(0);
 		
 		//System.out.println(ord);
-		return "redirect:/home";
+		return "redirect:rental/rentalok?orderId="+order.getOrderId();
 	}
 	
 
@@ -97,8 +100,17 @@ public class OrderController {
     }
 	
 	@GetMapping("/rental/rentalDetail")
-    public String OrderDetail() {
-		 return "rental/rentalDetail"; 
+    public String OrderDetail(Model model,@RequestParam(defaultValue = "-1") int orderId) {
+		
+		List<RentalOrderPageDto> detailList = orderServcie.orderDetail(orderId);
+		RentalOrderPageDto rop = orderServcie.findOrderDetailByOrderId(orderId);
+		
+		model.addAttribute("detailLists", detailList); 
+		model.addAttribute("rop",rop);
+		
+		System.out.println(detailList);
+		
+		return "rental/rentalDetail"; 
     }
 	
 }

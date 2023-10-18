@@ -218,18 +218,8 @@
 	  }) 
 	  
 	  $('#btnorder').on('click', function(event){ 
-		  let form_contents = "";  
-		  $(".items_table_price_td").each(function(index, element){ 
-			let itemNo = $(element).find(".individual_itemNo_input").val();
-			let itemCount = $(element).find(".individual_itemCount_input").val();
-			let itemNo_input = "<input name='orders[" + index + "].itemNo' type='hidden' value='" + itemNo + "'>";
-			form_contents += itemNo_input;
-			let itemCount_input = "<input name='orders[" + index + "].itemCount' type='hidden' value='" + itemCount + "'>";
-			form_contents += itemCount_input;
-			
-			});
-		  $(".orderForm").append(form_contents);
-		  $(".orderForm").submit();
+		 alert('주문이 완료되었습니다.');
+		 
 	  });
 	  
 	  
