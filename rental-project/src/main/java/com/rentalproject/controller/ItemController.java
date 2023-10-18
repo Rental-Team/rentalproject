@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rentalproject.dto.ItemDto;
+import com.rentalproject.dto.ItemQnaDto;
 import com.rentalproject.dto.ItemReviewDto;
 import com.rentalproject.dto.MemberDto;
 import com.rentalproject.dto.ZzimDto;
+import com.rentalproject.service.ItemQnaService;
 import com.rentalproject.service.ItemReviewService;
 import com.rentalproject.service.ItemService;
 import com.rentalproject.ui.ThePager;
@@ -31,6 +33,9 @@ public class ItemController {
 	private ItemService itemService;
 	@Autowired
 	private ItemReviewService itemReviewService;
+	
+	@Autowired
+	private ItemQnaService itemQnaService;
 
 //	@GetMapping("/list")
 //	public void list(Model model) {
@@ -110,6 +115,11 @@ public class ItemController {
 		
 		List<ItemReviewDto> itemReviews = itemReviewService.getReviewListByItemNo(itemNo);
 		
+		List<ItemQnaDto> itemQna = itemQnaService.listItemQna(itemNo);
+		
+		
+		
+		model.addAttribute("itemQnas",itemQna);
 		model.addAttribute("itemReviews", itemReviews);
 		model.addAttribute("item", item);
 		model.addAttribute("pageNo", pageNo);

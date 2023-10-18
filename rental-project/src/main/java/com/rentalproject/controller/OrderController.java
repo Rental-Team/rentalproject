@@ -6,11 +6,13 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -78,7 +80,7 @@ public class OrderController {
 	@PostMapping("/rental")
 	public String rental(RentalOrderPageDto order) {          // 주문 정보 저장 
 		
-		System.out.println(order);
+		//System.out.println(order);
 		
 		orderServcie.order(order);
 		
@@ -89,7 +91,7 @@ public class OrderController {
 		// 주문 후 삭제
 		// orderServcie.deleteZzimAfterOrder(0);
 		
-		//System.out.println(ord);
+		//System.out.println(ord); 
 		return "redirect:rental/rentalok?orderId="+ order.getOrderId();
 	}
 	
@@ -116,5 +118,4 @@ public class OrderController {
 		
 		return "rental/rentalDetail";
     }
-	
 }

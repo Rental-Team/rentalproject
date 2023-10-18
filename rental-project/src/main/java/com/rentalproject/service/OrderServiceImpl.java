@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -83,8 +84,8 @@ public class OrderServiceImpl implements OrderServcie {
 			}
 			
 
-		}
-
+		} 
+		  
 		
 		@Override
 		public List<RentalOrderPageDto> orderDetail(int orderId) {
@@ -98,17 +99,7 @@ public class OrderServiceImpl implements OrderServcie {
 		public RentalOrderPageDto getAddress(int orderId) {
 			RentalOrderPageDto address = orderMapper.getAddress(orderId);
 			return address;
-		} 
-		
-		
-//		@Override 
-//		public RentalOrderPageDto findOrderDetailByOrderId(int orderId) {
-//			
-//			RentalOrderPageDto detail = orderMapper.selectOrderDetailByOrderId(orderId);
-//		
-//			return detail; 
-//		}
-
+		}  
 
 		
 	}

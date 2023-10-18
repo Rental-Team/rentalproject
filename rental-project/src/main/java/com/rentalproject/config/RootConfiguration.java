@@ -31,6 +31,8 @@ import com.rentalproject.service.FreeBoardReviewService;
 import com.rentalproject.service.FreeBoardReviewServiceImpl;
 import com.rentalproject.service.FreeBoardService;
 import com.rentalproject.service.FreeBoardServiceImpl;
+import com.rentalproject.service.ItemQnaService;
+import com.rentalproject.service.ItemQnaServiceImpl;
 import com.rentalproject.service.ItemReviewService;
 import com.rentalproject.service.ItemReviewServiceImpl;
 import com.rentalproject.service.ItemServiceImpl;
@@ -234,5 +236,16 @@ public class RootConfiguration implements ApplicationContextAware{
 		VisitServiceImpl visitService = new VisitServiceImpl();
 		return visitService;
 	}
+	
+	@Bean
+	public ItemQnaService itemQnaService() {
+		
+		ItemQnaService itemQnaService = new ItemQnaServiceImpl();
+		
+		return itemQnaService;
+		
+		
+	}
+	
 	 
 }
