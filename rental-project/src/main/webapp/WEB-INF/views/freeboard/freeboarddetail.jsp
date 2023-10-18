@@ -22,16 +22,25 @@
   <link href="/rental-project/resources/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="/rental-project/resources/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
+  <link href="/rental-project/resources/css/navbar-top.css" rel="stylesheet" />
+  
+  <style>
+  .row.text-center.justify-content-center input[type="button"] {
+    margin-right: 1px; /* 버튼 간 간격 조절 */
+}
+  </style>
 </head>
 
 <body class="">
-<jsp:include page="/WEB-INF/views/modules/navbar-vertical.jsp" />
   <div class="main-content">
     <!-- Navbar -->
 	<jsp:include page="/WEB-INF/views/modules/navbar-top.jsp" />
+	<jsp:include page="/WEB-INF/views/modules/navbar-top2.jsp" />
+	<jsp:include page="/WEB-INF/views/modules/navbar-top3.jsp" />
+	<jsp:include page="/WEB-INF/views/modules/navbar-top4.jsp" />
     <!-- End Navbar -->
     <!-- Header -->
-    <jsp:include page="/WEB-INF/views/modules/navbar-content.jsp" />
+    <jsp:include page="/WEB-INF/views/modules/navbar-content3.jsp" />
     <div class="container-fluid mt--7"> 
       <div class="row mt-5">
         <div class="col-xl-12 mb-5 mb-xl-0">
@@ -125,18 +134,16 @@
 							<span id="reportCount" class="count">${count}</span> 
 						</a>
 					    </div> <br><br>
-					    <div class="col text-center" >
-				        <input type="button" class ="btn btn-outline-success" id="btnBackToList" value="목록으로 돌아가기" ></div>  
-				        <br />
-				        <div class="row text-center justify-content-center">
-						    <div class="col-2" style='display:${(not empty loginuser and loginuser.memberId == freeBoard.memberId) ? "block" : "none"};margin-right: -50px;'>
-						        <input type="button" class="btn btn-outline-success" id="btnedit" value="게시글 수정하기">
-						    </div>
-						    <div class="col-2" style='display:${(not empty loginuser and (loginuser.memberId == freeBoard.memberId or loginuser.memberNo == 17)) ? "block" : "none"};margin-left: -50px;'>
-						        <input type="button" class="btn btn-outline-success" id="btndelete" value="게시글 삭제하기">
-						    </div>
-						</div>
-	             
+					    
+				 <div class="row text-center justify-content-center">
+    <div class="col-3-2" style='display:${(not empty loginuser and loginuser.memberId == freeBoard.memberId) ? "block" : "none"};'>
+        <div class="d-flex">
+            <input type="button" class="btn btn-outline-success" id="btnedit" value="게시글 수정하기">
+            <input type="button" class="btn btn-outline-success" style='display:${(not empty loginuser and (loginuser.memberId == freeBoard.memberId or loginuser.memberNo == 17)) ? "block" : "none"}' id="btndelete" value="게시글 삭제하기">
+            <input type="button" class="btn btn-outline-success" id="btnBackToList" value="목록으로 돌아가기">
+        </div>
+    </div>
+</div>
                </div>  
              </div>
           	</div>
@@ -301,31 +308,8 @@
 	</div>​
 	
       <!-- Footer -->
-      <footer class="footer">
-        <div class="row align-items-center justify-content-xl-between">
-          <div class="col-xl-6">
-            <div class="copyright text-center text-xl-left text-muted">
-              &copy; 2018 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
-            </div>
-          </div>
-          <div class="col-xl-6">
-            <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-              <li class="nav-item">
-                <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
-              </li>
-              <li class="nav-item">
-                <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
-              </li>
-              <li class="nav-item">
-                <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
-              </li>
-              <li class="nav-item">
-                <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </footer> 
+                 <jsp:include page="/WEB-INF/views/modules/footer.jsp" /> 
+
       
   <!--   Core   -->
   <script src="/rental-project/resources/js/plugins/jquery/dist/jquery.min.js"></script>

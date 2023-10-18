@@ -72,7 +72,7 @@ public interface OrderMapper {
 	public int deleteZzim(ZzimDto zzim);
 	
 	// 주문 정보 가져오기(리스트) - 관리자에서 가져감.
-	@Select("select ro.orderId,(select od.orderItemNo from OrderDetail od where od.orderId = ro.orderId) orderItemNo, "
+	@Select("select ro.orderId,(select MAX(od.orderItemNo) from OrderDetail od where od.orderId = ro.orderId) orderItemNo, "
 			+ "ro.orderDate, ro.orderState "
 			+ "from rentalOrder ro ")
 	List<RentalOrderPageDto> orderListInfo();

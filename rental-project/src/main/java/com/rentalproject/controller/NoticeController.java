@@ -69,7 +69,7 @@ public class NoticeController {
 	public String notice2(Model model) {
 		
 		
-		int pageSize = 5;		
+		int pageSize = 6;		
 		List<NoticeDto> noticeList = noticeService.listNotice();
 		
 		List<NoticeDto> topNoticeList = noticeList.subList(0, Math.min(pageSize, noticeList.size()));

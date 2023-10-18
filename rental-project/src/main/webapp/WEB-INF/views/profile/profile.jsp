@@ -22,25 +22,29 @@
   <link href="/rental-project/resources/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="/rental-project/resources/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
+    <link href="/rental-project/resources/css/navbar-top.css" rel="stylesheet" />
+  
 </head>
 
 <body class="">
-  <jsp:include page="/WEB-INF/views/modules/navbar-vertical.jsp" />
   <div class="main-content">
     <!-- Navbar -->
    	<jsp:include page="/WEB-INF/views/modules/navbar-top.jsp" />
+   	<jsp:include page="/WEB-INF/views/modules/navbar-top2.jsp" />
+   	<jsp:include page="/WEB-INF/views/modules/navbar-top3.jsp" />
+   	<jsp:include page="/WEB-INF/views/modules/navbar-top4.jsp" />
     <!-- End Navbar -->
     <!-- Header -->
-    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(../assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
+    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 200px; background-image: url(../assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
       <!-- Mask -->
-      <span class="mask bg-gradient-default opacity-8"></span>
+      <span class="mask bg-purple opacity-4"></span>
       <!-- Header container -->
       <div class="container-fluid d-flex align-items-center">
         <div class="row">
-          <div class="col-lg-7 col-md-10">
-            <h1 class="display-2 text-white">${ loginuser.memberId }</h1>
+          <div class="col-lg-12 col-md-10">
+            <h1 class="display-1 text-white">${ loginuser.memberId }</h1>
             <!-- <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p> -->
-            <a href="profileedit?memberId=${ loginuser.memberId }" class="btn btn-info">프로필 수정</a>
+            
           </div>
         </div>
       </div>
@@ -89,22 +93,22 @@
               </div>
               <div class="text-center">
                 <h3>
-                  Jessica Jones<span class="font-weight-light">, 27</span>
+                  최 재 호<span class="font-weight-light">, 44</span>
                 </h3>
                 <div class="h5 font-weight-300">
-                  <i class="ni location_pin mr-2"></i>Bucharest, Romania
+                  <i class="ni location_pin mr-2"></i>서울, 양천구
                 </div>
-                <div class="h5 mt-4">
+                <div class="h5 mt-4 dlsplay:none">
                   <i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer
                 </div>
                 <div>
                   <i class="ni education_hat mr-2"></i>University of Computer Science
                 </div>
                 <hr class="my-4" />
-                <p>Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music.</p>
+                <p>이 사람이 바로 세숫대여의 페이지 수장 최재호입니다 모두 박수 주세요</p>
                 <a href="#">Show more</a>
                 <br><br>
-                <a href="#" id="delete-profile" class="btn btn-info">회원 탈퇴</a>
+               
                 <a href="/rental-project/privateboard/privateqnalist" class="btn btn-info">문의 내역</a>
                 <a href="/rental-project/zzim/${loginuser.memberNo}" class="btn btn-info">찜하기</a>
                 <a href="/rental-project/freeboard/myfreeboardlist" class="btn btn-info">내가 쓴 글</a>
@@ -116,8 +120,12 @@
           <div class="card bg-secondary shadow">
             <div class="card-header bg-white border-0">
               <div class="row align-items-center">
-                <div class="col-8">
-                  <h3 class="mb-0">My account</h3>
+                <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                  <h3 class="mb-0">마이페이지</h3>
+                  <a href="profileedit?memberId=${ loginuser.memberId }" class="btn btn-info ml-auto">프로필 수정</a>
+                   <a href="#" id="delete-profile" class="btn btn-info">회원 탈퇴</a>
+                   </div>
                 </div>
 					<!--<div class="col-4 text-right">
                   <a href="#!" class="btn btn-sm btn-primary">패스워드 변경</a>
@@ -126,7 +134,7 @@
             </div>
             <div class="card-body">
               <form>
-                <h6 class="heading-small text-muted mb-4">User information</h6>
+                <h6 class="heading-small text-muted mb-4">내 정보</h6>
                 <div class="pl-lg-4">
                   <div class="row">
                   <div class="col-lg-6">
@@ -209,31 +217,8 @@
       </div>
      
       <!-- Footer -->
-      <footer class="footer">
-        <div class="row align-items-center justify-content-xl-between">
-          <div class="col-xl-6">
-            <div class="copyright text-center text-xl-left text-muted">
-              &copy; 2018 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
-            </div>
-          </div>
-          <div class="col-xl-6">
-            <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-              <li class="nav-item">
-                <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
-              </li>
-              <li class="nav-item">
-                <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
-              </li>
-              <li class="nav-item">
-                <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
-              </li>
-              <li class="nav-item">
-                <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </footer>
+      <jsp:include page="/WEB-INF/views/modules/footer.jsp" /> 
+
     </div>
   </div>
   <!--   Core   -->
