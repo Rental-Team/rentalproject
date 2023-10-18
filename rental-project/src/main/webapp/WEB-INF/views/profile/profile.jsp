@@ -40,7 +40,7 @@
           <div class="col-lg-7 col-md-10">
             <h1 class="display-2 text-white">${ loginuser.memberId }</h1>
             <!-- <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p> -->
-            <a href="profileedit?memberId=${ loginuser.memberId }" class="btn btn-info">Edit profile</a>
+            <a href="profileedit?memberId=${ loginuser.memberId }" class="btn btn-info">프로필 수정</a>
           </div>
         </div>
       </div>
@@ -53,9 +53,14 @@
             <div class="row justify-content-center">
               <div class="col-lg-3 order-lg-2">
                 <div class="card-profile-image">
-                  <a href="#">
-                    <img src="/rental-project/resources/img/theme/jaho.jpg" class="rounded-circle">
-                  </a>
+                <c:choose>
+                	<c:when test="${loginuser.memberImage == null}">
+                    <img src="/rental-project/resources/img/theme/default.png" class="rounded-circle">
+                    </c:when>
+                    <c:otherwise>
+                    <img src="${pageContext.request.contextPath}/resources/upload/${loginuser.memberImage}" alt="Image" class="rounded-circle">
+                    </c:otherwise>
+				</c:choose>
                 </div>
               </div>
             </div>
@@ -100,6 +105,9 @@
                 <a href="#">Show more</a>
                 <br><br>
                 <a href="#" id="delete-profile" class="btn btn-info">회원 탈퇴</a>
+                <a href="/rental-project/privateboard/privateqnalist" class="btn btn-info">문의 내역</a>
+                <a href="/rental-project/zzim/${loginuser.memberNo}" class="btn btn-info">찜하기</a>
+                <a href="/rental-project/freeboard/myfreeboardlist" class="btn btn-info">내가 쓴 글</a>
               </div>
             </div>
           </div>
@@ -111,7 +119,7 @@
                 <div class="col-8">
                   <h3 class="mb-0">My account</h3>
                 </div>
-<!--                 <div class="col-4 text-right">
+					<!--<div class="col-4 text-right">
                   <a href="#!" class="btn btn-sm btn-primary">패스워드 변경</a>
                 </div> -->
               </div>
@@ -147,8 +155,20 @@
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
+                        <label class="form-control-label" for="input-username">우편번호</label>
+                        <div>${ loginuser.addressCode }</div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
                         <label class="form-control-label" for="input-username">주소</label>
                         <div>${ loginuser.address }</div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username">상세 주소</label>
+                        <div>${ loginuser.addressDetail }</div>
                       </div>
                     </div>
                     <div class="col-lg-6">

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.rentalproject.dto.ItemAttachDto;
 import com.rentalproject.dto.ItemDto;
 import com.rentalproject.dto.ZzimDto;
+import com.rentalproject.mapper.AdminMapper;
 import com.rentalproject.mapper.ItemMapper;
 
 import java.util.List;
@@ -18,6 +19,8 @@ public class ItemServiceImpl implements ItemService{
 	@Autowired
 	private ItemMapper itemMapper;
 	
+	@Autowired
+	private AdminMapper adminMapper;
 
 	@Override
 	public void writeItem(ItemDto item) {
@@ -107,5 +110,11 @@ public class ItemServiceImpl implements ItemService{
 		return itemMapper.searchItems(keyword, from, count);
 	}
 	
+	@Override
+	public ItemDto getItemsInfo(int itemNo) {
+		ItemDto itemsInfo = itemMapper.getItemsInfo(itemNo);
+		
+		return itemsInfo;
+	}
 
 }

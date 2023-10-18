@@ -1,10 +1,9 @@
 package com.rentalproject.service;
 
 import java.util.List;
- 
+
 import com.rentalproject.dto.FreeBoardAttachDto;
 import com.rentalproject.dto.FreeBoardDto;
-import com.rentalproject.dto.FreeBoardReportDto;
 
 public interface FreeBoardService {
 	
@@ -27,6 +26,8 @@ public interface FreeBoardService {
 	FreeBoardAttachDto selectFreeBoardAttachByAttachNo(int attachNo);  // 첨부번호를 이용해 첨부파일 찾기 
 
 	String getMemberId(int freeBoardNo);  //freeboardNo의 memberNo로 memberId 불러오기 
+	
+	String getMemberImage(int freeBoardNo); //freeboardNo의 memberNo로 memberImage 불러오기 
 
 	List<FreeBoardDto> selectSearchFreeBoard(String keyword);  // 검색어 전체 조회
 
@@ -37,4 +38,6 @@ public interface FreeBoardService {
 	List<FreeBoardDto> selectSearchByMemeberId(String keyword); // 검색어 - 작성자아이디로 조회  
 
 	List<FreeBoardDto> selectReportedFreeBoard();  // 신고된 게시글 조회
+
+	
 }

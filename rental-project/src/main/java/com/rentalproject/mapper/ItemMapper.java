@@ -62,6 +62,7 @@ public interface ItemMapper {
 	int selectItemCount();
 	
 	// 페이징이 적용된 상품 게시판
+
 	@Select("select i.itemNo, i.itemPrice , i.itemName, i.viewCount, i.itemDate, i.deleted, i.itemStock, (select Max(iA.savedFileName) from itemAttach iA where iA.itemNo = i.itemNo) thumbnail "
 			+ "from Item i "
 			+ "order by i.itemNo desc " + 
@@ -81,5 +82,10 @@ public interface ItemMapper {
 			"order by itemNo desc " + 
 			"limit #{from}, #{count}")
 	List<ItemDto> searchItems(@Param("keyword") String keyword, @Param("from") int from, @Param("count") int count);
-	
+
+	// 상품 정보
+	@Select("select i.itemNo, i.itemName, i.itemPrice, i.itemStock, i.cateCode, c.cateName "
+			+ "from Item i left outer join itemCate c on c.cateCode = i.cateCode "
+			+ "where itemNo = #{itemNo} ")
+	ItemDto getItemsInfo(int itemNo);
 }

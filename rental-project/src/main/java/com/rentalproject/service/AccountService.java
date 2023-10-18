@@ -8,19 +8,37 @@ public interface AccountService {
 	
 	boolean checkRegisterId(String memberId);
 	
-	String joinEmail(String email);
+	boolean checkRegisterNickname(String nickname);
+	
+	String emailContent(String email);
 	
 //	void insertKakao(MemberDto member);
 
 	MemberDto findLoginMember(MemberDto member);
 
-	MemberDto findLoginId(MemberDto member);
-
-	MemberDto findLoginPw(MemberDto member);
-
-	void newPw(MemberDto member);
+	MemberDto findKakaoMember(MemberDto member);
 	
-	MemberDto selfupdatePw(MemberDto member);
+	MemberDto findLoginId(String userName, String phoneNo);
+
+	MemberDto findLoginPw(String memberId, String email);
+
+	void updateLoginPw(String memberId, String password);
+	
+	String emailContentForTemporaryPw(String email);
+	
+	MemberDto selfUpdatePw(MemberDto member);
+
+	MemberDto getMemberInfo(int memberNo);
+
+	
+	
+
+	
+
+
+	
+
+	
 
 	
 

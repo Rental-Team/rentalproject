@@ -99,7 +99,8 @@
               </div>
             </div>
             <div class="card-body px-lg-5 py-lg-5">            
-              <form action="login" method="post">
+              <form action="login" method="post" id="loginForm">
+              <input type="hidden" name="returnUrl" value="${ returnUrl }">  <!--  10.16 -->
                 <div class="form-group mb-3">
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
@@ -123,7 +124,7 @@
                   </label>
                 </div> -->
                 <p class="text-center">
-                  <input type="submit" class="btn btn-primary my-4" value="로그인" />
+                  <input id="login" type="submit" class="btn btn-primary my-4" value="로그인" />
                 </p>
                 <a href="/rental-project/account/findid">아이디 찾기</a><span> / </span>
                 <a href="/rental-project/account/findpw">비밀번호 찾기</a>
@@ -168,6 +169,7 @@
   </div>
   <!--   Core   -->
   <script src="/rental-project/resources/js/plugins/jquery/dist/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="/rental-project/resources/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <!--   Optional JS   -->
   <!--   Argon JS   -->
@@ -178,34 +180,18 @@
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script src="http://code.jquery.com/jquery-3.7.1.js"></script>
   <script>
+  <% if (request.getAttribute("loginfail") != null) {%>
+	alert("로그인 실패: 아이디 또는 패스워드가 일치하지 않습니다.");
+  <%} else if (request.getAttribute("deletedlogin") != null){%>
+		const yn = confirm('이미 탈퇴된 계정입니다. 새로 계정 생성하시겠습니까?')
+		if (yn){
+			location.href = '/rental-project/account/register';
+		}
+  <%}%>
+  </script>
+  <script>
   window.Kakao.init('1e893c5a78182f018f6b362c8fbbb59d');
 
-  /* $("#kakao-login-btn").on("click", function(){
-	    //1. 로그인 시도
-	    Kakao.Auth.login({
-	        success: function(authObj) {
-	         
-	          //2. 로그인 성공시, API 호출
-	          Kakao.API.request({
-	            url: '/v2/user/me',
-	            success: function(res) {
-	              console.log(res);
-	              var id = res.id;
-				  scope : 'account_email', 'account_nickname';
-				alert('로그인성공');
-	              location.href= "http://localhost:8080/rental-project/home";
-	              
-	        }
-	          })
-	          console.log(authObj);
-	          var token = authObj.access_token;
-	        },
-	        fail: function(err) {
-	          alert(JSON.stringify(err));
-	        }
-	      });
-	        
-	}) */
   function loginWithKakao() {
     window.Kakao.Auth.authorize({
       redirectUri: 'http://localhost:8080/rental-project/account/login',

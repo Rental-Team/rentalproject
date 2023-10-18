@@ -1,27 +1,17 @@
 package com.rentalproject.controller;
 
-
-
-import lombok.extern.log4j.Log4j;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.rentalproject.dto.ItemDto;
@@ -33,9 +23,19 @@ import com.rentalproject.service.ItemService;
 import com.rentalproject.service.ItemServiceImpl;
 import com.rentalproject.ui.ThePager;
 
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.rentalproject.dto.ItemDto;
+import com.rentalproject.dto.ItemQnaDto;
+import com.rentalproject.dto.ItemReviewDto;
+import com.rentalproject.dto.MemberDto;
+import com.rentalproject.dto.ZzimDto;
+import com.rentalproject.service.ItemQnaService;
+import com.rentalproject.service.ItemReviewService;
+import com.rentalproject.service.ItemService;
+import com.rentalproject.ui.ThePager;
 
 @Controller
 //@Log4j
@@ -44,6 +44,10 @@ public class ItemController {
 	
 	@Autowired
 	private ItemService itemService;
+
+	@Autowired
+	private ItemReviewService itemReviewService;
+
 	
 	@Autowired
 	private ItemQnaService itemQnaService;
@@ -143,9 +147,16 @@ public class ItemController {
 			return "redirect:/item/list";
 		}
 		
+
+		List<ItemReviewDto> itemReviews = itemReviewService.getReviewListByItemNo(itemNo);
+		
 		List<ItemQnaDto> itemQna = itemQnaService.listItemQna(itemNo);
 		
-		model.addAttribute("itemQnas",itemQna);//상품 문의 리스트 
+		
+		
+		model.addAttribute("itemQnas",itemQna);
+		model.addAttribute("itemReviews", itemReviews);
+
 		model.addAttribute("item", item);
 		model.addAttribute("pageNo", pageNo);
 		
@@ -170,9 +181,7 @@ public class ItemController {
 		if (item == null) {
 			return "redirect:list";
 		}
-		
-		
-		
+		 
 		model.addAttribute("item", item);
 		model.addAttribute("itemNo", itemNo);
 		

@@ -2,9 +2,6 @@ package com.rentalproject.service;
 
 import java.util.List;
 
-
-import javax.mail.FetchProfile.Item;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.rentalproject.dto.CategoryDto;
@@ -13,19 +10,36 @@ import com.rentalproject.dto.ItemDto;
 import com.rentalproject.dto.MemberDto;
 import com.rentalproject.dto.NoticeDto;
 import com.rentalproject.mapper.AdminMapper;
-import com.rentalproject.mapper.ItemMapper;
 
 public class AdminServiceImpl implements AdminService {
 
 	@Autowired
 	private AdminMapper adminMapper;
 	
-	// 멤버 리스트 조회
+	// 회원 리스트 한번에 조회
 	@Override
 	public List<MemberDto> MemberList() {
 		
-		
 		return adminMapper.allMemberList();
+	}
+	
+	@Override // 부분 목록 조회
+	public List<MemberDto> listMemberByPage(int from, int count) { // 페이지 데이터를 읽는 작업
+		List<MemberDto> boardList = adminMapper.selectMemberByPage(from, count); // mapper 불러온것
+		return boardList;
+	}
+	
+	@Override // 페이저
+	public int getMemberCount() {
+		int count = adminMapper.selectMemberCount();
+		return count;
+	}
+	
+	// 회원 상세 조회
+	@Override
+	public MemberDto selectMemberDetail(int memberNo) {
+		MemberDto selectMemberDetail = adminMapper.selectMemberDetail(memberNo);
+		return selectMemberDetail;
 	}
 	
 	// 카테고리 리스트
@@ -38,8 +52,7 @@ public class AdminServiceImpl implements AdminService {
 	// 상품 리스트 출력
 	@Override
 	public List<ItemDto> ItemList() {
-		
-		
+
 		return adminMapper.allItemList();
 	}
 	

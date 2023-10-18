@@ -67,7 +67,9 @@ public class PrivateQnaController {
 	        return "redirect:/privateboard/privateqnalist"; 
 	    }
 
+
 		List<PrivateQnaDto> unAnswer = privateQnaService.unAnswerlist(from , pageSize);
+
 
 		for (PrivateQnaDto privateqna : unAnswer) {
 			String memberId = privateQnaService.getMemberIdByQnaNo(privateqna.getQnaNo());

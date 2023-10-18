@@ -1,7 +1,5 @@
 package com.rentalproject.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.rentalproject.dto.ItemDto;
 import com.rentalproject.dto.MemberDto;
 import com.rentalproject.dto.ZzimDto;
 import com.rentalproject.service.ZzimService;
@@ -59,6 +56,24 @@ public class ZzimController {
 		return "zzim";
 	}
 	
+	
+	@PostMapping("/zzim/update")
+	public String updateZzim(ZzimDto zzim) {
+		
+		zzimService.modifyCount(zzim);
+		
+		return "redirect:/zzim/" + zzim.getMemberNo();
+		
+	}
+	
+	@PostMapping("/zzim/delete")
+	public String deleteZzim(ZzimDto zzim) {
+		
+		zzimService.deleteZzim(zzim.getZzimNo());
+		
+		return "redirect:/zzim/" + zzim.getMemberId();
+		
+	}
 	
 	
 }

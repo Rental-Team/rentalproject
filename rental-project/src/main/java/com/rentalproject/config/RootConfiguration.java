@@ -10,6 +10,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -32,19 +33,26 @@ import com.rentalproject.service.FreeBoardService;
 import com.rentalproject.service.FreeBoardServiceImpl;
 import com.rentalproject.service.ItemQnaService;
 import com.rentalproject.service.ItemQnaServiceImpl;
+
+import com.rentalproject.service.ItemReviewService;
+import com.rentalproject.service.ItemReviewServiceImpl;
+
 import com.rentalproject.service.ItemServiceImpl;
 import com.rentalproject.service.KakaoService;
 import com.rentalproject.service.NoticeService;
 import com.rentalproject.service.NoticeServiceImpl;
+import com.rentalproject.service.OrderServiceImpl;
 import com.rentalproject.service.PrivateQnaAnswerService;
 import com.rentalproject.service.PrivateQnaAnswerServiceImpl;
 import com.rentalproject.service.PrivateQnaService;
 import com.rentalproject.service.PrivateQnaServiceImpl;
 import com.rentalproject.service.ProfileServiceImpl;
+import com.rentalproject.service.VisitServiceImpl;
 import com.rentalproject.service.ZzimServiceImpl;
 
 @Configuration
 @MapperScan(basePackages = {"com.rentalproject.mapper"})
+@ComponentScan(basePackages = {"com.rentalproject.dao"})
 @EnableTransactionManagement
 public class RootConfiguration implements ApplicationContextAware{
 	
@@ -146,6 +154,20 @@ public class RootConfiguration implements ApplicationContextAware{
 		return itemService;
 	}
 	
+	@Bean 
+	public ItemReviewService itemReviewService () {
+		ItemReviewService itemReviewService = new ItemReviewServiceImpl ();
+		return itemReviewService;
+	}
+ 
+ 
+	@Bean 
+	public OrderServiceImpl orderService() {
+		OrderServiceImpl orderService = new OrderServiceImpl();
+		
+		return orderService; 
+	}
+	
 	@Bean
 	public PrivateQnaAnswerService privateQnaAnserService() {
 		PrivateQnaAnswerService  privateQnaAnswerService= new PrivateQnaAnswerServiceImpl();
@@ -212,6 +234,14 @@ public class RootConfiguration implements ApplicationContextAware{
 	}
 	
 	@Bean
+
+	public VisitServiceImpl visitService() {
+		VisitServiceImpl visitService = new VisitServiceImpl();
+		return visitService;
+	}
+	
+	@Bean
+
 	public ItemQnaService itemQnaService() {
 		
 		ItemQnaService itemQnaService = new ItemQnaServiceImpl();
@@ -220,8 +250,5 @@ public class RootConfiguration implements ApplicationContextAware{
 		
 		
 	}
-	
-	
-	
 	
 }

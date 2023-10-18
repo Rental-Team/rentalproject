@@ -99,7 +99,7 @@
             <div class="card-body px-lg-5 py-lg-5">
             
             <!-- action 시작 -->
-              <form action="findpw" method="post">
+              <form action="findpw" method="post" id="findPwForm">
                 <div class="form-group mb-3">
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
@@ -117,40 +117,10 @@
                   </div>
                 </div>
                 <p class="text-center">
-                  <input type="submit" class="btn btn-primary my-4" value="비밀번호 찾기" id="btn" />
+                  <input type="submit" class="btn btn-primary my-4" value="비밀번호 찾기" id="find-pw" />
                 </p>
-                
-                <%-- <c:if test="${check == 1}">
-					<label>일치하는 정보가 존재하지 않습니다.</label>
-					<br>
-					<span>아이디가 기억이 안나시나요??</span>
-	                <span style="mergin: 100px"></span>
-	                <a href="/rental-project/account/findid">아이디 찾기</a>
-				</c:if>
-
-				<!-- 정보가 일치할 때 -->
-				<c:if test="${check == 0 }">
-				
-				<div class="form-label-group">
-				<input type="hidden" id="id" name="memberId" value="${memberId}">
-				
-					<input type="password" id="password" name="password" class="form-control"/>
-					<label for="password">password</label>
-				</div>
-				
-				<div class="form-label-group">
-					<input type="password" id="confirmpassword" name="passwordConfirm" class="form-control"/>
-					<label for="confirmpassword">confirm password</label>
-				</div>
-				
-				<div class="form-label-group">
-						<input class="btn btn-lg btn-secondary btn-block text-uppercase"
-							type="button" value="update password" onclick="updatePassword()">
-				</div>
-				</c:if> --%>
-				
-                
               </form>
+              <div id="findPwResult"></div>
             </div>
           </div>
         </div>
@@ -191,6 +161,35 @@
   <!--   Argon JS   -->
   <script src="/rental-project/resources/js/argon-dashboard.min.js?v=1.1.2"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script type="text/javascript">
+  $(document).ready(function(){
+	$("#findPwForm").submit(function (event) {
+		event.preventDefault();
+		
+		let memberId=$("input[name='memberId']").val();
+		let email=$("input[name='email']").val();
+		
+		$.ajax({
+			method:"post",
+			url:"find-pw",
+			// dataType:'json',
+			data:{memberId: memberId, email: email},
+			success:function(response){
+				if(response.check == 0){
+					alert("임시 비밀번호가 발급되었습니다.메일함을 확인해 주세요");
+					$("#findPwResult").append('<div class="form-label-group"><a href="/rental-project/account/login" class="btn btn-lg btn-secondary btn-block text-uppercase">로그인으로 돌아가기</a></div>');
+				} else {
+					$("#findPwResult").html("");
+					alert("아이디 또는 이메일을 정확하게 입력해 주세요");
+				}
+	   		},
+	   		error: function () {
+				console.error("요청 처리 중 오류가 발생했습니다.");
+			},
+		});
+	});
+  });
+</script>
   <script>
     window.TrackJS &&
       TrackJS.install({
@@ -198,25 +197,6 @@
         application: "argon-dashboard-free"
       });
   </script>
-  <script type="text/javascript">
-	$(function(){
-		$("#btn").click(function(){
-			let memberId=$("input[name='memberId']").val();
-			let email=$("input[name='email']").val();
-			$.ajax({
-				url:"/account/findpw",
-				dataType:'json',
-				data:{"memberId": memberId, "email": email},
-				success:function(data){
-					if(data == true){
-						alert("임시 비밀번호가 발급되었습니다.메일함을 확인해 주세요");
-					} else {
-						alert("아이디 또는 이메일을 정확하게 입력해 주세요");
-					}
-		   		}	
-			});
-		});
-	});
-</script>
+ 
 
 </html>

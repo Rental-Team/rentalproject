@@ -10,11 +10,20 @@ import com.rentalproject.dto.NoticeDto;
 
 public interface AdminService {
 	
+	// 회원 리스트 한번에 조회
+	public List<MemberDto> MemberList();
+	
+	// 회원 리스트 부분 조회
+	List<MemberDto> listMemberByPage(int from, int count);
+	
+	// 회원 페이저
+	int getMemberCount();
+	
+	// 회원 상세
+	MemberDto selectMemberDetail(int memberNo);
+	
 	// 상품 입력
 	public void writeItem(ItemDto item);
-	
-	// 멤버 리스트 출력
-	public List<MemberDto> MemberList();
 	
 	// 카테고리 리스트
 	public List<CategoryDto> cateList();
@@ -46,6 +55,12 @@ public interface AdminService {
 	public void updateviewCount(int noticeNo);
 
 	public void editNotice(NoticeDto notice);
+
+	
+
+	
+
+	
 
 }
 

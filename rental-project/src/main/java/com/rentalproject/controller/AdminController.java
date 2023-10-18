@@ -25,7 +25,10 @@ import com.rentalproject.dto.ItemAttachDto;
 import com.rentalproject.dto.ItemDto;
 import com.rentalproject.dto.MemberDto;
 import com.rentalproject.dto.NoticeDto;
+import com.rentalproject.dto.OrderDto;
+import com.rentalproject.dto.RentalOrderPageDto;
 import com.rentalproject.service.AdminService;
+import com.rentalproject.service.OrderServcie;
 import com.rentalproject.ui.ThePager;
 import com.rentalproject.view.DownloadView;
 
@@ -39,24 +42,59 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 	
+	@Autowired
+	private OrderServcie orderServcie;
+	
 	@GetMapping("/home")
 	public void adminHome(Model model) throws Exception {
 		List<MemberDto> memberList = adminService.MemberList();
 		
 		model.addAttribute("memberList", memberList);
-		
-		
 	}
 	
+	// 회원 리스트
 	@GetMapping("/member/list")
-	public String getMemberList(Model model) throws Exception {
+	public String getMemberList(@RequestParam(defaultValue = "1") int pageNo, Model model) throws Exception {
 		
-		List<MemberDto> memberList = adminService.MemberList();
+		// List<MemberDto> memberList = adminService.MemberList();
 		
-		model.addAttribute("memberList", memberList);
+		int pageSize = 30;
+		int pagerSize = 5;
+		String linkUrl = "list";
+		int dataCount = adminService.getMemberCount();
+		
+		int from = (pageNo -1)*pageSize;
+		List<MemberDto> memberList = adminService.listMemberByPage(from, pageSize);
+		
+		ThePager pager = new ThePager(dataCount, pageNo, pageSize, pagerSize, linkUrl);
+		
+		model.addAttribute("memberList", memberList); 
+		model.addAttribute("pager", pager);
+		model.addAttribute("pageNo", pageNo); // 페이지 번호를 jsp에 전송
 		
 		return "admin/member/list";
 	}
+	
+	// 회원 상세 조회
+	@GetMapping("/member/detail")
+	public String getMemberDetail(@RequestParam(defaultValue = "-1") int memberNo, Model model,
+								  @RequestParam(defaultValue = "-1") int pageNo) {
+		if (memberNo == -1 || pageNo == -1) { // 글번호와 페이지 번호가 -1 이면 (무단침입) 그냥 리스트 창으로 돌아가세요(글 번호가 요청에 포함되지 않은 경우) , 
+			return "redirect:/admin/member/list"; //경로는 뛰어쓰기 금지 redirect : list (x)
+		}
+		
+		MemberDto member = adminService.selectMemberDetail(memberNo);
+		
+		if (member == null) {
+			return "redirect:/admin/member/list";
+		}
+		
+		model.addAttribute("member", member);
+		model.addAttribute("pageNo", pageNo);
+		
+		return "admin/member/detail";
+	}
+
 	
 	@GetMapping("/item/list")
 	public String list(@RequestParam(defaultValue = "1")int pageNo, Model model) {
@@ -101,12 +139,12 @@ public class AdminController {
 	
 	// 상품 등록
 	@PostMapping("/item/write")
-	public String write(ItemDto item, MultipartFile attach, HttpServletRequest req) {
+	public String write(ItemDto item,@RequestParam("attach") MultipartFile[] attachs, HttpServletRequest req) {
 
 		// 아이템 업로드
 		//log.info("register: " + item);
 		String uploadDir = req.getServletContext().getRealPath("/resources/upload/");
-		ArrayList<ItemAttachDto> attachList = handleUploadFile(attach, uploadDir);
+		ArrayList<ItemAttachDto> attachList = handleUploadFile(attachs, uploadDir);
 		item.setItemAttachList(attachList);
 
 		// 상품 등록
@@ -116,11 +154,10 @@ public class AdminController {
 		return "redirect:/admin/item/list";
 	}
 	
-
-	
 	// 첨부파일 
-	private ArrayList<ItemAttachDto> handleUploadFile(MultipartFile attach, String uploadDir) {
+	private ArrayList<ItemAttachDto> handleUploadFile(MultipartFile[] attachs, String uploadDir) {
 		ArrayList<ItemAttachDto> attachList = new ArrayList<>();
+		for (MultipartFile attach : attachs) {
 		if (!attach.isEmpty()) {
 			try {
 				String savedFileName = Util.makeUniqueFileName(attach.getOriginalFilename());
@@ -150,6 +187,7 @@ public class AdminController {
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
+		}
 		}
 		return attachList;
 	}
@@ -221,7 +259,7 @@ public class AdminController {
 	
 	// 상품 수정
 	@PostMapping("/item/edit")
-	public String edit(ItemDto item, MultipartFile attach, HttpServletRequest req, 
+	public String edit(ItemDto item, @RequestParam("attach") MultipartFile[] attachs, HttpServletRequest req, 
 			  @RequestParam(defaultValue = "-1") int pageNo ) {
 		
 		if( pageNo < 1) {
@@ -230,7 +268,7 @@ public class AdminController {
 		
 		// 파일 업로드 처리
 		String uploadDir = req.getServletContext().getRealPath("/resources/upload/");
-		ArrayList<ItemAttachDto> attachList = handleUploadFile(attach, uploadDir);
+		ArrayList<ItemAttachDto> attachList = handleUploadFile(attachs, uploadDir);
 		item.setItemAttachList(attachList);
 		
 		// 상품 수정 처리
@@ -326,6 +364,17 @@ public class AdminController {
 		adminService.editNotice(notice);
 		
 		return "redirect:/admin/notice/list";
+	}
+	
+	// 관리자에서 주문 리스트 띄우기
+	@GetMapping("/rental/rentalList")
+	public String showRentalList(Model model) {
+		
+	    List<RentalOrderPageDto> orderList = orderServcie.orderList();
+	    
+	    model.addAttribute("orderList", orderList);
+		
+		return "/admin/rental/rentalList";
 	}
 	
 	

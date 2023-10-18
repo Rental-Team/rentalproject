@@ -27,8 +27,7 @@
 <body class="">
 <jsp:include page="/WEB-INF/views/modules/navbar-vertical.jsp" />
   <div class="main-content">
-    <!-- Navbar -->
-	<jsp:include page="/WEB-INF/views/modules/navbar-top.jsp" />
+    <!-- Navbar --> 
     <!-- End Navbar -->
     <!-- Header -->
     <jsp:include page="/WEB-INF/views/modules/navbar-content.jsp" />
@@ -92,7 +91,7 @@
 			</tbody>
            </table>
            <!-- 검색 form  -->
-           		<div class="p-4 bg-secondary" style="width:1735px">
+           		<div class="p-4 bg-secondary" style="width:1392px">
 				  <form name="search-form" method="get" action="freeboardlist" autocomplete="off" 
 				  class="d-flex align-items-center justify-content-center" style="width:100%; text-align:center;">
 					<div class="input-group input-group-alternative" style="width:180%;"> 
