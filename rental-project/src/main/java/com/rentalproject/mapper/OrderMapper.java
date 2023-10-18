@@ -24,8 +24,8 @@ import com.rentalproject.dto.ZzimDto;
 public interface OrderMapper {
 	
 	// 주문 정보
-	@Insert("insert into rentalOrder ( orderId, addressUser, memberNo, address, addressDetail ) " 
-			+ "values ( #{ orderId }, #{ addressUser }, #{ memberNo }, #{ address }, #{ addressDetail }  ) ")
+	@Insert("insert into rentalOrder (addressUser, memberNo, address, addressDetail ) " 
+			+ "values (#{ addressUser }, #{ memberNo }, #{ address }, #{ addressDetail }) ")
 	@Options(useGeneratedKeys = true, keyProperty = "orderId")
 	void rentalOrder(RentalOrderPageDto order);
 	
@@ -33,9 +33,9 @@ public interface OrderMapper {
 	@Insert("insert into OrderDetail ( orderId, itemNo, itemCount, itemPrice ) "
 			+ "values (  #{ orderId }, #{ itemNo }, #{ itemCount }, #{ itemPrice } ) ")
 	@Options(useGeneratedKeys = true, keyProperty = "orderItemNo") 
-	void orderDetail(OrderDetailDto orderDetail);
+	void orderDetail(OrderDetailDto orderDetail);  
 	
-
+	
 	// 상품 정보 가져오기
 	@Select("select itemPrice ,itemNo, itemName " 
 			+ "from Item "
@@ -49,10 +49,10 @@ public interface OrderMapper {
 			+ "from Item where itemNo = #{itemNo} ")
 	OrderDetailDto getOrderInfo(int itemNo);
 	
-	// 주문 등록
+	// 주문 등록 
 	@Insert("insert into rentalOrder ( addressUser, memberNo, address, addressDetail, orderState ) "
 			+ "values ( #{ addressUser}, #{ memberNo }, #{ address }, #{ addressDetail }, '대기중'  ) ")
-	@Options(useGeneratedKeys = true, keyProperty = "orderId", keyColumn = "orderId")
+	@Options(useGeneratedKeys = true, keyProperty = "orderId", keyColumn = "orderId") 
 	int registerOrder(RentalOrderPageDto ord);
 	
 	// 주문 상품 등록
@@ -76,17 +76,25 @@ public interface OrderMapper {
 	@Select("select ro.orderId,(select MAX(od.orderItemNo) from OrderDetail od where od.orderId = ro.orderId) orderItemNo, "
 			+ "ro.orderDate, ro.orderState, ro.addressUser "
 			+ "from rentalOrder ro ")
-	List<RentalOrderPageDto> orderListInfo();
+	List<RentalOrderPageDto> orderListInfo(); 
+	
+//	// 주문 상세 정보 가져오기
+//	@Select("select ro.orderId,(select MAX(od.orderItemNo) from OrderDetail od where od.orderId = ro.orderId) orderItemNo, "
+//			+ "ro.orderDate, ro.orderState, ro.addressUser "
+//			+ "from rentalOrder ro "
+//			+ "where ro.orderId = #{orderId}")
+//	RentalOrderPageDto getOrderDetail(int orderId);
 	
 	
-	// 주문 상세 정보 가져오기
-	@Select("select ro.orderId,(select MAX(od.orderItemNo) from OrderDetail od where od.orderId = ro.orderId) orderItemNo, "
-			+ "ro.orderDate, ro.orderState, ro.addressUser "
-			+ "from rentalOrder ro "
-			+ "where ro.orderId = #{orderId}")
-	RentalOrderPageDto getOrderDetail(int orderId);
+	@Select("select distinct ro.orderId, (select i.itemName from Item i where i.itemNo = od.itemNo) itemName, "
+			+ "od.itemPrice, od.itemCount, ro.orderState, ro.addressUser, ro.address "
+			+ "from rentalOrder ro inner join OrderDetail od "
+			+ "where od.orderId = ro.orderId and ro.orderId = #{orderId} "
+			+ "order by orderId asc") 
+	List<RentalOrderPageDto> getOrderDetail(@Param("orderId") int orderId);
 	
-	
-	
-
+	@Select("select addressUser, address "
+			+ "from rentalOrder "
+			+ "where orderId = #{orderId} ")
+	RentalOrderPageDto getAddress(@Param("orderId") int orderId); 
 }

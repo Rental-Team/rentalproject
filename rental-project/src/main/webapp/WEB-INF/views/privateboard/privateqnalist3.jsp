@@ -43,42 +43,43 @@
 				
 						
 <!--미답변 목록 조회 	 -->			
-	<div class="container mt-2">
-	  <div class="row">
-	    <div class="col-md-6 d-flex align-items-start">
-	      <select id="viewOption" class="form-control form-control-sm" style="width: 150px;">
-	        <option value="unanswered">미답변 목록 조회</option>
-	        <option value="all">전체 목록 조회</option>
-	      </select>
-	      <button id="viewButton" class="btn btn-primary btn-sm ml-2" onclick="viewList()">목록 조회</button>
-	    </div>
-	  </div>
-		</div>
+		<div class="container mt-2">
+  <div class="row">
+    <div class="col-md-6 d-flex align-items-start">
+      <select id="viewOption" class="form-control form-control-sm" style="width: 150px;">
+        <option value="unanswered">미답변 목록 조회</option>
+        <option value="all">전체 목록 조회</option>
+      </select>
+      <button id="viewButton" class="btn btn-primary btn-sm ml-2" onclick="viewList()">목록 조회</button>
+    </div>
+  </div>
+</div>
 <!--미답변 목록 조회   --> 
 			
 
-
 <!--검색   -->
-<!-- <div id="qnaSearchSection" class="col-md-6">
-    <form action="searchByQnaNo" method="get" onsubmit="return validateSearch();">
-        <label for="qnaNo">Qna No:</label>
-        <input type="text" id="qnaNo" name="qnaNo">
-        <button type="submit" id="searchButton">검색</button>
-    </form>
-</div>
- -->
-
-<!--검색   -->
-  <div id="qnaSearchSection" class="col-md-6">
- <form action="/rental-project/privateboard/privateqnalist" method="get" onsubmit="return validateSearch();">
+  <!-- <div id="qnaSearchSection" class="col-md-6">
+  <form action="searchByQnaNo" method="get" onsubmit="return validateSearch();">
     <select id="searchType" name="searchType">
       <option value="qnaNo">문의번호</option>
     </select>
     <input type="text" id="qnaNo" name="qnaNo">
     <button type="submit" id="searchButton">검색</button>
   </form>
-</div>
+</div> -->
 <!--검색   -->
+
+
+<div id="qnaSearchSection" class="col-md-6">
+  <form id="searchForm" onsubmit="return false;">
+    <select id="searchType" name="searchType">
+      <option value="qnaNo">문의번호</option>
+    </select>
+    <input type="text" id="qnaNo" name="qnaNo">
+    <button type="submit" id="searchButton" onclick="searchQna()">검색</button>
+  </form>
+</div>
+
 
 
 
@@ -102,13 +103,13 @@
                     <th scope="col">답변여부</th>
                     
                   </tr>
-                </thead>
+               <!--  </thead>
                 	 <tbody id="unansweredQnasTable">
-       					 <!-- 여기에 미답변 목록이 표시. -->
-   				</tbody>
+       					 여기에 미답변 목록이 표시.
+   				</tbody> -->
    				
    				 <tbody id="searchResultTable">
-    				<!-- 검색 결과가 여기에 동적으로 추가????. -->
+    				
   				</tbody>
    					 
                 
@@ -191,20 +192,38 @@
   </script>
   
 	<script>
-	  var memberNo = <%= request.getAttribute("memberNo") %>;
-	
-	  // memberNo 값을 콘솔에 로깅하여 확인
-	  console.log("memberNo: " + memberNo);
-	
-	  // memberNo가 17인 경우에만 보이도록 설정
-	  if (memberNo === 17) {
-	    document.getElementById("viewOption").style.display = "block"; // 보이게 설정
-	    document.getElementById("viewButton").style.display = "block"; // 보이게 설정
-	  } else {
-	    document.getElementById("viewOption").style.display = "none"; // 숨기게 설정
-	    document.getElementById("viewButton").style.display = "none"; // 숨기게 설정
-	  }
-	</script>
+  // memberNo 값을 콘솔에 로깅하여 확인
+  var memberNo = <%= request.getAttribute("memberNo") %>;
+  console.log("memberNo: " + memberNo);
+
+  // DOM 요소를 가져옵니다.
+  var viewOption = document.getElementById("viewOption");
+  var viewButton = document.getElementById("viewButton");
+  var qnaSearchSection = document.getElementById("qnaSearchSection");
+
+  // memberNo가 17인 경우에만 숨겨진 요소를 표시
+  if (memberNo === 17) {
+    if (viewOption) {
+      viewOption.style.display = "block";
+    }
+    if (viewButton) {
+      viewButton.style.display = "block";
+    }
+    if (qnaSearchSection) {
+      qnaSearchSection.style.display = "block";
+    }
+  } else {
+    if (viewOption) {
+      viewOption.style.display = "none";
+    }
+    if (viewButton) {
+      viewButton.style.display = "none";
+    }
+    if (qnaSearchSection) {
+      qnaSearchSection.style.display = "none";
+    }
+  }
+</script>
   
   
   
@@ -246,6 +265,38 @@
 	    return true;
 	  }
 	</script>
+ 
+ 
+<script>
+  function searchQna() {
+    var searchType = document.getElementById("searchType").value;
+    var qnaNo = document.getElementById("qnaNo").value;
+
+    // 검색을 위한 URL을 생성 (서버에 해당 URL로 Ajax 요청을 보냄)
+    var searchUrl = "searchByQnaNo?qnaNo=" + qnaNo;
+
+    // Ajax 요청 실행
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", searchUrl, true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          var response = xhr.responseText; // 서버에서 반환한 텍스트
+          if (response) {
+            // 서버에서 반환한 텍스트를 tbody에 직접 추가 (HTML 형식일 수 있음)
+            var tbody = document.getElementById("searchResultTable");
+            tbody.innerHTML = response;
+          } else {
+            alert("검색 결과가 없습니다.");
+          }
+        } else {
+          alert("검색 중 오류가 발생했습니다.");
+        }
+      }
+    };
+    xhr.send();
+  }
+</script>
  
  
  

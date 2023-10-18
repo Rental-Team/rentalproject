@@ -1,18 +1,14 @@
 package com.rentalproject.dto;
 
-import java.util.List;
-
 import lombok.Data;
 
 @Data
-public class ItemAttachDto {
-	
+public class PrivateQnaAttachDto {
+
 	private int attachNo;
-	private String userFileName;
+	private	int qnaNo;
+	private String attachFileName;
 	private String savedFileName;
-	
-	private int itemNo;
 
 	
 }
-

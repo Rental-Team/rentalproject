@@ -73,6 +73,7 @@
 </div>
   -->
   
+  <!--검색-->
   <div id="qnaSearchSection" class="col-md-6">
   <form action="searchByQnaNo" method="get" onsubmit="return validateSearch();">
     
@@ -85,7 +86,7 @@
     <button type="submit" id="searchButton">검색</button>
   </form>
 </div>
-
+ <!--검색-->
   
  
 
@@ -222,7 +223,7 @@
       });
   </script>
   
-<script>
+  <script>
   var memberNo = <%= request.getAttribute("memberNo") %>;
 
   // memberNo 값을 콘솔에 로깅하여 확인
@@ -236,7 +237,7 @@
     document.getElementById("viewOption").style.display = "none"; // 숨기게 설정
     document.getElementById("viewButton").style.display = "none"; // 숨기게 설정
   }
-</script>
+  </script>
   
   
   
@@ -249,7 +250,7 @@
       window.location.href = "privateqnalist"; // 전체 목록 조회 페이지로 이동
     }
   }
-</script>
+ </script>
   
  
   <script>
@@ -261,7 +262,7 @@
 	 
 	 
 	 
-	</script>
+ </script>
  
  
  
@@ -275,7 +276,7 @@
 	    }
 	    return true;
 	  }
-	</script>
+</script>
  
  
  

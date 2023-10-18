@@ -6,11 +6,13 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -31,6 +33,13 @@ public class OrderController {
 	@Autowired
 	private OrderServcie orderServcie; 
 	
+	@GetMapping("/directRental")
+	public String directRentalForm() {
+		
+		//OrderDetailDto od = orderServcie.rentalItemInfo(0);
+		
+		return "rental/rentalRegister";
+	}
 	
 
 	@GetMapping("/rental")
@@ -71,7 +80,7 @@ public class OrderController {
 	@PostMapping("/rental")
 	public String rental(RentalOrderPageDto order) {          // 주문 정보 저장 
 		
-		System.out.println(order);
+		//System.out.println(order);
 		
 		orderServcie.order(order);
 		
@@ -82,8 +91,8 @@ public class OrderController {
 		// 주문 후 삭제
 		// orderServcie.deleteZzimAfterOrder(0);
 		
-		//System.out.println(ord);
-		return "redirect:rental/rentalok";
+		//System.out.println(ord); 
+		return "redirect:rental/rentalok?orderId="+ order.getOrderId();
 	}
 	
 
@@ -98,19 +107,15 @@ public class OrderController {
     }
 	
 	@GetMapping("/rental/rentalDetail")
-    public String OrderDetail(int orderId, Model model) {
+    public String OrderDetail(@RequestParam(defaultValue = "-1") int orderId , Model model) {	
 		
+		List<RentalOrderPageDto> detailList = orderServcie.orderDetail(orderId);
+		RentalOrderPageDto address = orderServcie.getAddress(orderId);
 		
+		model.addAttribute("detailLists", detailList);
+		model.addAttribute("address",address);
+		System.out.println(detailList);
 		
-		RentalOrderPageDto ropd = orderServcie.getOrderDetail(orderId);
-		
-		if ( ropd == null ) {
-			return "redirect:rental";
-		}
-		
-		model.addAttribute("ropdList", ropd);
-		
-		return "rental/rentalDetail"; 
+		return "rental/rentalDetail";
     }
-	
 }
