@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.rentalproject.common.Util;
 import com.rentalproject.dto.FreeBoardDto;
 import com.rentalproject.dto.MemberDto;
+import com.rentalproject.service.AccountService;
 import com.rentalproject.service.ProfileService;
 import com.rentalproject.ui.ThePager;
 
@@ -63,24 +64,31 @@ public class ProfileController {
 	// 프로필 수정
 	@PostMapping(path= {"/profile/profileedit"})
 	public String prifileEdit (String memberId, MemberDto member, HttpSession session, HttpServletRequest req, 
-			                   @RequestParam("imageName") MultipartFile memberImage) throws Exception {
+			                   @RequestParam("imageName") MultipartFile memberImage,
+			                   @RequestParam("useDefaultPhoto") String useDefaultPhoto) throws Exception {
 		
 		// 이미지 첨부파일(프로필 사진)
-		String uploadDir = req.getServletContext().getRealPath("/resources/upload/");
-		String uploadedImageFileName = handleUploadFile(memberImage, uploadDir);
-		if (uploadedImageFileName != null) {
-	        member.setMemberImage(uploadedImageFileName);
+		String uploadDir = req.getServletContext().getRealPath("/resources/upload/"); // 업로드 파일을 저장할 디렉토리 경로를 설정
+		String uploadedImageFileName = handleUploadFile(memberImage, uploadDir); // memberImage를 uploadDir에 저장하고 저장된 파일 이름 또는 경로 반환 (업로드 처리) 그리고 uploadedImageFileName에 저장 
+		if (uploadedImageFileName != null) { // uploadedImageFileName 이 있으면
+	        member.setMemberImage(uploadedImageFileName); // member의 memberImage에 저장
 	    }
 		
 		// 프로필 사진+일반 정보 
-		profileService.updateProfile(member); 
+		profileService.updateProfile(member, useDefaultPhoto);
+		
 		
 		// 회원가입 등록일 유지
 		MemberDto selectRegDate = profileService.selectRegDate(memberId);
 		session.setAttribute("loginuser", selectRegDate); 
 	
+		System.out.println(useDefaultPhoto);
+		
 		return String.format("redirect:profile?memberId=%s", member.getMemberId());
 	}
+	
+	
+	
 	
 	// 파일 처리
 	private String handleUploadFile(MultipartFile attach, String uploadDir) {

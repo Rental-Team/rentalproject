@@ -17,9 +17,11 @@ public interface ProfileService {
 
 	String getMemberIdByMyFreeBoardNo(int freeBoardNo);
 
-	void updateProfile(MemberDto member);
+	void updateProfile(MemberDto member, String useDefaultPhoto);
 	
 	void deleteUser(String memberId);
+
+	
 
 	
 
