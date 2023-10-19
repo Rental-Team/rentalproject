@@ -87,7 +87,6 @@
 						    </c:when>
 						    <c:otherwise>
 						        <img src="${pageContext.request.contextPath}/resources/upload/${freeBoard.memberImage}" alt="Image" draggable="false" class="style-scope yt-img-shadow" height="32" width="32">
-						        <img src="/rental-project/resources/upload/${freeboard.memberImage}" alt="Image" draggable="false" class="style-scope yt-img-shadow" height="32" width="32">
 						    </c:otherwise>
 						</c:choose>
                         <input disabled="disabled" type="text" id="input-freeBoardNo" name="freeBoardNo" class="form-control form-control-alternative"  value="${freeBoard.memberId}"> 
