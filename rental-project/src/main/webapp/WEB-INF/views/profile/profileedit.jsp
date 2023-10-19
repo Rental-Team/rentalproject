@@ -26,6 +26,7 @@
 </head>
 
 <body class="">
+<div>
   <div class="main-content">
     <!-- Navbar -->
 	<jsp:include page="/WEB-INF/views/modules/navbar-top.jsp" />
@@ -58,28 +59,28 @@
               <div class="col-lg-3 order-lg-2">
                 <div class="card-profile-image">
                 <label for="imageInput" class="rounded-circle">
-                    <c:choose>
-                	<c:when test="${loginuser.memberImage == null}">
-                    <img id="preview" src="/rental-project/resources/img/theme/default.png" class="rounded-circle">
-                    <input type="file" id="imageInput" name="imageName" style="display: none;" accept="image/*" onchange="readURL(this);" />
-                    
-                    </c:when>
-                    <c:otherwise>
-                    <img id="preview" src="${pageContext.request.contextPath}/resources/upload/${loginuser.memberImage}" alt="Image" class="rounded-circle">
-                    <input type="file" id="imageInput" name="imageName" style="display: none;" accept="image/*" onchange="readURL(this);" />
-                    
-                    </c:otherwise>
-					</c:choose>
-				</label>  
-                </div>
-              </div>
-            </div>
-            <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-              <div class="d-flex justify-content-between">
-                <a href="#" class="btn btn-sm btn-info mr-4">Connect</a>
-                <a href="#" class="btn btn-sm btn-default float-right" onclick="resetImage();">Message</a>
-              </div>
-            </div>
+    <c:choose>
+        <c:when test="${loginuser.memberImage == null}">
+            <img id="preview" src="/rental-project/resources/img/theme/default.png" class="rounded-circle" name="defaultImage">
+            <input type="file" id="imageInput" name="imageName" style="display: none;" accept="image/*" onchange="readURL(this);" />
+        </c:when>
+        <c:otherwise>
+            <img id="preview" src="${pageContext.request.contextPath}/resources/upload/${loginuser.memberImage}" alt="Image" class="rounded-circle">
+            <input type="file" id="imageInput" name="imageName" style="display: none;" accept="image/*" onchange="readURL(this);" />
+        </c:otherwise>
+    </c:choose>
+</label>
+</div>
+</div>
+</div>
+<div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+    <div class="d-flex justify-content-between">
+        <a href="#" class="btn btn-sm btn-info mr-4" onclick="changeProfilePhoto();">사진 수정</a>
+        <a href="#" class="btn btn-sm btn-default float-right" onclick="DefaultProfilePhoto();">기본 프로필</a>
+    	<input type="hidden" name="useDefaultPhoto" id="useDefaultPhoto" value="1">
+    </div>
+</div>
+
             <div class="card-body pt-0 pt-md-4">
               <div class="row">
                 <div class="col">
@@ -144,8 +145,9 @@
                       <div class="form-group">
                         <label class="form-control-label" for="input-username">이름</label>
                         <input type="text" name="userName" class="form-control form-control-alternative" value="${ profileuser.userName }" />
-                      </div>
+                      </div>       
                     </div>
+                    
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-username">별명</label>
@@ -210,6 +212,7 @@
           </div>
         </div>
       </div>
+      </div>
       </form>
       <!-- Footer -->
             <jsp:include page="/WEB-INF/views/modules/footer.jsp" /> 
@@ -225,17 +228,52 @@
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <script>
+  
   function readURL(input) {
-      if (input.files && input.files[0]) {
-          var reader = new FileReader();
+	    if (input.files && input.files[0]) {
+	        var reader = new FileReader();
 
-          reader.onload = function (e) {
-              $("#preview").attr("src", e.target.result);
-          };
+	        reader.onload = function(e) {
+	            // 이미지 미리보기 엘리먼트의 src 속성을 변경하여 선택한 이미지를 보여줌
+	            document.getElementById("preview").src = e.target.result;
+	        };
 
-          reader.readAsDataURL(input.files[0]);
-      }
-  }
+	        reader.readAsDataURL(input.files[0]);
+	    }
+	}
+  
+
+  function changeProfilePhoto() {
+	    // 클릭 이벤트 핸들러를 연결하도록 설정한 파일 입력 필드를 클릭시킴
+	    document.getElementById("imageInput").click();
+	    
+	    document.getElementById('useDefaultPhoto').value = "1"
+	}
+
+	// 파일 입력 필드의 값이 변경되었을 때 실행되는 함수
+	function readURL(input) {
+	    if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+
+	        reader.onload = function(e) {
+	            // 이미지 미리보기 엘리먼트의 src 속성을 변경하여 선택한 이미지를 보여줌
+	            document.getElementById("preview").src = e.target.result;
+	        };
+
+	        reader.readAsDataURL(input.files[0]);
+	    }
+	}
+	
+	function DefaultProfilePhoto(){
+		
+		document.getElementById('useDefaultPhoto').value = "2"
+		
+		document.getElementById("preview").src = "/rental-project/resources/img/theme/default.png"
+		
+	}
+	
+	
+	
   </script>
   
   <script>

@@ -120,12 +120,7 @@ public class PrivateQnaController {
 	        pageNo = 1;
 	    }
 
-	   
-		
-		
-		
-		
-		
+	
 	    int pagerSize = 5;
 	    String linkUrl = "privateqnalist";
 
@@ -136,9 +131,10 @@ public class PrivateQnaController {
 	    
 	    if (qnaNo != null) {
 	        qnaBoardList = privateQnaService.searchByQnaNo(qnaNo);
-	        
-	        
+
 	        dataCount = qnaBoardList.size(); // 검색 결과의 크기를 데이터 카운트로 설정
+	   
+	    
 	    } else {
 	        if (memberNo == 17) {
 	            dataCount = privateQnaService.getPrivateQnaCount();
@@ -150,16 +146,6 @@ public class PrivateQnaController {
 	            qnaBoardList = privateQnaService.listBoardByMemberNo(memberNo, from, pageSize);
 	        }
 	    }
-
-
-
-
-
-		////
-
-
-		//모든 리스트 조회해오는거 // 나중에 관리자가 써야할수도 
-		//		 List<PrivateQnaDto>qnaBoardList = privateQnaService.listBoard(); 
 
 
 		/////// 작성자 조회 부분 
@@ -292,26 +278,7 @@ public class PrivateQnaController {
 	}
 		
 		
-		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	@GetMapping(path= {"/privateqnadetail"}) //디테일
 	public String detail(@RequestParam(defaultValue ="-1") int qnaNo,

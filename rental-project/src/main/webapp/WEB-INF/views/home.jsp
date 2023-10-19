@@ -64,7 +64,7 @@
        		<div class="product-card">
           	<div class="product-info">
      		<div class="card" style="width: 18rem;">
-			  <img class="card-img-top" src="/rental-project/resources/img/brand/fridge.png" alt="Card image cap" width=200 height=200>
+			  <img class="card-img-top" src="/rental-project/resources/img/brand/fridge.png" alt="Card image cap" width=200 height=300>
 			  <div class="card-body">
 			    <h1 class="card-title">냉장고</h1>
 			    <p class="card-text">SAMSUNG
@@ -77,7 +77,7 @@
 			<div class="product-card">
 			   <div class="product-info">
 			<div class="card" style="width: 18rem;">
-			  <img class="card-img-top" src="/rental-project/resources/img/brand/range.png" alt="Card image cap" width=200 height=200>
+			  <img class="card-img-top" src="/rental-project/resources/img/brand/range.png" alt="Card image cap" width=200 height=300>
 			  <div class="card-body">
 			    <h1 class="card-title">전자레인지</h1>
 			    <p class="card-text">SK매직
@@ -90,7 +90,7 @@
   <div class="product-card">
           	<div class="product-info">
      		<div class="card" style="width: 18rem;">
-			  <img class="card-img-top" src="/rental-project/resources/img/brand/fridge.png" alt="Card image cap" width=200 height=200>
+			  <img class="card-img-top" src="/rental-project/resources/img/brand/fridge.png" alt="Card image cap" width=200 height=300>
 			  <div class="card-body">
 			    <h1 class="card-title">냉장고</h1>
 			    <p class="card-text">SAMSUNG
@@ -103,7 +103,7 @@
 			<div class="product-card">
 			   <div class="product-info">
 			<div class="card" style="width: 18rem;">
-			  <img class="card-img-top" src="/rental-project/resources/img/brand/range.png" alt="Card image cap" width=200 height=200>
+			  <img class="card-img-top" src="/rental-project/resources/img/brand/range.png" alt="Card image cap" width=200 height=300>
 			  <div class="card-body">
 			    <h1 class="card-title">전자레인지</h1>
 			    <p class="card-text">SK매직
@@ -141,7 +141,7 @@
        		<div class="product-card">
           	<div class="product-info">
      		<div class="card" style="width: 18rem;">
-			  <img class="card-img-top" src="/rental-project/resources/img/brand/fridge.png" alt="Card image cap" width=200 height=200>
+			  <img class="card-img-top" src="/rental-project/resources/img/brand/fridge.png" alt="Card image cap" width=200 height=300>
 			  <div class="card-body">
 			    <h1 class="card-title">냉장고</h1>
 			    <p class="card-text">SAMSUNG
@@ -154,7 +154,7 @@
 			<div class="product-card">
 			   <div class="product-info">
 			<div class="card" style="width: 18rem;">
-			  <img class="card-img-top" src="/rental-project/resources/img/brand/range.png" alt="Card image cap" width=200 height=200>
+			  <img class="card-img-top" src="/rental-project/resources/img/brand/range.png" alt="Card image cap" width=200 height=300>
 			  <div class="card-body">
 			    <h1 class="card-title">전자레인지</h1>
 			    <p class="card-text">SK매직
@@ -167,7 +167,7 @@
   <div class="product-card">
           	<div class="product-info">
      		<div class="card" style="width: 18rem;">
-			  <img class="card-img-top" src="/rental-project/resources/img/brand/fridge.png" alt="Card image cap" width=200 height=200>
+			  <img class="card-img-top" src="/rental-project/resources/img/brand/fridge.png" alt="Card image cap" width=200 height=300>
 			  <div class="card-body">
 			    <h1 class="card-title">냉장고</h1>
 			    <p class="card-text">SAMSUNG
@@ -180,7 +180,7 @@
 			<div class="product-card">
 			   <div class="product-info">
 			<div class="card" style="width: 18rem;">
-			  <img class="card-img-top" src="/rental-project/resources/img/brand/range.png" alt="Card image cap" width=200 height=200>
+			  <img class="card-img-top" src="/rental-project/resources/img/brand/range.png" alt="Card image cap" width=200 height=300>
 			  <div class="card-body">
 			    <h1 class="card-title">전자레인지</h1>
 			    <p class="card-text">SK매직

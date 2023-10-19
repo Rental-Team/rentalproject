@@ -69,7 +69,10 @@
 								<input type="hidden" class="individual_totalPrice_input" value="${zzim.itemPrice * zzim.itemCount}">
 								<input type="hidden" class="individual_point_input" value="${zzim.point}">
 								<input type="hidden" class="individual_totalPoint_input" value="${zzim.totalPoint}">
-								<input type="hidden" class="individual_itemNo_input" value="${zzim.itemNo}">																
+
+								<input type="hidden" class="individual_itemNo_input" value="${zzim.itemNo}">
+								<input type="hidden" class="individual_zzimNo_input" value="${zzim.zzimNo}">
+
 							</td>
 							<td class="td_width_2">
 								<img src="${pageContext.request.contextPath}/resources/upload/thumbnail_${zzim.thumbnail}" alt="Image">							
@@ -91,7 +94,7 @@
 								<fmt:formatNumber value="${zzim.itemPrice * zzim.itemCount}" pattern="#,### 원" />
 							</td>
 							<td class="td_width_4 table_text_align_center">
-								<button class="delete_btn btn btn-sm btn-success" data-zzimNo="${zzim.zzimNo}">삭제</button>
+								<button id="delete_btn" class="delete_btn btn btn-sm btn-success" data-zzimNo="${zzim.zzimNo}">삭제</button>
 							</td>
 						</tr>
 					</c:forEach>
@@ -188,7 +191,6 @@
   // 대여하기
   $(".rental_btn").on("click", function(){
 	
-	  
 	  // 폼 정보를 담을 변수
 	  let form_contents = "";
 	  // 대여 번호 초기화

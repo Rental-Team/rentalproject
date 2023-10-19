@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.rentalproject.dto.CategoryDto;
+import com.rentalproject.dto.FreeBoardAttachDto;
+import com.rentalproject.dto.FreeBoardDto;
+import com.rentalproject.dto.FreeBoardReviewDto;
 import com.rentalproject.dto.ItemAttachDto;
 import com.rentalproject.dto.ItemDto;
 import com.rentalproject.dto.MemberDto;
@@ -168,6 +171,194 @@ public class AdminServiceImpl implements AdminService {
 		adminMapper.updatenotice(notice);
 		
 	}
+	
+	//자유게시판
+	@Override
+	public void writeFreeBoard(FreeBoardDto freeBoard) throws Exception {
+		
+		adminMapper.writeFreeBoard(freeBoard);  // 자유게시판에 게시글 저장
+		
+		// 자유게시판에 첨부파일 저장
+		for(FreeBoardAttachDto freeBoardAttach : freeBoard.getFreeBoardAttachList()) {
+			freeBoardAttach.setFreeBoardNo(freeBoard.getFreeBoardNo());
+			adminMapper.insertFreeBoardAttach(freeBoardAttach); // 자동 증가 번호 생성 
+		}
+	}
+	
+	@Override
+	public List<FreeBoardDto> listFreeBoard() {
+		
+		List<FreeBoardDto> freeBoardList = adminMapper.selectAllFreeBoard();
+		
+		return freeBoardList;  // 자유게시판 전체 목록 조회 
+	}
+	
+	@Override // 페이징
+	public List<FreeBoardDto> listFreeBoardByPage(int from, int count) {
+		List<FreeBoardDto> freeBoardList = adminMapper.selectFreeBoardByPage(from, count);
+		return freeBoardList;
+	}
+	
+
+	@Override  //페이징 - 총 게시물 개수를 db에서 가지고 오기 
+	public int getFreeBoardCount() {
+		int count = adminMapper.selectFreeBoardCount();
+		return count;
+	}
+	
+	@Override
+	public int getSearchFreeBoardCount(String keyword) {
+		int searchCountAll = adminMapper.selectFreeBoardSearchCount(keyword);
+		return searchCountAll;
+	} 
+	
+	@Override
+	public int getSearchByTitleCount(String keyword) {
+		int searchTitleCount = adminMapper.selectFreeBoardTitleSearchCount(keyword);
+		return searchTitleCount; 
+	}  
+
+	@Override
+	public int getSearchByContentCount(String keyword) {
+		int searchContentCount = adminMapper.selectFreeBoardContentSearchCount(keyword);
+		return searchContentCount;
+	}
+
+	@Override
+	public int getSearchByMemberIdCount(String keyword) {
+		int searchMemberCount = adminMapper.selectFreeBoardMemberSearchCount(keyword);
+		return searchMemberCount;
+	}   
+	
+	@Override
+	public FreeBoardDto findFreeBoardByFreeBoardNo(int freeBoardNo) {
+		
+		FreeBoardDto freeBoard = adminMapper.selectFreeBoardByFreeBoardNo(freeBoardNo); // 자유게시판 글 중 하나 클릭할때 그 게시글 조회
+		
+		if(freeBoard != null) {
+			
+			List<FreeBoardAttachDto> freeBoardAttachList = adminMapper.selectFreeBoardAttachByFreeBoardNo(freeBoardNo);
+			freeBoard.setFreeBoardAttachList(freeBoardAttachList); // 첨부파일 조회
+		
+			List<FreeBoardReviewDto> freeBoardReviewList = adminMapper.selectFreeBoardReviewByFreeBaordNo(freeBoardNo);  
+			freeBoard.setFreeBoardReviewList(freeBoardReviewList); // 자유게시판 상세보기 하단 댓글 조회
+		} 
+		return freeBoard;  
+	}
+	
+	@Override
+	public FreeBoardAttachDto selectFreeBoardAttachByAttachNo(int attachNo) {
+		FreeBoardAttachDto freeBoardAttach = adminMapper.selectFreeBoardAttachByAttachNo(attachNo); // 첨부번호로 첨부파일 찾기 
+		return freeBoardAttach;
+	}
+	
+	@Override   // 자유게시판 게시글 수정 내용 가지고 오기
+	public void editFreeBoard(FreeBoardDto freeBoard) {
+		adminMapper.updateFreeBoard(freeBoard);
+		
+		// 첨부파일 저장
+		for(FreeBoardAttachDto freeBoardAttach : freeBoard.getFreeBoardAttachList()) {
+			freeBoardAttach.setFreeBoardNo(freeBoard.getFreeBoardNo());
+			adminMapper.insertFreeBoardAttach(freeBoardAttach); // 자동 증가 번호 생성 
+		}  
+	}
+	
+	@Override // 자유게시판 게시글 삭제 
+	public void deleteFreeBoard(int freeBoardNo) {
+		adminMapper.deleteFreeBoard(freeBoardNo);
+	}
+	
+	@Override   // 자유게시판 조회수 증가 
+	public void updateFreeBoardviewCount(int freeBoardNo) {
+		adminMapper.updateFreeBoardviewCount(freeBoardNo);
+	}
+
+	@Override  // 멤버번호로 멤버아이디 받아오기 
+	public String getMemberId(int freeBoardNo) {
+		String memberId = adminMapper.getMemberId(freeBoardNo);
+		return memberId;
+	}
+	
+	@Override  // 멤버번호로 멤버프사 받아오기 
+	public String getMemberImage(int freeBoardNo) {
+		String memberImage = adminMapper.getMemberImage(freeBoardNo);
+		return memberImage;
+	}
+
+	@Override // 자유게시판 게시글 검색 
+	public List<FreeBoardDto> selectSearchFreeBoard(String keyword, int from, int count){ 
+		List<FreeBoardDto> freeBoardSearch = adminMapper.selectSearchFreeBoard(keyword, from, count);
+		return freeBoardSearch;
+	} 
+
+	@Override
+	public List<FreeBoardDto> selectSearchByTitle(String keyword, int from, int count) {
+		List<FreeBoardDto> freeBoardSearch = adminMapper.selectSearchByTitle(keyword, from, count);
+		return freeBoardSearch;
+	}
+
+	@Override
+	public List<FreeBoardDto> selectSearchByContent(String keyword, int from, int count) {
+		List<FreeBoardDto> freeBoardSearch = adminMapper.selectSearchByContent(keyword, from, count);
+		return freeBoardSearch;
+	}
+
+	@Override
+	public List<FreeBoardDto> selectSearchByMemeberId(String keyword, int from, int count) {
+		List<FreeBoardDto> freeBoardSearch = adminMapper.selectSearchByMemeberId(keyword, from, count);
+		return freeBoardSearch;
+	}
+	
+	@Override
+	public List<FreeBoardDto> selectReportedFreeBoard() { 
+		List<FreeBoardDto> reportList = adminMapper.selectReportedFreeBoard();  
+		return reportList;  // 신고된 게시글 조회 
+	}
+	
+	@Override   // 자유게시판 댓글 작성 
+	public void WriteFreeBoardReview(FreeBoardReviewDto freeBoardReview) {
+		
+		adminMapper.insertFreeBoardReview(freeBoardReview);
+		adminMapper.updateReplyParents(freeBoardReview.getFreeBoardReplyNo(), freeBoardReview.getFreeBoardReplyNo());
+		
+	}
+	
+	@Override   // 자유게시판 댓글 삭제 
+	public void deleteFreeBoardReview(int freeBoardReplyNo) {
+		adminMapper.deleteFreeBoardReview(freeBoardReplyNo);
+	}
+	
+	@Override // 자유게시판 댓글 수정 
+	public void editFreeBoardReview(FreeBoardReviewDto freeBoardReview) {
+		adminMapper.editFreeBoardReview(freeBoardReview);
+	}
+	
+
+	
+	@Override
+	public List<FreeBoardReviewDto> getReviewListByFreeBoardNo(int freeBoardNo) {
+		List<FreeBoardReviewDto> reviews = adminMapper.selectFreeBoardReviewByFreeBaordNo(freeBoardNo);
+		return reviews;
+	}
+
+	@Override
+	public FreeBoardReviewDto findFreeBoardReviewByFreeBoardReplyNo(int freeBoardReplyNo) {
+		FreeBoardReviewDto freeBoardReview = adminMapper.selectFreeBoardReviewByFreeBoardNo(freeBoardReplyNo);
+		return freeBoardReview;
+	}
+
+	@Override
+	public void updateReplySequence(FreeBoardReviewDto freeBoardReview) {
+		adminMapper.updateReplySequence(freeBoardReview);
+		
+	}
+
+	@Override
+	public void writeRereply(FreeBoardReviewDto freeBoardReview) {
+		adminMapper.insertRereply(freeBoardReview);
+		
+	}
+
 	
 
 }
