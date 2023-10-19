@@ -34,10 +34,10 @@
 <body class="">
   <div class="main-content">
     <!-- Navbar -->
-	<jsp:include page="/WEB-INF/views/modules/navbar-top.jsp" />
-	<jsp:include page="/WEB-INF/views/modules/navbar-top2.jsp" />
-	<jsp:include page="/WEB-INF/views/modules/navbar-top3.jsp" />
-	<jsp:include page="/WEB-INF/views/modules/navbar-top4.jsp" />
+	<jsp:include page="/WEB-INF/views/admin/modules/navbar-top.jsp" />
+	<jsp:include page="/WEB-INF/views/admin/modules/navbar-top2.jsp" />
+	<jsp:include page="/WEB-INF/views/admin/modules/navbar-top3.jsp" /> 
+    <!-- End Navbar -->
     <!-- End Navbar -->
     <!-- Header -->
     <jsp:include page="/WEB-INF/views/modules/navbar-content3.jsp" />
@@ -87,6 +87,7 @@
 						    </c:when>
 						    <c:otherwise>
 						        <img src="${pageContext.request.contextPath}/resources/upload/${freeBoard.memberImage}" alt="Image" draggable="false" class="style-scope yt-img-shadow" height="32" width="32">
+						        <img src="/rental-project/resources/upload/${freeboard.memberImage}" alt="Image" draggable="false" class="style-scope yt-img-shadow" height="32" width="32">
 						    </c:otherwise>
 						</c:choose>
                         <input disabled="disabled" type="text" id="input-freeBoardNo" name="freeBoardNo" class="form-control form-control-alternative"  value="${freeBoard.memberId}"> 
@@ -124,7 +125,7 @@
                  </div>
                 </form>
                 	<br><br>
-                	<div class="col-12 text-center" >
+                	<div class="col text-center" >
                 		<a title="추천" id="recommandbtn">
 					        <img src="/rental-project/resources/img/icons/good.png" alt="추천" width="50" height="50"/>
 					        <span id="recommandCount" class="count">${recommandCount}</span>
@@ -133,28 +134,23 @@
 							<img src="/rental-project/resources/img/icons/report.png" alt="신고" width="50" height="50"/>
 							<span id="reportCount" class="count">${count}</span> 
 						</a>
-					    </div> <br><br>
-					    
-				 
-				         <br><br> 
-						<br />
-						<div class="row text-center justify-content-center"> 
+					    </div> <br><br> 
+							<div class="row text-center justify-content-center"> 
 					        <div class="btn-group" style="margin-right: 10px">
 					     	   <input type="button" class="btn btn-outline-success btn-circle" id="btnBackToList" value="목록으로 돌아가기"> 
 					            <input type="button" class="btn btn-outline-success btn-circle" id="btnedit" value="게시글 수정하기" style="display:${(not empty loginuser and loginuser.memberId == freeBoard.memberId) ? 'block' : 'none'}">
-					            <input type="button" class="btn btn-outline-success btn-circle" id="btndelete" value="게시글 삭제하기" style="display:${(not empty loginuser and loginuser.memberId == freeBoard.memberId) ? 'block' : 'none'}">
+					            <input type="button" class="btn btn-outline-success btn-circle" id="btndelete" value="게시글 삭제하기" style='display:${(not empty loginuser and (loginuser.memberId == freeBoard.memberId or loginuser.memberNo == 17)) ? "block" : "none"}'>
 					        </div> 
-						</div> 
+						</div>  
 				</div>
                </div>  
              </div>
           	</div>
      	   </div>
-      	 
       <!-- 자유게시글 댓글 쓰기 기능 구현 --> 
-<div class="container-fluid mt--5">
-   <div class="row mt-5">
-   <div class="col-xl-12 mb-5 mb-xl-0">
+<div class="container-fluid mt--5"> 
+      <div class="row mt-5">
+        <div class="col-xl-12 mb-5 mb-xl-0">
        <div class="card shadow"> 
            <div class="card-body">
              <div class="card-header border-0">
@@ -274,15 +270,16 @@
         </tr>
     </c:forEach>
 </tbody>
-               </table>
+</table>
  <!-- 자유게시글 댓글 리스트 보기 기능 구현 끝-->  
             </div>
         </div>
     </div>
 </div>
-    </div>
-    </div>
-    </div> 
+      </div>
+      </div>
+      </div>
+      
 
 <!-- 대댓글 쓰기 Modal -->
 	<div class="modal fade" id="rereply-modal" tabindex="-1" role="dialog" aria-labelledby="rereply-modal-Label" aria-hidden="true">
@@ -312,11 +309,9 @@
 	
       <!-- Footer -->
                  <jsp:include page="/WEB-INF/views/modules/footer.jsp" /> 
-
+  </div>
+</div>
       
-    </div>
-    
-    </div>
   <!--   Core   -->
   <script src="/rental-project/resources/js/plugins/jquery/dist/jquery.min.js"></script>
   <script src="/rental-project/resources/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -370,7 +365,7 @@
 	    				} else { 
 	    					const yn = confirm('로그인한 사용자만 댓글을 작성할 수 있습니다. 로그인 할까요?');
 							if (yn){
-								returnUrl= '/freeboard/freeboarddetail?freeBoardNo=${freeBoard.freeBoardNo}!pageNo=${pageNo}'
+								returnUrl= 'admin/freeboard/freeboarddetail?freeBoardNo=${freeBoard.freeBoardNo}!pageNo=${pageNo}'
 								location.href = '/rental-project/account/login?returnUrl=' + returnUrl;
     						}	
 	    				}
@@ -558,7 +553,7 @@
 			        error: function() { 
 			        }
 			    });
-			});
+			}); 
 			
 </script>
 </body>

@@ -160,6 +160,8 @@ public class ItemController {
 		model.addAttribute("item", item);
 		model.addAttribute("pageNo", pageNo);
 		
+		itemService.updateItemViewCount(itemNo);
+		
 		return "item/detail";
 	}
 	

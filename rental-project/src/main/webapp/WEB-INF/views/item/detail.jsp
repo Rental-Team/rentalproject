@@ -562,13 +562,8 @@
 		        <button type="button" class="btn btn-primary" id="write-replyqna-btn" >문의답변쓰기</button>
 		      </div>
 		    </div>
-		  </div>
-		</div>
-     
-     
-     
-
-
+		  </div> 
+		</div>   
 	<!-- 주문 폼 -->
 	<form action="/order/${loginuser.memberNo}" method="get"
 		class="order_form">
@@ -602,27 +597,45 @@
 		});
 	</script>
 
-	<script>
-		$(document).ready(function() {
-
+	<script>  
+		$(document).ready(function() { 
 			let itemPrice = "${item.itemPrice}"
 			let point = itemPrice * 0.05;
 			point = Math.floor(point);
 			$(".point_span").text(point);
 	
 			// 주문 수량 조절
-			let quantity = $(".quantity_input").val();
-	
+			let quantity = $(".quantity_input").val(); 
+			/* $(".plus_btn").on("click", function() {
+				$(".quantity_input").val(++quantity);
+			});
+			$(".minus_btn").on("click", function() {
+				if ( quantity > 1) { 
 			$(".plus_btn").on("click", function(event) {
 				event.preventDefault();
 				$(".quantity_input").val(++quantity);
 			});
 			$(".minus_btn").on("click", function(event) {
 				event.preventDefault();
-				if (quantity > 1) {
+				if (quantity > 1) { 
 					$(".quantity_input").val(--quantity);
 				}
-			});
+			}); */ 
+			
+			$(".plus_btn").on("click", function() {
+				  let quantityInput = $(".quantity_input");
+				  let quantity = parseInt(quantityInput.val());  
+				  quantityInput.val(quantity + 1);  
+				});
+
+				$(".minus_btn").on("click", function() {
+				  let quantityInput = $(".quantity_input");
+				  let quantity = parseInt(quantityInput.val());  
+				  if (quantity > 1) {
+				    quantityInput.val(quantity - 1);  
+				  }
+				});
+
 
 			// 서버로 보낼 데이터
 			const form = {

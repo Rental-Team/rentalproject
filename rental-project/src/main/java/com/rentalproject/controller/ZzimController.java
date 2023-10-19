@@ -71,7 +71,7 @@ public class ZzimController {
 		
 		zzimService.deleteZzim(zzim.getZzimNo());
 		
-		return "redirect:/zzim/" + zzim.getMemberId();
+		return "redirect:/zzim/" + zzim.getMemberNo();
 		
 	}
 	
