@@ -605,7 +605,6 @@
 	<script>
 		$(document).ready(function() {
 
- 
 			let itemPrice = "${item.itemPrice}"
 			let point = itemPrice * 0.05;
 			point = Math.floor(point);

@@ -99,9 +99,9 @@ public class FreeBoardController {
 	@GetMapping(path= {"/freeboardwrite"})
 	public String writeFreeBoardForm(HttpSession session) { 
 		
-		if (session.getAttribute("loginuser") == null) { // 게시글 작성하기 버튼 눌렀을 때 로그인 안되어 있으면 로그인 화면으로 
-			return "redirect:/account/login";
-		}
+//		if (session.getAttribute("loginuser") == null) { // 게시글 작성하기 버튼 눌렀을 때 로그인 안되어 있으면 로그인 화면으로 
+//			return "redirect:/account/login";
+//		}
 		
 		return "freeboard/freeboardwrite";
 		

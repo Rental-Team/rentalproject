@@ -35,15 +35,21 @@ public interface ProfileMapper {
 //			"order by freeBoardNo desc limit 6")
 //	List<FreeBoardDto> selectMyFreeBoardByMemberNo(int memberNo);
 
-	
-	
 	// 프로필 수정
 	@Update("update Member " + 
 			"set userName = #{userName}, nickname = #{nickname}, phoneNo = #{phoneNo}, email = #{email}, " + 
 			"address = #{address}, addressCode = #{addressCode}, addressDetail = #{addressDetail}, " + 
 			"deposite = #{deposite}, memberImage = #{memberImage}, introduce = #{introduce} " + 
 			"where memberId = #{memberId}")
-	void updateProfile(MemberDto member);
+	void updateProfileWithMemberImage(MemberDto member);
+	
+	// 프로필 수정
+	@Update("update Member " + 
+			"set userName = #{userName}, nickname = #{nickname}, phoneNo = #{phoneNo}, email = #{email}, " + 
+			"address = #{address}, addressCode = #{addressCode}, addressDetail = #{addressDetail}, " + 
+			"deposite = #{deposite}, introduce = #{introduce} " + 
+			"where memberId = #{memberId}")
+	void updateProfileWithoutMemberImage(MemberDto member);
 	
 	// 회원 탈퇴
 	@Update("update Member set deleteCheck = true where memberId = #{memberId} ")
