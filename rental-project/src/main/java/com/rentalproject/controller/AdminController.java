@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,11 +27,17 @@ import com.rentalproject.dto.ItemDto;
 import com.rentalproject.dto.MemberDto;
 import com.rentalproject.dto.NoticeDto;
 import com.rentalproject.dto.OrderDto;
+import com.rentalproject.dto.PrivateQnaAnswerDto;
+import com.rentalproject.dto.PrivateQnaAttachDto;
+import com.rentalproject.dto.PrivateQnaDto;
 import com.rentalproject.dto.RentalOrderPageDto;
 import com.rentalproject.service.AdminService;
 import com.rentalproject.service.OrderServcie;
+import com.rentalproject.service.PrivateQnaAnswerService;
+import com.rentalproject.service.PrivateQnaService;
 import com.rentalproject.ui.ThePager;
 import com.rentalproject.view.DownloadView;
+import com.rentalproject.view.DownloadView_PrivateQna;
 
 import net.coobird.thumbnailator.Thumbnails;
 
@@ -44,6 +51,14 @@ public class AdminController {
 	
 	@Autowired
 	private OrderServcie orderServcie;
+	
+	
+	@Autowired
+	private PrivateQnaService privateQnaService;
+	
+	@Autowired
+	private PrivateQnaAnswerService PrivateQnaAnswerService;
+	
 	
 	@GetMapping("/home")
 	public void adminHome(Model model) throws Exception {
@@ -376,6 +391,247 @@ public class AdminController {
 		
 		return "/admin/rental/rentalList";
 	}
+	/////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////
 	
+	
+	
+	@GetMapping(path = {"/privateboard/privateqnalist"}) // 1대1문의 관리자 1대1 리스트
+	public String list(
+	        @RequestParam(defaultValue = "1") int pageNo,
+	        @RequestParam(value = "qnaNo", required = false) Integer qnaNo,
+	        Model model,
+	        HttpSession session) {
+
+		MemberDto loginuser = (MemberDto) session.getAttribute("loginuser");
+
+		int memberNo = -1;
+		
+		if (loginuser != null) {
+			memberNo = loginuser.getMemberNo();
+			
+			
+		}
+	    
+	    
+		int pageSize = 10;
+	    if (pageSize < 1) {
+	        pageSize = 10; // 기본 페이지 크기를 설정하세요.
+	    }
+	    
+	    // 페이지 번호 체크
+	    if (pageNo < 1) {
+	        pageNo = 1;
+	    }
+
+
+		
+	    int pagerSize = 5;
+	    String linkUrl = "privateqnalist";
+
+	    int dataCount;
+	   
+	    List<PrivateQnaDto> qnaBoardList;
+	   
+	    
+	    if (qnaNo != null) {
+	        qnaBoardList = privateQnaService.searchByQnaNo(qnaNo);
+	
+	        dataCount = qnaBoardList.size(); // 검색 결과의 크기를 데이터 카운트로 설정
+	    
+	      
+
+	    } else {
+	        if (memberNo == 17) {
+	            dataCount = privateQnaService.getPrivateQnaCount();
+	            int from = (pageNo - 1) * pageSize;
+	            qnaBoardList = privateQnaService.listBoard(from, pageSize);
+	        } else {
+	            dataCount = privateQnaService.getPrivateQnaCountByMemberNo(memberNo);
+	            int from = (pageNo - 1) * pageSize;
+	            qnaBoardList = privateQnaService.listBoardByMemberNo(memberNo, from, pageSize);
+	        }
+	    }
+
+
+
+		/////// 작성자 조회 부분 
+		for (PrivateQnaDto privateqna : qnaBoardList) {
+			String memberId = privateQnaService.getMemberIdByQnaNo(privateqna.getQnaNo());
+			privateqna.setMemberId(memberId);
+		}
+		//////////
+
+
+
+		//////////////////////////////////////////////  답변 여부 
+		for (PrivateQnaDto privateqna : qnaBoardList) {
+			boolean answered = privateQnaService.getAnswerStatus(privateqna.getQnaNo());
+			privateqna.setAnswered(answered);
+		}
+		//////////////////////////////////////////	 
+
+		ThePager pager =new ThePager(dataCount,pageNo,pageSize,pagerSize,linkUrl);
+			
+		model.addAttribute("qnaBoardList", qnaBoardList);
+		model.addAttribute("pager", pager);
+		model.addAttribute("pageNo", pageNo);
+		model.addAttribute("memberNo", memberNo); // 미답변 목록 조회 하기 할떄 memberNo17번만 사용해야해서 필요 
+		if (session.getAttribute("loginuser") == null) { 
+
+		return "redirect:/account/login";
+
+		}
+
+		return "/admin/privateboard/privateqnalist";
+	}
+
+
+	@GetMapping(path= {"/privateboard/privateqnadetail"}) // 관리자 1대1 문의 디테일
+	public String detail(@RequestParam(defaultValue ="-1") int qnaNo,
+						 @RequestParam(defaultValue = "-1") int pageNo,
+						 Model model ,HttpSession session, HttpServletRequest request) {
+
+		
+		if(qnaNo == -1) {
+			return "redirect:privateqnalist";
+		}
+		PrivateQnaDto privateqna = privateQnaService.findQnaBoardByQnaNo(qnaNo);
+		
+
+
+
+		int memberNo = -1;
+		MemberDto loginuser = (MemberDto) session.getAttribute("loginuser");
+		
+		if (loginuser != null) {
+			memberNo = loginuser.getMemberNo();
+			
+			
+		}
+
+
+
+		//  privateqna 객체에 로그인한 사용자의 회원 번호를 추가
+		privateqna.setMemberNo(memberNo);
+		/////
+
+		 //<model로 변경>
+		  request.setAttribute("memberNo", memberNo); // 필요함 privateqnadetail JSP 페이지에서
+		  
+		
+		String memberId = privateQnaService.getMemberIdByQnaNo(qnaNo); //qnaNo에 해당하는 회원의 아이디를 가져와 privateqna 객체에 설정//디테일에서도 작성자 볼수있게 
+		privateqna.setMemberId(memberId);
+
+
+		///////////////////////////////////////////////// 
+		model.addAttribute("privateqna",privateqna);
+		model.addAttribute("pageNo",pageNo);
+		return "/admin/privateboard/privateqnadetail";
+	}
+	
+	
+	@PostMapping(path ={"/privateboard/write-answer"})  //1대1문의 답변 
+	public String writeAnswer(PrivateQnaAnswerDto privateQnaAnswer ,@RequestParam("qnaNo") int qnaNo,	@RequestParam(defaultValue = "-1") int pageNo){
+																	
+	PrivateQnaAnswerService.writeAnswer(privateQnaAnswer);	
+	
+	privateQnaService.updateAnswerStatus(qnaNo, true); // 답변여부 업데이트
+	
+	return String.format("redirect:privateqnadetail?qnaNo=%d&pageNo=%d", privateQnaAnswer.getQnaNo(), pageNo);
+
+}
+	
+	
+	@GetMapping("/privateboard/edit-answer-form") //1대1문의 답변 수정 
+	public String showEditAnswerForm(@RequestParam(defaultValue = "-1") int qnaNo, @RequestParam(defaultValue = "-1") int pageNo, Model model) {
+	    
+	    model.addAttribute("qnaNo", qnaNo);
+	    model.addAttribute("pageNo", pageNo);
+	    
+	   
+	    return "privateboard/edit-answer-form";
+	
+	
+	
+	
+	}
+	
+	@PostMapping("/privateboard/edit-answer") // 1대1문의 답변 수정 
+	public String editAnswer(PrivateQnaAnswerDto privateQnaAnswer, @RequestParam(defaultValue = "-1") int pageNo) {
+	    PrivateQnaAnswerService.editAnswer(privateQnaAnswer);
+	    
+	    
+	    
+	    return String.format("redirect:privateqnadetail?qnaNo=%d&pageNo=%d", privateQnaAnswer.getQnaNo(), pageNo);
+
+	}
+	
+		//1대1 문의 게시판 첨부파일 조회 및 다운로드하기 
+		@GetMapping(path = {"/privateboard/download"})
+		public View downloadQna(int attachNo, Model model) {
+			
+			
+			
+			// 1대1 문의 첨부파일 조회 //
+			PrivateQnaAttachDto privateQnaAttach = privateQnaService.selectPrivateQnaAttachByAttachNo(attachNo);
+			
+			
+			
+			
+			model.addAttribute("attach", privateQnaAttach);
+			DownloadView_PrivateQna downloadView = new DownloadView_PrivateQna();
+			
+			return downloadView;
+			
+		}
+	
+		//1대1문의 미답변 목록  
+		@GetMapping(path = {"/privateboard/unanswer-list"})
+		public String showUnAnswerlist(Model model,HttpSession session , @RequestParam(defaultValue = "1") int pageNo) {
+		
+			int pageSize = 10 ;
+			int pagerSize =5;
+			String linkurl = "unanswer-list";
+			int dataCount = privateQnaService.getUnanswerListCount();
+			
+			int from = (pageNo -1) * pageSize;
+			
+			
+			
+			
+			MemberDto loginuser = (MemberDto) session.getAttribute("loginuser");	
+			
+			int memberNo = -1;
+			
+			if (loginuser != null) {
+				memberNo = loginuser.getMemberNo();
+				
+				
+			}
+		
+			if (memberNo != 17) {
+		      
+		        return "redirect:/privateboard/privateqnalist"; 
+		    }
+
+
+			List<PrivateQnaDto> unAnswer = privateQnaService.unAnswerlist(from , pageSize);
+
+
+			for (PrivateQnaDto privateqna : unAnswer) {
+				String memberId = privateQnaService.getMemberIdByQnaNo(privateqna.getQnaNo());
+				privateqna.setMemberId(memberId);
+			}
+		
+			ThePager pager = new ThePager(dataCount, pageNo, pageSize , pagerSize , linkurl);
+			
+				model.addAttribute("unAnswer",unAnswer);
+				model.addAttribute("memberNo", memberNo);
+				model.addAttribute("pager",pager);
+				return "/admin/privateboard/unanswer-list";
+	        	
+		
+		}
 	
 }

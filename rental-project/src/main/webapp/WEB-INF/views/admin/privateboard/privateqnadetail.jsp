@@ -31,12 +31,12 @@
   
 <div class="main-content">
     <!-- Navbar -->
-    <jsp:include page="/WEB-INF/views/modules/navbar-top.jsp" />
-    <jsp:include page="/WEB-INF/views/modules/navbar-top2.jsp" />
-    <jsp:include page="/WEB-INF/views/modules/navbar-top3.jsp" />
+   	<jsp:include page="/WEB-INF/views/admin/modules/navbar-top.jsp" />
+	<jsp:include page="/WEB-INF/views/admin/modules/navbar-top2.jsp" />
+	<jsp:include page="/WEB-INF/views/admin/modules/navbar-top3.jsp" />
     <!-- End Navbar -->
     <!-- Header -->
-    <jsp:include page="/WEB-INF/views/modules/navbar-content4.jsp" />
+    <jsp:include page="/WEB-INF/views/admin/modules/navbar-content.jsp" />
     <div class="container-fluid mt--7">
       <div class="row mt-5">
         <div class="col-xl-12 mb-5 mb-xl-0">
@@ -89,11 +89,11 @@
                         <input disabled="disabled" type="text" id="input-qnaId" name="qnaId" class="form-control form-control-alternative" value="${privateqna.memberId}" />
                       </div>
                     </div>
-				  <div class="col-lg-6">
-				  	<div class="form-group">
-				    <label style="font-size:12pt" class="form-control-label">첨부파일</label><!--다운로드  -->
-				      <c:forEach var="attach" items="${privateqna.privateQnaAttachList}">
-				       <div>
+				<div class="col-lg-6">
+				  <div class="form-group">
+				    <label style="font-size:12pt" class="form-control-label">첨부파일</label>
+				    <c:forEach var="attach" items="${privateqna.privateQnaAttachList}">
+				      <div>
 				        <img src="${pageContext.request.contextPath}/resources/upload/${attach.savedFileName}" alt="이미지" height="100px" width="100px">
 				        <a href="download?attachNo=${attach.attachNo}" class="download-link" >${attach.attachFileName}</a>
 				      </div>
@@ -141,21 +141,21 @@
 		   <tr>
 		     <td><textarea id="comment_content" name="answerContent" style="width: 100%; resize: none;" rows="2"></textarea></td>			  				
 			   <td style="width: 50px; vertical-align: middle; border-radius: 80px">
-			     <input type="submit" class="btn btn-sm btn-primary" id="write-answer" value="답변등록하기">					
+			     <input type="submit" class="btn btn-sm btn-primary" id="admin-write-answer" value="답변등록하기">					
 			  </td>
 		  </tr>
 		</table>
 	  </form>
 
 		<!--답변 조회 -->							
-		<table id="answer-list" class="table align-items-center table-flush text-center">
+	<table id="answer-list"
+			class="table align-items-center table-flush text-center">
 			<thead class="thead-light">
 				<tr>
 					<th scope="col" style="width: 1000px;">답변내용</th>
 					<th scope="col"></th>
 				</tr>
 			</thead>
-			
 			<!--답변 조회 출력 -->	
 			<tbody>
 			  <c:forEach var="privateAnswer" items="${privateqna.privateQnaAnswerList}">
@@ -306,18 +306,21 @@
     }
   </script>
   
- <script>
+<script>
   $(function() {
-
+    // 이벤트 핸들러를 등록하여 링크 클릭 시 확인 메시지를 표시
     $("a.download-link").click(function(event) {
       var confirmDownload = confirm("다운로드 하시겠습니까?");
       if (!confirmDownload) {
-        event.preventDefault(); 
+        event.preventDefault(); // 다운로드 링크 클릭을 취소
       }
     });
   });
 </script>
-
+  
+  
+  
+  
 </body>
 
 </html>

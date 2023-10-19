@@ -42,7 +42,7 @@
                         <a class="nav-link2" href="/rental-project/admin/notice/list">공지사항</a>
                     </li>
                      <li class="nav-item">
-		            	<a class="nav-link2" href="/rental-project/privateboard/privateqnalist">
+		            	<a class="nav-link2" href="/rental-project/admin/privateboard/privateqnalist">
 		               1대1문의
 		            	</a>
           		</li>

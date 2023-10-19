@@ -604,7 +604,7 @@
 
 	<script>
 		$(document).ready(function() {
->>>>>>> 1502d44fe50a1f4557b7f3728486c292580204df
+
  
 			let itemPrice = "${item.itemPrice}"
 			let point = itemPrice * 0.05;

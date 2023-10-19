@@ -27,12 +27,12 @@
 <body class="">
   <div class="main-content">
     <!-- Navbar -->
-	<jsp:include page="/WEB-INF/views/modules/navbar-top.jsp" />
-	<jsp:include page="/WEB-INF/views/modules/navbar-top2.jsp" />
-	<jsp:include page="/WEB-INF/views/modules/navbar-top3.jsp" />
+	<jsp:include page="/WEB-INF/views/admin/modules/navbar-top.jsp" />
+	<jsp:include page="/WEB-INF/views/admin/modules/navbar-top2.jsp" />
+	<jsp:include page="/WEB-INF/views/admin/modules/navbar-top3.jsp" />
     <!-- End Navbar -->
     <!-- Header -->
-    <jsp:include page="/WEB-INF/views/modules/navbar-content4.jsp" />
+     <jsp:include page="/WEB-INF/views/admin/modules/navbar-content.jsp" />
     <div class="container-fluid mt--7">
       <div class="row">
         <div class="col-xl-12 mb-5 mb-xl-0">
@@ -45,8 +45,7 @@
 				
 						
 <!--미답변 목록 조회 	 -->			
-	
-	<!-- <div class="container mt-2">
+	<div class="container mt-0">
 	  <div class="row">
 	    <div class="col-md-6 d-flex align-items-start">
 	      <select id="viewOption" class="form-control form-control-sm" style="width: 150px;">
@@ -56,44 +55,25 @@
 	      <button id="viewButton" class="btn btn-primary btn-sm ml-2" onclick="viewList()">목록 조회</button>
 	    </div>
 	  </div>
-	
-	
-	
-		</div> -->
+	</div>
 <!--미답변 목록 조회   --> 
 			
 
 
-<!--검색   -->
-<!-- <div id="qnaSearchSection" class="col-md-6">
-    <form action="searchByQnaNo" method="get" onsubmit="return validateSearch();">
-        <label for="qnaNo">Qna No:</label>
-        <input type="text" id="qnaNo" name="qnaNo">
-        <button type="submit" id="searchButton">검색</button>
-    </form>
-</div>
- -->
-
-<!--검색   -->
- <!--  <div id="qnaSearchSection" class="col-md-6">
- <form action="/rental-project/privateboard/privateqnalist" method="get" onsubmit="return validateSearch();">
-    <select id="searchType" name="searchType">
-      <option value="qnaNo">문의번호</option>
-    </select>
-    <input type="text" id="qnaNo" name="qnaNo">
-    <button type="submit" id="searchButton">검색</button>
-  </form>
-</div> -->
-<!--검색   -->
+			<!--검색 form  -->
+			  <div id="qnaSearchSection" class="col-md-6">
+			 <form action="/rental-project/admin/privateboard/privateqnalist" method="get" onsubmit="return validateSearch();">
+			    <select id="searchType" name="searchType">
+			      <option value="qnaNo">문의번호</option>
+			    </select>
+			    <input type="text" id="qnaNo" name="qnaNo">
+			    <button type="submit" id="searchButton">검색</button>
+			  </form>
+			</div>
+			<!--검색 form  -->
+          </div>
 
 
-
-             
-                <div class="col text-right">
-                  <a href="privateqnawrite" class="btn btn-sm btn-primary">1대1문의 작성</a>
-                </div>
-              </div>
-            </div>
             <div class="table-responsive">
               <!-- Projects table -->
               <table class="table align-items-center table-flush">
@@ -101,22 +81,13 @@
                   <tr>
                     <th scope="col">문의번호</th>
                     <th scope="col">작성자</th>
-                    <th scope="col">제목</th>
-                    
+                    <th scope="col">제목</th>                    
                     <th scope="col">문의유형</th>
                     <th scope="col">문의글 작성 일자</th>
                     <th scope="col">답변여부</th>
-                    
                   </tr>
                 </thead>
-                	 <tbody id="unansweredQnasTable">
-       					 <!-- 여기에 미답변 목록이 표시. -->
-   				</tbody>
-   				
-   				 <tbody id="searchResultTable">
-    				<!-- 검색 결과가 여기에 동적으로 추가????. -->
-  				</tbody>
-   					 
+                	
                 
                  <c:forEach var="privateqna" items="${ requestScope.qnaBoardList}">
                   <tr>                  
@@ -139,7 +110,6 @@
 			        </c:otherwise>
 			      </c:choose>
 			    </td>
-     
            </tr>
            </c:forEach>      
        </table>
@@ -211,9 +181,6 @@
 		  } else {
 		    document.getElementById("qnaSearchSection").style.display = "none"; // 숨기게 설정
 		  }
-	 
-	 
-	 
 	</script>
  
 	 
