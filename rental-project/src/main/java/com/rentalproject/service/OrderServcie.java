@@ -32,5 +32,4 @@ public interface OrderServcie {
 		
 	RentalOrderPageDto getAddress(int orderId); 
 		
-	RentalOrderPageDto getAttach(int orderId);
 }

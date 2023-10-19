@@ -78,15 +78,10 @@ public interface OrderMapper {
 			+ "from rentalOrder ro ")
 	List<RentalOrderPageDto> orderListInfo(); 
 	
-//	// 주문 상세 정보 가져오기
-//	@Select("select ro.orderId,(select MAX(od.orderItemNo) from OrderDetail od where od.orderId = ro.orderId) orderItemNo, "
-//			+ "ro.orderDate, ro.orderState, ro.addressUser "
-//			+ "from rentalOrder ro "
-//			+ "where ro.orderId = #{orderId}")
-//	RentalOrderPageDto getOrderDetail(int orderId);
 	
 	@Select("select distinct ro.orderId, (select i.itemName from Item i where i.itemNo = od.itemNo) itemName, "
-			+ "od.itemPrice, od.itemCount, ro.orderState, ro.addressUser, ro.address "
+			+ "od.itemPrice, od.itemCount, ro.orderState, ro.addressUser, ro.address,"
+			+ "(select max(ia.savedFileName) from itemAttach ia where ia.itemNo = od.itemNo) thumbnail  "
 			+ "from rentalOrder ro inner join OrderDetail od "
 			+ "where od.orderId = ro.orderId and ro.orderId = #{orderId} "
 			+ "order by orderId asc") 
@@ -97,8 +92,5 @@ public interface OrderMapper {
 			+ "where orderId = #{orderId} ")
 	RentalOrderPageDto getAddress(@Param("orderId") int orderId); 
 	
-	@Select("select (select ia.savedFileName from itemAttach ia where ia.itemNo = od.itemNo) thumbnail "
-			+ "from rentalOrder ro inner join OrderDetail od "
-			+ "on orderId = #{orderId} ")
-	RentalOrderPageDto getAttach(@Param("orderId") int orderId);
+
 }

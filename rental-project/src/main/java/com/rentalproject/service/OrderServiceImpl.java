@@ -103,11 +103,11 @@ public class OrderServiceImpl implements OrderServcie {
 		return address;
 	}  
 	
-	@Override
-	public RentalOrderPageDto getAttach(int orderId) {
-		RentalOrderPageDto attach = orderMapper.getAttach(orderId);
-		return attach;
-	}
+//	@Override
+//	public RentalOrderPageDto getAttach(int orderId) {
+//		RentalOrderPageDto attach = orderMapper.getAttach(orderId);
+//		return attach;
+//	}
 
 		
 	}

@@ -102,11 +102,10 @@ public class OrderController {
 		
 		List<RentalOrderPageDto> detailList = orderServcie.orderDetail(orderId);
 		RentalOrderPageDto address = orderServcie.getAddress(orderId);
-		RentalOrderPageDto attach = orderServcie.getAttach(orderId);
 		
 		model.addAttribute("detailLists", detailList);
 		model.addAttribute("address",address);
-		model.addAttribute("attach", attach);
+		
 		//model.addAttribute("zzim", zzimService.getZzimList());
 		
 		return "rental/rentalDetail";

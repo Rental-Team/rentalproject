@@ -74,7 +74,7 @@
 												<tr style="text-align:center;">			
 													<td class="td_width_2">${rop.orderId}</td>	 			
 													<td class="td_width_2">
-														<img src="${pageContext.request.contextPath}/resources/upload/thumbnail_${attach.thumbnail}" alt="Image">							
+														<img src="${pageContext.request.contextPath}/resources/upload/thumbnail_${rop.thumbnail}" alt="Image">							
 													</td>
 													<td class="td_width_3">${rop.itemName}</td>
 													<td class="td_width_4 price_td">
