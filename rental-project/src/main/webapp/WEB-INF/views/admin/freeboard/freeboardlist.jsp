@@ -28,10 +28,9 @@
 <body class="">
   <div class="main-content">
     <!-- Navbar --> 
-    <jsp:include page="/WEB-INF/views/modules/navbar-top.jsp" />
-	<jsp:include page="/WEB-INF/views/modules/navbar-top2.jsp" />
-	<jsp:include page="/WEB-INF/views/modules/navbar-top3.jsp" />
-	<jsp:include page="/WEB-INF/views/modules/navbar-top4.jsp" />
+    <jsp:include page="/WEB-INF/views/admin/modules/navbar-top.jsp" />
+	<jsp:include page="/WEB-INF/views/admin/modules/navbar-top2.jsp" />
+	<jsp:include page="/WEB-INF/views/admin/modules/navbar-top3.jsp" /> 
     <!-- End Navbar -->
     <!-- Header -->
     <jsp:include page="/WEB-INF/views/modules/navbar-content3.jsp" />
@@ -42,13 +41,16 @@
             <div class="card-header border-0">
 		    <div class="row align-items-center">
 		        <div class="col">
-		            <h3 style="font-weight: bold" class="mb-0">자유게시판</h3>
-		        </div>    
-		        <div class="col text-right">
+		            <h3 style="font-weight: bold" class="mb-3">자유게시판</h3>
+		        </div>     
+				<div class="row text-center justify-content-right"> 
+			        <div class="btn-group" style="margin-right: 30px">
+		        	<a href="reported-List" class="btn btn-success" id="reportshowbtn">신고된 글 조회 및 관리하기</a>
 		            <a href="freeboardwrite" class="btn btn-success" style="margin: 0">게시글 작성</a>
-		        </div>
-	    	</div>
+			        </div>
+		    	</div>
 			</div>
+			<br>
             <div class="table-responsive">  
          <!-- Projects table -->
          <table class="table align-items-center table-flush">
@@ -103,7 +105,7 @@
 			</tbody>
            </table>
            <!-- 검색 form  -->
-           		<div class="p-4 bg-secondary" style="width:1555px">
+           		<div class="p-4 bg-secondary" style="width:1500px">
 				  <form name="search-form" method="get" action="freeboardlist" autocomplete="off" 
 				  class="d-flex align-items-center justify-content-center" style="width:100%; text-align:center;">
 					<div class="input-group input-group-alternative" style="width:180%;"> 
@@ -117,18 +119,20 @@
 						<input type="text" name="keyword" value="" style="width:70%" class="form-control form-control-alternative" placeholder="    검색어를 입력하세요">
 				        <button type="submit" class="btn btn btn-success" id="btnsearch">검색</button>
 				    </div>  
-				    <input type="hidden" name="pageNo" value="${pageNo}">  
+				    <input type="hidden" name="pageNo" value="${pageNo}"> 
 					</form> 
 				</div> 
               	<br><br>
-           	 <!-- 검색 form  -->
+           	 <!-- 검색 form  --> 
                  ${ pager2 }
                  <br /><br />
 				
 			</div>
           </div>
         </div>
-      </div> 
+      </div>
+     
+      
       <!-- Footer -->
                  <jsp:include page="/WEB-INF/views/modules/footer.jsp" /> 
 
@@ -177,10 +181,7 @@
 			        }
 			    });
 			});
-</script>
-  
-  
-  
+</script> 
   
 </body>
 

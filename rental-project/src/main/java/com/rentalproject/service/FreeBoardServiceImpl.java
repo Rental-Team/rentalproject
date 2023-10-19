@@ -51,6 +51,30 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	}
 	
 	@Override
+	public int getSearchFreeBoardCount(String keyword) {
+		int searchCountAll = freeboardMapper.selectFreeBoardSearchCount(keyword);
+		return searchCountAll;
+	} 
+	
+	@Override
+	public int getSearchByTitleCount(String keyword) {
+		int searchTitleCount = freeboardMapper.selectFreeBoardTitleSearchCount(keyword);
+		return searchTitleCount; 
+	}  
+
+	@Override
+	public int getSearchByContentCount(String keyword) {
+		int searchContentCount = freeboardMapper.selectFreeBoardContentSearchCount(keyword);
+		return searchContentCount;
+	}
+
+	@Override
+	public int getSearchByMemberIdCount(String keyword) {
+		int searchMemberCount = freeboardMapper.selectFreeBoardMemberSearchCount(keyword);
+		return searchMemberCount;
+	}   
+	
+	@Override
 	public FreeBoardDto findFreeBoardByFreeBoardNo(int freeBoardNo) {
 		
 		FreeBoardDto freeBoard = freeboardMapper.selectFreeBoardByFreeBoardNo(freeBoardNo); // 자유게시판 글 중 하나 클릭할때 그 게시글 조회
@@ -106,33 +130,29 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	}
 
 	@Override // 자유게시판 게시글 검색 
-	public List<FreeBoardDto> selectSearchFreeBoard(String keyword){
-		List<FreeBoardDto> freeBoardSearch = freeboardMapper.selectSearchFreeBoard(keyword);
+	public List<FreeBoardDto> selectSearchFreeBoard(String keyword, int from, int count){ 
+		List<FreeBoardDto> freeBoardSearch = freeboardMapper.selectSearchFreeBoard(keyword, from, count);
 		return freeBoardSearch;
 	} 
 
 	@Override
-	public List<FreeBoardDto> selectSearchByTitle(String keyword) {
-		List<FreeBoardDto> freeBoardSearch = freeboardMapper.selectSearchByTitle(keyword);
+	public List<FreeBoardDto> selectSearchByTitle(String keyword, int from, int count) {
+		List<FreeBoardDto> freeBoardSearch = freeboardMapper.selectSearchByTitle(keyword, from, count);
 		return freeBoardSearch;
 	}
 
 	@Override
-	public List<FreeBoardDto> selectSearchByContent(String keyword) {
-		List<FreeBoardDto> freeBoardSearch = freeboardMapper.selectSearchByContent(keyword);
+	public List<FreeBoardDto> selectSearchByContent(String keyword, int from, int count) {
+		List<FreeBoardDto> freeBoardSearch = freeboardMapper.selectSearchByContent(keyword, from, count);
 		return freeBoardSearch;
 	}
 
 	@Override
-	public List<FreeBoardDto> selectSearchByMemeberId(String keyword) {
-		List<FreeBoardDto> freeBoardSearch = freeboardMapper.selectSearchByMemeberId(keyword);
+	public List<FreeBoardDto> selectSearchByMemeberId(String keyword, int from, int count) {
+		List<FreeBoardDto> freeBoardSearch = freeboardMapper.selectSearchByMemeberId(keyword, from, count);
 		return freeBoardSearch;
-	}   
+	}
+
 	
-	@Override
-	public List<FreeBoardDto> selectReportedFreeBoard() { 
-		List<FreeBoardDto> reportList = freeboardMapper.selectReportedFreeBoard();  
-		return reportList;  // 신고된 게시글 조회 
-	}
 
 }
