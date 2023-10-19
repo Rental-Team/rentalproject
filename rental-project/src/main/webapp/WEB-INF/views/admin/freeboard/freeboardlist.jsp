@@ -40,15 +40,13 @@
           <div class="card shadow">
             <div class="card-header border-0">
 		    <div class="row align-items-center">
-		        <div class="col">
-		            <h3 style="font-weight: bold" class="mb-3">자유게시판</h3>
-		        </div>     
-				<div class="row text-center justify-content-right"> 
-			        <div class="btn-group" style="margin-right: 30px">
-		        	<a href="reported-List" class="btn btn-success" id="reportshowbtn">신고된 글 조회 및 관리하기</a>
-		            <a href="freeboardwrite" class="btn btn-success" style="margin: 0">게시글 작성</a>
-			        </div>
-		    	</div>
+			    <div class="col">
+				    <h3 style="font-weight: bold" class="mb-3">자유게시판</h3>  
+				</div>
+			<div class="col right d-flex justify-content-end">
+			    <a href="reported-List" class="btn btn-success" id="reportshowbtn">신고된 글 조회 및 관리하기</a>
+			    <a href="freeboardwrite" class="btn btn-success" style="margin: 0">게시글 작성</a>
+			</div>
 			</div>
 			<br>
             <div class="table-responsive">  
@@ -131,11 +129,12 @@
           </div>
         </div>
       </div>
-     
+    </div> 
       
       <!-- Footer -->
                  <jsp:include page="/WEB-INF/views/modules/footer.jsp" /> 
 
+    
     </div>
     </div>
   <!--   Core   -->
