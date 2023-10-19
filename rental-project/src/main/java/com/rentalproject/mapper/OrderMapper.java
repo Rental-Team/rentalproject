@@ -37,8 +37,8 @@ public interface OrderMapper {
 	
 	
 	// 상품 정보 가져오기
-	@Select("select itemPrice ,itemNo, itemName " 
-			+ "from Item "
+	@Select("select i.itemPrice , i.itemNo, i.itemName, (select Max(ia.savedFileName) from itemAttach ia where ia.itemNo = i.itemNo) thumbnail " 
+			+ "from Item i "
 			+ "where itemNo = #{itemNo}")
 	OrderDetailDto rentalItemInfo(@Param("itemNo") int itemNo); 
 	
@@ -85,7 +85,6 @@ public interface OrderMapper {
 //			+ "where ro.orderId = #{orderId}")
 //	RentalOrderPageDto getOrderDetail(int orderId);
 	
-	
 	@Select("select distinct ro.orderId, (select i.itemName from Item i where i.itemNo = od.itemNo) itemName, "
 			+ "od.itemPrice, od.itemCount, ro.orderState, ro.addressUser, ro.address "
 			+ "from rentalOrder ro inner join OrderDetail od "
@@ -97,4 +96,9 @@ public interface OrderMapper {
 			+ "from rentalOrder "
 			+ "where orderId = #{orderId} ")
 	RentalOrderPageDto getAddress(@Param("orderId") int orderId); 
+	
+	@Select("select (select ia.savedFileName from itemAttach ia where ia.itemNo = od.itemNo) thumbnail "
+			+ "from rentalOrder ro inner join OrderDetail od "
+			+ "on orderId = #{orderId} ")
+	RentalOrderPageDto getAttach(@Param("orderId") int orderId);
 }

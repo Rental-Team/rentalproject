@@ -71,13 +71,11 @@
 						</div>
 					</div>
 					<form action="write" method="post">
-						<input type="hidden" name="itemNo" value="${ item.itemNo }" /> <input
-							type="hidden" name="pageNo" value="${ pageNo }" /> <input
-							type="hidden" name="writer" value="${ loginuser.memberNo }" />
+						<input type="hidden" class="itemNo_input" name="itemNo" value="${ item.itemNo }" /> 
+						<input type="hidden" name="pageNo" value="${ pageNo }" /> 
+						<input type="hidden" name="writer" value="${ loginuser.memberNo }" />
 						<div class="card-body">
-							<input disabled="disabled" type="hidden" id="itemNo"
-								name="itemNo" class="form-control form-control-alternative"
-								value="${ item.itemNo }">
+							<input disabled="disabled" type="hidden" id="itemNo" name="itemNo" class="form-control form-control-alternative" value="${ item.itemNo }">
 							<!-- <h6 class="heading-small text-muted mb-4">User information</h6> -->
 							<div class="container">
 								<br>
@@ -216,10 +214,8 @@
 														</div>
 														<br> <br>
 														<div class="text-right">
-															<button type="button" id="btn_zzim"
-																class='btn btn-outline-success float-right'>찜하기</button>
-															<button type="button" id="btn_rental"
-																class='btn btn-outline-success float-right'>대여하기</button>
+															<button type="button" id="btn_zzim" class='btn btn-outline-success float-right'>찜하기</button>
+															<button type="button" id="btn_rental" class='btn btn-outline-success float-right'>대여하기</button>
 														</div>
 													</div>
 												</div>
@@ -570,10 +566,9 @@
 
 
 	<!-- 주문 폼 -->
-	<form action="/order/${loginuser.memberNo}" method="get"
-		class="order_form">
-		<input type="hidden" name="orders[0].itemNo" value="${item.itemNo}">
-		<input type="hidden" name="orders[0].itemCount" value="">
+	<form action="/rental-project/directRental" method="get" class="rental_form">
+		<input type="hidden" name="itemNo" value="${item.itemNo}">
+		<input type="hidden" name="itemCount" value="">
 	</form>
 
 
@@ -604,7 +599,6 @@
 
 	<script>
 		$(document).ready(function() {
->>>>>>> 1502d44fe50a1f4557b7f3728486c292580204df
  
 			let itemPrice = "${item.itemPrice}"
 			let point = itemPrice * 0.05;
@@ -660,20 +654,16 @@
 				}
 			}
 
-			$(".btn_rental").on(
-				"click",
-				function() {
-					var itemCount = $(".count_input").val();
-					$(".rental_form").find(
-							"input[name='orderDetailList[0].itemCount']").val(
-							itemCount);
+			$("#btn_rental").on("click", function() {
+					let itemCount = $(".quantity_input").val();
+					$(".rental_form").find("input[name='itemCount']").val(itemCount);
 					$(".rental_form").submit();
-				}
-			);
+				});
 
-			$("#write-item-review-lnk").on(
-				"click",
-				function(event) { // 상품 후기 작성하기  
+			
+			
+			
+			$("#write-item-review-lnk").on("click", function(event) { // 상품 후기 작성하기  
 					event.preventDefault();
 					const formData = $('#itemReviewForm').serialize();
 					var reviewContent = $("#review_content").val();

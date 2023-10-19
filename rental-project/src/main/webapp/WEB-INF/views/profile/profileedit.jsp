@@ -62,6 +62,7 @@
                 	<c:when test="${loginuser.memberImage == null}">
                     <img id="preview" src="/rental-project/resources/img/theme/default.png" class="rounded-circle">
                     <input type="file" id="imageInput" name="imageName" style="display: none;" accept="image/*" onchange="readURL(this);" />
+                    
                     </c:when>
                     <c:otherwise>
                     <img id="preview" src="${pageContext.request.contextPath}/resources/upload/${loginuser.memberImage}" alt="Image" class="rounded-circle">
@@ -76,7 +77,7 @@
             <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
               <div class="d-flex justify-content-between">
                 <a href="#" class="btn btn-sm btn-info mr-4">Connect</a>
-                <a href="#" class="btn btn-sm btn-default float-right">Message</a>
+                <a href="#" class="btn btn-sm btn-default float-right" onclick="resetImage();">Message</a>
               </div>
             </div>
             <div class="card-body pt-0 pt-md-4">
@@ -257,6 +258,17 @@
         token: "ee6fab19c5a04ac1a32a645abde4613a",
         application: "argon-dashboard-free"
       });
+  </script>
+  <script>
+  function resetImage() {
+	    // 이미지 업로드 필드 초기화
+	    document.getElementById('imageInput').value = '';
+
+	    // 기본 이미지 표시
+	    document.getElementById('preview').src = '/rental-project/resources/img/theme/default.png';
+	}
+  
+  
   </script>
 </body>
 

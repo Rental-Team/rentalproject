@@ -16,5 +16,5 @@ public interface ZzimService {
 	// 찜 수정
 	int modifyCount(ZzimDto zzim);
 	
-	int deleteZzim(int zzimNo);
+	int deleteZzim(ZzimDto zzim);
 }

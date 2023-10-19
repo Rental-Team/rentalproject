@@ -26,9 +26,11 @@ public interface OrderServcie {
 		//RentalOrderDto rentalMemberInfo(int memberNo); 
 
 
-		List<RentalOrderPageDto> orderDetail(int orderId);
+	List<RentalOrderPageDto> orderDetail(int orderId);
 		
-//		RentalOrderPageDto findOrderDetailByOrderId(int orderId);
+//	RentalOrderPageDto findOrderDetailByOrderId(int orderId);
 		
-		RentalOrderPageDto getAddress(int orderId); 
+	RentalOrderPageDto getAddress(int orderId); 
+		
+	RentalOrderPageDto getAttach(int orderId);
 }

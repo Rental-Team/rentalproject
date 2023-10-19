@@ -41,65 +41,73 @@ public class OrderServiceImpl implements OrderServcie {
 //	private AdminMapper adminMapper;
 
 	// 상품 정보 받기
-		@Override
-		public OrderDetailDto rentalItemInfo(int itemNo) {
+	@Override
+	public OrderDetailDto rentalItemInfo(int itemNo) {
 			
-			return orderMapper.rentalItemInfo(itemNo);
+		return orderMapper.rentalItemInfo(itemNo);
 					
-		} 
+	} 
 		
-		@Override
-		public void insertOrderDetail(OrderDetailDto orderDetail) {
-			orderMapper.orderDetail(orderDetail);
-		}
+	@Override
+	public void insertOrderDetail(OrderDetailDto orderDetail) {
+		orderMapper.orderDetail(orderDetail);
+	}
 		
 		
-		// 주문 리스트 띄우기(관리자에서 사용)
-		@Override
-		public List<RentalOrderPageDto> orderList(){
+	// 주문 리스트 띄우기(관리자에서 사용)
+	@Override
+	public List<RentalOrderPageDto> orderList(){
+		
+		return orderMapper.orderListInfo();
 			
-			return orderMapper.orderListInfo();
-			
-		}
+	}
 
-		@Override
-		@Transactional // acid
-		public void order(RentalOrderPageDto od) {
-			
-			orderMapper.registerOrder(od);                                    // 주문 정보 DB에 저장
-			for(OrderDetailDto orid : od.getOrderDetailList()) {
-				orid.setOrderId(od.getOrderId());
-				orderMapper.registerOrderItem(orid);
+	@Override
+	@Transactional // acid
+	public void order(RentalOrderPageDto od) {
+		
+		orderMapper.registerOrder(od);                                    // 주문 정보 DB에 저장
+		for(OrderDetailDto orid : od.getOrderDetailList()) {
+			orid.setOrderId(od.getOrderId());
+			orderMapper.registerOrderItem(orid);
 				
-				ItemDto item = itemMapper.getItemsInfo(orid.getItemNo());       // 재고 감소 시키고 
-				item.setItemStock(item.getItemStock() - orid.getItemCount());      
-				 
-				orderMapper.minusStock(item);
+			ItemDto item = itemMapper.getItemsInfo(orid.getItemNo());       // 재고 감소 시키고 
+			item.setItemStock(item.getItemStock() - orid.getItemCount());      
+			 
+			orderMapper.minusStock(item);
 				
-				ZzimDto zzim = new ZzimDto();
-				zzim.setMemberNo(od.getMemberNo());
-				zzim.setItemNo(orid.getItemNo());
+			ZzimDto zzim = new ZzimDto();
+			zzim.setMemberNo(od.getMemberNo());
+			zzim.setItemNo(orid.getItemNo());
 				
-				zzimMapper.deleteOrderZzim(zzim);
-			}
+			zzimMapper.deleteOrderZzim(zzim);
+		}
 			
 
 		} 
 		  
 		
-		@Override
-		public List<RentalOrderPageDto> orderDetail(int orderId) {
+	@Override
+	public List<RentalOrderPageDto> orderDetail(int orderId) {
+		
+		List<RentalOrderPageDto> orderList = orderMapper.getOrderDetail(orderId);			
 			
-			List<RentalOrderPageDto> orderList = orderMapper.getOrderDetail(orderId);
-			
-			return orderList;
-		}
+		return orderList;
+	}
 
-		@Override
-		public RentalOrderPageDto getAddress(int orderId) {
-			RentalOrderPageDto address = orderMapper.getAddress(orderId);
-			return address;
-		}  
+	@Override
+	public RentalOrderPageDto getAddress(int orderId) {
+	
+		RentalOrderPageDto address = orderMapper.getAddress(orderId);
+		
+		return address;
+	}  
+	
+	@Override
+	public RentalOrderPageDto getAttach(int orderId) {
+		RentalOrderPageDto attach = orderMapper.getAttach(orderId);
+		return attach;
+	}
 
 		
 	}

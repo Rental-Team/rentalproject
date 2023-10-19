@@ -19,4 +19,5 @@ public class OrderDetailDto {
 	private int itemCount;
 	private int itemPrice;
 	private String itemName;
+	private String thumbnail;
 }

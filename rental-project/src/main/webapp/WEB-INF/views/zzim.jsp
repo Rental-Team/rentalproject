@@ -69,8 +69,7 @@
 								<input type="hidden" class="individual_totalPrice_input" value="${zzim.itemPrice * zzim.itemCount}">
 								<input type="hidden" class="individual_point_input" value="${zzim.point}">
 								<input type="hidden" class="individual_totalPoint_input" value="${zzim.totalPoint}">
-								<input type="hidden" class="individual_itemNo_input" value="${zzim.itemNo}">
-																
+								<input type="hidden" class="individual_itemNo_input" value="${zzim.itemNo}">																
 							</td>
 							<td class="td_width_2">
 								<img src="${pageContext.request.contextPath}/resources/upload/thumbnail_${zzim.thumbnail}" alt="Image">							
@@ -109,7 +108,7 @@
               	<form action="/rental-project/zzim/update" method="post" class="quantity_update_form">
 					<input type="hidden" name="zzimNo" class="update_zzimNo">
 					<input type="hidden" name="itemCount" class="update_itemCount">
-					
+					<input type="hidden" name="memberNo" value="${ loginuser.memberNo }">
 				</form>
 				
 				<form action="/rental-project/zzim/delete" method="post" class="delete_form">
@@ -168,8 +167,9 @@
 	});
   
   $(".quantity_modify_btn").on("click", function(){
-	  let zzimNo = $(this).data("zzimNo");
-	  let itemCount = $(this).parent("div").find("input").val();
+	  
+	  let zzimNo = $(this).data("zzimno");
+	  let itemCount = $(this).parent("td").find("input").val();
 	  
 	  $(".update_zzimNo").val(zzimNo);
 	  $(".update_itemCount").val(itemCount);
@@ -179,7 +179,7 @@
   
   $(".delete_btn").on("click", function(e){
 	  e.preventDefault();
-	  const zzimNo = $(this).data("zzimNo");
+	  const zzimNo = $(this).data("zzimno");
 	  
 	  $(".delete_zzimNo").val(zzimNo);
 	  $(".delete_form").submit();
