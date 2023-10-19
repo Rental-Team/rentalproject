@@ -2,6 +2,14 @@
     pageEncoding="UTF-8"%>
     
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+     <head>
+      <jsp:include page="/WEB-INF/views/modules/title.jsp" />
+    </head>
+    
+    <div> 
+    <img src="/rental-project/resources/img/brand/프로젝트 1팀.png" class="navbar-brand-img" alt="..." style="width: 110px; height: auto; margin-left: 20px; margin-top: 10px;">
+     </div>
+    
     
     <div class="navbar-top">
 <nav class="navbar-login ml-auto">

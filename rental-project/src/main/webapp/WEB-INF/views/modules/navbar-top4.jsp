@@ -18,18 +18,20 @@ a {
 
 .quickmenu {
   position: absolute;
-  width: 90px;
-  top: 200px; /* 사이드바가 위에서부터 시작하도록 수정 */
+  width: 150px;
+  top: 400px; /* 사이드바가 위에서부터 시작하도록 수정 */
   right: 10px;
-  background: #fff;
+  background: #ffffff;
   z-index: 2; /* 다른 요소 위에 나타나도록 설정 */
-  opacity:0.8;
-  transition: opacity 0.5s;
+  border: none; /* 테두리 제거 */
+  border-radius: 10px; /* 둥근 테두리 */
+  
 }
 
-.quickmenu:hover {
+/* .quickmenu:hover {
 	opacity: 1.0;
-}
+	color: blue;
+} */
 .quickmenu ul {
   position: relative;
   float: left;
@@ -57,7 +59,7 @@ a {
   text-align: center;
   color: #333;
   font-size: 10pt;
-  font-weight: bold;
+  font-weight:Semi bold;
 }
 
 .quickmenu ul li a:hover {
@@ -72,24 +74,59 @@ a {
   position: relative;
   min-height: 2000px;
 }
+.scroll-to-top{
+	position:fixed;
+	bottom:390px;
+	right:20px;
+	background: none;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	padding: 10px 20px;
+	cursor: pointer;
+	display: none;	
+	opacity: 1.0;
+}
 </style>
 </head>
     
 <div class="quickmenu">
+ <p style="font-weight:bold; text-align:center; padding-top: 15px;">QUICK MENU </p>
   <ul>
-    <li><a href="/rental-project/privateboard/privateqnalist">1:1문의</a></li>
-    <li><a href="/rental-project/zzim/${loginuser.memberNo}">찜목록</a></li>
+ 
+    <li>
+    <a href="/rental-project/privateboard/privateqnawrite">
+    <img src="/rental-project/resources/img/brand/문의.png" style="width: 30px; height: auto; float: left; margin-right: -10px;">
+    1:1문의 작성</a></li>
+    <li><a href="/rental-project/zzim/${loginuser.memberNo}">
+    <img src="/rental-project/resources/img/brand/장바구니2.png" style="width: 30px; height: auto; float: left; margin-right: -10px;">
+    찜목록</a></li>
+    <li><button class="scroll-to-top">⬆️</button> </li>
   </ul>
+  
 </div>
+
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
   var currentPosition = parseInt($(".quickmenu").css("top"));
+  var $scrollToTop = $(".scroll-to-top");
 
   $(window).scroll(function() {
     var position = $(window).scrollTop();
     $(".quickmenu").stop().animate({ "top": position + currentPosition + "px" }, 1000);
+  	
+    if (position > 6) {
+    	$scrollToTop.fadeIn();
+		} else {
+			$scrollToTop.fadeOut();
+		}
+  
+  });
+  $scrollToTop.click(function() {
+	  $("html, body").animate({ scrollTop: 0 }, 500);
   });
 });
 </script>

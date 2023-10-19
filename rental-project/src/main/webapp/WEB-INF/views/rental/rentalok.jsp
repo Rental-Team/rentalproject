@@ -25,15 +25,19 @@
   <link href="/rental-project/resources/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
   	
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <link href="/rental-project/resources/css/navbar-top.css" rel="stylesheet" />
+  
   
   
 </head>
 
 <body class="">
-<jsp:include page="/WEB-INF/views/modules/navbar-vertical.jsp" />
   <div class="main-content">
     <!-- Navbar -->
 	<jsp:include page="/WEB-INF/views/modules/navbar-top.jsp" />
+	<jsp:include page="/WEB-INF/views/modules/navbar-top2.jsp" />
+	<jsp:include page="/WEB-INF/views/modules/navbar-top3.jsp" />
+	<jsp:include page="/WEB-INF/views/modules/navbar-top4.jsp" />
     <!-- End Navbar -->
     <!-- Header -->
     <jsp:include page="/WEB-INF/views/modules/navbar-content.jsp" />

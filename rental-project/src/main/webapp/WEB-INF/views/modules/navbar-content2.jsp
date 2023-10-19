@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<head>
+    <link rel="stylesheet" type="text/css" href="navbar-top.css">
+</head>
 
-  <div class="header pb-4 pt-5 pt-md-4">
-  <span class="mask bg-red opacity-2" ></span>
+  <div class="header pb-4 pt-5 pt-md-4" style="border-bottom: none; background-color: rgba(255, 0, 0, 0.2) ;">
+ <!--  <span class="mask bg-red opacity-1" ></span> -->
       <div class="container-fluid">
         <div class="header-body">
        

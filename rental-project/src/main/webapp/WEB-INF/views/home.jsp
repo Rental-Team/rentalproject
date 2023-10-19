@@ -9,9 +9,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>
-    Argon Dashboard - Free Dashboard for Bootstrap 4 by Creative Tim
-  </title>
+  <jsp:include page="/WEB-INF/views/modules/title.jsp" />
   <!-- Favicon -->
   <link href="/rental-project/resources/img/brand/favicon.png" rel="icon" type="image/png">
   <!-- Fonts -->
@@ -33,7 +31,7 @@
       display: flex;
       flex-direction: row;
       margin-bottom: 1px;
-      margjin-top: 20px;
+      margjin-top: 10px;
     }
     .product-info {
       flex: 1;
@@ -60,16 +58,16 @@
     
     <div class="container-fluid mt--12" style="z-index:1;"> 
   
+  <div class="row mt-12">
+  <h1 style="margin-left:550px;">❗BEST PICK❗</h1> </div>
       <div class="row mt-12">
        		<div class="product-card">
           	<div class="product-info">
-     		<div class="card" style="width: 18rem;">
-			  <img class="card-img-top" src="/rental-project/resources/img/brand/fridge.png" alt="Card image cap" width=200 height=200>
+     		<div class="card" style="width: 20rem;">
+			  <img class="card-img-top" src="/rental-project/resources/img/brand/벽걸이 에어컨.png" alt="Card image cap" width=200 height=245>
 			  <div class="card-body">
-			    <h1 class="card-title">냉장고</h1>
-			    <p class="card-text">SAMSUNG
-			    세프컬렉션 냉장고 930L, 세라블랙</p>
-			    <a href="./item/list" class="btn btn-success">상품보러가기</a>
+			    <h1 class="card-title"style="font-size:20px;">삼성  벽걸이 인버터에어컨 </h1>
+			    <a href="item/detail?itemNo=115&pageNo=1" class="btn btn-success active" style="position: absolute; bottom: 0; right: 0;">상품보러가기</a>
 			  </div>
 			</div>
 			</div>
@@ -77,25 +75,24 @@
 			<div class="product-card">
 			   <div class="product-info">
 			<div class="card" style="width: 18rem;">
-			  <img class="card-img-top" src="/rental-project/resources/img/brand/range.png" alt="Card image cap" width=200 height=200>
+			  <img class="card-img-top" src="/rental-project/resources/img/brand/정3.png" alt="Card image cap" width=200 height=245>
 			  <div class="card-body">
-			    <h1 class="card-title">전자레인지</h1>
-			    <p class="card-text">SK매직
-			    MWO-M8A01, 용량20L, 출력 700W, 화이트</p>
-			    <a href="./item/list" class="btn btn-success">상품보러가기</a>
+			    <h1 class="card-title" style="font-size:18px;">SK 매직 미니 무전원 정수기</h1>
+			    <a href="item/detail?itemNo=113&pageNo=1" class="btn btn-success active" style="position: absolute; bottom: 0; right: 0;">상품보러가기</a>
 			  </div>
 			</div>
         </div>
         </div>
+        
   <div class="product-card">
           	<div class="product-info">
+          	
      		<div class="card" style="width: 18rem;">
-			  <img class="card-img-top" src="/rental-project/resources/img/brand/fridge.png" alt="Card image cap" width=200 height=200>
+			  <img class="card-img-top" src="/rental-project/resources/img/brand/냉5.png" alt="Card image cap" width=200 height=245>
 			  <div class="card-body">
-			    <h1 class="card-title">냉장고</h1>
-			    <p class="card-text">SAMSUNG
-			    세프컬렉션 냉장고 930L, 세라블랙</p>
-			    <a href="./item/list" class="btn btn-success">상품보러가기</a>
+			    <h1 class="card-title" style="font-size:20px;">마루나 일반형 냉장고</h1>
+			    
+			    <a href="item/detail?itemNo=112&pageNo=1" class="btn btn-success active" style="position: absolute; bottom: 0; right: 0;">상품보러가기</a>
 			  </div>
 			</div>
 			</div>
@@ -103,12 +100,10 @@
 			<div class="product-card">
 			   <div class="product-info">
 			<div class="card" style="width: 18rem;">
-			  <img class="card-img-top" src="/rental-project/resources/img/brand/range.png" alt="Card image cap" width=200 height=200>
+			  <img class="card-img-top" src="/rental-project/resources/img/brand/그랑데2.png" alt="Card image cap" width=200 height=245>
 			  <div class="card-body">
-			    <h1 class="card-title">전자레인지</h1>
-			    <p class="card-text">SK매직
-			    MWO-M8A01, 용량20L, 출력 700W, 화이트</p>
-			    <a href="./item/list" class="btn btn-success">상품보러가기</a>
+			    <h1 class="card-title" style="font-size:20px">삼성 그랑데 통버블세탁기</h1>
+			    <a href="item/detail?itemNo=111&pageNo=1" class="btn btn-success active" style="position: absolute; bottom: 0; right: 0;">상품보러가기</a>
 			  </div>
 			</div>
         </div>
@@ -123,7 +118,7 @@
                   <h3 class="mb-0">공지사항</h3>
                 </div>
                 <div class="col text-right">
-                  <a href="./notice/list" class="btn btn-sm btn-primary">더보기</a>
+                  <a href="./notice/list" class="btn btn-sm btn-success">더보기</a>
                 </div>
               </div>
             </div>            
@@ -137,60 +132,7 @@
           </div>
         </div>
         </div>
-              <div class="row mt-5">
-       		<div class="product-card">
-          	<div class="product-info">
-     		<div class="card" style="width: 18rem;">
-			  <img class="card-img-top" src="/rental-project/resources/img/brand/fridge.png" alt="Card image cap" width=200 height=200>
-			  <div class="card-body">
-			    <h1 class="card-title">냉장고</h1>
-			    <p class="card-text">SAMSUNG
-			    세프컬렉션 냉장고 930L, 세라블랙</p>
-			    <a href="./item/list" class="btn btn-success">상품보러가기</a>
-			  </div>
-			</div>
-			</div>
-			</div>
-			<div class="product-card">
-			   <div class="product-info">
-			<div class="card" style="width: 18rem;">
-			  <img class="card-img-top" src="/rental-project/resources/img/brand/range.png" alt="Card image cap" width=200 height=200>
-			  <div class="card-body">
-			    <h1 class="card-title">전자레인지</h1>
-			    <p class="card-text">SK매직
-			    MWO-M8A01, 용량20L, 출력 700W, 화이트</p>
-			    <a href="./item/list" class="btn btn-success">상품보러가기</a>
-			  </div>
-			</div>
-        </div>
-        </div>
-  <div class="product-card">
-          	<div class="product-info">
-     		<div class="card" style="width: 18rem;">
-			  <img class="card-img-top" src="/rental-project/resources/img/brand/fridge.png" alt="Card image cap" width=200 height=200>
-			  <div class="card-body">
-			    <h1 class="card-title">냉장고</h1>
-			    <p class="card-text">SAMSUNG
-			    세프컬렉션 냉장고 930L, 세라블랙</p>
-			    <a href="./item/list" class="btn btn-success">상품보러가기</a>
-			  </div>
-			</div>
-			</div>
-			</div>
-			<div class="product-card">
-			   <div class="product-info">
-			<div class="card" style="width: 18rem;">
-			  <img class="card-img-top" src="/rental-project/resources/img/brand/range.png" alt="Card image cap" width=200 height=200>
-			  <div class="card-body">
-			    <h1 class="card-title">전자레인지</h1>
-			    <p class="card-text">SK매직
-			    MWO-M8A01, 용량20L, 출력 700W, 화이트</p>
-			    <a href="./item/list" class="btn btn-success">상품보러가기</a>
-			  </div>
-			</div>
-        </div>
-        </div>
-        </div>
+              
       <!-- Footer -->
  <jsp:include page="/WEB-INF/views/modules/footer.jsp" /> 
     </div>

@@ -10,6 +10,7 @@
 	.nav-link2 {
     border: 0; /* 모든 네비게이션 링크의 경계선을 제거합니다. */
     font-size: 35px;
+    color: black;
     
 	
 }	
@@ -17,8 +18,9 @@
 	font-family:'neon';
 	src: url("/rental-project/resources/fonts/225.ttf") format('truetype');
 	
-.nav-link.active {
-    border: 0; /* 활성화된 네비게이션 링크에도 경계선을 제거합니다. */
+.nav-link2.active {
+    border: none;
+    border-bottom: none;
 }
     </style>
     </head>

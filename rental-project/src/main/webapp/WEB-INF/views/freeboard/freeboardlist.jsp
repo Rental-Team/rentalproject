@@ -10,9 +10,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>
-    Argon Dashboard - Free Dashboard for Bootstrap 4 by Creative Tim
-  </title>
+  
   <!-- Favicon -->
   <link href="/rental-project/resources/img/brand/favicon.png" rel="icon" type="image/png">
   <!-- Fonts -->
@@ -23,6 +21,13 @@
   <!-- CSS Files -->
   <link href="/rental-project/resources/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
   <link href="/rental-project/resources/css/navbar-top.css" rel="stylesheet" />
+  <style>
+  .nav-link2.free {
+	
+    text-decoration: underline double; /* 강조선 표시 */
+    text-decoration-color: rgba(255, 0, 0, 0.2); /* 강조선 색상 설정 (흰색) */
+    font-size:40px;
+}</style>
 </head>
 
 <body class="">
@@ -44,8 +49,9 @@
 		        <div class="col">
 		            <h3 style="font-weight: bold" class="mb-0">자유게시판</h3>
 		        </div>   
-		        	<a href="reported-List" class="btn btn-success" id="reportshowbtn" style="width: 8cm">신고된 글 조회 및 관리하기</a>
 		        <div class="col text-right">
+		        	<a href="reported-List" class="btn btn-success" id="reportshowbtn" style="width: 8cm">신고된 글 조회 및 관리하기</a>
+		        
 		            <a href="freeboardwrite" class="btn btn-success" style="margin: 0">게시글 작성</a>
 		        </div>
 	    	</div>

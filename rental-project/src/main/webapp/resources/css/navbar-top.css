@@ -4,6 +4,7 @@
     margin-top: 18px;
     margin-right: 30px;
     float: right; font-size:20px;
+    
     }
     
  
@@ -20,12 +21,12 @@
 
   /* 링크들 사이에 공간 추가 */
   .navbar-top3 li {
-    margin: 0 30px; /* 원하는 간격으로 조절하세요 */
+    margin: 0 40px; /* 원하는 간격으로 조절하세요 */
+    padding: 1;
   }
+  
 
-  /* 링크 텍스트를 보이게 설정 */
-  .navbar-top3 a {
-    color: #000080; /* 원하는 색상으로 조절하세요 */  
-    text-decoration: none;
-  }
+
+  
+ 
   

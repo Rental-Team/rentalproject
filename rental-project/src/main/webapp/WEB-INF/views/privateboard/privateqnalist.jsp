@@ -9,9 +9,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>
-    Argon Dashboard - Free Dashboard for Bootstrap 4 by Creative Tim
-  </title>
+  
   <!-- Favicon -->
   <link href="/rental-project/resources/img/brand/favicon.png" rel="icon" type="image/png">
   <!-- Fonts -->
@@ -22,6 +20,14 @@
   <!-- CSS Files -->
   <link href="/rental-project/resources/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
     <link href="/rental-project/resources/css/navbar-top.css" rel="stylesheet" />
+    <style>
+    .nav-link2.private {
+	
+    text-decoration: underline double; /* 강조선 표시 */
+    text-decoration-color: rgba(255, 0, 0, 0.2); /* 강조선 색상 설정 (흰색) */
+    font-size:40px;
+}
+    </style>
 </head>
 
 <body class="">
@@ -52,7 +58,7 @@
 	        <option value="unanswered">미답변 목록 조회</option>
 	        <option value="all">전체 목록 조회</option>
 	      </select>
-	      <button id="viewButton" class="btn btn-primary btn-sm ml-2" onclick="viewList()">목록 조회</button>
+	      <button id="viewButton" class="btn btn-success btn-sm ml-2" onclick="viewList()">목록 조회</button>
 	    </div>
 	  </div>
 		</div>
@@ -86,7 +92,7 @@
 
              
                 <div class="col text-right">
-                  <a href="privateqnawrite" class="btn btn-sm btn-primary">1대1문의 작성</a>
+                  <a href="privateqnawrite" class="btn btn-sm btn-outline-success">1대1문의 작성</a>
                 </div>
               </div>
             </div>

@@ -7,9 +7,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>
-    Argon Dashboard - Free Dashboard for Bootstrap 4 by Creative Tim
-  </title>
+  
   <!-- Favicon -->
   <link href="/rental-project/resources/img/brand/favicon.png" rel="icon" type="image/png">
   <!-- Fonts -->
@@ -20,6 +18,13 @@
   <!-- CSS Files -->
   <link href="/rental-project/resources/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
   <link href="/rental-project/resources/css/navbar-top.css" rel="stylesheet" />
+  <style>
+  .nav-link2.free {
+	
+    text-decoration: underline double; /* 강조선 표시 */
+    text-decoration-color: rgba(255, 0, 0, 0.2); /* 강조선 색상 설정 (흰색) */
+    font-size:40px;
+}</style>
 </head>
 
 <body class="">
@@ -66,7 +71,7 @@
 	                  	<div class="col-lg-12">
 	                  	<div class="form-group">
 	                  	<label class="form-control-label" for="input-freeBoardAttach">첨부파일</label>
-	                  	<input type="file" id="attach" class ="btn btn-sm btn-primary" class="form-control form-control-alternative" name="attach" style="width:200px">  
+	                  	<input type="file" id="attach" class ="btn btn-sm btn-success" class="form-control form-control-alternative" name="attach" style="width:200px">  
 	                  	</div>
 	                  	</div>
 	                  	</div>		                   
@@ -81,8 +86,8 @@
 			            <div class="row">
 			            <div class="col-lg-12">
 			            <div class="text-right">
-				        <input type="submit" class ="btn btn-primary" value="글쓰기" >
-				        <input type="button" class ="btn btn-primary" id="btnCancel" value="취소" >
+				        <input type="submit" class ="btn btn-success" value="글쓰기" >
+				        <input type="button" class ="btn btn-success" id="btnCancel" value="취소" >
 			            </div>
 			            </div>
 		                </div>

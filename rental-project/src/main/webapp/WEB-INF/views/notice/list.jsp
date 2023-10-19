@@ -10,9 +10,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>
-    Argon Dashboard - Free Dashboard for Bootstrap 4 by Creative Tim
-  </title>
+  
   <!-- Favicon -->
   <link href="/rental-project/resources/img/brand/favicon.png" rel="icon" type="image/png">
   <!-- Fonts -->
@@ -23,6 +21,14 @@
   <!-- CSS Files -->
   <link href="/rental-project/resources/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
   <link href="/rental-project/resources/css/navbar-top.css" rel="stylesheet" />
+  <style>
+    .nav-link2.notice {
+	
+    text-decoration: underline double; /* 강조선 표시 */
+    text-decoration-color: rgba(255, 0, 0, 0.2); /* 강조선 색상 설정 (흰색) */
+    font-size:40px;
+}
+  </style>
 </head>
 
 <body class="">

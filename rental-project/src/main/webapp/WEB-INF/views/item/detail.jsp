@@ -24,9 +24,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>
-    Argon Dashboard - Free Dashboard for Bootstrap 4 by Creative Tim
-  </title>
+  
   <!-- Favicon -->
   <link href="/rental-project/resources/img/brand/favicon.png" rel="icon" type="image/png">
   <!-- Fonts -->
@@ -37,10 +35,53 @@
   <!-- CSS Files -->
   <link href="/rental-project/resources/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
   <link href="/rental-project/resources/css/navbar-top.css" rel="stylesheet" />
+    <link href="/rental-project/resources/css/custom-btn.css" rel="stylesheet" />
+  
   <style>
   .float-right {
     float: right;
 }
+   .nav-link2 {
+    border: none;
+    font-size: 35px;
+    border-bottom: none
+    position: relative; /* 요소의 위치를 상대적으로 설정합니다. */
+    z-index: 1; /* 텍스트가 배경색 위에 표시될 순서를 설정합니다. */
+    color: black;
+   
+    
+  
+}
+
+@font-face {
+    font-family: 'neon';
+    src: url("/rental-project/resources/fonts/225.ttf") format('truetype');
+}
+
+.nav-link.active {
+    border: none;
+    border-bottom: none;
+}
+
+.container {
+   
+      z-index: 0; /* 배경색이 텍스트 뒤에 나타날 순서를 설정합니다. */
+     padding: 2px; 
+     
+}
+.nav-link2:hover {
+	
+    text-decoration: underline double; /* 강조선 표시 */
+    text-decoration-color: rgba(255, 0, 0, 0.2); /* 강조선 색상 설정 (흰색) */
+}
+
+.nav-link2.item {
+	
+    text-decoration: underline double; /* 강조선 표시 */
+    text-decoration-color: rgba(255, 0, 0, 0.2); /* 강조선 색상 설정 (흰색) */
+    font-size:40px;
+}
+
 </style>
 </head>
 
@@ -50,7 +91,7 @@
 		<!-- Navbar -->
 		<jsp:include page="/WEB-INF/views/modules/navbar-top.jsp" />
 		<jsp:include page="/WEB-INF/views/modules/navbar-top2.jsp" />
-		<jsp:include page="/WEB-INF/views/modules/navbar-top3.jsp" />	
+		<jsp:include page="/WEB-INF/views/modules/navbar-top3.jsp" />
 		<jsp:include page="/WEB-INF/views/modules/navbar-top4.jsp" />
 		<!-- End Navbar -->
 		<!-- Header -->
@@ -332,9 +373,9 @@
 																							</div>
 																							<div
 																								style='display:${(not empty loginuser and loginuser.memberNo == 17 and not itemReview.itemReviewDelete)? "block" : "none"}'>
-																								<a class="write-reply btn btn-sm btn-secondary"
+																								<a class="write-reply btn btn-sm btn-outline-success"
 																									data-review-no="${itemReview.reviewNo}"
-																									href="javascript:void(0)" style="color: navy">후기답변작성</a>
+																									href="javascript:void(0)">후기답변작성</a>
 																							</div>
 																						</div>
 																						<span style="clear: both"></span>
@@ -399,7 +440,7 @@
 		                				<textarea id="itemqna_content" name="itemqnaContent" style="width:100%; resize:none;  border-radius:80px" rows="2">     </textarea>
 		                				</td>
 										<td style="vertical-align: middle; text-align:right;">
-										<a class ="btn btn-sm btn-primary" id="write-item-qna-lnk" href="javascript:void(0)">상품 문의 등록</a> 
+										<a class ="btn btn-sm btn-success" id="write-item-qna-lnk" href="javascript:void(0)">상품 문의 등록</a> 
 										</td>
 		                			</tr>
 		                		</table>
@@ -458,8 +499,8 @@
 						            &nbsp;&nbsp; 
 					            </div>
 					           <div style='display:${(not empty loginuser and loginuser.memberNo == 17 and not itemQna.itemqnaDelete)? "block" : "none"}'>
-						            <a class="write-qna-reply btn btn-sm btn-secondary" data-itemqna-no="${itemQna.itemqnaNo}"
-						                href="javascript:void(0)" style="color: navy">문의답변작성</a>
+						            <a class="write-qna-reply btn btn-sm btn-outline-success" data-itemqna-no="${itemQna.itemqnaNo}"
+						                href="javascript:void(0)" >문의답변작성</a>
 					        	</div>
 						    </div> 
     					<span style="clear:both"></span>
@@ -516,8 +557,8 @@
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="reply-modal-Label">후기 답변 작성</h5>
-					<button type="button" class="close" data-dismiss="modal"
+					<h5 class="modal-title" id="reply-modal-Label" >후기 답변 작성</h5>
+					<button type="button" class="btn btn-success" data-dismiss="modal" 
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -531,9 +572,9 @@
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
+					<button type="button" class="btn btn-success"
 						data-dismiss="modal">닫기</button>
-					<button type="button" class="btn btn-primary" id="write-reply-btn">후기답변작성</button>
+					<button type="button" class="btn btn-outline-success" id="write-reply-btn">후기답변작성</button>
 				</div>
 			</div>
 		</div>
@@ -546,7 +587,7 @@
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <h5 class="modal-title" id="replyqna-modal-Label">문의 답변 쓰기</h5>
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		        <button type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
 		        </button>
 		      </div>
@@ -558,8 +599,8 @@
 	   			</form> 
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-		        <button type="button" class="btn btn-primary" id="write-replyqna-btn" >문의답변쓰기</button>
+		        <button type="button" class="btn btn-success" data-dismiss="modal">닫기</button>
+		        <button type="button" class="btn btn-outline-success" id="write-replyqna-btn" >문의답변쓰기</button>
 		      </div>
 		    </div>
 		  </div>
