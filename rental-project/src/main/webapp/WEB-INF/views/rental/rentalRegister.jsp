@@ -75,7 +75,7 @@
 														<input type="hidden" name="orderDetailList[${status.index}].itemPrice" class="individual_itemPrice_input" value="${orderDetail.itemPrice}">
 														<input type="hidden" name="orderDetailList[${status.index}].itemCount" class="individual_itemCount_input" value="${orderDetail.itemCount}">	 
 														<td class="td_width_2">
-															<img src="${pageContext.request.contextPath}/resources/upload/thumbnail_${zzim.thumbnail}" alt="Image">							
+															<img src="${pageContext.request.contextPath}/resources/upload/thumbnail_${orderDetail.thumbnail}" alt="Image">							
 														</td>
 														<td class="td_width_3">${orderDetail.itemName}
 														<td class="td_width_4 price_td">

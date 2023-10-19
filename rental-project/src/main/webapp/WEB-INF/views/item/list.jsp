@@ -58,8 +58,8 @@
               <!-- Projects table -->
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
-                  <tr>
-                    <th scope="col" style="width:100px">이미지</th>
+                 <tr style="text-align:center;">
+                    <th scope="col" style="width:100px; font-size:10pt" >이미지</th>
                     <th scope="col" style="width:150px" id="list_itemName">상품 이름</th>
                     <th scope="col" style="width:100px">상품 가격</th>
                     <th scope="col" style="width:50px">재고</th>
@@ -69,11 +69,11 @@
                 </thead>
                 <tbody>
                  <c:forEach var="item" items="${ itemList }">
-                 	<tr>
+                 	<tr style="text-align:center">
                  		<td>
                         	<img src="${pageContext.request.contextPath}/resources/upload/thumbnail_${item.thumbnail}" alt="Image">                    	
 						</td>
-                    	<td style="text-align:left;padding-left:10px">
+                    	<td style="text-align:center;padding-left:10px">
 						<c:choose>
 							<c:when test="${ not item.deleted }">
 								<a href="detail?itemNo=${ item.itemNo }&pageNo=${ pageNo }">${ item.itemName }</a>

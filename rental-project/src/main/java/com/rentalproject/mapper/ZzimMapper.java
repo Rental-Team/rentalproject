@@ -21,7 +21,7 @@ public interface ZzimMapper {
 	// 찜 삭제 
 	@Delete("delete from Zzim "
 			+ "where zzimNo = #{zzimNo}")
-	public int deleteZzim(int zzimNo);
+	public int deleteZzim(ZzimDto zzim);
 	
 	// 찜 수량 수정
 	@Update("update Zzim "
@@ -29,9 +29,8 @@ public interface ZzimMapper {
 			+ "where zzimNo = #{zzimNo} ")
 	public int modifyCount(ZzimDto zzim);
 	
-	
 	// 찜 목록
-	@Select("select z.itemNo, (select memberId from Member where memberNo = z.memberNo) memberId, "
+	@Select("select z.zzimNo, (select memberId from Member where memberNo = z.memberNo) memberId, "
 			+ "(select Max(iA.savedFileName) from itemAttach iA where iA.itemNo = i.itemNo) thumbnail, "
 			+ "z.itemNo, z.itemCount, i.itemName, i.itemPrice "
 			+ "from Zzim z left outer join Item i on z.itemNo = i.itemNo "

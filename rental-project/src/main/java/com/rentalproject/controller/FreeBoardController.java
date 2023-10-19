@@ -4,7 +4,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,7 @@ import com.rentalproject.dto.MemberDto;
 import com.rentalproject.service.FreeBoardRecommandService;
 import com.rentalproject.service.FreeBoardReportService;
 import com.rentalproject.service.FreeBoardService;
-import com.rentalproject.ui.ThePager;
+import com.rentalproject.ui.ThePager2;
 import com.rentalproject.view.DownloadView;
 
 @Controller
@@ -49,26 +51,34 @@ public class FreeBoardController {
 	    int pageSize = 10;
 	    int pagerSize = 5;
 	    String linkUrl = "freeboardlist";
-	    int dataCount = freeBoardService.getFreeBoardCount();
-
+	    //int dataCount = freeBoardService.getFreeBoardCount();
+	   
+	    int searchDataCount = 0;
+	    
 	    int from = (pageNo - 1) * pageSize;
 	    List<FreeBoardDto> freeBoardList;
 
 	    if (type.isEmpty() && keyword.isEmpty()) {
-	        // 전체 목록 조회
+	        // 전체 목록의 데이터 수
+	    	searchDataCount = freeBoardService.getFreeBoardCount(); 
+	    	 // 전체 목록 조회
 	        freeBoardList = freeBoardService.listFreeBoardByPage(from, pageSize);
 	    } else {
-	        // 검색 결과 조회
+	        // 검색 결과의 데이터 수를 계산, 데이터 검색
 	        if ("freeBoardTitle".equals(type)) {
-	            freeBoardList = freeBoardService.selectSearchByTitle(keyword);
+	            searchDataCount = freeBoardService.getSearchByTitleCount(keyword);
+	            freeBoardList = freeBoardService.selectSearchByTitle(keyword, from, pageSize);
 	        } else if ("freeBoardContent".equals(type)) {
-	            freeBoardList = freeBoardService.selectSearchByContent(keyword);
+	            searchDataCount = freeBoardService.getSearchByContentCount(keyword);
+	            freeBoardList = freeBoardService.selectSearchByContent(keyword, from, pageSize);
 	        } else if ("memberId".equals(type)) {
-	            freeBoardList = freeBoardService.selectSearchByMemeberId(keyword);
+	            searchDataCount = freeBoardService.getSearchByMemberIdCount(keyword);
+	            freeBoardList = freeBoardService.selectSearchByMemeberId(keyword,from, pageSize);
 	        } else {
-	            freeBoardList = freeBoardService.selectSearchFreeBoard(keyword);
+	            searchDataCount = freeBoardService.getSearchFreeBoardCount(keyword);
+	            freeBoardList = freeBoardService.selectSearchFreeBoard(keyword, from, pageSize);
 	        }
-	    }
+	    }  
 
 	    for (FreeBoardDto freeboard : freeBoardList) {
 	        // 작성자 조회
@@ -79,8 +89,8 @@ public class FreeBoardController {
 	    model.addAttribute("pageNo", pageNo);
 	    model.addAttribute("freeBoardList", freeBoardList);
 
-	    ThePager pager = new ThePager(dataCount, pageNo, pageSize, pagerSize, linkUrl);
-	    model.addAttribute("pager", pager);
+	    ThePager2 pager2 = new ThePager2(searchDataCount, pageNo, pageSize, pagerSize, linkUrl, type, keyword);
+	    model.addAttribute("pager2", pager2);
 
 	    int memberNo = 0;
 	    if (session.getAttribute("loginuser") != null) {
@@ -99,9 +109,9 @@ public class FreeBoardController {
 	@GetMapping(path= {"/freeboardwrite"})
 	public String writeFreeBoardForm(HttpSession session) { 
 		
-		if (session.getAttribute("loginuser") == null) { // 게시글 작성하기 버튼 눌렀을 때 로그인 안되어 있으면 로그인 화면으로 
-			return "redirect:/account/login";
-		}
+//		if (session.getAttribute("loginuser") == null) { // 게시글 작성하기 버튼 눌렀을 때 로그인 안되어 있으면 로그인 화면으로 
+//			return "redirect:/account/login";
+//		}
 		
 		return "freeboard/freeboardwrite";
 		
@@ -157,6 +167,7 @@ public class FreeBoardController {
 	@GetMapping(path = {"/freeboarddetail"})
 	public String detail(@RequestParam(defaultValue = "-1") int freeBoardNo,
 						 @RequestParam(defaultValue = "-1") int pageNo,
+						 HttpServletRequest req, HttpServletResponse resp,
 						 Model model) {
 		
 		if(freeBoardNo == -1 || pageNo == -1) {  // 주소창에 detail로 바로 접근하지 못하게 함 
@@ -178,13 +189,36 @@ public class FreeBoardController {
 		int count = freeBoardReportService.reportcount(freeBoardNo);
 		int recommandCount = freeBoardRecommandService.recommandcount(freeBoardNo);
 		
+		String coockieName = "showed_freeBoard_" + freeBoardNo;
+		boolean hasViewed = false;
+		Cookie[] cookies = req.getCookies();
+		
+		if(cookies != null) {
+			for (Cookie cookie : cookies) {
+				if(coockieName.equals(cookie.getName())) {
+					hasViewed = true;
+					break;
+				}
+			}
+		}
+		
+		if (!hasViewed) {
+			freeBoardService.updateFreeBoardviewCount(freeBoardNo);
+			
+			Cookie viewedFreeBoardCookie = new Cookie(coockieName,"1");
+			viewedFreeBoardCookie.setMaxAge(24*60*60);
+			viewedFreeBoardCookie.setPath("/");
+			resp.addCookie(viewedFreeBoardCookie);
+		}
+		
+		
 		model.addAttribute("recommandCount",recommandCount);
 		model.addAttribute("count", count);
 		model.addAttribute("freeBoard", freeboard);
 		model.addAttribute("pageNo", pageNo); 
 		
  
-		freeBoardService.updateFreeBoardviewCount(freeBoardNo);  // 조회수 증가 ;
+		//freeBoardService.updateFreeBoardviewCount(freeBoardNo);  // 조회수 증가 ;
 		
 		return "freeboard/freeboarddetail";
 		
@@ -255,35 +289,6 @@ public class FreeBoardController {
 		}
 		freeBoardService.deleteFreeBoard(freeBoardNo);
 		return String.format("redirect:/freeboard/freeboardlist?pageNo=%d", pageNo);
-	}
-		
-		
-	// 신고된 게시글 조회 ( 관리자만 가능한 기능 )
-	@GetMapping("/reported-List") 
-	public String reportlist(@RequestParam(defaultValue = "1") int pageNo, FreeBoardDto freeboard,
-							 Model model, HttpSession session, HttpServletRequest request) { 
-		
-		
-		int memberNo = ((MemberDto) session.getAttribute("loginuser")).getMemberNo();
-	    request.setAttribute("memberNo", memberNo);
-	    
-		if (memberNo == 17) {
-	        List<FreeBoardDto> reportList = freeBoardService.selectReportedFreeBoard();
-	        
-	        for (FreeBoardDto freeboard1 : reportList ) {  // 작성자 조회
-				String memberId = freeBoardService.getMemberId(freeboard1.getFreeBoardNo());
-				freeboard1.setMemberId(memberId);
-			} 
-	        
-	        model.addAttribute("memberNo",memberNo);
-	        model.addAttribute("reportList", reportList); 
-			model.addAttribute("pageNo", pageNo);
-			
-	        return "freeboard/reported-list";
-	    } else { 
-	        return "redirect:/freeboardlist";
-	    } 
-		 
 	}
 }		
 

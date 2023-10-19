@@ -49,9 +49,7 @@ public class ZzimController {
 	@GetMapping("/zzim/{memberNo}")
 	public String zzimList(@PathVariable("memberNo") int memberNo, Model model ) {
 		
-		
 		model.addAttribute("zzimInfo", zzimService.getZzimList(memberNo));
-		
 		
 		return "zzim";
 	}
@@ -59,6 +57,7 @@ public class ZzimController {
 	
 	@PostMapping("/zzim/update")
 	public String updateZzim(ZzimDto zzim) {
+		
 		
 		zzimService.modifyCount(zzim);
 		
@@ -69,9 +68,9 @@ public class ZzimController {
 	@PostMapping("/zzim/delete")
 	public String deleteZzim(ZzimDto zzim) {
 		
-		zzimService.deleteZzim(zzim.getZzimNo());
+		zzimService.deleteZzim(zzim);
 		
-		return "redirect:/zzim/" + zzim.getMemberId();
+		return "redirect:/zzim/" + zzim.getMemberNo();
 		
 	}
 	

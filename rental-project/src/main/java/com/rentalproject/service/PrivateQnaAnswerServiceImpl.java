@@ -23,7 +23,7 @@ public class PrivateQnaAnswerServiceImpl implements PrivateQnaAnswerService {
 	/* 답변수정 */
 	@Override
 	public void editAnswer(PrivateQnaAnswerDto privateQnaAnswer) {
-			privateQnaAnswerMapper.updateAnswer(privateQnaAnswer);
+		privateQnaAnswerMapper.updateAnswer(privateQnaAnswer);
 		
 	}
 

@@ -47,7 +47,7 @@
 							</div>
 						</div>
 						<div class="card-body">
-							<form action="directRental" method="post">
+							<form action="rental" method="post">
 							<input type="hidden" name="memberNo" value="${loginuser.memberNo}"/>
 							<div class="row mt-5">
 					        <div class="col">
@@ -67,9 +67,13 @@
 					                  </tr>
 					                </thead>
 					                <tbody>
-												<tr style="text-align:center;">								
+					  	
+												<tr style="text-align:center;">		
+													<input type="hidden" name="orderDetailList[0].itemNo" class="individual_itemPrice_input" value="${directOrder.itemNo}">
+													<input type="hidden" name="orderDetailList[0].itemPrice" class="individual_itemPrice_input" value="${directOrder.itemPrice}">
+													<input type="hidden" name="orderDetailList[0].itemCount" class="individual_itemCount_input" value="${directOrder.itemCount}">						
 													<td class="td_width_2">
-														<img src="${pageContext.request.contextPath}/resources/upload/thumbnail_${zzim.thumbnail}" alt="Image">							
+														<img src="${pageContext.request.contextPath}/resources/upload/thumbnail_${directOrder.thumbnail}" alt="Image">							
 													</td>
 													<td class="td_width_3">${directOrder.itemName}</td>
 													<td class="td_width_4 price_td">

@@ -127,6 +127,7 @@ public class NoticeController {
 	    	resp.addCookie(viewedNoticeCookie);
 	    
 	    }
+	    
 		model.addAttribute("notice", notice);
 		
 		return "/notice/detail";

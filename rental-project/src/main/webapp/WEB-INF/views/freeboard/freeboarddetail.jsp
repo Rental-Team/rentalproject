@@ -91,7 +91,6 @@
 						    </c:when>
 						    <c:otherwise>
 						        <img src="${pageContext.request.contextPath}/resources/upload/${freeBoard.memberImage}" alt="Image" draggable="false" class="style-scope yt-img-shadow" height="32" width="32">
-						        <img src="/rental-project/resources/upload/${freeboard.memberImage}" alt="Image" draggable="false" class="style-scope yt-img-shadow" height="32" width="32">
 						    </c:otherwise>
 						</c:choose>
                         <input disabled="disabled" type="text" id="input-freeBoardNo" name="freeBoardNo" class="form-control form-control-alternative"  value="${freeBoard.memberId}"> 
@@ -129,7 +128,7 @@
                  </div>
                 </form>
                 	<br><br>
-                	<div class="col text-center" >
+                	<div class="col-12 text-center" >
                 		<a title="추천" id="recommandbtn">
 					        <img src="/rental-project/resources/img/icons/good.png" alt="추천" width="50" height="50"/>
 					        <span id="recommandCount" class="count">${recommandCount}</span>
@@ -140,20 +139,22 @@
 						</a>
 					    </div> <br><br>
 					    
-				 <div class="row text-center justify-content-center">
-    <div class="col-3-2" style='display:${(not empty loginuser and loginuser.memberId == freeBoard.memberId) ? "block" : "none"};'>
-        <div class="d-flex">
-            <input type="button" class="btn btn-outline-success" id="btnedit" value="게시글 수정하기">
-            <input type="button" class="btn btn-outline-success" style='display:${(not empty loginuser and (loginuser.memberId == freeBoard.memberId or loginuser.memberNo == 17)) ? "block" : "none"}' id="btndelete" value="게시글 삭제하기">
-            <input type="button" class="btn btn-outline-success" id="btnBackToList" value="목록으로 돌아가기">
-        </div>
-    </div>
-</div>
+				 
+				         <br><br> 
+						<br />
+						<div class="row text-center justify-content-center"> 
+					        <div class="btn-group" style="margin-right: 10px">
+					     	   <input type="button" class="btn btn-outline-success btn-circle" id="btnBackToList" value="목록으로 돌아가기"> 
+					            <input type="button" class="btn btn-outline-success btn-circle" id="btnedit" value="게시글 수정하기" style="display:${(not empty loginuser and loginuser.memberId == freeBoard.memberId) ? 'block' : 'none'}">
+					            <input type="button" class="btn btn-outline-success btn-circle" id="btndelete" value="게시글 삭제하기" style="display:${(not empty loginuser and loginuser.memberId == freeBoard.memberId) ? 'block' : 'none'}">
+					        </div> 
+						</div> 
+				</div>
                </div>  
              </div>
           	</div>
      	   </div>
-      	 </div>
+      	 
       <!-- 자유게시글 댓글 쓰기 기능 구현 --> 
 <div class="container-fluid mt--5">
    <div class="row mt-5">
@@ -283,11 +284,9 @@
         </div>
     </div>
 </div>
-      </div>
-      </div>
-      </div>
-      </div>
-</div>
+    </div>
+    </div>
+    </div> 
 
 <!-- 대댓글 쓰기 Modal -->
 	<div class="modal fade" id="rereply-modal" tabindex="-1" role="dialog" aria-labelledby="rereply-modal-Label" aria-hidden="true">
@@ -319,6 +318,9 @@
                  <jsp:include page="/WEB-INF/views/modules/footer.jsp" /> 
 
       
+    </div>
+    
+    </div>
   <!--   Core   -->
   <script src="/rental-project/resources/js/plugins/jquery/dist/jquery.min.js"></script>
   <script src="/rental-project/resources/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -544,9 +546,23 @@
 	   			} else if (recommandresult === '2'){
 	   				alert("이미 추천한 게시글입니다.");
 	   			}  
-	   		}
+	   		} 
 			
 });
+	    	
+			$(document).ready(function() {
+			    // 페이지 로딩 시 AJAX 요청
+			    $.ajax({
+			        url: "freeboarddetail", // 실제 엔드포인트로 대체
+			        method: "POST",
+			        success: function(data) {
+			            // 조회수 증가 후 조회수를 화면에 업데이트
+			            $("#input-freeBoardViewCount").val(data.updatedViewCount);
+			        },
+			        error: function() { 
+			        }
+			    });
+			});
 			
 </script>
 </body>

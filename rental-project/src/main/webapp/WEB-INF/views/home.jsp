@@ -63,8 +63,10 @@
       <div class="row mt-12">
        		<div class="product-card">
           	<div class="product-info">
+
      		<div class="card" style="width: 20rem;">
 			  <img class="card-img-top" src="/rental-project/resources/img/brand/벽걸이 에어컨.png" alt="Card image cap" width=200 height=245>
+
 			  <div class="card-body">
 			    <h1 class="card-title"style="font-size:20px;">삼성  벽걸이 인버터에어컨 </h1>
 			    <a href="item/detail?itemNo=115&pageNo=1" class="btn btn-success active" style="position: absolute; bottom: 0; right: 0;">상품보러가기</a>
@@ -75,6 +77,7 @@
 			<div class="product-card">
 			   <div class="product-info">
 			<div class="card" style="width: 18rem;">
+
 			  <img class="card-img-top" src="/rental-project/resources/img/brand/정3.png" alt="Card image cap" width=200 height=245>
 			  <div class="card-body">
 			    <h1 class="card-title" style="font-size:18px;">SK 매직 미니 무전원 정수기</h1>
@@ -132,7 +135,7 @@
           </div>
         </div>
         </div>
-              
+
       <!-- Footer -->
  <jsp:include page="/WEB-INF/views/modules/footer.jsp" /> 
     </div>

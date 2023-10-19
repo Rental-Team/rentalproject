@@ -49,27 +49,6 @@ public class PrivateQnaAnswerController {
 	return String.format("redirect:privateqnadetail?qnaNo=%d&pageNo=%d", privateQnaAnswer.getQnaNo(), pageNo);
 
 }
-
-//  @PostMapping(path ={"/ajax-write-answer"}) //ajax답변
-//  @ResponseBody public String ajaxWriteAnswer(PrivateQnaAnswerDto privateQnaAnswer ,@RequestParam("qnaNo") int qnaNo,
-//  @RequestParam(defaultValue = "-1") int pageNo){
-////	  if (pageNo < 1) {
-////			return "redirect:privateqnalist";
-////		}
-////		
-//	  
-//	  
-//	  
-//  privateQnaAnswerService.writeAnswer(privateQnaAnswer);
-//  
-//  privateQnaService.updateAnswerStatus(qnaNo, true); // 답변여부 업데이트
-//  
-//  return "success";
-//  
-//  }
- 
-	
-	
 	
 	
 	@GetMapping("/edit-answer-form")
@@ -96,17 +75,6 @@ public class PrivateQnaAnswerController {
 
 	}
 	
-	
-//	@PostMapping("/ajex-edit-answer")
-//	@ResponseBody
-//	public String ajexeditAnswer(PrivateQnaAnswerDto privateQnaAnswer, @RequestParam(defaultValue = "-1") int pageNo) {
-//	    privateQnaAnswerService.editAnswer(privateQnaAnswer);
-//	    
-//	    
-//	    
-//	    return "success";
-//
-//	}
-	
+
 	
 }

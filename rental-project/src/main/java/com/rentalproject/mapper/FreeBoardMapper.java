@@ -40,6 +40,32 @@ public interface FreeBoardMapper {
 	@Select("select count(*) from FreeBoard")
 	int selectFreeBoardCount();
 	
+	@Select("SELECT COUNT(*) FROM FreeBoard "
+		    + "WHERE freeBoardDelete = 0 "
+		    + "AND ("
+		    + "freeBoardTitle LIKE CONCAT('%', #{keyword}, '%') " 
+		    + "OR freeBoardContent LIKE CONCAT('%', #{keyword}, '%') " 
+		    + "OR memberNo IN (SELECT memberNo FROM Member WHERE memberId LIKE CONCAT('%', #{keyword}, '%')))")
+		int selectFreeBoardSearchCount(@Param("keyword") String keyword);
+	
+	@Select("SELECT COUNT(*) FROM FreeBoard "
+		    + "WHERE freeBoardDelete = 0 "
+		    + "AND ("
+		    + "freeBoardTitle LIKE CONCAT('%', #{keyword}, '%')) ")
+		int selectFreeBoardTitleSearchCount(@Param("keyword") String keyword);
+	
+	@Select("SELECT COUNT(*) FROM FreeBoard "
+		    + "WHERE freeBoardDelete = 0 "
+		    + "AND ("
+		    + "freeBoardContent like concat('%', #{keyword}, '%'))")
+		int selectFreeBoardContentSearchCount(@Param("keyword") String keyword);
+	
+	@Select("SELECT COUNT(*) FROM FreeBoard "
+		    + "WHERE freeBoardDelete = 0 "
+		    + "AND ("
+		    + "memberNo in(select memberNo from Member where memberId like concat('%', #{keyword}, '%')))")
+		int selectFreeBoardMemberSearchCount(@Param("keyword") String keyword);
+	
 	
 	@Select("select freeBoardNo, freeBoardTitle, memberNo, freeBoardDate, freeBoardViewCount, freeBoardContent " // 자유게시판 게시글 상세보기
 			+ "from FreeBoard "
@@ -97,35 +123,34 @@ public interface FreeBoardMapper {
 			+ "and ("
 			+ "freeBoardTitle like concat('%', #{keyword}, '%') " 
 			+ "or freeBoardContent like concat('%', #{keyword}, '%') " 
-			+ "or memberNo in(select memberNo from Member where memberId like concat('%', #{keyword}, '%')))")
-	List<FreeBoardDto> selectSearchFreeBoard(@Param("keyword") String keyword);
+			+ "or memberNo in(select memberNo from Member where memberId like concat('%', #{keyword}, '%'))) "
+			+ "limit #{from}, #{count}")
+	List<FreeBoardDto> selectSearchFreeBoard(@Param("keyword") String keyword, @Param("from") int from, @Param("count") int count);
 
 	@Select("select freeBoardNo, memberNo, freeBoardTitle, freeBoardViewCount, freeBoardDate, freeBoardDelete "   // 제목 검색 데이터가져오기
 			+ "from FreeBoard "
 			+ "where freeBoardDelete = 0 "
 			+ "and ("
-			+ "freeBoardTitle like concat('%', #{keyword}, '%')) ") 
-	List<FreeBoardDto> selectSearchByTitle(String keyword);
+			+ "freeBoardTitle like concat('%', #{keyword}, '%')) "
+			+ "limit #{from}, #{count} ") 
+	List<FreeBoardDto> selectSearchByTitle( @Param("keyword") String keyword, @Param("from") int from, @Param("count") int count);
 
 	@Select("select freeBoardNo, memberNo, freeBoardTitle, freeBoardViewCount, freeBoardDate, freeBoardDelete "   // 내용 검색 데이터가져오기
 			+ "from FreeBoard "
 			+ "where freeBoardDelete = 0 "
    			+ "and (" 
-			+ "freeBoardContent like concat('%', #{keyword}, '%')) ")
-	List<FreeBoardDto> selectSearchByContent(String keyword);
+			+ "freeBoardContent like concat('%', #{keyword}, '%')) "
+			+ "limit #{from}, #{count} ")
+	List<FreeBoardDto> selectSearchByContent( @Param("keyword") String keyword, @Param("from") int from, @Param("count") int count);
 	
 	@Select("select freeBoardNo, memberNo, freeBoardTitle, freeBoardViewCount, freeBoardDate, freeBoardDelete "   // 작성자 검색 데이터가져오기
 			+ "from FreeBoard "
 			+ "where freeBoardDelete = 0 "
 			+ "and (" 
-			+ "memberNo in(select memberNo from Member where memberId like concat('%', #{keyword}, '%')))")
-	List<FreeBoardDto> selectSearchByMemeberId(@Param("keyword") String keyword); 
-	
-	@Select("select distinct fb.freeBoardNo, fb.memberNo, fb.freeBoardTitle, fb.freeBoardViewCount, fb.freeBoardDate, fb.freeBoardDelete " +
-	        "from FreeBoard fb " +
-	        "inner join FreeBoardReport fbr ON fb.freeBoardNo = fbr.freeBoardNo " +
-	        "order by fb.freeBoardNo DESC")
-	List<FreeBoardDto> selectReportedFreeBoard();
+			+ "memberNo in(select memberNo from Member where memberId like concat('%', #{keyword}, '%')))"
+			+ "limit #{from}, #{count}")
+	List<FreeBoardDto> selectSearchByMemeberId( @Param("keyword") String keyword,@Param("from") int from, @Param("count") int count);
+ 
 	 
 	
 }
