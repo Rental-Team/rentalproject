@@ -297,6 +297,17 @@
         application: "argon-dashboard-free"
       });
   </script>
+  <script>
+  function resetImage() {
+	    // 이미지 업로드 필드 초기화
+	    document.getElementById('imageInput').value = '';
+
+	    // 기본 이미지 표시
+	    document.getElementById('preview').src = '/rental-project/resources/img/theme/default.png';
+	}
+  
+  
+  </script>
 </body>
 
 </html>

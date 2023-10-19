@@ -48,7 +48,6 @@ public class ItemController {
 	@Autowired
 	private ItemReviewService itemReviewService;
 
-	
 	@Autowired
 	private ItemQnaService itemQnaService;
 

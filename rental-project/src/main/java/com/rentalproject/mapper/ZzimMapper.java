@@ -21,14 +21,13 @@ public interface ZzimMapper {
 	// 찜 삭제 
 	@Delete("delete from Zzim "
 			+ "where zzimNo = #{zzimNo}")
-	public int deleteZzim(int zzimNo);
+	public int deleteZzim(ZzimDto zzim);
 	
 	// 찜 수량 수정
 	@Update("update Zzim "
 			+ "set itemCount = #{itemCount} "
 			+ "where zzimNo = #{zzimNo} ")
 	public int modifyCount(ZzimDto zzim);
-	
 	
 	// 찜 목록
 	@Select("select z.zzimNo, (select memberId from Member where memberNo = z.memberNo) memberId, "
