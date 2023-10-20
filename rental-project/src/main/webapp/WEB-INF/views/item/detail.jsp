@@ -659,13 +659,15 @@
 				}
 			}); */ 
 			
-			$(".plus_btn").on("click", function() {
+			$(".plus_btn").on("click", function(event) {
+				  event.preventDefault();
 				  let quantityInput = $(".quantity_input");
 				  let quantity = parseInt(quantityInput.val());  
 				  quantityInput.val(quantity + 1);  
 				});
 
-				$(".minus_btn").on("click", function() {
+				$(".minus_btn").on("click", function(event) {
+				  event.preventDefault();
 				  let quantityInput = $(".quantity_input");
 				  let quantity = parseInt(quantityInput.val());  
 				  if (quantity > 1) {
