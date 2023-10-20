@@ -92,10 +92,7 @@
                   <span class="btn-inner--text">kakao</span>
                 </a>
                 <p id="token-result"></p>
-                <a href="#" class="btn btn-neutral btn-icon">
-                  <span class="btn-inner--icon"><img src="/rental-project/resources/img/icons/common/google.svg"></span>
-                  <span class="btn-inner--text">Google</span>
-                </a>
+
               </div>
             </div>
             <div class="card-body px-lg-5 py-lg-5">            

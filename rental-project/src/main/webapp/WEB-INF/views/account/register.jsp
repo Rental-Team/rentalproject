@@ -441,6 +441,7 @@
               return;
           }
 
+          const inputCode = $('#mail-check-input').val();
           // 이메일
           if(inputCode === ""){
               alert('이메일 인증을 하세요.');
@@ -633,7 +634,6 @@
       } else {
           $resultMsg.html('인증번호가 불일치합니다. 다시 확인해주세요!.');
           $resultMsg.css('color', 'red');
-          $('#register').attr('disabled', true); // 계정 생성 버튼 비활성화
       }
   });
 });
