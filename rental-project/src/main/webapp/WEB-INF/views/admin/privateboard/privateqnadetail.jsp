@@ -112,8 +112,8 @@
                 </div>
               </form>
               <div class="col text-center">
-                <input type="button" id="getBack" class="btn btn-sm btn-primary" value="목록으로 돌아가기" onclick="goToPage(${pageNo})">
-              	 <input type="button" id="getBack-unanswer" class="btn btn-primary btn-sm" value="미답변 목록으로 돌아가기" onclick="gotoPageUnanswer()">
+                <input type="button" id="getBack" class="btn btn-sm btn-success" value="목록으로 돌아가기" onclick="goToPage(${pageNo})">
+              	 <input type="button" id="getBack-unanswer" class="btn btn-success btn-sm" value="미답변 목록으로 돌아가기" onclick="gotoPageUnanswer()">
               </div>
              </div>
           </div> 
@@ -125,7 +125,7 @@
 <!-- ////////////
  -->
 
-<!--답변 작성 form -->
+<!-- 관리자 답변 작성 form -->
 
 	<div class="container-fluid mt--7">
 			<div class="row mt-8">
@@ -135,24 +135,14 @@
 				<div class="row align-items-center">
 				<div class="col">
 			<h5 class="mb-0">1대1게시글 답변</h5>
-	  <form id="comment-Answer" action="write-answer" method="post">
-		         <input type="hidden" name="qnaNo" value="${privateqna.qnaNo}" />
-		<table class="table align-items-center">
-		   <tr>
-		     <td><textarea id="comment_content" name="answerContent" style="width: 100%; resize: none;" rows="2"></textarea></td>			  				
-			   <td style="width: 50px; vertical-align: middle; border-radius: 80px">
-			     <input type="submit" class="btn btn-sm btn-primary" id="admin-write-answer" value="답변등록하기">					
-			  </td>
-		  </tr>
-		</table>
-	  </form>
+	
 
 		<!--답변 조회 -->							
 	<table id="answer-list"
 			class="table align-items-center table-flush text-center">
 			<thead class="thead-light">
 				<tr>
-					<th scope="col" style="width: 1000px;">답변내용</th>
+					<th scope="col" style="width: 2000px;">답변내용</th>
 					<th scope="col"></th>
 				</tr>
 			</thead>
@@ -162,7 +152,7 @@
 				  <tr id="answer-view-area-${privateAnswer.qnaNo}">
 					<td scope="col" style="width: 100px">${privateAnswer.answerContent}</td>
 					 <td><c:if test="${requestScope.memberNo == 17}">
-				        <a class="btn btn-sm btn-primary edit-answer-link"  data-reply-no="${privateAnswer.qnaNo}"	href="javascript:void(0)" style="color: white">답변수정</a>
+				        <a class="btn btn-sm btn-success edit-answer-link"  data-reply-no="${privateAnswer.qnaNo}"	href="javascript:void(0)" style="color: white">답변수정</a>
 					  </c:if>
 					</td>
 				  </tr>
@@ -172,12 +162,28 @@
 				   <form action="edit-answer" method="post" style="width: 105%; resize: none;">
 					 <input type="hidden" name="qnaNo" value="${privateAnswer.qnaNo}">
 						<textarea name="answerContent" style="width: 100%; resize: none;">${privateAnswer.answerContent}</textarea>
-				     <input type="submit" value="저장" onclick="goToPage(${pageNo})">
+				     <input type="submit"  class="btn btn-sm btn-success value="저장" onclick="goToPage(${pageNo})">
+				      <button class="btn btn-sm btn-success cancel-edit-button" data-reply-no="${privateAnswer.qnaNo}" type="button">취소</button>
 				  </form>
 			    </div>
 			  </c:forEach>
 		  </tbody>
 	</table>
+	
+	  <form id="comment-Answer" action="write-answer" method="post">
+		         <input type="hidden" name="qnaNo" value="${privateqna.qnaNo}" />
+		<table class="table align-items-center">
+		   <tr>
+		     <td><textarea id="comment_content" name="answerContent" style="width: 100%; resize: none;" rows="2"></textarea></td>			  				
+			   <td style="width: 50px; vertical-align: middle; border-radius: 80px">
+			     <input type="submit" class="btn btn-sm btn-success" id="admin-write-answer" value="답변등록하기">					
+			  </td>
+		  </tr>
+		</table>
+	  </form>
+	
+	
+	
 		 </div>
 		 </div>
 		 </div>
@@ -314,6 +320,18 @@
       if (!confirmDownload) {
         event.preventDefault(); // 다운로드 링크 클릭을 취소
       }
+    });
+  });
+</script>
+
+
+<script>
+  $(function() {
+    // 답변 수정 폼 취소 버튼 클릭 이벤트 처리
+    $(".cancel-edit-button").on('click', function() {
+      var qnaNo = $(this).attr("data-reply-no");
+      $('#answer-view-area-' + qnaNo).show();
+      $('#answer-edit-area-' + qnaNo).hide();
     });
   });
 </script>

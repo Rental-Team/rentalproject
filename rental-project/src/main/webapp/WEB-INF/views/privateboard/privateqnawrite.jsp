@@ -90,7 +90,7 @@
                     <div class="col-lg-12">
                       <div class="form-group">
                         <label class="form-control-label" for="input-qnaAttach">첨부파일</label>
-                        <input type="file" id="input-qnaAttach" name="attach"  class="form-control form-control-alternative">
+                        <input type="file" id="input-qnaAttach" name="attach"  class="btn btn-sm btn-success">
                       </div>
                     </div>
                   </div>
@@ -105,8 +105,8 @@
                   	<div class="row">
                   	<div class="col-lg-12">
                   	<div class="text-right">
-			        <input type="submit" class ="btn btn-sm btn-primary" value="글쓰기" >
-			        <input type="button" class ="btn btn-sm btn-primary" id="btnCancel" value="취소" />
+			        <input type="submit" class ="btn btn-sm btn-success" value="글쓰기" >
+			        <input type="button" class ="btn btn-sm btn-success" id="btnCancel" value="취소" />
                   	 </div>
                     </div>
                  	 </div>
