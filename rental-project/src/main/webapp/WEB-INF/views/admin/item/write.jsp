@@ -66,7 +66,7 @@
                   <h3 class="mb-0">상품 등록</h3>
                 </div>
                 <div class="col-4 text-right">
-                  <a href="list" class="btn btn-primary">목록</a>
+                  <a href="list" class="btn btn-success">목록</a>
                 </div>
               </div>
             </div>
@@ -116,7 +116,7 @@
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-itemAttach">첨부 파일</label>
+                        <label class="form-control-label btn btn-success" for="input-itemAttach">첨부 파일</label>
                         <input type="file" id="attach" name="attach" class="form-control form-control-alternative" multiple>
                         <div id="uploadResult">
                       		<div id="result_card">
@@ -149,8 +149,8 @@
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="text-right">
-                        <button type="submit" class ="btn btn-primary" id="registerBtn">상품 등록</button> 
-				        <button type="button" class ="btn btn-primary" id="btnCancel">취소</button>
+                        <button type="submit" class ="btn btn-success" id="registerBtn">상품 등록</button> 
+				        <button type="button" class ="btn btn-success" id="btnCancel">취소</button>
                       </div>
                     </div>
                   </div>

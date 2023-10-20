@@ -59,7 +59,7 @@
                 <a class="nav-link2 notice" href="/rental-project/notice/list">공지사항</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link2 private" href="/rental-project/privateboard/privateqnalist">1:1문의</a>
+                <a class="nav-link2 private" href="/rental-project/privateboard/privateqnalist">1:1 문의</a>
             </li>
         </ul>
     </div>

@@ -131,7 +131,7 @@
 						                      <span class="input-group-text"></span>
 						                    </div> -->
 							                    <input type="text" id="address" name="address" class="form-control" placeholder="주소" value=""/>
-							                    <input type="button" id="address-search" value="주소 검색"><br>
+							                    <input type="button" id="address-search" value="주소 검색" class="btn btn btn-success"><br>
 						                  </div>
 						                 
 						                  <input type="text" name="addressDetail" class="form-control" placeholder="상세 주소" value="" />
@@ -139,8 +139,8 @@
 						               
 						               
 						                <div class="row">
-										   <button type="submit" class="order_btn">주문</button>
-										   <button type="button" class="cancel_btn">취소</button>
+										   <button type="submit" class="order_btn btn btn-success">주문</button>
+										   <button type="button" class="cancel_btn btn btn-success">취소</button>
 										 </div>
 					                </div>
 					              </div>

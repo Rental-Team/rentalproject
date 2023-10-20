@@ -66,7 +66,7 @@
                   <h3 class="mb-0">상품 수정</h3>
                 </div>
                 <div class="col-4 text-right">
-                  <a href="list" class="btn btn-primary">목록</a>
+                  <a href="list" class="btn btn-success">목록</a>
                 </div>
               </div>
             </div>
@@ -137,8 +137,8 @@
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="text-right">
-                        <input type="submit" value="글수정" class ="btn btn-sm btn-primary" style="height:25px" />
-				        <a href="javascript:" class ="btn btn-sm btn-primary" id="delete-btn">삭제</a>
+                        <input type="submit" value="글수정" class ="btn btn-sm btn-success" style="height:25px" />
+				        <a href="javascript:" class ="btn btn-sm btn-success" id="delete-btn">삭제</a>
                       </div>
                     </div>
                   </div>

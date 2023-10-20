@@ -76,8 +76,8 @@
             <div class="col-lg-5 col-md-6">
               <h1 class="text-white">환영합니다~!</h1>
               <br><br><br>
-              <div class="text-lead text-light">대여하고 싶으시다구요?!</div>
-              <p class="text-lead text-light">그럼 먼저 세숫대여 동료가 되세요!
+              <div class="text-lead text-light" style="color: black">대여하고 싶으시다구요?!</div>
+              <p class="text-lead text-light" style="color: black">그럼 먼저 세숫대여 동료가 되세요! </p>
               <br><br><br>
               <div class="row justify-content-center">
 			    <div class="col-lg-3 order-lg-2">
@@ -120,7 +120,7 @@
                     </div>
                     
                     <form:input id="memberId" path="memberId" class="form-control" placeholder="아이디" type="text" maxlength="12"/>
-                    <button id="checkDup">중복 검사</button>
+                    <button id="checkDup" class="btn btn-success">중복 검사</button>
                   </div><p id="idcheck_blank"></p> 
                   &nbsp;&nbsp;아이디는 영문과 숫자 조합해 6~12자
                 </div>
@@ -216,7 +216,7 @@
                       <span class="input-group-text"></span>
                   </div>
                     <form:input type="text" id="addressCode" path="addressCode" class="form-control" placeholder="우편번호" readonly="readonly" name="addressCode" />
-                    <input type="button" id="address-search" value="주소 검색"><br>
+                    <input type="button" id="address-search" class="btn btn-success" value="주소 검색"><br>
                   </div>
                   <form:input type="text" id="address" path="address" class="form-control" placeholder="주소" readonly="readonly" />
                   <form:input type="text" name="addressDetail" path="addressDetail" class="form-control" placeholder="상세 주소" />
@@ -243,7 +243,7 @@
                 </div> -->
                 <div class="text-center">
                 <!-- <a href="/rental-project/account/login" class="btn btn-primary mt-4"> create account </a> -->
-                  <input id="register" type="submit" class="btn btn-primary mt-4" value="계정 생성" />
+                  <input id="register" type="submit" class="btn btn-success mt-4" value="계정 생성" />
 				</div>
 			  </form>
               

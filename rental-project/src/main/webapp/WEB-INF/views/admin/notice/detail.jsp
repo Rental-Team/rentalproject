@@ -90,8 +90,8 @@
                  </div>
                 </form>
                 	<div class="col text-center" >
-				        <input type="button" class ="btn btn btn-primary" id="btnBackToList" value="목록으로 돌아가기" >
-				        <input type="button" class ="btn btn btn-primary" id="btnedit" value="게시글 수정하기" >
+				        <input type="button" class ="btn btn btn-success" id="btnBackToList" value="목록으로 돌아가기" >
+				        <input type="button" class ="btn btn btn-success" id="btnedit" value="게시글 수정하기" >
 	                </div> 
                </div>  
              </div>

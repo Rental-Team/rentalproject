@@ -64,8 +64,8 @@
 			            <div class="row">
 			            <div class="col-lg-12">
 			      <div class="col text-center">
-			        <input type="submit" class ="btn btn btn-primary" value="수정하기" >
-			        <input type="button" class ="btn btn btn-primary" id="btnCancel" value="취소" >
+			        <input type="submit" class ="btn btn btn-success" value="수정하기" >
+			        <input type="button" class ="btn btn btn-success" id="btnCancel" value="취소" >
 			            </div>
 			            </div>
 		                </div>

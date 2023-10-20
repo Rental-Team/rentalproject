@@ -43,7 +43,7 @@
                   <h3 style="font-weight:bold" class="mb-0">공지사항</h3>
                 </div>
                 <div class="col text-right">
-                  <a href="write" class="btn btn btn-primary">게시글 작성</a>
+                  <a href="write" class="btn btn btn-success">게시글 작성</a>
                 </div>
               </div>
             </div>

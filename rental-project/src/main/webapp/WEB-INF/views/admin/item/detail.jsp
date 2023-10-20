@@ -58,7 +58,7 @@
                   <h3 class="mb-1">상품 설명</h3>
                 </div>
                 <div class="col text-right">
-                  <a href="list" class="btn btn btn-primary">목록</a>
+                  <a href="list" class="btn btn-success">목록</a>
                 </div>
               </div>
             </div>
@@ -135,8 +135,8 @@
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="text-right">
-                        <a href="edit?itemNo=${ item.itemNo }&pageNo=${ pageNo }" class ="btn btn-primary">수정</a> 
-				        <a href="javascript:" class ="btn btn-primary" id="delete-item">삭제</a>
+                        <a href="edit?itemNo=${ item.itemNo }&pageNo=${ pageNo }" class ="btn btn-success">수정</a> 
+				        <a href="javascript:" class ="btn btn-success" id="delete-item">삭제</a>
                       </div>
                     </div>
                   </div>
