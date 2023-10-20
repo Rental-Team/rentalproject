@@ -52,7 +52,7 @@
 	        <option value="unanswered">미답변 목록 조회</option>
 	        <option value="all">전체 목록 조회</option>
 	      </select>
-	      <button id="viewButton" class="btn btn-primary btn-sm ml-2" onclick="viewList()">목록 조회</button>
+	      <button id="viewButton" class="btn btn-success btn-sm ml-1" onclick="viewList()">목록 조회</button>
 	    </div>
 	  </div>
 	</div>
@@ -60,18 +60,18 @@
 			
 
 
-			<!--검색 form  -->
-			  <div id="qnaSearchSection" class="col-md-6">
-			 <form action="/rental-project/admin/privateboard/privateqnalist" method="get" onsubmit="return validateSearch();">
-			    <select id="searchType" name="searchType">
-			      <option value="qnaNo">문의번호</option>
-			    </select>
-			    <input type="text" id="qnaNo" name="qnaNo">
-			    <button type="submit" id="searchButton">검색</button>
-			  </form>
-			</div>
-			<!--검색 form  -->
-          </div>
+	<!--검색 form  -->
+  <div id="qnaSearchSection" class="col-md-6">
+	 <form action="/rental-project/admin/privateboard/privateqnalist" method="get" onsubmit="return validateSearch();">
+	    <select id="searchType" name="searchType">
+	      <option value="qnaNo">문의번호</option>
+	    </select>
+	    <input type="text" id="qnaNo" name="qnaNo">
+	    <button type="submit" id="searchButton"  class="btn btn-success  btn-sm">검색</button>
+	  </form>
+	</div>
+	<!--검색 form  -->
+   </div>
 
 
             <div class="table-responsive">
@@ -79,11 +79,11 @@
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
-                    <th scope="col">문의번호</th>
-                    <th scope="col">작성자</th>
-                    <th scope="col">제목</th>                    
-                    <th scope="col">문의유형</th>
-                    <th scope="col">문의글 작성 일자</th>
+                    <th scope="col" style="width:200px; font-size:10pt">문의번호</th>
+                    <th scope="col" style="width:200px; font-size:10pt">작성자</th>
+                    <th scope="col"style="width:500px; font-size:10pt">제목</th>                    
+                    <th scope="col" style="width:500px; font-size:10pt">문의유형</th>
+                    <th scope="col" style="width:200px; font-size:10pt">문의글 작성 일자</th>
                     <th scope="col">답변여부</th>
                   </tr>
                 </thead>
@@ -120,10 +120,10 @@
    </div>
  </div>
  </div>
-
+</div>
       <!-- Footer -->
-                 <jsp:include page="/WEB-INF/views/modules/footer.jsp" /> 
-
+      <jsp:include page="/WEB-INF/views/modules/footer.jsp" /> 
+	
     </div>
     </div>
   <!--   Core   -->

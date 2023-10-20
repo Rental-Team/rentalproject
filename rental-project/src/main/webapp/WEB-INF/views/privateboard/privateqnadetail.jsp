@@ -144,27 +144,17 @@
 				<div class="row align-items-center">
 				<div class="col">
 			<h5 class="mb-0">1대1게시글 답변</h5>
-	  <form id="comment-Answer" action="write-answer" method="post">
-		         <input type="hidden" name="qnaNo" value="${privateqna.qnaNo}" />
-		<table class="table align-items-center">
-		   <tr>
-		     <td><textarea id="comment_content" name="answerContent" style="width: 100%; resize: none;" rows="2"></textarea></td>			  				
-			   <td style="width: 50px; vertical-align: middle; border-radius: 80px">
-			     <input type="submit" class="btn btn-sm btn-primary" id="write-answer" value="답변등록하기">					
-			  </td>
-		  </tr>
-		</table>
-	  </form>
+	
 
 		<!--답변 조회 -->							
-		<table id="answer-list" class="table align-items-center table-flush text-center">
+	<table id="answer-list"
+			class="table align-items-center table-flush text-center">
 			<thead class="thead-light">
 				<tr>
-					<th scope="col" style="width: 1000px;">답변내용</th>
+					<th scope="col" style="width: 2000px;">답변내용</th>
 					<th scope="col"></th>
 				</tr>
 			</thead>
-			
 			<!--답변 조회 출력 -->	
 			<tbody>
 			  <c:forEach var="privateAnswer" items="${privateqna.privateQnaAnswerList}">
@@ -181,12 +171,28 @@
 				   <form action="edit-answer" method="post" style="width: 105%; resize: none;">
 					 <input type="hidden" name="qnaNo" value="${privateAnswer.qnaNo}">
 						<textarea name="answerContent" style="width: 100%; resize: none;">${privateAnswer.answerContent}</textarea>
-				     <input type="submit" value="저장" onclick="goToPage(${pageNo})">
+				     <input type="submit"  class="btn btn-sm btn-primary value="저장" onclick="goToPage(${pageNo})">
+				      <button class="btn btn-sm btn-primary cancel-edit-button" data-reply-no="${privateAnswer.qnaNo}" type="button">취소</button>
 				  </form>
 			    </div>
 			  </c:forEach>
 		  </tbody>
 	</table>
+	
+	  <form id="comment-Answer" action="write-answer" method="post">
+		         <input type="hidden" name="qnaNo" value="${privateqna.qnaNo}" />
+		<table class="table align-items-center">
+		   <tr>
+		     <td><textarea id="comment_content" name="answerContent" style="width: 100%; resize: none;" rows="2"></textarea></td>			  				
+			   <td style="width: 50px; vertical-align: middle; border-radius: 80px">
+			     <input type="submit" class="btn btn-sm btn-primary" id="admin-write-answer" value="답변등록하기">					
+			  </td>
+		  </tr>
+		</table>
+	  </form>
+	
+	
+	
 		 </div>
 		 </div>
 		 </div>
@@ -326,6 +332,19 @@
     });
   });
 </script>
+
+<script>
+  $(function() {
+    // 답변 수정 폼 취소 버튼 클릭 이벤트 처리
+    $(".cancel-edit-button").on('click', function() {
+      var qnaNo = $(this).attr("data-reply-no");
+      $('#answer-view-area-' + qnaNo).show();
+      $('#answer-edit-area-' + qnaNo).hide();
+    });
+  });
+</script>
+
+
 
 </body>
 
