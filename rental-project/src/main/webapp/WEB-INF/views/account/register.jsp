@@ -607,7 +607,7 @@
           "success": function(data) {
               $('#mail-check-input').attr('disabled', false);
               code = data;
-              alert(code);
+              alert("인증번호가 발송되었습니다.");
               $('#mail-Check-Btn').text('재전송');
           }
       });
