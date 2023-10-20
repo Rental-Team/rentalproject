@@ -13,9 +13,8 @@
 	a { text-decoration: none } /* 링크에 밑줄 같은 데코 없앰 */
 	.deleted {color: gray;}
 	</style>
-  <title>
-    Argon Dashboard - Free Dashboard for Bootstrap 4 by Creative Tim
-  </title>
+ <jsp:include page="/WEB-INF/views/modules/title.jsp" />
+ 
   <!-- Favicon -->
   <link href="/rental-project/resources/img/brand/favicon.png" rel="icon" type="image/png">
   <!-- Fonts -->
@@ -25,13 +24,16 @@
   <link href="/rental-project/resources/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="/rental-project/resources/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
+    <link href="/rental-project/resources/css/navbar-top.css" rel="stylesheet" />
+  
 </head>
 
 <body class="">
-<jsp:include page="/WEB-INF/views/admin/modules/navbar-vertical.jsp" />
   <div class="main-content">
     <!-- Navbar -->
 	<jsp:include page="/WEB-INF/views/admin/modules/navbar-top.jsp" />
+	<jsp:include page="/WEB-INF/views/admin/modules/navbar-top2.jsp" />
+	<jsp:include page="/WEB-INF/views/admin/modules/navbar-top3.jsp" />
     <!-- End Navbar -->
     <!-- Header -->
     <jsp:include page="/WEB-INF/views/admin/modules/navbar-content.jsp" />

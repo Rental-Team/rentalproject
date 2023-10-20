@@ -68,8 +68,8 @@
 			  <img class="card-img-top" src="/rental-project/resources/img/brand/벽걸이 에어컨.png" alt="Card image cap" width=200 height=245>
 
 			  <div class="card-body">
-			    <h1 class="card-title"style="font-size:20px;">삼성  벽걸이 인버터에어컨 </h1>
-			    <a href="item/detail?itemNo=115&pageNo=1" class="btn btn-success active" style="position: absolute; bottom: 0; right: 0;">상품보러가기</a>
+			    <h1 class="card-title"style="font-size:19px;">삼성  벽걸이 인버터에어컨 </h1>
+			    <a href="item/detail?itemNo=115&pageNo=1" class="btn btn-success" style="position: absolute; bottom: 0; right: 0;">상품보러가기</a>
 			  </div>
 			</div>
 			</div>
@@ -80,8 +80,8 @@
 
 			  <img class="card-img-top" src="/rental-project/resources/img/brand/정3.png" alt="Card image cap" width=200 height=245>
 			  <div class="card-body">
-			    <h1 class="card-title" style="font-size:18px;">SK 매직 미니 무전원 정수기</h1>
-			    <a href="item/detail?itemNo=113&pageNo=1" class="btn btn-success active" style="position: absolute; bottom: 0; right: 0;">상품보러가기</a>
+			    <h1 class="card-title" style="font-size:19px;">SK 매직 미니 무전원 정수기</h1>
+			    <a href="item/detail?itemNo=113&pageNo=1" class="btn btn-success" style="position: absolute; bottom: 0; right: 0;">상품보러가기</a>
 			  </div>
 			</div>
         </div>
@@ -93,9 +93,9 @@
      		<div class="card" style="width: 18rem;">
 			  <img class="card-img-top" src="/rental-project/resources/img/brand/냉5.png" alt="Card image cap" width=200 height=245>
 			  <div class="card-body">
-			    <h1 class="card-title" style="font-size:20px;">마루나 일반형 냉장고</h1>
+			    <h1 class="card-title" style="font-size:19px;">마루나 일반형 냉장고</h1>
 			    
-			    <a href="item/detail?itemNo=112&pageNo=1" class="btn btn-success active" style="position: absolute; bottom: 0; right: 0;">상품보러가기</a>
+			    <a href="item/detail?itemNo=112&pageNo=1" class="btn btn-success" style="position: absolute; bottom: 0; right: 0;">상품보러가기</a>
 			  </div>
 			</div>
 			</div>
@@ -105,8 +105,8 @@
 			<div class="card" style="width: 18rem;">
 			  <img class="card-img-top" src="/rental-project/resources/img/brand/그랑데2.png" alt="Card image cap" width=200 height=245>
 			  <div class="card-body">
-			    <h1 class="card-title" style="font-size:20px">삼성 그랑데 통버블세탁기</h1>
-			    <a href="item/detail?itemNo=111&pageNo=1" class="btn btn-success active" style="position: absolute; bottom: 0; right: 0;">상품보러가기</a>
+			    <h1 class="card-title" style="font-size:19px">삼성 그랑데 통버블세탁기</h1>
+			    <a href="item/detail?itemNo=111&pageNo=1" class="btn btn-success" style="position: absolute; bottom: 0; right: 0;">상품보러가기</a>
 			  </div>
 			</div>
         </div>

@@ -32,7 +32,7 @@
 	
     <!-- End Navbar -->
     <!-- Header -->
-    <jsp:include page="/WEB-INF/views/admin/modules/navbar-content.jsp" />
+    <jsp:include page="/WEB-INF/views/admin/modules/navbar-content2.jsp" />
     <br><br><br><br><br><br><br><br><br><br><br>
     <br><br><br><br><br><br><br>
       <!-- Footer -->

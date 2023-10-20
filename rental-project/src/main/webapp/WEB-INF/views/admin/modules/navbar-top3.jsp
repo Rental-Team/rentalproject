@@ -5,6 +5,8 @@
     <!DOCTYPE html>
     <html>
     <head>
+      <link href="/rental-project/resources/css/navbar-top.css" rel="stylesheet" />
+    
     <style>
    
 	.nav-link2 {
@@ -16,12 +18,13 @@
 }	
 	@font-face {
 	font-family:'neon';
-	src: url("/rental-project/resources/fonts/225.ttf") format('truetype');
+	src: url("/rental-project/resources/fonts/4.ttf") format('truetype');
 	
 .nav-link2.active {
     border: none;
     border-bottom: none;
 }
+
     </style>
     </head>
 <nav class="navbar-top3" style="font-family:'neon';">

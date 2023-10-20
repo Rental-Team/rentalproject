@@ -6,6 +6,7 @@
       <div class="container-fluid">
         <div class="header-body">
           <!-- Card stats -->
+<h1 style="text-align:center; font-size: 50px;"> 관리자 페이지 입니다.</h1>
         </div>
       </div>
     </div>

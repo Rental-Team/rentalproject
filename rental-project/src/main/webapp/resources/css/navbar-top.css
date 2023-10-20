@@ -21,8 +21,8 @@
 
   /* 링크들 사이에 공간 추가 */
   .navbar-top3 li {
-    margin: 0 40px; /* 원하는 간격으로 조절하세요 */
-    padding: 1;
+    margin: 0 30px; /* 원하는 간격으로 조절하세요 */
+    padding: 4;
   }
   
 

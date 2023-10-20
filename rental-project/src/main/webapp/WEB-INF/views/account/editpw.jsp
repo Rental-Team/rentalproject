@@ -26,13 +26,13 @@
   <link href="/rental-project/resources/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
 </head>
 
-<body class="bg-default">
+<body>
   <div class="main-content">
     <!-- Navbar -->
     <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
-      <div class="container px-4">
+      <div class="container px-10">
         <a class="navbar-brand" href="/rental-project/home">
-          <img src="/rental-project/resources/img/brand/로고1.png" />
+          <img src="/rental-project/resources/img/brand/로고1.png" style="height: 100px; width: 100px" />
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse-main" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -74,7 +74,7 @@
     </nav>
 
 	<!-- Header -->
-    <div class="header bg-gradient-primary py-7 py-lg-8">
+    <div class="header bg-gradient-green py-7 py-lg-10">
      <div class="container">
        <div class="header-body text-center mb-7">
          <div class="row justify-content-center">
@@ -85,11 +85,11 @@
          </div>
        </div>
      </div>
-     <div class="separator separator-bottom separator-skew zindex-100">
+     <!-- <div class="separator separator-bottom separator-skew zindex-100">
        <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
          <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
         </svg>
-      </div>
+      </div> -->
     </div>
     <!-- Page content -->
     <div class="container mt--8 pb-5">
