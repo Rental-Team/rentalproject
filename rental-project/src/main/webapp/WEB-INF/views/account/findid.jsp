@@ -113,7 +113,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                     </div>
-                    <input name="phoneNo" class="form-control" placeholder="전화번호" type="text">
+                    <input name="phoneNo" class="form-control" placeholder="전화번호" type="text" maxlength="11">
                   </div>
                 </div>
                 <p class="text-center">
